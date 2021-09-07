@@ -1,0 +1,70 @@
+body {
+    overflow: hidden; 
+  }
+   
+  /* ini: Preloader */
+   
+  #preloader {
+      position:fixed !important;
+      top:0 !important;
+      left:0 !important;
+      right:0 !important;
+      bottom:0 !important;
+      background-color:#fff; /* cor do background que vai ocupar o body */
+      z-index:9999 !important; /* z-index para jogar para frente e sobrepor tudo */
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      height: 100vh;
+      width: 100%;
+  }
+  #preloader .inner {
+      position: absolute !important;
+      top: 50% !important; /* centralizar a parte interna do preload (onde fica a animação)*/
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;  
+  }
+  .bolas > div {
+    display: inline-block;
+    background-color:#725BC2;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin: 3px;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    animation-name: animarBola;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+     
+  }
+  .bolas > div:nth-child(1) {
+      animation-duration:0.75s ;
+      animation-delay: 0;
+  }
+  .bolas > div:nth-child(2) {
+      animation-duration: 0.75s ;
+      animation-delay: 0.12s;
+  }
+  .bolas > div:nth-child(3) {
+      animation-duration: 0.75s  ;
+      animation-delay: 0.24s;
+  }
+   
+  @keyframes animarBola {
+    0% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
+      opacity: 1;
+    }
+    16% {
+      -webkit-transform: scale(0.1);
+      transform: scale(0.1);
+      opacity: 0.7;
+    }
+    33% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
+      opacity: 1; 
+    } 
+  }
