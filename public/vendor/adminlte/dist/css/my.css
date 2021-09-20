@@ -589,11 +589,20 @@ select option:checked{
     transform: scale(1);
     transition: transform 0.2s;
 }
+.fac-link{
+    color: #448DE2 !important;
+    transform: scale(1);
+    transition: transform 0.2s;
+}
 .fac-del:hover{
     transform: scale(1.1);
     transition: transform 0.2s;
 }
 .fac-edit:hover{
+    transform: scale(1.1);
+    transition: transform 0.2s;
+}
+.fac-link:hover{
     transform: scale(1.1);
     transition: transform 0.2s;
 }
@@ -853,3 +862,187 @@ span .info-ret:hover{
     right: -8px;
     
 }
+.link-container{
+    padding: 15px 4px;
+    margin-top: 15px;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 0 5px 0 #e5e5e5;
+    border-radius: 5px;
+}
+.link-container:hover{
+    border: 1px solid #725bc2;
+}
+.link-desc{
+    color: #555;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 500;
+    word-wrap: break-word;
+    padding: 5px;
+    margin: 10px 0px;
+}
+.f-h3{
+    color: #555;
+    font-size: 22px;
+    font-weight: 500;
+}
+.nav-iframe{
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 0 5px 0 #e5e5e5;
+}
+.input-yampay{
+    display: block;
+    width: 575px;
+    padding: 11px 16px;
+    font-size: 15px;
+    border: 1px solid #b3b3b3;
+    transition: .2s;
+    border-radius: 4px;
+    height: 35px;
+    outline: none;
+    color: #666;
+}
+.input-yampay:focus{
+    border-color: #725bc2 !important;
+    box-shadow: inset 0 0 0 1px #725bc2 !important;
+}
+.button-google{
+    color: #fff !important;
+    background-color: #FE509C;
+    font-weight: 700;
+    padding: 9px 25px;
+    font-size: 13px;
+    line-height: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: none;
+}
+.button-google:hover{
+    background-color: #ff64a7;
+}
+.f-calc{
+    font-size: 13px !important;
+}
+.input-op{
+    display: block;
+    width: 150px;
+    padding: 11px 16px;
+    font-size: 15px;
+    border: 1px solid #b3b3b3;
+    transition: .2s;
+    border-radius: 4px;
+    height: 35px;
+    outline: none;
+    color: #666;
+    text-align: center;
+}
+.input-op:focus{
+    border-color: #725bc2 !important;
+    box-shadow: inset 0 0 0 1px #725bc2 !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.value-calc{
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 32px;
+    color: #8369DF;
+}
+.type-calc{
+    line-height: 13px !important;
+    color: rgb(77, 77, 77) !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    margin: 0px 10px;
+}
+.result-calc{
+    line-height: 13px !important;
+    color: rgb(77, 77, 77) !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    text-transform: uppercase !important;
+}
+.box-op{
+    margin-top: 6px;
+    margin-bottom: 10px;
+}
+.box-result{
+    margin-top: 5px;
+}
+.icon-calc{
+    font-size: 13px;
+    color: #666;
+    margin-left: 8px;
+}
+.divisor-label{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 147px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #725bc2;
+    text-transform: uppercase;
+}
+.type-calc-v2{
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 13px !important;
+    color: #555 !important;
+    margin: 0px 10px;
+}
+.input-x{
+    background-color: #8369DF;
+    color: #fff;
+    border-color: transparent !important;
+    text-align: center;
+    cursor: pointer;
+}
+.input-x::placeholder{
+    color: #fff;
+    font-weight: 600;
+}
+.btn-operation{
+    color: #fff;
+    padding: 1px 8px;
+    border-radius: 4px;
+    background-color: #725bc2;
+    font-weight: 600;
+    text-align: center;
+    text-transform: none;
+    border: 2px solid transparent;
+    font-size: 13px;
+}
+.btn-operation-v2{
+    font-size: 13px;
+    color: #666;
+    padding: 1px 8px;
+    border-radius: 4px;
+    background-color: #fff;
+    font-weight: 500;
+    text-align: center;
+    text-transform: none;
+    border: 2px solid #b3b3b3;
+}
+.btn-operation-v2:hover{
+    border: 2px solid #725bc2;
+}
+.buttons-op{
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+

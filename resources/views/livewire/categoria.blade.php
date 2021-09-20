@@ -1,11 +1,15 @@
 <div>
+
     <div class="page-header d-flex flex-row align-items-center mb-2">
         <h2 class="f-h2">Categorias</h2>
         <span class="f-span">{{ $categorias_count }} categorias cadastradas</span>
         <a data-toggle="modal" data-target="#operacao" class="btn btn-new ml-auto">+ Nova categoria</a>
     </div>
+
     <div class="block">
+
         <div class="card">
+            
             <div class="card-topo mb-3">
                 <input wire:model="search" placeholder="buscar categoria" class="search-input" autocomplete="off">
                 <i class="fa fa-search"></i>
@@ -413,7 +417,7 @@
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, essa categoria de operação será
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, esta categoria de operação será
                             apagada e não poderá mais ser utilizada no sistema.
                         </p>
                     </div>

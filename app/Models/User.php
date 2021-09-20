@@ -82,5 +82,9 @@ class User extends Authenticatable
     public function operations(){
         return $this->hasMany(Operation::class);
     }
+    //Relação um a muitos
+    public function shortcuts(){
+        return $this->hasMany(Shortcut::class);
+    }
 
 }

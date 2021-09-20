@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Livewire\Categoria;
+use App\Http\Livewire\Ferramenta;
 use App\Http\Livewire\FluxoCaixa;
 use App\Http\Livewire\Home;
+use App\Http\Livewire\Navegador;
 use App\Http\Livewire\Relatorio;
 use App\Http\Livewire\Retirada;
+use App\Http\Livewire\Shortcut;
 use App\Http\Livewire\VisaoGeral;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +19,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/geral', VisaoGeral::class)->name('geral');
     Route::get('/relatorios', Relatorio::class)->name('relatorios');
     Route::get('/categorias', Categoria::class)->name('categorias');
+    Route::get('/links', Shortcut::class)->name('links');
+    Route::get('/ferramentas', Ferramenta::class)->name('ferramentas');
+    Route::get('/navegador', Navegador::class)->name('navegador');
     
 });
 

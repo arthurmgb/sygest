@@ -263,6 +263,21 @@ return [
             'icon' => 'fab ml-2 mr-3 fa-buffer fa-lg fa-fw',
         ],
         [
+            'text' => 'Meus links',
+            'route'  => 'links',
+            'icon' => 'far ml-2 mr-3 fa-paperclip fa-lg fa-fw',
+        ],
+        [
+            'text' => 'Ferramentas',
+            'route'  => 'ferramentas',
+            'icon' => 'far ml-2 mr-3 fa-tools fa-lg fa-fw',
+        ],
+        [
+            'text' => 'Navegador integrado',
+            'route'  => 'navegador',
+            'icon' => 'far ml-2 mr-3 fa-globe fa-lg fa-fw',
+        ],
+        [
             'text' => 'Configurações',
             'url'  => '#',
             'icon' => 'far ml-2 mr-3 fa-cog fa-lg fa-fw',

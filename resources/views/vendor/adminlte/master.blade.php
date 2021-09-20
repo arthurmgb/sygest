@@ -100,6 +100,7 @@
         @include('adminlte::plugins', ['type' => 'js'])
 
         <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+        <script src="{{ asset('vendor/adminlte/dist/js/clipboard.min.js') }}"></script>
         <script>
 
             // Add slideDown animation to Bootstrap dropdown when expanding.
@@ -125,6 +126,9 @@
             
         </script>
         <script>
+
+            /* Operações */
+
             window.addEventListener('show-modal', event =>{
                 $('#operacao').modal('show');
             })
@@ -137,6 +141,10 @@
             window.addEventListener('confirmation-modal', event =>{
                 $('#confirm-operation').modal('show');
             })
+
+            /* Operações */
+
+            /* Edit e Delete */
 
             window.addEventListener('show-edit-modal', event =>{
                 $('#editarCat').modal('show');
@@ -153,10 +161,18 @@
             window.addEventListener('close-delete-cat-confirmation-modal', event =>{
                 $('#delete-cat-confirmation').modal('hide');
             })
+
+            /* Edit e Delete */
+
+            /* Rendimento */
             window.addEventListener('close-rendimento', event =>{
                 $('#rendimento').modal('hide');
             })
+            /* Rendimento */
 
+        </script>
+        <script>
+            new ClipboardJS('.result-to-copy');
         </script>
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>

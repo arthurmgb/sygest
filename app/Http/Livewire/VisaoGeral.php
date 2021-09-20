@@ -157,7 +157,6 @@ class VisaoGeral extends Component
 
             $rendimento = number_format($rendimento, 2, ",", ".");
 
-            //dd($rendimento);
         }
         //Fim formatação
 
