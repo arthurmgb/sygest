@@ -1226,3 +1226,15 @@ color: #fff;
 .fac-reset:hover{
     color: #9358DB;
 }
+.urso-img{
+    -webkit-user-drag: none !important;
+    transition: 0.5s;
+}
+.urso-img:hover{
+    filter: hue-rotate(100deg);
+}
+@media (max-width: 1443px){
+    .urso-img{
+        display: none !important;
+    }
+}

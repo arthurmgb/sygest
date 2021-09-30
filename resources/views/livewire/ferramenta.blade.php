@@ -149,6 +149,8 @@
                 </div>
             </div>
         </div>
+        <img class="urso-img" style="transform: scaleX(-1); position: absolute; margin-top: -134px; margin-left: 250px;" src="{{asset('vendor/adminlte/dist/img/no-results-300.png')}}">
+        <img class="urso-img" style="position: absolute; margin-top: -101px;" src="{{asset('vendor/adminlte/dist/img/no-results-300.png')}}">
         <div class="row">
             <div class="col-12">
                 <div class="card">
