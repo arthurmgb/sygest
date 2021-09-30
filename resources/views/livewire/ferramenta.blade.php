@@ -149,6 +149,40 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    
+                    <div class="card-topo mb-1">
+                        <div class="title-block f-calc">
+                            Precificação de Produtos
+                            <span class="period">/ Margem de lucro</span>
+                        </div>                     
+                    </div>
+                    <div class="box-op">
+                        <div class="d-inline-block py-2">
+                            <span class="type-calc ml-0 d-inline">O preço de custo do meu produto é</span>
+                            <input wire:model="mdl1" min="0" type="number" class="input-op d-inline" autocomplete="off">                           
+                        </div>
+                        <div class="d-inline-block py-2">
+                            <span class="type-calc d-inline">, quero lucrar</span>
+                            <input wire:model="mdl2" min="0" type="number" class="input-op d-inline" autocomplete="off">
+                            <i class="fas fa-percent icon-calc d-inline"></i>
+                            <span class="type-calc d-inline">sobre esse valor.</span>
+                        </div>
+                    </div>
+
+                    <div class="box-result">
+                        <span class="result-calc">Devo vender meu produto por:</span>
+                        <div class="value-calc mx-1" wire:target="render, mdl1, mdl2" wire:loading>
+                            <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
+                        </div>
+                        <span wire:target="mdl1, mdl2" wire:loading.remove class="value-calc mx-1">@if(!is_numeric($result_mdl)){{$result_mdl}}@elseif($result_mdl)R$ {{$result_mdl}}@else---@endif</span>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
                 
     </div>
 

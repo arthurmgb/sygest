@@ -268,6 +268,11 @@ return [
             'icon' => 'far ml-2 mr-3 fa-paperclip fa-lg fa-fw',
         ],
         [
+            'text' => 'Minhas tarefas',
+            'route'  => 'tarefas',
+            'icon' => 'far ml-2 mr-3 fa-tasks fa-lg fa-fw',
+        ],
+        [
             'text' => 'Ferramentas',
             'route'  => 'ferramentas',
             'icon' => 'far ml-2 mr-3 fa-tools fa-lg fa-fw',

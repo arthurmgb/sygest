@@ -8,6 +8,7 @@ use App\Http\Livewire\Navegador;
 use App\Http\Livewire\Relatorio;
 use App\Http\Livewire\Retirada;
 use App\Http\Livewire\Shortcut;
+use App\Http\Livewire\Tarefa;
 use App\Http\Livewire\VisaoGeral;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/links', Shortcut::class)->name('links');
     Route::get('/ferramentas', Ferramenta::class)->name('ferramentas');
     Route::get('/navegador', Navegador::class)->name('navegador');
+    Route::get('/tarefas', Tarefa::class)->name('tarefas');
     
 });
 

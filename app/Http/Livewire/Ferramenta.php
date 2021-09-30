@@ -11,6 +11,7 @@ class Ferramenta extends Component
     public $a, $b, $c, $copy;
     public $p1, $p2;
     public $i1, $i2;
+    public $mdl1, $mdl2;
 
     public function mount(){
         $this->op = 1;
@@ -94,7 +95,24 @@ class Ferramenta extends Component
 
         //Fim Porcentagem inversa
 
-        return view('livewire.ferramenta', compact('result', 'result_rd3', 'result_percent', 'result_percent_i'))
+        //Margem de Lucro
+        
+        $mdl1 = floatval($this->mdl1);
+        $mdl2 = floatval($this->mdl2);
+
+        $mdl2 = $mdl2/100;
+
+        $mdl2 = 1 - $mdl2;
+
+        if($mdl2 == 0){
+            $result_mdl = 'Não é possível lucrar 100%.';
+        }else{
+            $result_mdl = $mdl1/$mdl2;
+        }
+
+        //Fim Margem de Lucro
+
+        return view('livewire.ferramenta', compact('result', 'result_rd3', 'result_percent', 'result_percent_i', 'result_mdl'))
         ->layout('pages.ferramentas');
     }
 }
