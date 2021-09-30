@@ -8,11 +8,9 @@
 @section('content')
 
     <div class="uk-container">
-
         @livewire('tarefa')
-
     </div>
-
+    
 @stop
 
 @section('css')
@@ -33,36 +31,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
 
-    $(document).ready(function(){
-            toastr.options = {
-                toastClass: 'font-grow',
-                positionClass: "toast-bottom-right",
-                progressBar: true,
-                timeOut: "1500",
-            }
-    });
+        $(document).ready(function(){
+                toastr.options = {
+                    toastClass: 'font-grow',
+                    positionClass: "toast-bottom-right",
+                    progressBar: true,
+                    timeOut: "1500",
+                }
+        });
 
-        window.addEventListener('tarefa-criada', event => {
-        toastr.success(event.detail.message);
-    });
-        window.addEventListener('tarefa-concluida', event => {
-        toastr.success(event.detail.message);
-    });
-        window.addEventListener('tarefa-desmarcada', event => {
-        toastr.info(event.detail.message);
-    });
-        window.addEventListener('tarefa-lixeira', event => {
-        toastr.success(event.detail.message);
-    });
-        window.addEventListener('tarefa-excluida', event => {
-        toastr.error(event.detail.message);
-    });
-        window.addEventListener('tarefa-restaurada', event => {
-        toastr.info(event.detail.message);
-    });
-        window.addEventListener('tarefa-editada', event => {
-        toastr.success(event.detail.message);
-    });
+            window.addEventListener('tarefa-criada', event => {
+            toastr.success(event.detail.message);
+        });
+            window.addEventListener('tarefa-concluida', event => {
+            toastr.success(event.detail.message);
+        });
+            window.addEventListener('tarefa-desmarcada', event => {
+            toastr.info(event.detail.message);
+        });
+            window.addEventListener('tarefa-lixeira', event => {
+            toastr.success(event.detail.message);
+        });
+            window.addEventListener('tarefa-excluida', event => {
+            toastr.error(event.detail.message);
+        });
+            window.addEventListener('tarefa-restaurada', event => {
+            toastr.info(event.detail.message);
+        });
+            window.addEventListener('tarefa-editada', event => {
+            toastr.success(event.detail.message);
+        });
     
     </script>
 @stop

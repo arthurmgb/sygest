@@ -100,14 +100,17 @@ class Ferramenta extends Component
         $mdl1 = floatval($this->mdl1);
         $mdl2 = floatval($this->mdl2);
 
-        $mdl2 = $mdl2/100;
-
-        $mdl2 = 1 - $mdl2;
-
-        if($mdl2 == 0){
-            $result_mdl = 'Não é possível lucrar 100%.';
+        if($mdl2 > 100){
+            $result_mdl = 'Não é possível lucrar mais que 100%.';
         }else{
-            $result_mdl = $mdl1/$mdl2;
+            $mdl2 = $mdl2/100;
+            $mdl2 = 1 - $mdl2;
+    
+            if($mdl2 == 0){
+                $result_mdl = 'Não é possível lucrar 100%.';
+            }else{
+                $result_mdl = $mdl1/$mdl2;
+            }
         }
 
         //Fim Margem de Lucro

@@ -1,4 +1,5 @@
 <div>
+    
     <div class="page-header d-flex flex-row align-items-center mb-2">
         <h2 class="f-h2">Minhas tarefas</h2>
         <span class="f-span">{{$tasks_count}} tarefas cadastradas</span>
@@ -10,7 +11,7 @@
             <div style="margin-bottom: 20px !important; padding: 16px !important; border-bottom-left-radius: 0 !important;" class="card">
                 <div class="d-flex flex-row align-items-center">
                     <input wire:model.defer="inputTask" wire:keydown.enter="save()" placeholder="Digite sua tarefa..." type="text" class="input-tarefas" autocomplete="off">
-                    <button wire:click.prevent="save()" style="height: 45px;" class="btn btn-new ml-2">
+                    <button wire:loading.class="pe-none" wire:target="save" wire:click.prevent="save()" style="height: 45px;" class="btn btn-new ml-2">
                         <span wire:loading.remove wire:target="save">Adicionar</span>
                         <span wire:loading wire:target="save">
                             <i style="color: #fff; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-2x fa-spin"></i>
@@ -18,24 +19,29 @@
                     </button>
                 </div>
                 @error('inputTask')
-                    <span class="wire-error mt-2">{{ $message }}</span>
+                    <div class="d-flex flex-row align-items-center">
+                        <span class="wire-error mt-2">{{ $message }}</span>
+                        <span wire:loading.class="pe-none" wire:target="resetValidationTask" class="ml-2" wire:click="resetValidationTask()">
+                            <i class="fad fa-times-circle fac-reset"></i>
+                        </span>
+                    </div>
                 @enderror
             </div>
             <div class="filter-block">
                 <div class="card card-filter">
                     <div class="d-flex flex-row align-items-center justify-content-start">
-                                             
-                        <i wire:click="filter([0,1])" style="color: #448DE2;" class="fas fa-thumbtack mr-2 filter-icon"></i>
-                        <span wire:click="filter([0,1])" class="mr-4 filter-text @if($status == [0,1]) marked @endif">Todas ({{$tasks_count}})</span>
+                                            
+                        <i wire:loading.class="pe-none" wire:target="filter" wire:click="filter([0,1])" style="color: #448DE2;" class="fas fa-thumbtack mr-2 filter-icon"></i>
+                        <span wire:loading.class="pe-none" wire:target="filter" wire:click="filter([0,1])" class="mr-4 filter-text @if($status == [0,1]) marked @endif">Todas ({{$tasks_count}})</span>
                         
-                        <i wire:click="filter([0])" style="color: #CC9214;" class="fad fa-exclamation-circle mr-2 filter-icon"></i>
-                        <span wire:click="filter([0])" class="mr-4 filter-text @if($status == [0]) marked @endif">Pendentes ({{$pendentes}})</span>
+                        <i wire:loading.class="pe-none" wire:target="filter" wire:click="filter([0])" style="color: #CC9214;" class="fad fa-exclamation-circle mr-2 filter-icon"></i>
+                        <span wire:loading.class="pe-none" wire:target="filter" wire:click="filter([0])" class="mr-4 filter-text @if($status == [0]) marked @endif">Pendentes ({{$pendentes}})</span>
 
-                        <i wire:click="filter([1])" style="color: #00A3A3;" class="fad fa-check-circle mr-2 filter-icon"></i>
-                        <span wire:click="filter([1])" class="mr-4 filter-text @if($status == [1]) marked @endif">Concluídas ({{$concluidas}})</span>
+                        <i wire:loading.class="pe-none" wire:target="filter" wire:click="filter([1])" style="color: #00A3A3;" class="fad fa-check-circle mr-2 filter-icon"></i>
+                        <span wire:loading.class="pe-none" wire:target="filter" wire:click="filter([1])" class="mr-4 filter-text @if($status == [1]) marked @endif">Concluídas ({{$concluidas}})</span>
 
-                        <i wire:click="filter([3])" style="color: #E6274C;" class="fad fa-trash mr-2 filter-icon"></i>
-                        <span wire:click="filter([3])" class="mr-0 filter-text @if($status == [3]) marked @endif">Lixeira ({{$lixeira}})</span>
+                        <i wire:loading.class="pe-none" wire:target="filter" wire:click="filter([3])" style="color: #E6274C;" class="fad fa-trash mr-2 filter-icon"></i>
+                        <span wire:loading.class="pe-none" wire:target="filter" wire:click="filter([3])" class="mr-0 filter-text @if($status == [3]) marked @endif">Lixeira ({{$lixeira}})</span>
 
                         <span class="ml-2" wire:loading wire:target="filter">
                             <i style="color: #725BC2; opacity: 90%; position: absolute; margin-top: -8px;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
@@ -83,7 +89,7 @@
                     @else  
 
                     <input wire:keydown.enter="updateTask({{$index}})" wire:model.defer="tasks.{{$index}}.descricao" type="text" class="input-task-edit ml-3" autocomplete="off">
-                    <button style="height: 35px;" wire:click.prevent="updateTask({{$index}})" class="btn btn-new mx-2">
+                    <button wire:loading.class="pe-none" wire:target="updateTask" style="height: 35px;" wire:click.prevent="updateTask({{$index}})" class="btn btn-new ml-2 mr-1">
                         <span wire:loading.remove wire:target="updateTask">
                             Salvar
                         </span>
@@ -91,10 +97,17 @@
                             <i style="color: #fff; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
                         </span>
                     </button> 
-            
-                    @endif
-                     
+                    <button wire:loading.class="pe-none" wire:target="resetTask" style="height: 35px;" wire:click.prevent="resetTask()" class="btn-cancel-task mr-2">
+                        <span wire:loading.remove wire:target="resetTask">
+                            Cancelar
+                        </span>
+                        <span wire:loading wire:target="resetTask">
+                            <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
+                        </span>
+                    </button> 
 
+                    @endif
+                    
                     <div class="task-trash ml-auto">
                         @if ($task['status'] == 3)
                         <div wire:click="delete({{$task['id']}})" wire:loading.class="pe-none" style="user-select: none;" class="lixeira d-flex flex-row mx-2 mb-2">
@@ -282,5 +295,5 @@
         </div>
 
     </div>
-
+    
 </div>

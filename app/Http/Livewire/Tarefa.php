@@ -153,6 +153,14 @@ class Tarefa extends Component
   
     }
 
+    public function resetTask(){
+        $this->editedTaskIndex = null;
+    }
+
+    public function resetValidationTask(){
+        $this->resetValidation();
+    }
+
     public function render()
     {
         $this->tasks = Task::where('user_id', auth()->user()->id)
