@@ -1,6 +1,6 @@
 <div>
     <div class="page-header d-flex flex-row align-items-center mb-2">
-        <h2 class="f-h2">Links</h2>
+        <h2 class="f-h2">Meus links</h2>
         <span class="f-span">{{ $shortcuts_count }} links cadastrados</span>
         <a data-toggle="modal" data-target="#operacao" class="btn btn-new ml-auto">+ Novo link</a>
     </div>

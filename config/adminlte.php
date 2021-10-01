@@ -291,6 +291,11 @@ return [
                 'flow' => 'bottom',
             ],
         ],
+        [
+            'text' => 'Administrador',
+            'route'  => 'admin',
+            'icon' => 'far ml-2 mr-3 fa-user-shield fa-lg fa-fw',
+        ],
 
     ],
 

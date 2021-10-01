@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Admin;
 use App\Http\Livewire\Categoria;
 use App\Http\Livewire\Ferramenta;
 use App\Http\Livewire\FluxoCaixa;
@@ -24,6 +25,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/ferramentas', Ferramenta::class)->name('ferramentas');
     Route::get('/navegador', Navegador::class)->name('navegador');
     Route::get('/tarefas', Tarefa::class)->name('tarefas');
+    Route::get('/admin', Admin::class)->name('admin');
     
 });
 

@@ -1,4 +1,5 @@
 <x-guest-layout>
+    @if(auth()->user()->id === 1)
     <x-jet-authentication-card>
 
         <div class="primezze-header">
@@ -68,4 +69,5 @@
 
         </form>
     </x-jet-authentication-card>
+    @endif
 </x-guest-layout>

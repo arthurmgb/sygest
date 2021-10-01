@@ -192,6 +192,4 @@
             class="d-flex flex-row align-items-center justify-content-between">
     </div>
 
-    </div>
-
 </div>
