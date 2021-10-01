@@ -15,18 +15,24 @@
                         <div class="col-3">
                             <a target="_blank" href="{{ $shortcut->url }}">
                                 <div class="link-container">
-
+                                    
                                     <div class="link-box">
                                         
                                         <div class="d-flex flex-row justify-content-end align-items-center">                                                                             
                                             
-                                                <div data-tooltip="Abrir link externo" data-flow="top" class="div-link">
-                                                    <i class="fad fa-external-link fa-crud fac-link"></i>                                        
-                                                </div>
+                                            @if($shortcut->cor !== '#555555')
+                                                <div class="div-link mr-auto">
+                                                    <i style="color: {{$shortcut->cor}};" class="fad fa-circle fa-crud fac-cor"></i>                                        
+                                                </div> 
+                                            @endif
+                                            
+                                            <div data-tooltip="Abrir link externo" data-flow="top" class="div-link">
+                                                <i class="fad fa-external-link fa-crud fac-link"></i>                                        
+                                            </div>
                                             
                                         </div>
 
-                                        <p class="link-desc text-center">{{ $shortcut->descricao }}</p>
+                                        <p style="color: {{$shortcut->cor}};" class="link-desc text-center">{{ $shortcut->descricao }}</p>
 
 
                                         
@@ -234,13 +240,19 @@
                             @enderror
                         </div>
 
-                        <div class="form-group mb-0">
+                        <div class="form-group">
                             <label class="modal-label" for="url-op">URL <span class="red">*</span></label>
                             <input wire:model.defer="atalho.url" type="text" class="form-control modal-input"
                                 id="url-op" autocomplete="off" placeholder="https://www.exemplo.com" required pattern="https?://.+" title="Insira o protocolo https:// ou http://">
                             @error('atalho.url')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
+                        </div>
+
+                        <div class="form-group mb-0">
+                            <label class="modal-label" for="color-op">Cor (opcional)</label>
+                            <input wire:model.defer="atalho.cor" type="color" name="favcolor" class="form-control modal-input-color"
+                                id="color-op" autocomplete="off">                           
                         </div>
 
                 </div>

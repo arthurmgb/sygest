@@ -22,11 +22,16 @@ class CreateShortcut extends Component
 
     ];
 
+    public function mount(){
+        $this->state['cor'] = '#555555';
+    }
+
     public function resetNewOperation()
     {
 
         $this->dispatchBrowserEvent('close-modal');
         $this->reset('state');
+        $this->state['cor'] = '#555555';
 
     }
 
@@ -38,13 +43,15 @@ class CreateShortcut extends Component
 
         ModelsShortcut::create([
 
-            'url' => $this->state['url'],
             'descricao' => $this->state['descricao'],
+            'url' => $this->state['url'],
+            'cor' => $this->state['cor'],
             'user_id' => auth()->user()->id
 
         ]);
 
         $this->reset('state');
+        $this->state['cor'] = '#555555';
      
         $this->emit('alert', 'Link cadastrado com sucesso!');
         $this->emitTo('shortcut', 'render');

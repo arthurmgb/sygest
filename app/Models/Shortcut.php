@@ -9,7 +9,7 @@ class Shortcut extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['descricao', 'url', 'user_id'];
+    protected $fillable = ['descricao', 'url', 'cor', 'user_id'];
 
     //Relação um a muitos
     public function user(){

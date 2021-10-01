@@ -875,7 +875,7 @@ span .info-ret:hover{
 }
 .link-desc{
     color: #555;
-    font-size: 16px;
+    font-size: 18px;
     text-transform: uppercase;
     font-weight: 500;
     word-wrap: break-word;
@@ -1228,6 +1228,7 @@ color: #fff;
 }
 .urso-img{
     -webkit-user-drag: none !important;
+    user-select: none;
     transition: 0.5s;
 }
 .urso-img:hover{
@@ -1237,4 +1238,36 @@ color: #fff;
     .urso-img{
         display: none !important;
     }
+}
+.modal-input-color{
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    margin: 0;
+    border-radius: 30px;
+    color: #333 !important;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+.modal-input-color:focus{
+    border-color: #725bc2 !important;
+    box-shadow: inset 0 0 0 1px #725bc2 !important;
+}
+.modal-input-color::-webkit-color-swatch{
+    border: none;
+    border-radius: 30px;
+    padding: 0;
+}
+.modal-input-color::-webkit-color-swatch:hover{
+    border: 4px solid #8369DF;
+}
+.modal-input-color::-webkit-color-swatch-wrapper{
+    border: none;
+    border-radius: 30px;
+    padding: 0;
+}
+.fac-cor{
+    margin-left: 10px;
+    color: #555;
 }

@@ -23,13 +23,19 @@
                             @enderror
                         </div>
 
-                        <div class="form-group mb-0">
-                            <label class="modal-label" for="desc-op">URL <span class="red">*</span></label>
+                        <div class="form-group">
+                            <label class="modal-label" for="url-op">URL <span class="red">*</span></label>
                             <input wire:model.defer="state.url" type="url" class="form-control modal-input"
-                                id="desc-op" autocomplete="off" placeholder="https://www.exemplo.com" required pattern="https?://.+" title="Insira o protocolo https:// ou http://"> 
+                                id="url-op" autocomplete="off" placeholder="https://www.exemplo.com" required pattern="https?://.+" title="Insira o protocolo https:// ou http://"> 
                             @error('state.url')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
+                        </div>
+
+                        <div class="form-group mb-0">
+                            <label class="modal-label" for="color-op">Cor (opcional)</label>
+                            <input wire:model.defer="state.cor" type="color" name="favcolor" class="form-control modal-input-color"
+                                id="color-op" autocomplete="off">                           
                         </div>
 
                 </div>

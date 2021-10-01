@@ -15,6 +15,7 @@ class Shortcut extends Component
     public $rules = [
         'atalho.descricao' => 'required|max:100',
         'atalho.url' => 'required',
+        'atalho.cor' => 'string',
     ];
 
     protected $messages = [
