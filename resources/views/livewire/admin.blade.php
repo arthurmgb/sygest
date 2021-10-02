@@ -157,7 +157,7 @@
                                             </td>
 
                                             <td class="align-middle">
-                                                <span style="font-size: 12px;" class="operacao-entrada">{{ $ultimo_login }}</span><br>
+                                                <span style="font-size: 11px;" class="operacao-entrada">{{ $ultimo_login }}</span><br>
                                                 <div class="mt-1">
                                                     <span class="g-light">há {{ $diferenca_log }} {{ $tempo_log }}</span>
                                                 </div>
