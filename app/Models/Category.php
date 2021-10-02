@@ -17,4 +17,10 @@ class Category extends Model
         return $this->hasMany(Operation::class);
 
     }
+
+    //Relação um a muitos
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    
 }

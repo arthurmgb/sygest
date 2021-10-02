@@ -15,14 +15,17 @@
             <div class="admin-area">
 
                 <div class="card">
-                        
-                    <div class="card-topo mb-1">
-                        <div class="title-block f-calc">
-                            Usuários cadastrados
-                            <span class="period">/ {{$users_count}}</span>
-                        </div>                     
+                    
+                    <div class="topo-ico d-flex flex-row align-items-center mb-1">
+                        <i style="color: #725BC2;" class="fad fa-users fa-fw fa-lg mr-2"></i>
+                        <div class="card-topo">
+                            <div style="margin-bottom: 0 !important;" class="title-block f-calc">                                                                        
+                                Usuários cadastrados
+                                <span class="period">/ Quantidade: {{$users_count}}</span>
+                            </div>                     
+                        </div>
                     </div>
-
+                
                     <div wire:target="qtd" style="margin-top: 125px; margin-bottom: 125px;"
                         wire:loading wire:loading.class="d-flex flex-row align-items-center justify-content-center">
                         <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
@@ -38,8 +41,10 @@
                                         <th>ID #</th>
                                         <th>Nome</th>
                                         <th>E-mail</th>
+                                        <th>Qtd. de operações</th>
                                         <th>Data de criação</th>                                 
                                         <th>Último login</th>
+                                        <th>Outros dados</th>
                                     </tr>
                                 </thead>
                                 <tbody class="t-body">
@@ -51,7 +56,8 @@
                                     @foreach ($users as $user)
                                 
                                         @php
-                                            
+                                            //Data de criação
+
                                             $data_criacao = $user->created_at->format('d/m/Y H:i');
                                             $ultimo_login = date('d/m/Y H:i', strtotime($user->last_login));
                                             
@@ -92,19 +98,95 @@
                                             }
                                                                                      
                                         @endphp
+
+                                        @php
+                                            //Último login
+
+                                            $date1_log = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
+                                            $date2_log = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->last_login);
+                                            
+                                            $diferenca_log = $date2_log->diffInDays($date1_log);
+                                            $tempo_log = 'dias';
+                                            
+                                            if ($diferenca_log === 1) {
+                                                $diferenca_log = 'um';
+                                                $tempo_log = 'dia';
+                                            }
+                                            
+                                            if ($diferenca_log === 0) {
+                                                $diferenca_log = $date2_log->diffInHours($date1_log);
+                                                $tempo_log = 'horas';
+        
+                                                if ($diferenca_log === 1) {
+                                                    $diferenca_log = 'uma';
+                                                    $tempo_log = 'hora';
+                                                }
+                                            
+                                                if ($diferenca_log === 0) {
+                                                    $diferenca_log = $date2_log->diffInMinutes($date1_log);
+                                                    $tempo_log = 'minutos';
+                                            
+                                                    if ($diferenca_log === 1) {
+                                                        $diferenca_log = 'um';
+                                                        $tempo_log = 'minuto';
+                                                    }
+                                            
+                                                    if ($diferenca_log === 0) {
+                                                        $diferenca_log = 'poucos';
+                                                        $tempo_log = 'segundos';
+                                                    }
+                                                }
+                                            }
+                                        @endphp
         
                                         <tr class="tr-hover">
 
                                             <td class="align-middle">{{ $user->id }}</td>
                                             <td class="align-middle font-desc">{{ $user->name }}</td>
                                             <td class="align-middle">{{ $user->email }}</td>
+                                            <td style="font-size: 14px; font-weight: 500; color: #725BC2;" class="align-middle">
+                                                @if ($user->operations->count() === 0)
+                                                    Nenhuma
+                                                @else
+                                                {{ $user->operations->count() }}                                            
+                                                @endif
+                                            </td>
                                             
                                             <td class="align-middle">{{ $data_criacao }}<br>
                                                 <span class="g-light">há {{ $diferenca }} {{ $tempo }}</span>
                                             </td>
 
                                             <td class="align-middle">
-                                                <span style="font-size: 12px;" class="operacao-entrada">{{ $ultimo_login }}</span>
+                                                <span style="font-size: 12px;" class="operacao-entrada">{{ $ultimo_login }}</span><br>
+                                                <div class="mt-1">
+                                                    <span class="g-light">há {{ $diferenca_log }} {{ $tempo_log }}</span>
+                                                </div>
+                                            </td>
+
+                                            <td class="align-middle">
+                                          
+                                                <div class="dropdown">
+
+                                                    <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="Visualizar" data-flow="right">
+                                                        <i style="color: #725BC2; font-size: 25px;" class="fad fa-eye fa-fw"></i>
+                                                    </button>
+
+                                                    <div style="padding: 20px !important;" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <div style="margin-bottom: 8px !important;" class="title-block f-calc">                                                                        
+                                                            Qtd. de categorias:
+                                                            <span style="font-size: 15px; color: #725BC2 !important;" class="period px-1"> {{$user->categories->count()}}</span>
+                                                        </div> 
+                                                        <div style="margin-bottom: 8px !important;" class="title-block f-calc">                                                                        
+                                                            Qtd. de links:
+                                                            <span style="font-size: 15px; color: #725BC2 !important;" class="period px-1"> {{$user->shortcuts->count()}}</span>
+                                                        </div> 
+                                                        <div style="margin-bottom: 0 !important;" class="title-block f-calc">                                                                        
+                                                            Qtd. de tarefas:
+                                                            <span style="font-size: 15px; color: #725BC2 !important;" class="period px-1"> {{$user->tasks->count()}}</span>
+                                                        </div> 
+                                                    </div>
+                                                </div>  
+
                                             </td>
                                                
                                         </tr>

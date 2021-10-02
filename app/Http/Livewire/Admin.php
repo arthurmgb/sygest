@@ -16,7 +16,7 @@ class Admin extends Component
     public function render()
     {
 
-        $users = User::orderBy('id', 'ASC')
+        $users = User::latest('last_login')
         ->paginate($this->qtd);
 
         $users_count = $users->count();
