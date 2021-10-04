@@ -60,11 +60,15 @@
 
         @if (count($tasks))
 
-        <div class="tasks">
+        <div class="tasks" wire:sortable="updateTaskOrder">
 
             @foreach ($tasks as $index => $task)
-            <div style="margin-bottom: 10px !important; padding: 15px !important;" class="card card-tarefa">
+            <div style="margin-bottom: 10px !important; padding: 15px !important;" class="card card-tarefa" wire:sortable.item="{{ $task['id'] }}" wire:key="task-{{ $task['id'] }}">
                 <div class="single-task d-flex flex-row align-items-center justify-content-start">
+
+                    <div class="mover-tarefa mr-3 ml-0 mt-1" wire:sortable.handle>
+                        <i class="far fa-arrows fa-lg fa-fw"></i>
+                    </div>
 
                     @if ($task['status'] != 3)
                     <input wire:click="check({{$task['id']}})" @if ($task['status'] == 1) checked @endif type="checkbox" id="tarefa-{{$task['id']}}" name="tarefa-{{$task['id']}}">

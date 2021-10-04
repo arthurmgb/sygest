@@ -61,6 +61,9 @@
             window.addEventListener('tarefa-editada', event => {
             toastr.success(event.detail.message);
         });
+            window.addEventListener('tarefa-movida', event => {
+            toastr.success(event.detail.message);
+        });
     
     </script>
 @stop

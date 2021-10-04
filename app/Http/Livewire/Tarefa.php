@@ -161,11 +161,21 @@ class Tarefa extends Component
         $this->resetValidation();
     }
 
+    public function updateTaskOrder($items){
+       
+        foreach($items as $item){
+            Task::find($item['value'])->update(['position' => $item['order']]);
+        }
+
+        $this->dispatchBrowserEvent('tarefa-movida', ['message' => 'Posição alterada!']);
+
+    }
+
     public function render()
     {
         $this->tasks = Task::where('user_id', auth()->user()->id)
         ->whereIn('status', $this->status)
-        ->orderBy('id', 'DESC')
+        ->orderBy('position', 'ASC')
         ->get()->toArray();
 
         $tasks_count = Task::where('user_id', auth()->user()->id)
