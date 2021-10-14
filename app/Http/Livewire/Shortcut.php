@@ -51,12 +51,19 @@ class Shortcut extends Component
         $this->emit('alert', 'Link apagado com sucesso!');
     }
 
+    public function updateLinkOrder($items){
+
+        foreach($items as $item){
+            ModelsShortcut::find($item['value'])->update(['position' => $item['order']]);
+        }
+
+    }
 
     public function render()
     {
 
         $shortcuts = ModelsShortcut::where('user_id', auth()->user()->id)
-            ->orderBy('id', 'ASC')
+            ->orderBy('position', 'ASC')
             ->get();
 
         $shortcuts_count = ModelsShortcut::where('user_id', auth()->user()->id)

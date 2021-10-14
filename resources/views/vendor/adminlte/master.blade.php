@@ -161,6 +161,9 @@
             window.addEventListener('close-delete-cat-confirmation-modal', event =>{
                 $('#delete-cat-confirmation').modal('hide');
             })
+            window.addEventListener('close-delete-all-confirmation-modal', event =>{
+                $('#delete-all-confirmation').modal('hide');
+            })
 
             /* Edit e Delete */
 

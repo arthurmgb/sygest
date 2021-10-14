@@ -52,7 +52,6 @@ class CreateShortcut extends Component
 
         $this->reset('state');
         $this->state['cor'] = '#555555';
-     
         $this->emit('alert', 'Link cadastrado com sucesso!');
         $this->emitTo('shortcut', 'render');
     }

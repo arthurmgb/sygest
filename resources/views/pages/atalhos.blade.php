@@ -19,6 +19,12 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('vendor\adminlte\dist\css\preloader.css')}}">
+    <style>
+        .draggable-mirror{
+            width: 278.75px !important;
+            box-shadow: none !important;
+        }
+    </style>
 @stop
 
 @section('js')

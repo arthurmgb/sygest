@@ -58,6 +58,10 @@ class FluxoCaixa extends Component
         $operations_count = Operation::where('user_id', auth()->user()->id)
             ->where('tipo', '!=', 3)
             ->count();
+        
+        $operations_find = Operation::where('user_id', auth()->user()->id)
+        ->whereIn('tipo', $this->option)
+        ->count();
 
         if ($this->receita == true) {
 
@@ -93,7 +97,7 @@ class FluxoCaixa extends Component
 
             $receita_valor = number_format($receita_valor,2,",",".");
 
-            return view('livewire.fluxo-caixa', compact('operations', 'operations_count', 'receita_valor'))
+            return view('livewire.fluxo-caixa', compact('operations', 'operations_count', 'receita_valor', 'operations_find'))
                 ->layout('pages.fluxo-caixa');
         } else {
             return view('livewire.fluxo-caixa', compact('operations', 'operations_count'))

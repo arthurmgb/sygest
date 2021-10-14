@@ -9,10 +9,10 @@
         @if ($shortcuts->count())
 
             <div class="links-box">
-                <div class="row">
+                <div class="row" wire:sortable="updateLinkOrder">
                     @foreach ($shortcuts as $shortcut)
 
-                        <div class="col-3">
+                        <div class="col-3" wire:sortable.item="{{ $shortcut['id'] }}" wire:key="short-{{ $shortcut['id'] }}">
                             <a target="_blank" href="{{ $shortcut->url }}">
                                 <div class="link-container">
                                     
@@ -37,6 +37,10 @@
 
                                         
                                         <div class="d-flex flex-row justify-content-end align-items-center">
+
+                                            <div style="cursor: grab;" wire:sortable.handle data-tooltip="Arraste para mover" data-flow="left" class="div-link mr-auto">
+                                                <i style="cursor: grab !important;" class="fas fa-grip-vertical fa-crud fac-cor"></i>                                        
+                                            </div>
 
                                             <div wire:target="edit({{ $shortcut->id }})" wire:loading.attr="disabled"
                                                 wire:click.prevent="edit({{ $shortcut->id }})" data-toggle="modal"

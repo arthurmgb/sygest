@@ -45,7 +45,7 @@
 
                         <div class="receita-alert d-flex flex-row align-items-center">
                             <span>Receita: <b>R$ @if ($option == [0]) -@endif{{ $receita_valor }}</b> / Total de operações:
-                                {{ $operations_count }} / Operações na página: {{ $operations->count() }}</span>
+                                {{ $operations_find }} / Operações na página: {{ $operations->count() }}</span>
                             <a class="limpar-filtro" wire:click.prevent="geraReceita()" href="#">Limpar filtro</a>
                             @if ($option == [1, 0])
                             <span class="ml-auto mt-1" data-tooltip="O total das retiradas não é considerado no fluxo de caixa, portanto a receita aqui calculada não corresponde ao seu saldo real." data-flow="left">    

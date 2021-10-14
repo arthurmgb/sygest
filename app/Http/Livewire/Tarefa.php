@@ -162,6 +162,8 @@ class Tarefa extends Component
     }
 
     public function updateTaskOrder($items){
+        
+        $this->editedTaskIndex = null;
        
         foreach($items as $item){
             Task::find($item['value'])->update(['position' => $item['order']]);
@@ -202,5 +204,17 @@ class Tarefa extends Component
             'lixeira' => $lixeira,
             ])
         ->layout('pages.tarefas');
+    }
+
+    public function deleteAll(){
+
+        $tarefas = Task::query()
+        ->where('user_id', auth()->user()->id)
+        ->where('status', '=', 3)
+        ->delete();
+
+        $this->dispatchBrowserEvent('close-delete-all-confirmation-modal');
+        $this->dispatchBrowserEvent('tarefa-excluida', ['message' => 'Lixeira esvaziada!']);
+        
     }
 }

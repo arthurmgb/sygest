@@ -27,7 +27,7 @@
                     </div>
                 @enderror
             </div>
-            <div class="filter-block">
+            <div class="filter-block d-flex flex-row">
                 <div class="card card-filter">
                     <div class="d-flex flex-row align-items-center justify-content-start">
                                             
@@ -55,6 +55,13 @@
 
                     </div>
                 </div>
+                @if($status == [3] and count($tasks))
+                <div class="delete-all ml-auto">
+                    <button data-toggle="modal" data-target="#delete-all-confirmation" class="delete-all-btn">
+                        <i style="font-size: 14px;" class="fad fa-trash fa-fw fa-crud mr-1"></i>Esvaziar lixeira
+                    </button>
+                </div>
+                @endif
             </div>
         </div>
 
@@ -112,7 +119,7 @@
 
                     @endif
                     
-                    <div class="task-trash ml-auto">
+                    <div style="white-space: nowrap;" class="task-trash ml-auto">
                         @if ($task['status'] == 3)
                         <div wire:click="delete({{$task['id']}})" wire:loading.class="pe-none" style="user-select: none;" class="lixeira d-flex flex-row mx-2 mb-2">
                             <i class="fad fa-trash fa-fw fa-crud fac-del mr-1"></i>
@@ -298,6 +305,38 @@
             class="d-flex flex-row align-items-center justify-content-between">
         </div>
 
+    </div>
+
+    <!-- Modal Deletar Confirmação -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-all-confirmation" tabindex="-1"
+        aria-labelledby="delete-all-confirmationLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="delete-all-confirmationLabel">Confirmação de exclusão</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-4 px-4">
+
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente esvaziar a lixeira?</h5>
+
+                    <div class="confirmation-msg text-center mb-3">
+                        <p class="m-0 mb-3 px-4">
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, todas as tarefas da lixeira serão excluídas.
+                        </p>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="deleteAll()" type="button"
+                        class="btn btn-send">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     
 </div>
