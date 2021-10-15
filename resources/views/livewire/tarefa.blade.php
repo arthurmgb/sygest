@@ -28,8 +28,8 @@
                 @enderror
             </div>
             <div class="filter-block d-flex flex-row">
-                <div class="card card-filter">
-                    <div class="d-flex flex-row align-items-center justify-content-start">
+                <div class="card card-filter" style="white-space: nowrap;">
+                    <div class="d-inline-flex align-items-center justify-content-start">
                                             
                         <i wire:loading.class="pe-none" wire:target="filter" wire:click="filter([0,1])" style="color: #448DE2;" class="fas fa-thumbtack mr-2 filter-icon"></i>
                         <span wire:loading.class="pe-none" wire:target="filter" wire:click="filter([0,1])" class="mr-4 filter-text @if($status == [0,1]) marked @endif">Todas ({{$tasks_count}})</span>
@@ -43,17 +43,18 @@
                         <i wire:loading.class="pe-none" wire:target="filter" wire:click="filter([3])" style="color: #E6274C;" class="fad fa-trash mr-2 filter-icon"></i>
                         <span wire:loading.class="pe-none" wire:target="filter" wire:click="filter([3])" class="mr-0 filter-text @if($status == [3]) marked @endif">Lixeira ({{$lixeira}})</span>
 
-                        <span class="ml-2" wire:loading wire:target="filter">
-                            <i style="color: #725BC2; opacity: 90%; position: absolute; margin-top: -8px;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
-                        </span>
-                        <span class="ml-2" wire:loading wire:target="trash">
-                            <i style="color: #E6274C; opacity: 90%; position: absolute; margin-top: -8px;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
-                        </span>                       
-                        <span class="ml-2" wire:loading wire:target="restore">
-                            <i style="color: #448DE2; opacity: 90%; position: absolute; margin-top: -8px;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
-                        </span>
-
                     </div>
+                </div>
+                <div class="loading-spinners">
+                    <span class="ml-2" wire:loading wire:target="filter">
+                        <i style="color: #725BC2; opacity: 90%; margin-top: -24px; position: absolute;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
+                    </span>
+                    <span class="ml-2" wire:loading wire:target="trash">
+                        <i style="color: #E6274C; opacity: 90%; margin-top: -24px; position: absolute;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
+                    </span>                       
+                    <span class="ml-2" wire:loading wire:target="restore">
+                        <i style="color: #448DE2; opacity: 90%; margin-top: -24px; position: absolute;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
+                    </span>
                 </div>
                 @if($status == [3] and count($tasks))
                 <div class="delete-all ml-auto">
