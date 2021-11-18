@@ -1,9 +1,16 @@
 <div>
 
-    <div class="page-header d-flex flex-row align-items-center mb-2">
+    <div class="page-header d-flex flex-row align-items-center justify-content-between mb-2">
         @if(auth()->user()->id === 1)
         <h2 class="f-h2">Área administrativa</h2>
-        <a href="{{route('register')}}" class="btn btn-new ml-auto">+ Novo usuário</a>
+        <div class="div-right-admin">
+            <a href="{{route('register')}}" class="btn btn-new">+ Novo usuário</a>
+            @if ($estado_manutencao == 0)
+            <button wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn btn-new">Ativar manutenção</button>
+            @elseif($estado_manutencao == 1)
+            <button wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn-maint">Desativar manutenção</button>
+            @endif
+        </div>
         @else
         <h2 class="f-h2">Área restrita</h2>
         @endif

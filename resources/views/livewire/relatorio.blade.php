@@ -15,9 +15,10 @@
             @if (isset($operations))
                 <button wire:click.prevent="resetRelatorio()" wire:loading.attr="disabled"
                     wire:loading.class="desativado" class="button-relatorio ml-2">Limpar busca</button>
+                <button onclick="window.print()" class="btn-new ml-2">Imprimir</button>
             @endif
         </div>
-        <div class="card">
+        <div class="card" id="printable">
 
             <div style="margin-top: 125px; margin-bottom: 125px;" wire:loading
                 wire:loading.class="d-flex flex-row align-items-center justify-content-center">
@@ -29,8 +30,97 @@
                 @if (isset($operations) and $operations->count())
 
                     <div class="receita-alert">
-                        <span>Receita: <b>R$ {{ $receita_valor }}</b> / Total de operações:
-                            {{ $operations_count }} / Operações na página: {{ $operations->count() }}</span>
+                        <span>
+                            Receita no período: <b>R$ {{ $rec_total }} - R$ {{ $receita_ret }} = <span style="color: green; font-size: 18px;">R$ {{ $receita_valor }}</span></b>
+                        </span>
+                        <br>
+                        <span>
+                            Entradas no período: <span style="color: green;"><b>R$ {{ $receita_entrada }}</b></span>
+                        </span>
+                        <br>
+                        <span>
+                            Saídas no período: <span style="color: red;"><b>R$ {{ $receita_saida }}</b></span>
+                        </span>
+                        <br>
+                        <span>
+                            Retiradas no período: <span style="color: red;"><b>R$ {{ $receita_ret }}</b></span>
+                        </span>
+                        <br>
+                        <span>
+                            Total de operações no período: <span style="color: blue;"><b> {{ $operations_count }}</b></span>
+                        </span>
+                        <br>
+                        <span>
+                            Operações na página: <span style="color: blue;"><b> {{ $operations->count() }}</b></span>
+                        </span>
+
+                    <div style="user-select: none;" class="div-coins mb-0 mt-2">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Dinheiro">                                
+                                    <span class="emoji-coin ec-rel">
+                                        <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
+                                        <span class="ml-1">Dinheiro</span>
+                                    </span>
+                                    <span class="coin-valor">
+                                        R$ {{$coin_dinheiro_rel}}
+                                    </span>
+                                </div>
+                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_dinheiro_entrada_rel}}</span>
+                                </span>
+                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_dinheiro_saida_rel}}</span>
+                                </span>
+                            </div>
+                            <div class="col-6">
+                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Cheques">
+                                    <span class="emoji-coin ec-rel">
+                                        <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
+                                        <span class="ml-1">Cheques</span>
+                                    </span>
+                                    <span class="coin-valor">
+                                        R$ {{$coin_cheque_rel}}
+                                    </span>
+                                </div>
+                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_cheque_entrada_rel}}</span>
+                                </span>
+                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_cheque_saida_rel}}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Moedas">
+                                    <span class="emoji-coin ec-rel">
+                                        <i style="color: #e6c300;" class="fad fa-coins"></i>
+                                        <span class="ml-1">Moedas</span>
+                                    </span>
+                                    <span class="coin-valor">
+                                        R$ {{$coin_moeda_rel}}
+                                    </span>
+                                </div>
+                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_moeda_entrada_rel}}</span>
+                                </span>
+                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_moeda_saida_rel}}</span>
+                                </span>
+                            </div>
+                            <div class="col-6">
+                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Outros">
+                                    <span class="emoji-coin ec-rel">
+                                        <i style="color: #10B981;" class="fas fa-sack-dollar"></i>
+                                        <span class="ml-1">Outros</span>
+                                    </span>
+                                    <span class="coin-valor">
+                                        R$ {{$coin_outros_rel}}
+                                    </span>
+                                </div>
+                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_outros_entrada_rel}}</span>
+                                </span>
+                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_outros_saida_rel}}</span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
                     </div>
 
                     <table style="cursor: default;" class="table table-borderless">
@@ -40,6 +130,7 @@
                                 <th>Data</th>
                                 <th>Total</th>
                                 <th>Categoria</th>
+                                <th>Espécie</th>
                                 <th width="200px">Operação</th>
                             </tr>
                         </thead>
@@ -98,6 +189,16 @@
                                         $categoria_op = $operation->category->descricao;
                                     }
                                     
+                                    if ($operation->especie === 1 ) {
+                                        $especie_op = 'Dinheiro';
+                                    }elseif($operation->especie === 2){
+                                        $especie_op = 'Cheque';
+                                    }elseif($operation->especie === 3) {
+                                        $especie_op = 'Moedas';                                             
+                                    }elseif($operation->especie === 4) {
+                                        $especie_op = 'Outros';
+                                    }
+
                                 @endphp
 
                                 <tr class="tr-hover">
@@ -107,6 +208,11 @@
                                             {{ $diferenca }} {{ $tempo }}</span></td>
                                     <td class="align-middle">R$ {{ $total_operacao }}</td>
                                     <td class="align-middle"><span class="categoria">{{ $categoria_op }}</span></td>
+                                    <td class="align-middle">
+                                        <span
+                                            class="especie">{{ $especie_op }}
+                                        </span>
+                                    </td>
                                     @if ($operation->tipo == 1)
                                         <td class="align-middle"><span class="operacao-entrada">Movimento de
                                                 entrada</span></td>

@@ -21,6 +21,20 @@
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label class="modal-label" for="especie-op">Espécie  <span class="red">*</span></label>
+                                <select wire:model.defer="state.especie" class="form-control modal-input-cat"
+                                    id="especie-op">
+                                    <option value="">Selecione o tipo de espécie</option>
+                                    <option value="1">Dinheiro</option>
+                                    <option value="2">Cheque</option>
+                                    <option value="3">Moedas</option>
+                                    <option value="4">Outros</option>
+                                </select>
+                            @error('state.especie')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="form-group mb-0">
                             <label class="modal-label" for="total-op">Total da retirada <span
                                     class="red">*</span></label>

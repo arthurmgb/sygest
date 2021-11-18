@@ -55,15 +55,127 @@ class Relatorio extends Component
             ->whereIn('tipo', [0,3])
             ->sum('total');
 
+            $rec_only_saida = Operation::where('user_id', auth()->user()->id)
+            ->whereBetween('created_at', [$di, $df])
+            ->whereIn('tipo', [0])
+            ->sum('total');
+
+            $rec_total = $receita_entrada - $rec_only_saida; 
             $receita_valor = $receita_entrada - $receita_saida;
 
+            $receita_ret = Operation::where('user_id', auth()->user()->id)
+            ->whereBetween('created_at', [$di, $df])
+            ->whereIn('tipo', [3])
+            ->sum('total');
+
+            $rec_total = number_format($rec_total,2,",",".");
             $receita_valor = number_format($receita_valor,2,",",".");
+            $receita_entrada = number_format($receita_entrada,2,",",".");
+            $receita_saida = number_format($receita_saida,2,",",".");
+            $receita_ret = number_format($receita_ret,2,",",".");
 
             $operations_count = Operation::where('user_id', auth()->user()->id)
             ->whereBetween('created_at', [$di, $df])
             ->count();
 
-            return view('livewire.relatorio', compact('operations', 'receita_valor', 'operations_count'))
+        //Coins relatório
+
+        $coin_dinheiro_entrada_rel = Operation::where('user_id', auth()->user()->id)
+        ->where('tipo', 1)
+        ->where('especie', 1)
+        ->whereBetween('created_at', [$di, $df])
+        ->sum('total');
+
+        $coin_dinheiro_saida_rel = Operation::where('user_id', auth()->user()->id)
+        ->where('tipo', [0,3])
+        ->where('especie', 1)
+        ->whereBetween('created_at', [$di, $df])
+        ->sum('total');
+
+        $coin_dinheiro_rel = $coin_dinheiro_entrada_rel - $coin_dinheiro_saida_rel;
+
+        $coin_cheque_entrada_rel = Operation::where('user_id', auth()->user()->id)
+        ->where('tipo', 1)
+        ->where('especie', 2)
+        ->whereBetween('created_at', [$di, $df])
+        ->sum('total');
+
+        $coin_cheque_saida_rel = Operation::where('user_id', auth()->user()->id)
+        ->where('tipo', [0,3])
+        ->where('especie', 2)
+        ->whereBetween('created_at', [$di, $df])
+        ->sum('total');
+
+        $coin_cheque_rel = $coin_cheque_entrada_rel - $coin_cheque_saida_rel;
+
+        $coin_moeda_entrada_rel = Operation::where('user_id', auth()->user()->id)
+        ->where('tipo', 1)
+        ->where('especie', 3)
+        ->whereBetween('created_at', [$di, $df])
+        ->sum('total');
+
+        $coin_moeda_saida_rel = Operation::where('user_id', auth()->user()->id)
+        ->where('tipo', [0,3])
+        ->where('especie', 3)
+        ->whereBetween('created_at', [$di, $df])
+        ->sum('total');
+
+        $coin_moeda_rel = $coin_moeda_entrada_rel - $coin_moeda_saida_rel;
+
+        $coin_outros_entrada_rel = Operation::where('user_id', auth()->user()->id)
+        ->where('tipo', 1)
+        ->where('especie', 4)
+        ->whereBetween('created_at', [$di, $df])
+        ->sum('total');
+
+        $coin_outros_saida_rel = Operation::where('user_id', auth()->user()->id)
+        ->where('tipo', [0,3])
+        ->where('especie', 4)
+        ->whereBetween('created_at', [$di, $df])
+        ->sum('total');
+
+        $coin_outros_rel = $coin_outros_entrada_rel - $coin_outros_saida_rel;
+
+        //Fim coins relatório
+
+            //Formatação
+            $coin_dinheiro_rel = number_format($coin_dinheiro_rel, 2, ",", ".");
+            $coin_dinheiro_entrada_rel = number_format($coin_dinheiro_entrada_rel, 2, ",", ".");
+            $coin_dinheiro_saida_rel = number_format($coin_dinheiro_saida_rel, 2, ",", ".");
+            $coin_cheque_rel = number_format($coin_cheque_rel, 2, ",", ".");
+            $coin_cheque_entrada_rel = number_format($coin_cheque_entrada_rel, 2, ",", ".");
+            $coin_cheque_saida_rel = number_format($coin_cheque_saida_rel, 2, ",", ".");
+            $coin_moeda_rel = number_format($coin_moeda_rel, 2, ",", ".");
+            $coin_moeda_entrada_rel = number_format($coin_moeda_entrada_rel, 2, ",", ".");
+            $coin_moeda_saida_rel = number_format($coin_moeda_saida_rel, 2, ",", ".");
+            $coin_outros_rel = number_format($coin_outros_rel, 2, ",", ".");
+            $coin_outros_entrada_rel = number_format($coin_outros_entrada_rel, 2, ",", ".");
+            $coin_outros_saida_rel = number_format($coin_outros_saida_rel, 2, ",", ".");
+            //Fim formatação
+
+            return view('livewire.relatorio', 
+            compact(
+                'operations', 
+                'rec_total',
+                'receita_entrada',
+                'receita_saida',
+                'receita_ret',
+                'receita_valor', 
+                'operations_count',
+                'coin_dinheiro_rel',
+                'coin_dinheiro_entrada_rel',
+                'coin_dinheiro_saida_rel',
+                'coin_cheque_rel',
+                'coin_cheque_entrada_rel',
+                'coin_cheque_saida_rel',
+                'coin_moeda_rel',
+                'coin_moeda_entrada_rel',
+                'coin_moeda_saida_rel',
+                'coin_outros_rel',
+                'coin_outros_entrada_rel', 
+                'coin_outros_saida_rel',
+                )
+            )
                 ->layout('pages.relatorios');
         } else {
 

@@ -14,6 +14,7 @@ class CreateRet extends Component
 
         'state.descricao' => 'required|max:100',
         'state.total' => 'required',
+        'state.especie' => 'required',
 
     ];
 
@@ -21,6 +22,7 @@ class CreateRet extends Component
 
         'state.descricao.required' => 'A descrição da retirada é obrigatória.',
         'state.total.required' => 'O total da retirada é obrigatório.',
+        'state.especie.required' => 'A espécie da operação é obrigatória.',
 
     ];
 
@@ -84,6 +86,7 @@ class CreateRet extends Component
                 'tipo' => $this->state['tipo'],
                 'descricao' => $this->state['descricao'],
                 'category_id' => null,
+                'especie' => $this->state['especie'],
                 'total' => $total_formatado,
                 'user_id' => auth()->user()->id
 

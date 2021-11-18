@@ -63,6 +63,7 @@
                                 <th>Data</th>
                                 <th>Total</th>
                                 <th>Categoria</th>
+                                <th>Espécie</th>
                                 <th width="200px">Operação</th>
                             </tr>
                         </thead>
@@ -114,6 +115,16 @@
                                             }
                                         }
                                     }
+
+                                    if ($operation->especie === 1 ) {
+                                        $especie_op = 'Dinheiro';
+                                    }elseif($operation->especie === 2){
+                                        $especie_op = 'Cheque';
+                                    }elseif($operation->especie === 3) {
+                                        $especie_op = 'Moedas';                                             
+                                    }elseif($operation->especie === 4) {
+                                        $especie_op = 'Outros';
+                                    }
                                     
                                 @endphp
 
@@ -125,6 +136,11 @@
                                     <td class="align-middle">R$ {{ $total_operacao }}</td>
                                     <td class="align-middle"><span
                                             class="categoria">{{ $operation->category->descricao }}</span></td>
+                                    <td class="align-middle">
+                                        <span
+                                            class="especie">{{ $especie_op }}
+                                        </span>
+                                    </td>
                                     @if ($operation->tipo == 1)
                                         <td class="align-middle"><span class="operacao-entrada">Movimento de
                                                 entrada</span></td>

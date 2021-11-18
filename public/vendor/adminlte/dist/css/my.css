@@ -1297,3 +1297,109 @@ color: #fff;
 .delete-all-btn:hover{
     background-color: rgb(231, 67, 99);
 }
+.div-coin-box{
+    background-color: #EBF4FF;
+    border: 2px solid #7559da;
+    padding: 0px 9px 0px 0px !important;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-right: 8px;
+    user-select: none;
+    cursor: pointer;
+}
+.div-coin-box:hover{
+    background-color: #F3F4F6;
+}
+.emoji-coin{
+    background-color: #fff;
+    margin: 0px !important;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 0px;
+    padding-top: 2.5px;
+    padding-bottom: 3px;
+    padding-left: 9px;
+    padding-right: 4px;
+    font-size: 18px;
+    border-right: 1px solid #E5E7EB;
+}
+.coin-valor{
+    padding-left: 6px;
+}
+.details-font{
+    color: #725bc2;
+    font-weight: 600;
+    font-size: 11px;
+    padding-left: 6px;
+    padding-right: 6px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    border: 2px solid transparent;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    user-select: none;
+}
+.details-font:hover{
+    color: #fff !important;
+    background-color: #725bc2;
+}
+.especie{
+    color: #333;
+    font-weight: 500;
+}
+.cb-modal{
+    margin-right: 0;
+    font-size: 14px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.small-detail{
+    background-color: #EBF4FF;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 2px 6px;
+    border-left: 2px solid #7559da;
+    border-right: 2px solid #7559da;
+}
+.small-detail-bottom{
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom: 2px solid #7559da;
+    border-top: 0;
+}
+.ec-rel{
+    padding-top: 2px;
+    padding-bottom: 2.2px;
+    font-size: 16px !important;
+    border-bottom-left-radius: 0px;
+}
+@media print {
+    body * {
+      visibility: hidden;
+    }
+    #printable, #printable * {
+      visibility: visible;
+    }
+}
+.btn-maint{
+    color: #666;
+    background-color: #fff;
+    font-weight: 500;
+    padding: 9px 25px;
+    font-size: 13px;
+    line-height: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: none;
+    border: 2px solid #b3b3b3;
+    border-radius: 4px;
+    transition: none;
+}
+.btn-maint:hover{
+    background-color: #F4F6F8;
+}

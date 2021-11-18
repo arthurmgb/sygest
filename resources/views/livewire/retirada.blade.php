@@ -25,6 +25,7 @@
                                 <th>Descrição</th>
                                 <th>Data</th>
                                 <th>Total</th>
+                                <th>Espécie</th>
                                 <th width="200px">Operação</th>
                             </tr>
                         </thead>
@@ -76,6 +77,16 @@
                                             }
                                         }
                                     }
+
+                                    if ($retirada->especie === 1 ) {
+                                        $especie_op = 'Dinheiro';
+                                    }elseif($retirada->especie === 2){
+                                        $especie_op = 'Cheque';
+                                    }elseif($retirada->especie === 3) {
+                                        $especie_op = 'Moedas';                                             
+                                    }elseif($retirada->especie === 4) {
+                                        $especie_op = 'Outros';
+                                    }
                                     
                                 @endphp
 
@@ -85,7 +96,11 @@
                                     <td class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
                                     <td class="align-middle">R$ {{ $total_operacao }}</td>
-
+                                    <td class="align-middle">
+                                        <span
+                                            class="especie">{{ $especie_op }}
+                                        </span>
+                                    </td>
                                     <td class="align-middle"><span class="operacao-retirada">Retirada de caixa</span>
                                     </td>
 

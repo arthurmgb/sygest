@@ -9,7 +9,7 @@ class Operation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['descricao', 'total', 'tipo', 'category_id', 'user_id'];
+    protected $fillable = ['descricao', 'total', 'tipo', 'category_id', 'especie', 'user_id'];
 
     //Relação um a muitos
     public function user(){

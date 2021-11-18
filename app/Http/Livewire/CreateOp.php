@@ -17,6 +17,7 @@ class CreateOp extends Component
         'state.descricao' => 'required|max:100',
         'state.categoria' => 'required',
         'state.total' => 'required',
+        'state.especie' => 'required',
 
     ];
 
@@ -26,13 +27,14 @@ class CreateOp extends Component
         'state.descricao.required' => 'A descrição da operação é obrigatória.',
         'state.categoria.required' => 'A categoria da operação é obrigatória.',
         'state.total.required' => 'O total da operação é obrigatório.',
+        'state.especie.required' => 'A espécie da operação é obrigatória.',
 
     ];
 
     public function changeOperation()
     {
-        
         $this->state['categoria'] = "";
+        $this->state['especie'] = "";
     }
 
     public function mount()
@@ -56,6 +58,7 @@ class CreateOp extends Component
         $this->reset('state');
         $this->state['tipo'] = '1';
         $this->state['categoria'] = "";
+        $this->state['especie'] = "";
     }
 
     public function resetOperation()
@@ -65,6 +68,7 @@ class CreateOp extends Component
         $this->reset('state');
         $this->state['tipo'] = '1';
         $this->state['categoria'] = "";
+        $this->state['especie'] = "";
     }
 
     public function alternate()
@@ -84,6 +88,7 @@ class CreateOp extends Component
             'tipo' => $this->state['tipo'],
             'descricao' => $this->state['descricao'],
             'category_id' => $this->state['categoria'],
+            'especie'=> $this->state['especie'],
             'total' => $total_formatado,
             'user_id' => auth()->user()->id
 
@@ -93,6 +98,7 @@ class CreateOp extends Component
         $this->reset('state');
         $this->state['tipo'] = '1';
         $this->state['categoria'] = "";
+        $this->state['especie'] = "";
 
         $this->emit('alert', 'Operação realizada com sucesso!');
         $this->emitTo('fluxo-caixa', 'render');
