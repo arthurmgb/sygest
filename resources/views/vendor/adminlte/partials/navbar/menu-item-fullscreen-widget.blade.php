@@ -4,7 +4,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a style="color: #D4D4DF;" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Ver loja" class="nav-link pl-1" href="http://{{ Auth::user()->loja }}" target="_blank" role="button">
+    <a style="color: #D4D4DF;" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Ver website" class="nav-link pl-1" href="http://{{ Auth::user()->loja }}" target="_blank" role="button">
         <i class="fal fa-eye fa-lg"></i>
     </a>
 </li>
