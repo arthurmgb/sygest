@@ -4,9 +4,14 @@
         <h2 class="f-h2">Navegador integrado</h2>
         
         <input wire:keydown.enter="get_url()" wire:model.defer="url" placeholder="Digite a URL do site..." type="url" class="input-yampay ml-3" autocomplete="off" autofocus>
+
         <a wire:click.prevent="get_url()" class="btn btn-new ml-2">Acessar</a> 
         
-        <button wire:click.prevent="reset_url()" class="btn button-google ml-2">Google</button>   
+        <button wire:click.prevent="reset_url()" class="btn button-google ml-2">Google</button>  
+
+        <span style="color: #725BC2;" class="ml-2" data-tooltip="Obs.: nem todos os sites podem ser acessados por aqui devido às X-Frame-Options." data-flow="left">
+            <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
+        </span> 
 
         <div class="ml-2" wire:target="render, get_url, reset_url" wire:loading>
             <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-2x fa-spin"></i>

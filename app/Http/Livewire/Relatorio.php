@@ -159,6 +159,7 @@ class Relatorio extends Component
                 'rec_total',
                 'receita_entrada',
                 'receita_saida',
+                'rec_only_saida',
                 'receita_ret',
                 'receita_valor', 
                 'operations_count',

@@ -1378,6 +1378,9 @@ color: #fff;
     font-size: 16px !important;
     border-bottom-left-radius: 0px;
 }
+.ec-totais{
+    padding-top: 2px;
+}
 @media print {
     body * {
       visibility: hidden;
@@ -1402,4 +1405,18 @@ color: #fff;
 }
 .btn-maint:hover{
     background-color: #F4F6F8;
+}
+.totais-label-style{
+    color: #555;
+    font-weight: 600;
+    font-size: 16px;
+    margin-right: 8px;
+    user-select: none;
+}
+.info-total-cx{
+    color: #725BC2;
+    font-size: 14px;
+}
+.fs-title-block{
+    font-size: 13px !important;
 }

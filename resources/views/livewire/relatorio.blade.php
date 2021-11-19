@@ -31,7 +31,7 @@
 
                     <div class="receita-alert">
                         <span>
-                            Receita no período: <b>R$ {{ $rec_total }} - R$ {{ $receita_ret }} = <span style="color: green; font-size: 18px;">R$ {{ $receita_valor }}</span></b>
+                            Receita no período: <b>R$ {{ $rec_total }} - R$ {{ $receita_ret }} (Retiradas) = <span style="color: green; font-size: 18px;">R$ {{ $receita_valor }}</span></b>
                         </span>
                         <br>
                         <span>
@@ -39,7 +39,7 @@
                         </span>
                         <br>
                         <span>
-                            Saídas no período: <span style="color: red;"><b>R$ {{ $receita_saida }}</b></span>
+                            Saídas no período: <span style="color: red;"><b>R$ {{ $rec_only_saida }}</b></span>
                         </span>
                         <br>
                         <span>

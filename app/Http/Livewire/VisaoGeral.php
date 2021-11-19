@@ -271,11 +271,19 @@ class VisaoGeral extends Component
             ->where('tipo', 1)
             ->sum('total');
 
-        $saidas_total = Operation::where('user_id', auth()->user()->id)
+        $saidas_ret_total = Operation::where('user_id', auth()->user()->id)
             ->whereIn('tipo', [0,3])
             ->sum('total');
+        
+        $saidas_total = Operation::where('user_id', auth()->user()->id)
+        ->whereIn('tipo', [0])
+        ->sum('total');
 
-        $total_total = $entradas_total - $saidas_total;
+        $retiradas_total = Operation::where('user_id', auth()->user()->id)
+        ->whereIn('tipo', [3])
+        ->sum('total');
+
+        $total_total = $entradas_total - $saidas_ret_total;
         //Fim recebendo valores
 
         //Coins
@@ -286,7 +294,7 @@ class VisaoGeral extends Component
         ->sum('total');
 
         $coin_dinheiro_saida = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', [0,3])
+        ->where('tipo', [0])
         ->where('especie', 1)
         ->sum('total');
 
@@ -298,7 +306,7 @@ class VisaoGeral extends Component
         ->sum('total');
 
         $coin_cheque_saida = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', [0,3])
+        ->where('tipo', [0])
         ->where('especie', 2)
         ->sum('total');
 
@@ -310,7 +318,7 @@ class VisaoGeral extends Component
         ->sum('total');
 
         $coin_moeda_saida = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', [0,3])
+        ->where('tipo', [0])
         ->where('especie', 3)
         ->sum('total');
 
@@ -322,11 +330,15 @@ class VisaoGeral extends Component
         ->sum('total');
 
         $coin_outros_saida = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', [0,3])
+        ->where('tipo', [0])
         ->where('especie', 4)
         ->sum('total');
 
         $coin_outros = $coin_outros_entrada - $coin_outros_saida;
+
+        $coin_retiradas = Operation::where('user_id', auth()->user()->id)
+        ->where('tipo', [3])
+        ->sum('total');
 
         //Fim coins
 
@@ -352,6 +364,7 @@ class VisaoGeral extends Component
         $coin_cheque = number_format($coin_cheque, 2, ",", ".");
         $coin_moeda = number_format($coin_moeda, 2, ",", ".");
         $coin_outros = number_format($coin_outros, 2, ",", ".");
+        $coin_retiradas = number_format($coin_retiradas, 2, ",", ".");
 
         if(is_numeric($rendimento)){
 
@@ -381,7 +394,9 @@ class VisaoGeral extends Component
                 'total_mes',
                 'op_mes',
                 'entradas_total',
+                'saidas_ret_total',
                 'saidas_total',
+                'retiradas_total',
                 'op_total',
                 'total_total',
                 'valor_real',
@@ -390,6 +405,7 @@ class VisaoGeral extends Component
                 'coin_cheque',
                 'coin_moeda',
                 'coin_outros',
+                'coin_retiradas',
                 'coin_dinheiro_hj',
                 'coin_dinheiro_entrada_hj',
                 'coin_dinheiro_saida_hj',
