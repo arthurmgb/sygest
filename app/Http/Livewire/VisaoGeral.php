@@ -359,6 +359,7 @@ class VisaoGeral extends Component
         $entradas_total = number_format($entradas_total, 2, ",", ".");
         $saidas_total = number_format($saidas_total, 2, ",", ".");
         $total_total = number_format($total_total, 2, ",", ".");
+        $retiradas_total = number_format($retiradas_total, 2, ",", ".");
         $valor_real = number_format($valor_real, 2, ",", ".");
         $coin_dinheiro = number_format($coin_dinheiro, 2, ",", ".");
         $coin_cheque = number_format($coin_cheque, 2, ",", ".");

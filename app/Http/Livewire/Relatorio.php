@@ -72,6 +72,7 @@ class Relatorio extends Component
             $receita_valor = number_format($receita_valor,2,",",".");
             $receita_entrada = number_format($receita_entrada,2,",",".");
             $receita_saida = number_format($receita_saida,2,",",".");
+            $rec_only_saida = number_format($rec_only_saida,2,",",".");
             $receita_ret = number_format($receita_ret,2,",",".");
 
             $operations_count = Operation::where('user_id', auth()->user()->id)
