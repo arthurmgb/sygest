@@ -40,7 +40,7 @@
 
                             @if ($categorias->count())
 
-                                <select wire:model.defer="state.categoria" class="form-control modal-input-cat"
+                                <select style="font-size: 17px;" wire:model.defer="state.categoria" class="form-control modal-input-cat"
                                     id="categoria-op">
                                     <option value="">Selecione uma categoria</option>
 
@@ -57,13 +57,13 @@
                         </div>
                         <div class="form-group">
                             <label class="modal-label" for="especie-op">Espécie  <span class="red">*</span></label>
-                                <select wire:model.defer="state.especie" class="form-control modal-input-cat"
+                                <select style="font-size: 17px;" wire:model.defer="state.especie" class="form-control modal-input-cat"
                                     id="especie-op">
                                     <option value="">Selecione o tipo de espécie</option>
-                                    <option value="1">Dinheiro</option>
-                                    <option value="2">Cheque</option>
-                                    <option value="3">Moedas</option>
-                                    <option value="4">Outros</option>
+                                    <option value="1">💵 Dinheiro</option>
+                                    <option value="2">💲 Cheque</option>
+                                    <option value="3">💰 Moedas</option>
+                                    <option value="4">💳 Outros</option>
                                 </select>
                             @error('state.especie')
                                 <span class="wire-error">{{ $message }}</span>
