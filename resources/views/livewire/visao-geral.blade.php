@@ -53,109 +53,138 @@
         </div>
     </div>
     <div class="vg">
-        <div class="row cards-vg">
-            <div class="col-4">
-                <div class="block-vg">
-                    <div class="title-block fs-title-block d-flex flex-row align-items-center">
-                        Receita&nbsp;
-                        <span class="period">/ Hoje</span>
-                        <div class="div-details ml-auto">
-                            <span data-target="#detalhesHoje" data-toggle="modal" class="details-font">+ Detalhes</span>
-                        </div>
-                    </div>
-                    <div class="value-block mt-3">
-                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                            <span class="type-operation">Entradas</span>
-                            <span class="value-real">R$ {{ $entradas_hoje }}</span>
-                        </div>
-                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                            <span class="type-operation">Saídas</span>
-                            <span class="value-real">- R$ {{ $saidas_hoje }}</span>
-                        </div>
-                        <hr class="my-2">
-                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                            <span class="type-operation">Total</span>
-                            <span style="font-weight: 500;" class="value-real">R$ {{ $total_hoje }}</span>
-                        </div>
-                        <div
-                            class="total-operations-done mt-2 d-flex flex-row justify-content-start align-items-center">
-                            <span>{{ $op_hoje }} operações <span class="bold-span"> realizadas</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="block-vg">
-                    <div class="title-block fs-title-block d-flex flex-row align-items-center">
-                        Receita&nbsp;
-                        <span class="period">/ No mês</span>
-                        <div class="div-details ml-auto">
-                            <span data-target="#detalhesMes" data-toggle="modal" class="details-font">+ Detalhes</span>
-                        </div>
-                    </div>
-                    <div class="value-block mt-3">
-                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                            <span class="type-operation">Entradas</span>
-                            <span class="value-real">R$ {{ $entradas_mes }}</span>
-                        </div>
-                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                            <span class="type-operation">Saídas</span>
-                            <span class="value-real">- R$ {{ $saidas_mes }}</span>
-                        </div>
-                        <hr class="my-2">
-                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                            <span class="type-operation">Total</span>
-                            <span style="font-weight: 500;" class="value-real">R$ {{ $total_mes }}</span>
-                        </div>
-                        <div
-                            class="total-operations-done mt-2 d-flex flex-row justify-content-start align-items-center">
-                            <span>{{ $op_mes }} operações <span class="bold-span"> realizadas</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="block-vg">
 
-                    @if ($rendimento)
-                    @php $rend_flut = number_format($rendimento, 2, ",", ".");@endphp
-                    <div style="user-select: none;" class="rend-flut">+ R$ {{ $rend_flut }}</div>
-                    @endif
-                        
-                    <div class="title-block fs-title-block">
-                        Balanço
-                        <span class="period">/ Geral</span>
-                        <a style="user-select: none;" data-toggle="modal" data-target="#rendimento" class="float-right rendimento">+ Rendimento</a>
-                    </div>
-                    <div class="value-block mt-3">
-                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                            <span class="type-operation">Entradas</span>
-                            <span class="value-real">R$ {{ $entradas_total }}</span>
-                        </div>
-                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                            <span class="type-operation">Saídas</span>
-                            <span class="value-real">- R$ {{ $saidas_total }}</span>
-                        </div>
-                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                            <span class="type-operation">Retiradas</span>
-                            <span class="value-real">- R$ {{ $retiradas_total }}</span>
-                        </div>
-                        <hr class="my-2">
-                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                            <span class="type-operation">Total <br> em caixa @if($rendimento)<br>c/ rend. @endif</span>
-                            <span style="font-weight: 600; color: #01984E;" class="value-real">R$ {{ $valor_real }}</span>
-                        </div>
-                        <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
-                            <span>{{ $op_total }} operações <span class="bold-span"> realizadas</span></span>
-                            <span data-tooltip="Este é o seu saldo real. Retiradas são aplicadas às saídas."
-                                data-flow="left">
-                                <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
-                            </span>
-                        </div>
+        @if($rc_soma >= 1)
+            <div class="row">
+                <div class="col-12">
+                    <div class="div-show-all-boxes d-flex flex-row align-items-center justify-content-end">
+                        <span wire:click.prevent="mostrarBoxes()" class="text-show-boxes">Exibir tudo ({{$rc_soma}})</span>
                     </div>
                 </div>
             </div>
+        @endif
+        
+        <div class="row cards-vg">
+            @if ($rc_hoje == $rc)
+                <div class="col">
+                    <div class="block-vg">
+                        <div class="title-block fs-title-block d-flex flex-row align-items-center">
+                            Receita&nbsp;
+                            <span class="period">/ Hoje</span>
+                            <div class="div-details ml-auto">
+                                <span data-target="#detalhesHoje" data-toggle="modal" class="details-font">+ Detalhes</span>
+                            </div>
+                        </div>
+                        <div class="value-block mt-3">
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Entradas</span>
+                                <span class="value-real">R$ {{ $entradas_hoje }}</span>
+                            </div>
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Saídas</span>
+                                <span class="value-real">- R$ {{ $saidas_hoje }}</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Total</span>
+                                <span style="font-weight: 500;" class="value-real">R$ {{ $total_hoje }}</span>
+                            </div>
+                            <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
+                                <span>{{ $op_hoje }} operações <span class="bold-span"> realizadas</span></span>
+                                <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult" wire:click.prevent="ocultarBox(1)">
+                                    <i class="fad fa-eye fa-lg"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            
+            @if ($rc_mes == $rc)
+                <div class="col">
+                    <div class="block-vg">
+                        <div class="title-block fs-title-block d-flex flex-row align-items-center">
+                            Receita&nbsp;
+                            <span class="period">/ No mês</span>
+                            <div class="div-details ml-auto">
+                                <span data-target="#detalhesMes" data-toggle="modal" class="details-font">+ Detalhes</span>
+                            </div>
+                        </div>
+                        <div class="value-block mt-3">
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Entradas</span>
+                                <span class="value-real">R$ {{ $entradas_mes }}</span>
+                            </div>
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Saídas</span>
+                                <span class="value-real">- R$ {{ $saidas_mes }}</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Total</span>
+                                <span style="font-weight: 500;" class="value-real">R$ {{ $total_mes }}</span>
+                            </div>
+                            <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
+                                <span>{{ $op_mes }} operações <span class="bold-span"> realizadas</span></span>
+                                <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult" wire:click.prevent="ocultarBox(2)">
+                                    <i class="fad fa-eye fa-lg"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if ($rc_total == $rc)
+                <div class="col">
+                    <div class="block-vg">
+
+                        @if ($rendimento)
+                        @php $rend_flut = number_format($rendimento, 2, ",", ".");@endphp
+                        <div style="user-select: none;" class="rend-flut">+ R$ {{ $rend_flut }}</div>
+                        @endif
+                            
+                        <div class="title-block fs-title-block">
+                            Balanço
+                            <span class="period">/ Geral</span>
+                            <a style="user-select: none;" data-toggle="modal" data-target="#rendimento" class="float-right rendimento">+ Rendimento</a>
+                        </div>
+                        <div class="value-block mt-3">
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Entradas</span>
+                                <span class="value-real">R$ {{ $entradas_total }}</span>
+                            </div>
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Saídas</span>
+                                <span class="value-real">- R$ {{ $saidas_total }}</span>
+                            </div>
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Retiradas</span>
+                                <span class="value-real">- R$ {{ $retiradas_total }}</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Total <br> em caixa @if($rendimento)<br>c/ rend. @endif</span>
+                                <span style="font-weight: 600; color: #01984E;" class="value-real">R$ {{ $valor_real }}</span>
+                            </div>
+                            <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
+                                <span>{{ $op_total }} operações <span class="bold-span"> realizadas</span></span>
+                                <div class="div-left-oc d-flex flex-row align-items-center">
+                                    <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult mr-2" wire:click.prevent="ocultarBox(3)">
+                                        <i class="fad fa-eye fa-lg"></i>
+                                    </div>
+                                    <span data-tooltip="Este é o seu saldo real. Retiradas são aplicadas às saídas."
+                                        data-flow="left">
+                                        <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
+                                    </span>                               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="block">
@@ -465,6 +494,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <!-- Modal Rendimento -->

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Operation;
+use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,7 +20,49 @@ class VisaoGeral extends Component
 
     public $qtd = 10;
 
+    public $rc;
+
     protected $listeners = ['render'];
+
+    public function mount(){
+        $this->rc = 0;
+    }
+
+    public function ocultarBox($num){
+        
+        $user = User::find(auth()->user()->id);
+
+        if($num === 1){
+
+            $user->rc_hoje = 1;     
+
+        }elseif($num === 2){
+
+            $user->rc_mes = 1;
+
+        }elseif($num === 3){
+
+            $user->rc_total = 1;
+
+        }
+        
+        $user->save();
+        $this->rc = 0;
+
+    }
+
+    public function mostrarBoxes(){
+
+        $user = User::find(auth()->user()->id);
+
+        $user->rc_hoje = 0; 
+        $user->rc_mes = 0; 
+        $user->rc_total = 0; 
+
+        $user->save();
+        $this->rc = 0;
+        
+    }
 
     public function updatingSearch()
     {
@@ -40,7 +83,7 @@ class VisaoGeral extends Component
         $data_hoje = Carbon::today()->format('Y-m-d');
         $data_mes = Carbon::now()->format('Y-m');
 
-//======================================================================
+        //======================================================================
 
         //Operações realizadas hoje
 
@@ -52,7 +95,7 @@ class VisaoGeral extends Component
 
         //Fim operações realizadas hoje
 
-//======================================================================
+        //======================================================================
 
         //Receita hoje
 
@@ -157,7 +200,7 @@ class VisaoGeral extends Component
 
         //Fim receita hoje
 
-//======================================================================
+        //======================================================================
        
         //Receita mês
 
@@ -262,7 +305,7 @@ class VisaoGeral extends Component
 
         //Fim receita mês
 
-//======================================================================
+        //======================================================================
 
         //Receita total
 
@@ -382,6 +425,12 @@ class VisaoGeral extends Component
 
         //Fim receita total
 
+        $user_rc = User::find(auth()->user()->id);
+        $rc_hoje = $user_rc->rc_hoje;
+        $rc_mes = $user_rc->rc_mes;
+        $rc_total =  $user_rc->rc_total;
+        $rc_soma = $rc_hoje + $rc_mes + $rc_total;
+
         return view(
             'livewire.visao-geral',
             compact(
@@ -431,6 +480,10 @@ class VisaoGeral extends Component
                 'coin_outros_mes',
                 'coin_outros_entrada_mes', 
                 'coin_outros_saida_mes', 
+                'rc_hoje',
+                'rc_mes',
+                'rc_total',
+                'rc_soma',
 
             )
         )

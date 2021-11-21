@@ -1420,3 +1420,12 @@ color: #fff;
 .fs-title-block{
     font-size: 13px !important;
 }
+.text-show-boxes{
+    font-size: 14px;
+    font-weight: 500;
+    color: #8369DF;
+    cursor: pointer;
+}
+.text-show-boxes:hover{
+    text-decoration: underline;
+}
