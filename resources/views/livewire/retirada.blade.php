@@ -85,7 +85,7 @@
                                     }elseif($retirada->especie === 3) {
                                         $especie_op = 'Moedas';                                             
                                     }elseif($retirada->especie === 4) {
-                                        $especie_op = 'Outros';
+                                        $especie_op = 'Gaveta/Troco';
                                     }
                                     
                                 @endphp

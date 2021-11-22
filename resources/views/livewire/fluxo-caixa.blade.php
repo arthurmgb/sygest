@@ -123,7 +123,7 @@
                                     }elseif($operation->especie === 3) {
                                         $especie_op = 'Moedas';                                             
                                     }elseif($operation->especie === 4) {
-                                        $especie_op = 'Outros';
+                                        $especie_op = 'Gaveta/Troco';
                                     }
                                     
                                 @endphp

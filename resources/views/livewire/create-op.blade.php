@@ -63,7 +63,7 @@
                                     <option value="1">💵 Dinheiro</option>
                                     <option value="2">💲 Cheque</option>
                                     <option value="3">💰 Moedas</option>
-                                    <option value="4">💳 Outros</option>
+                                    <option value="4">💼 Gaveta/Troco</option>
                                 </select>
                             @error('state.especie')
                                 <span class="wire-error">{{ $message }}</span>

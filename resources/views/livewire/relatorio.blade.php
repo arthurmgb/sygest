@@ -104,10 +104,10 @@
                                 </span>
                             </div>
                             <div class="col-6">
-                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Outros">
+                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Gaveta/Troco">
                                     <span class="emoji-coin ec-rel">
-                                        <i style="color: #10B981;" class="fas fa-sack-dollar"></i>
-                                        <span class="ml-1">Outros</span>
+                                        <i style="color: #10B981;" class="fas fa-cash-register"></i>
+                                        <span class="ml-1">Gaveta/Troco</span>
                                     </span>
                                     <span class="coin-valor">
                                         R$ {{$coin_outros_rel}}
@@ -196,7 +196,7 @@
                                     }elseif($operation->especie === 3) {
                                         $especie_op = 'Moedas';                                             
                                     }elseif($operation->especie === 4) {
-                                        $especie_op = 'Outros';
+                                        $especie_op = 'Gaveta/Troco';
                                     }
 
                                 @endphp

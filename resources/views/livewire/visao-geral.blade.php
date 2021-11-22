@@ -33,9 +33,9 @@
                         R$ {{$coin_moeda}}
                     </span>
                 </div>
-                <div class="div-coin-box" data-flow="bottom" data-tooltip="Outros">
+                <div class="div-coin-box" data-flow="bottom" data-tooltip="Gaveta/Troco">
                     <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                        <i style="color: #10B981;" class="fas fa-sack-dollar"></i>
+                        <i style="color: #10B981;" class="fas fa-cash-register"></i>
                     </span>
                     <span class="coin-valor">
                         R$ {{$coin_outros}}
@@ -287,7 +287,7 @@
                                                 }elseif($operation->especie === 3) {
                                                     $especie_op = 'Moedas';                                             
                                                 }elseif($operation->especie === 4) {
-                                                    $especie_op = 'Outros';
+                                                    $especie_op = 'Gaveta/Troco';
                                                 }
                                                 
                                             @endphp
@@ -643,9 +643,9 @@
                                     </span>
                                 </div>
                                 <div class="col-6 px-3">
-                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Outros">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Gaveta/Troco">
                                         <span class="emoji-coin">
-                                            <i style="color: #10B981;" class="fas fa-sack-dollar"></i>
+                                            <i style="color: #10B981;" class="fas fa-cash-register"></i>
                                         </span>
                                         <span class="coin-valor">
                                             R$ {{$coin_outros_hj}}
@@ -672,108 +672,108 @@
 
     <div class="modal fade" id="detalhesMes" tabindex="-1" aria-labelledby="detalhesMesLabel" aria-hidden="true"
     wire:ignore.self>
-    <div class="modal-dialog">
-        <div class="modal-content modal-custom">
-            <div class="modal-header">
-                <h5 class="modal-title px-3 py-3" id="detalhesMesLabel">Detalhes da receita <span style="font-weight: 500; text-transform: uppercase; font-size: 22px;">/ No mês</span></h5>
-                <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
-                    <i class="fal fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body py-4 px-4">
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="detalhesMesLabel">Detalhes da receita <span style="font-weight: 500; text-transform: uppercase; font-size: 22px;">/ No mês</span></h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-4 px-4">
 
-                    <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                        <label class="type-operation mt-1" for="total-op">Entradas no mês</label>                          
-                        <span class="value-real">R$ {{ $entradas_mes }}</span>
-                    </div>
-                    <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                        <label class="type-operation mt-1" for="total-op">Saídas no mês</label>                          
-                        <span class="value-real">- R$ {{ $saidas_mes }}</span>
-                    </div>
-                    <hr class="my-2">
-                    <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                        <label class="type-operation mt-1" for="total-op">Total em caixa</label>                          
-                        <span class="value-real">R$ {{ $total_mes }}</span>
-                    </div>
-                    <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
-                        <span>{{ $op_mes }} operações <span class="bold-span">realizadas nesse mês.</span></span>
-                        <span class="align-self-start" data-tooltip="Este é o valor total em que o caixa fechará no mês."
-                            data-flow="left">
-                            <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
-                        </span>
-                    </div>
-                    <hr class="mt-3 mb-2">
-                    <label class="type-operation mt-2 mb-3">Capital por espécie / <span style="color: #777;">No mês</span></label>  
-                    <div style="user-select: none;" class="div-coins mb-0">
-                        <div class="row">
-                            <div class="col-6 px-3">
-                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Dinheiro">
-                                    <span class="emoji-coin">
-                                        <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
-                                    </span>
-                                    <span class="coin-valor">
-                                        R$ {{$coin_dinheiro_mes}}
-                                    </span>
-                                </div>
-                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_dinheiro_entrada_mes}}</span>
-                                </span>
-                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_dinheiro_saida_mes}}</span>
-                                </span>
-                            </div>
-                            <div class="col-6 px-3">
-                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Cheques">
-                                    <span class="emoji-coin">
-                                        <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
-                                    </span>
-                                    <span class="coin-valor">
-                                        R$ {{$coin_cheque_mes}}
-                                    </span>
-                                </div>
-                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_cheque_entrada_mes}}</span>
-                                </span>
-                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_cheque_saida_mes}}</span>
-                                </span>
-                            </div>
+                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                            <label class="type-operation mt-1" for="total-op">Entradas no mês</label>                          
+                            <span class="value-real">R$ {{ $entradas_mes }}</span>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-6 px-3">
-                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Moedas">
-                                    <span class="emoji-coin">
-                                        <i style="color: #e6c300;" class="fad fa-coins"></i>
-                                    </span>
-                                    <span class="coin-valor">
-                                        R$ {{$coin_moeda_mes}}
-                                    </span>
-                                </div>
-                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_moeda_entrada_mes}}</span>
-                                </span>
-                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_moeda_saida_mes}}</span>
-                                </span>
-                            </div>
-                            <div class="col-6 px-3">
-                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Outros">
-                                    <span class="emoji-coin">
-                                        <i style="color: #10B981;" class="fas fa-sack-dollar"></i>
-                                    </span>
-                                    <span class="coin-valor">
-                                        R$ {{$coin_outros_mes}}
-                                    </span>
-                                </div>
-                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_outros_entrada_mes}}</span>
-                                </span>
-                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_outros_saida_mes}}</span>
-                                </span>
-                            </div>
+                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                            <label class="type-operation mt-1" for="total-op">Saídas no mês</label>                          
+                            <span class="value-real">- R$ {{ $saidas_mes }}</span>
                         </div>
-                        
-                    </div>
+                        <hr class="my-2">
+                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                            <label class="type-operation mt-1" for="total-op">Total em caixa</label>                          
+                            <span class="value-real">R$ {{ $total_mes }}</span>
+                        </div>
+                        <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
+                            <span>{{ $op_mes }} operações <span class="bold-span">realizadas nesse mês.</span></span>
+                            <span class="align-self-start" data-tooltip="Este é o valor total em que o caixa fechará no mês."
+                                data-flow="left">
+                                <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
+                            </span>
+                        </div>
+                        <hr class="mt-3 mb-2">
+                        <label class="type-operation mt-2 mb-3">Capital por espécie / <span style="color: #777;">No mês</span></label>  
+                        <div style="user-select: none;" class="div-coins mb-0">
+                            <div class="row">
+                                <div class="col-6 px-3">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Dinheiro">
+                                        <span class="emoji-coin">
+                                            <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
+                                        </span>
+                                        <span class="coin-valor">
+                                            R$ {{$coin_dinheiro_mes}}
+                                        </span>
+                                    </div>
+                                    <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_dinheiro_entrada_mes}}</span>
+                                    </span>
+                                    <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_dinheiro_saida_mes}}</span>
+                                    </span>
+                                </div>
+                                <div class="col-6 px-3">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Cheques">
+                                        <span class="emoji-coin">
+                                            <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
+                                        </span>
+                                        <span class="coin-valor">
+                                            R$ {{$coin_cheque_mes}}
+                                        </span>
+                                    </div>
+                                    <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_cheque_entrada_mes}}</span>
+                                    </span>
+                                    <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_cheque_saida_mes}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-6 px-3">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Moedas">
+                                        <span class="emoji-coin">
+                                            <i style="color: #e6c300;" class="fad fa-coins"></i>
+                                        </span>
+                                        <span class="coin-valor">
+                                            R$ {{$coin_moeda_mes}}
+                                        </span>
+                                    </div>
+                                    <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_moeda_entrada_mes}}</span>
+                                    </span>
+                                    <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_moeda_saida_mes}}</span>
+                                    </span>
+                                </div>
+                                <div class="col-6 px-3">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Gaveta/Troco">
+                                        <span class="emoji-coin">
+                                            <i style="color: #10B981;" class="fas fa-cash-register"></i>
+                                        </span>
+                                        <span class="coin-valor">
+                                            R$ {{$coin_outros_mes}}
+                                        </span>
+                                    </div>
+                                    <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_outros_entrada_mes}}</span>
+                                    </span>
+                                    <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_outros_saida_mes}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                        </div>
 
-            </div>
-            <div class="modal-footer py-4">
-                <button data-dismiss="modal" type="button" class="btn btn-cancel">Fechar</button>                                              
+                </div>
+                <div class="modal-footer py-4">
+                    <button data-dismiss="modal" type="button" class="btn btn-cancel">Fechar</button>                                              
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>
