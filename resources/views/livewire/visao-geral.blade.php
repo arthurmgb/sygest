@@ -697,7 +697,7 @@
                     </div>
                     <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
                         <span>{{ $op_mes }} operações <span class="bold-span">realizadas nesse mês.</span></span>
-                        <span class="align-self-start" data-tooltip="Este é o valor total em que o caixa fechará hoje."
+                        <span class="align-self-start" data-tooltip="Este é o valor total em que o caixa fechará no mês."
                             data-flow="left">
                             <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
                         </span>
