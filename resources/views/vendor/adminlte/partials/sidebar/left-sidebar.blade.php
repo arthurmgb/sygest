@@ -12,7 +12,7 @@
         <a href="{{route('profile.show')}}">
             <div class="user-panel mt-2 pb-3 mb-1 d-flex border-0">
                 <div class="image">
-                <img class="bg-img" style="width: 45px !important;" src="{{Auth::user()->profile_photo_url}}">
+                <img class="bg-img" style="width: 45px !important; object-fit: cover;" src="{{Auth::user()->profile_photo_url}}">
                 </div>
                 <div class="my-auto ml-1">
                 <span style="font-size: 15px; font-weight: 500; color: #333333;" class="d-block">{{Auth::user()->name}}</span>

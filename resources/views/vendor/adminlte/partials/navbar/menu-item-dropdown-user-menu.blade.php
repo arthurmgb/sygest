@@ -18,7 +18,7 @@
     {{-- User menu toggler --}}
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
         @if(config('adminlte.usermenu_image'))
-            <img src="{{ Auth::user()->adminlte_image() }}"
+            <img style="object-fit: cover;" src="{{ Auth::user()->adminlte_image() }}"
                  class="user-image img-circle user-mod"
                  alt="{{ Auth::user()->name }}">
         @endif

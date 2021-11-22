@@ -1,7 +1,7 @@
 <div>
     <div class="d-flex flex-row justify-content-between">
         <h1 class="home-title">Olá, {{ Auth::user()->name }}!</h1>
-        <img class="img-user img-circle" src="{{ Auth::user()->profile_photo_url }}">
+        <img style="object-fit: cover;" class="img-user img-circle" src="{{ Auth::user()->profile_photo_url }}">
     </div>
 
     <div class="initial-div">
