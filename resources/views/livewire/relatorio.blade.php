@@ -30,97 +30,101 @@
                 @if (isset($operations) and $operations->count())
 
                     <div class="receita-alert">
-                        <span>
-                            Receita no período: <b>R$ {{ $rec_total }} - R$ {{ $receita_ret }} (Retiradas) = <span style="color: green; font-size: 18px;">R$ {{ $receita_valor }}</span></b>
+                        <span class="rc-alert-font">
+                            Total em caixa: <b><span style="color: green; font-size: 20px;">R$ {{ $caixa_total }}</span></b>
                         </span>
-                        <br>
-                        <span>
+                        <br>                      
+                        <span class="rc-alert-font">
                             Entradas no período: <span style="color: green;"><b>R$ {{ $receita_entrada }}</b></span>
                         </span>
                         <br>
-                        <span>
+                        <span class="rc-alert-font">
                             Saídas no período: <span style="color: red;"><b>R$ {{ $rec_only_saida }}</b></span>
                         </span>
                         <br>
-                        <span>
+                        <span class="rc-alert-font">
                             Retiradas no período: <span style="color: red;"><b>R$ {{ $receita_ret }}</b></span>
                         </span>
                         <br>
-                        <span>
+                        <span class="rc-alert-font">
+                            Receita no período: <b>R$ {{ $rec_total }} - R$ {{ $receita_ret }} (Retiradas) = <span style="color: green; font-size: 20px;">R$ {{ $receita_valor }}</span></b>
+                        </span>
+                        <br>
+                        <span class="rc-alert-font">
                             Total de operações no período: <span style="color: blue;"><b> {{ $operations_count }}</b></span>
                         </span>
                         <br>
-                        <span>
+                        <span class="rc-alert-font">
                             Operações na página: <span style="color: blue;"><b> {{ $operations->count() }}</b></span>
                         </span>
 
-                    <div style="user-select: none;" class="div-coins mb-0 mt-2">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Dinheiro">                                
-                                    <span class="emoji-coin ec-rel">
-                                        <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
-                                        <span class="ml-1">Dinheiro</span>
+                        <div style="user-select: none;" class="div-coins mb-0 mt-2">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Dinheiro">                                
+                                        <span class="emoji-coin ec-rel">
+                                            <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
+                                            <span class="ml-1">Dinheiro</span>
+                                        </span>
+                                        <span class="coin-valor">
+                                            R$ {{$coin_dinheiro_rel}}
+                                        </span>
+                                    </div>
+                                    <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_dinheiro_entrada_rel}}</span>
                                     </span>
-                                    <span class="coin-valor">
-                                        R$ {{$coin_dinheiro_rel}}
-                                    </span>
-                                </div>
-                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_dinheiro_entrada_rel}}</span>
-                                </span>
-                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_dinheiro_saida_rel}}</span>
-                                </span>
-                            </div>
-                            <div class="col-6">
-                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Cheques">
-                                    <span class="emoji-coin ec-rel">
-                                        <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
-                                        <span class="ml-1">Cheques</span>
-                                    </span>
-                                    <span class="coin-valor">
-                                        R$ {{$coin_cheque_rel}}
+                                    <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_dinheiro_saida_rel}}</span>
                                     </span>
                                 </div>
-                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_cheque_entrada_rel}}</span>
-                                </span>
-                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_cheque_saida_rel}}</span>
-                                </span>
+                                <div class="col-6">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Cheques">
+                                        <span class="emoji-coin ec-rel">
+                                            <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
+                                            <span class="ml-1">Cheques</span>
+                                        </span>
+                                        <span class="coin-valor">
+                                            R$ {{$coin_cheque_rel}}
+                                        </span>
+                                    </div>
+                                    <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_cheque_entrada_rel}}</span>
+                                    </span>
+                                    <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_cheque_saida_rel}}</span>
+                                    </span>
+                                </div>
                             </div>
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Moedas">
+                                        <span class="emoji-coin ec-rel">
+                                            <i style="color: #e6c300;" class="fad fa-coins"></i>
+                                            <span class="ml-1">Moedas</span>
+                                        </span>
+                                        <span class="coin-valor">
+                                            R$ {{$coin_moeda_rel}}
+                                        </span>
+                                    </div>
+                                    <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_moeda_entrada_rel}}</span>
+                                    </span>
+                                    <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_moeda_saida_rel}}</span>
+                                    </span>
+                                </div>
+                                <div class="col-6">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Gaveta/Troco">
+                                        <span class="emoji-coin ec-rel">
+                                            <i style="color: #10B981;" class="fas fa-cash-register"></i>
+                                            <span class="ml-1">Gaveta/Troco</span>
+                                        </span>
+                                        <span class="coin-valor">
+                                            R$ {{$coin_outros_rel}}
+                                        </span>
+                                    </div>
+                                    <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_outros_entrada_rel}}</span>
+                                    </span>
+                                    <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_outros_saida_rel}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-6">
-                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Moedas">
-                                    <span class="emoji-coin ec-rel">
-                                        <i style="color: #e6c300;" class="fad fa-coins"></i>
-                                        <span class="ml-1">Moedas</span>
-                                    </span>
-                                    <span class="coin-valor">
-                                        R$ {{$coin_moeda_rel}}
-                                    </span>
-                                </div>
-                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_moeda_entrada_rel}}</span>
-                                </span>
-                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_moeda_saida_rel}}</span>
-                                </span>
-                            </div>
-                            <div class="col-6">
-                                <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Gaveta/Troco">
-                                    <span class="emoji-coin ec-rel">
-                                        <i style="color: #10B981;" class="fas fa-cash-register"></i>
-                                        <span class="ml-1">Gaveta/Troco</span>
-                                    </span>
-                                    <span class="coin-valor">
-                                        R$ {{$coin_outros_rel}}
-                                    </span>
-                                </div>
-                                <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_outros_entrada_rel}}</span>
-                                </span>
-                                <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_outros_saida_rel}}</span>
-                                </span>
-                            </div>
-                        </div>
-                        
-                    </div>
                     </div>
 
                     <table style="cursor: default;" class="table table-borderless">

@@ -1430,3 +1430,6 @@ color: #fff;
 .text-show-boxes:hover{
     text-decoration: underline;
 }
+.rc-alert-font{
+ font-size: 17px;
+}

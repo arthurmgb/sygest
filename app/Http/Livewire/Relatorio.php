@@ -45,6 +45,16 @@ class Relatorio extends Component
                 ->latest('id')
                 ->paginate($this->qtd);
 
+            $entradas_total = Operation::where('user_id', auth()->user()->id)
+                ->where('tipo', 1)
+                ->sum('total');
+    
+            $saidas_ret_total = Operation::where('user_id', auth()->user()->id)
+                ->whereIn('tipo', [0,3])
+                ->sum('total');
+
+            $caixa_total = $entradas_total - $saidas_ret_total;
+
             $receita_entrada = Operation::where('user_id', auth()->user()->id)
             ->whereBetween('created_at', [$di, $df])
             ->whereIn('tipo', [1])
@@ -74,6 +84,7 @@ class Relatorio extends Component
             $receita_saida = number_format($receita_saida,2,",",".");
             $rec_only_saida = number_format($rec_only_saida,2,",",".");
             $receita_ret = number_format($receita_ret,2,",",".");
+            $caixa_total = number_format($caixa_total,2,",",".");
 
             $operations_count = Operation::where('user_id', auth()->user()->id)
             ->whereBetween('created_at', [$di, $df])
@@ -156,7 +167,8 @@ class Relatorio extends Component
 
             return view('livewire.relatorio', 
             compact(
-                'operations', 
+                'operations',
+                'caixa_total', 
                 'rec_total',
                 'receita_entrada',
                 'receita_saida',
