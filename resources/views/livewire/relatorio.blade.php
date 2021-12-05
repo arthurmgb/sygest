@@ -207,12 +207,12 @@
 
                                 <tr class="tr-hover">
 
-                                    <td class="align-middle font-desc">{{ $operation->descricao }}</td>
-                                    <td class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
+                                    <td style="font-size: 15px !important;" class="align-middle font-desc">{{ $operation->descricao }}</td>
+                                    <td style="font-size: 15px;" class="align-middle">{{ $data_operacao }}<br><span style="font-size: 13px;" class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
-                                    <td class="align-middle">R$ {{ $total_operacao }}</td>
-                                    <td class="align-middle"><span class="categoria">{{ $categoria_op }}</span></td>
-                                    <td class="align-middle">
+                                    <td style="font-size: 15px;" class="align-middle">R$ {{ $total_operacao }}</td>
+                                    <td class="align-middle"><span style="font-size: 14px;" class="categoria">{{ $categoria_op }}</span></td>
+                                    <td style="font-size: 15px;" class="align-middle">
                                         <span
                                             class="especie">{{ $especie_op }}
                                         </span>
