@@ -48,6 +48,7 @@
                                         <th>ID #</th>
                                         <th>Nome</th>
                                         <th>E-mail</th>
+                                        <th>Montante</th>
                                         <th>Qtd. de operações</th>
                                         <th>Data de criação</th>                                 
                                         <th>Último login</th>
@@ -145,12 +146,30 @@
                                                 }
                                             }
                                         @endphp
+
+                                        @php
+                                       
+
+                                            $entradas_total = App\Models\Operation::where('user_id', $user->id)
+                                            ->where('tipo', 1)
+                                            ->sum('total');
+
+                                            $saidas_ret_total = App\Models\Operation::where('user_id', $user->id)
+                                            ->whereIn('tipo', [0,3])
+                                            ->sum('total');
+
+                                            $caixa_total = $entradas_total - $saidas_ret_total;
+                                            $caixa_total = number_format($caixa_total,2,",",".");
+                                        @endphp
         
                                         <tr class="tr-hover">
 
                                             <td class="align-middle">{{ $user->id }}</td>
                                             <td class="align-middle font-desc">{{ $user->name }}</td>
                                             <td class="align-middle">{{ $user->email }}</td>
+                                            <td style="font-size: 15px; font-weight: 500; color: #01984E;" class="align-middle">
+                                            R$ {{$caixa_total}}
+                                            </td>
                                             <td style="font-size: 14px; font-weight: 500; color: #725BC2;" class="align-middle">
                                                 @if ($user->operations->count() === 0)
                                                     Nenhuma
