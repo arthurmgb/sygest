@@ -3,7 +3,7 @@
         <h2 class="f-h2">Relatórios</h2>
     </div>
     <div class="block">
-        <div class="card-topo mb-4 d-flex flex-row align-items-center">
+        <div class="card-topo mb-2 d-flex flex-row align-items-center">
             <span class="span-relatorio">Período de</span>
             <input wire:model.defer="data.inicial" id="from" type="date" class="search-relatorio ml-3 mr-3"
                 min="2000-01-01" max="2100-01-01" autocomplete="off">
@@ -18,6 +18,15 @@
                 <button onclick="window.print()" class="btn-new ml-2">Imprimir</button>
             @endif
         </div>
+        <div class="card-topo-2 mb-4 d-flex flex-row align-items-center">
+            <span class="span-relatorio">Categoria</span>
+            <select wire:model="categoria" style="padding-left: 15px; width: 180px;" class="form-control modal-input-cat rpp ml-3">
+                <option value="all">Todas</option>
+                @foreach ($categories as $categorie)
+                    <option value="{{$categorie->id}}">{{$categorie->descricao}}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="card" id="printable">
 
             <div style="margin-top: 125px; margin-bottom: 125px;" wire:loading
@@ -28,8 +37,15 @@
             <div wire:loading.remove class="card-body px-0 pb-0 pt-0">
 
                 @if (isset($operations) and $operations->count())
-
+                    @php
+                     $data_inicial = \Carbon\Carbon::parse($data['inicial'])->format('d/m/Y');
+                     $data_final = \Carbon\Carbon::parse($data['final'])->format('d/m/Y');
+                    @endphp
                     <div class="receita-alert">
+                        <span class="rc-alert-font">
+                            Período: <b><span style="color: #444;">{{$data_inicial}} &nbsp;até&nbsp; {{$data_final}}</span></b>
+                        </span>
+                        <br>
                         <span class="rc-alert-font">
                             Total em caixa: <b><span style="color: green; font-size: 20px;">R$ {{ $caixa_total }}</span></b>
                         </span>
@@ -364,7 +380,7 @@
                                     d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                             </defs>
                         </svg>
-                        <h3 class="my-4 no-results">Não há operações para este período.</h3>
+                        <h3 class="my-4 no-results">Não há operações para este filtro.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                             <h3 class="no-results-create mb-3">Faça uma busca para filtrar as operações</h3>
                         </div>
