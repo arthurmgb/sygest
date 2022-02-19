@@ -1383,12 +1383,27 @@ color: #fff;
     padding-top: 2px;
 }
 @media print {
+    
     body * {
-      visibility: hidden;
+        visibility: hidden;
+        margin: 0px !important;
     }
+
+    .page-header, .card-topo, .card-topo-2{
+        display: none !important;
+    }
+
+    @page {
+        margin: 0px !important;
+        margin-top: 25px !important;
+        padding: 0px !important;
+        border: 0 !important;
+    }
+
     #printable, #printable * {
-      visibility: visible;
+        visibility: visible;
     }
+
 }
 .btn-maint{
     color: #666;

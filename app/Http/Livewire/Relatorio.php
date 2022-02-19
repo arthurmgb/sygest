@@ -18,9 +18,15 @@ class Relatorio extends Component
     public $categoria;
     public $qtd = 10;
 
+    public function printPage(){
+        $this->qtd = 250;
+        $this->dispatchBrowserEvent('call-print');
+    }
+
     public function resetRelatorio()
     {
         $this->reset('data', 'categoria');
+        $this->qtd = 10;
     }
 
     public function render()

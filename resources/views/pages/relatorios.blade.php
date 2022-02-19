@@ -21,4 +21,9 @@
 
 @section('js')
     <script src="{{asset('js/newfont.js')}}"></script>
+    <script>
+        window.addEventListener('call-print', event =>{
+            window.print();
+        })
+    </script>
 @stop

@@ -15,7 +15,7 @@
             @if (isset($operations))
                 <button wire:click.prevent="resetRelatorio()" wire:loading.attr="disabled"
                     wire:loading.class="desativado" class="button-relatorio ml-2">Limpar busca</button>
-                <button onclick="window.print()" class="btn-new ml-2">Imprimir</button>
+                <button wire:click.prevent="printPage()" class="btn-new ml-2">Imprimir</button>
             @endif
         </div>
         <div class="card-topo-2 mb-4 d-flex flex-row align-items-center">
