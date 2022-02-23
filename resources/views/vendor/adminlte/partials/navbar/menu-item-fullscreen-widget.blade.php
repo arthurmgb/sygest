@@ -9,7 +9,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a style="color: #D4D4DF;" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Configurações" class="nav-link pl-1" href="{{route('config')}}" role="button">
+    <a style="color: #D4D4DF;" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Configurações" class="nav-link pl-1" href="{{route('configuracoes')}}" role="button">
         <i class="fal fa-cog fa-lg"></i>
     </a>
 </li>

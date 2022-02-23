@@ -284,7 +284,7 @@ return [
         ],
         [
             'text' => 'Configurações',
-            'route'  => 'config',
+            'route'  => 'configuracoes',
             'icon' => 'far ml-2 mr-3 fa-cog fa-lg fa-fw',
         ],
         [

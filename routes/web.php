@@ -26,8 +26,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/ferramentas', Ferramenta::class)->name('ferramentas');
     Route::get('/navegador', Navegador::class)->name('navegador');
     Route::get('/tarefas', Tarefa::class)->name('tarefas');
+    Route::get('/configuracoes', Configuracao::class)->name('configuracoes');
     Route::get('/admin', Admin::class)->name('admin');
-    Route::get('/config', Configuracao::class)->name('config');
     
 });
 
