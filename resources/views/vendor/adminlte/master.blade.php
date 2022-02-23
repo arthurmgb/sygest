@@ -208,6 +208,13 @@
             'error'
             )
         })
+        Livewire.on('error-operator', function(message){
+            Swal.fire(
+            'Atenção!',
+            message,
+            'warning'
+            )
+        })
     </script>
 
 </body>

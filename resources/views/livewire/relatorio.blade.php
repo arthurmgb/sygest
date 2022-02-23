@@ -15,7 +15,9 @@
             @if (isset($operations))
                 <button wire:click.prevent="resetRelatorio()" wire:loading.attr="disabled"
                     wire:loading.class="desativado" class="button-relatorio ml-2">Limpar busca</button>
-                <button wire:click.prevent="printPage()" class="btn-new ml-2">Imprimir</button>
+                @if($operations->count())
+                    <button wire:click.prevent="printPage()" class="btn-new ml-2">Imprimir</button>
+                @endif
             @endif
         </div>
         <div class="card-topo-2 mb-4 d-flex flex-row align-items-center">
@@ -26,6 +28,19 @@
                     <option value="{{$categorie->id}}">{{$categorie->descricao}}</option>
                 @endforeach
             </select>
+            @if (isset($operations) and $operations->count())
+                <span class="span-relatorio ml-4">Operador</span>
+                @if($operators->count())
+                    <select wire:model="operador" style="padding-left: 15px; width: 250px;" class="form-control modal-input-cat rpp ml-3">
+                        <option value="select-op">Selecione um operador</option>
+                        @foreach ($operators as $operator)
+                            <option value="{{$operator->nome}}">{{$operator->nome}}</option>
+                        @endforeach
+                    </select>
+                @else
+                <a href="{{route('config')}}" class="btn btn-new ml-3">+ Novo operador</a>
+                @endif
+            @endif
         </div>
         <div class="card" id="printable">
 
@@ -47,7 +62,7 @@
                         </span>
                         <br>
                         <span class="rc-alert-font">
-                            Total em caixa: <b><span style="color: green; font-size: 20px;">R$ {{ $caixa_total }}</span></b>
+                            Total em caixa hoje: <b><span style="color: green; font-size: 20px;">R$ {{ $caixa_total }}</span></b>
                         </span>
                         <br>                      
                         <span class="rc-alert-font">
@@ -71,7 +86,23 @@
                         </span>
                         <br>
                         <span class="rc-alert-font">
-                            Operações na página: <span style="color: blue;"><b> {{ $operations->count() }}</b></span>
+                            Operações listadas na página: <span style="color: blue;"><b> {{ $operations->count() }}</b></span>
+                        </span>
+                        <br>
+                        <span class="rc-alert-font">
+                            <i style="color: green;" class="fas fa-user-check mr-1"></i> Operador do caixa deste período: 
+                            
+                            @if($operators->count())
+
+                            <span style="color: #444;"><b>@if($operador == 'select-op')Selecione um operador de caixa autorizado @else {{$operador}} @endif</b>
+                            </span>
+
+                            @else
+
+                            <span style="color: #444;"><b>Cadastre um operador de caixa autorizado</b></span>
+
+                            @endif
+                            
                         </span>
 
                         <div style="user-select: none;" class="div-coins mb-0 mt-2">

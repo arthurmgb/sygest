@@ -283,20 +283,15 @@ return [
             'icon' => 'far ml-2 mr-3 fa-globe fa-lg fa-fw',
         ],
         [
+            'text' => 'Configurações',
+            'route'  => 'config',
+            'icon' => 'far ml-2 mr-3 fa-cog fa-lg fa-fw',
+        ],
+        [
             'text' => 'Administrador',
             'route'  => 'admin',
             'icon' => 'far ml-2 mr-3 fa-user-shield fa-lg fa-fw',
         ],
-        [
-            'text' => 'Configurações',
-            'url'  => '#',
-            'icon' => 'far ml-2 mr-3 fa-cog fa-lg fa-fw',
-            'data' => [
-                'tooltip' => 'Em desenvolvimento',
-                'flow' => 'bottom',
-            ],
-        ],
-
     ],
 
     /*

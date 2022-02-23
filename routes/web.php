@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Admin;
 use App\Http\Livewire\Categoria;
+use App\Http\Livewire\Configuracao;
 use App\Http\Livewire\Ferramenta;
 use App\Http\Livewire\FluxoCaixa;
 use App\Http\Livewire\Home;
@@ -26,6 +27,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/navegador', Navegador::class)->name('navegador');
     Route::get('/tarefas', Tarefa::class)->name('tarefas');
     Route::get('/admin', Admin::class)->name('admin');
+    Route::get('/config', Configuracao::class)->name('config');
     
 });
 

@@ -12,11 +12,8 @@ class Categoria extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-
     public $search, $categoria;
-
     public $qtd = 10;
-
     protected $listeners = ['render'];
 
     public $rules = [

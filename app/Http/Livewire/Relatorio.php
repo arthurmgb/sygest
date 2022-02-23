@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Operation;
 use App\Models\Category;
+use App\Models\Operator;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,17 +17,33 @@ class Relatorio extends Component
     protected $paginationTheme = 'bootstrap';
     public $data = [];
     public $categoria;
+    public $operador;
     public $qtd = 10;
 
+    public function mount(){
+        $this->operador = 'select-op';
+    }
+
     public function printPage(){
-        $this->qtd = 250;
-        $this->dispatchBrowserEvent('call-print');
+
+        $operadores = Operator::where('user_id', auth()->user()->id)
+            ->get();
+
+        if(isset($this->operador) and $this->operador != 'select-op' and $operadores->count()){
+            $this->qtd = 250;
+            $this->dispatchBrowserEvent('call-print');
+        }else{
+            $this->emit('error-operator', 'É necessário selecionar um operador de caixa autorizado para realizar a impressão de um relatório.');
+            $this->operador = 'select-op';
+        }
+        
     }
 
     public function resetRelatorio()
     {
         $this->reset('data', 'categoria');
         $this->qtd = 10;
+        $this->operador = 'select-op';
     }
 
     public function render()
@@ -48,6 +65,9 @@ class Relatorio extends Component
 
             $categories = Category::where('user_id', auth()->user()->id)
             ->where('status', 1)
+            ->get();
+
+            $operators = Operator::where('user_id', auth()->user()->id)
             ->get();
 
             if(is_null($this->categoria) or $this->categoria == 'all'){
@@ -300,6 +320,7 @@ class Relatorio extends Component
             return view('livewire.relatorio', 
             compact(
                 'categories',
+                'operators',
                 'operations',
                 'caixa_total', 
                 'rec_total',
