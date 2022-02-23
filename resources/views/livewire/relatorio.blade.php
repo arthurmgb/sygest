@@ -38,7 +38,7 @@
                         @endforeach
                     </select>
                 @else
-                <a href="{{route('config')}}" class="btn btn-new ml-3">+ Novo operador</a>
+                <a href="{{route('configuracoes')}}" class="btn btn-new ml-3">+ Novo operador</a>
                 @endif
             @endif
         </div>
