@@ -18,6 +18,7 @@ class Relatorio extends Component
     public $data = [];
     public $categoria;
     public $operador;
+    public $relDinheiro, $relCheques, $relMoedas, $relGaveta;
     public $qtd = 10;
 
     public function mount(){
@@ -41,7 +42,7 @@ class Relatorio extends Component
 
     public function resetRelatorio()
     {
-        $this->reset('data', 'categoria');
+        $this->reset('data', 'categoria', 'relDinheiro', 'relCheques', 'relMoedas', 'relGaveta');
         $this->qtd = 10;
         $this->operador = 'select-op';
     }
@@ -300,7 +301,7 @@ class Relatorio extends Component
             $receita_saida = number_format($receita_saida,2,",",".");
             $rec_only_saida = number_format($rec_only_saida,2,",",".");
             $receita_ret = number_format($receita_ret,2,",",".");
-            $caixa_total = number_format($caixa_total,2,",",".");
+            $caixa_total = number_format($caixa_total,2,",",".");            
 
             //Formatação coins
             $coin_dinheiro_rel = number_format($coin_dinheiro_rel, 2, ",", ".");
@@ -316,6 +317,24 @@ class Relatorio extends Component
             $coin_outros_entrada_rel = number_format($coin_outros_entrada_rel, 2, ",", ".");
             $coin_outros_saida_rel = number_format($coin_outros_saida_rel, 2, ",", ".");
             //Fim formatação coins
+
+            //Conferência de caixa
+
+            $relDinheiro = str_replace(',', '.', $this->relDinheiro);
+            $relCheques = str_replace(',', '.', $this->relCheques);
+            $relMoedas = str_replace(',', '.', $this->relMoedas);
+            $relGaveta = str_replace(',', '.', $this->relGaveta);
+
+            $relDinheiro = floatval($relDinheiro);
+            $relCheques = floatval($relCheques);
+            $relMoedas = floatval($relMoedas);
+            $relGaveta = floatval($relGaveta);
+
+            $relResultado = $relDinheiro + $relCheques + $relMoedas + $relGaveta;
+            $relResultado = number_format($relResultado,2,",",".");
+            //dd($relResultado);
+
+            //Fim Conferência de caixa
 
             return view('livewire.relatorio', 
             compact(
@@ -342,6 +361,7 @@ class Relatorio extends Component
                 'coin_outros_rel',
                 'coin_outros_entrada_rel', 
                 'coin_outros_saida_rel',
+                'relResultado',
                 )
             )
                 ->layout('pages.relatorios');

@@ -1446,5 +1446,19 @@ color: #fff;
     text-decoration: underline;
 }
 .rc-alert-font{
- font-size: 17px;
+    font-size: 18px;
+}
+.rc-alert-font-2{
+    font-size: 16px;
+    font-weight: 600;
+}
+.div-block-infos{
+    border: 3px solid #ee368c;
+    border-radius: 6px;
+    background-color: #fff;
+}
+.div-block-autorized{
+    border: 3px solid #ee368c;
+    border-radius: 6px;
+    background-color: #fff;
 }
