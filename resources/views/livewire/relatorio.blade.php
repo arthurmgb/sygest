@@ -178,7 +178,7 @@
                                                 class="form-control modal-input total-operation" id="total-rel-4" autocomplete="off">
                                         </div>
                                     </div>
-                                    <div class="val-block d-flex flex-row align-items-center justify-content-end">
+                                    <div class="calc-button-imp val-block d-flex flex-row align-items-center justify-content-end">
                                         <button style="width: 200px;" wire:click.prevent="render()" class="btn-new">Calcular</button>
                                     </div>
                                     <hr class="my-2">
@@ -301,12 +301,36 @@
                                                     <br>
                                                     @if($operators->count())
                 
-                                                    <span style="color: #444;"><b>@if($operador == 'select-op')Selecione um operador de caixa autorizado @else {{$operador}} @endif</b>
+                                                    <span style="color: #444;">
+                                                        <b>
+                                                            @if($operador == 'select-op')Selecione um operador de caixa autorizado
+                                                            <br>
+                                                            <span style="color: red; font-size: 16px;">
+                                                                <i class="fad fa-times-circle mr-1"></i>
+                                                                Não válido para impressão.
+                                                            </span>
+                                                            @else 
+                                                            {{$operador}} 
+                                                            <br>
+                                                            <span style="color: green; font-size: 16px;">
+                                                                <i class="fad fa-check-circle mr-1"></i>
+                                                                Válido para impressão.
+                                                            </span>
+                                                            @endif
+                                                        </b>
                                                     </span>
                 
                                                     @else
                 
-                                                    <span style="color: #444;"><b>Cadastre um operador de caixa autorizado</b></span>
+                                                    <span style="color: #444;">
+                                                        <b>Cadastre um operador de caixa autorizado</b>
+                                                    </span>
+                                                    <br>
+                                                    <span style="color: red; font-size: 16px;">
+                                                        <i class="fad fa-times-circle mr-1"></i>
+                                                        Não válido para impressão.
+                                                    </span>
+
                                                     @endif
                                                     
                                                 </span>
