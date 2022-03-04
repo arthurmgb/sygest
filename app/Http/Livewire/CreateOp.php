@@ -83,26 +83,34 @@ class CreateOp extends Component
 
         $total_formatado = str_replace(',', '.', $this->state['total']);
 
-        Operation::create([
+        if($total_formatado > 0){
 
-            'tipo' => $this->state['tipo'],
-            'descricao' => $this->state['descricao'],
-            'category_id' => $this->state['categoria'],
-            'especie'=> $this->state['especie'],
-            'total' => $total_formatado,
-            'user_id' => auth()->user()->id
+            Operation::create([
 
-        ]);
+                'tipo' => $this->state['tipo'],
+                'descricao' => $this->state['descricao'],
+                'category_id' => $this->state['categoria'],
+                'especie'=> $this->state['especie'],
+                'total' => $total_formatado,
+                'user_id' => auth()->user()->id
+    
+            ]);
+    
+            $this->dispatchBrowserEvent('close-confirm-modal');
+            $this->reset('state');
+            $this->state['tipo'] = '1';
+            $this->state['categoria'] = "";
+            $this->state['especie'] = "";
+    
+            $this->emit('alert', 'Operação realizada com sucesso!');
+            $this->emitTo('fluxo-caixa', 'render');
+            $this->emitTo('visao-geral', 'render');
 
-        $this->dispatchBrowserEvent('close-confirm-modal');
-        $this->reset('state');
-        $this->state['tipo'] = '1';
-        $this->state['categoria'] = "";
-        $this->state['especie'] = "";
+        }else{
+            $this->emit('alert-error', 'O total da operação deve ser maior do que zero.');
+        }
 
-        $this->emit('alert', 'Operação realizada com sucesso!');
-        $this->emitTo('fluxo-caixa', 'render');
-        $this->emitTo('visao-geral', 'render');
+        
     }
 
     public function render()

@@ -79,34 +79,40 @@ class CreateRet extends Component
 
         $total_formatado = str_replace(',', '.', $this->state['total']);
 
-        if ($total_formatado <= $receita_valor) {
+        if($total_formatado == 0){
+            $this->emit('alert-error', 'O total da operação deve ser maior do que zero.');
+        }else{
 
-            Operation::create([
+            if ($total_formatado <= $receita_valor) {
 
-                'tipo' => $this->state['tipo'],
-                'descricao' => $this->state['descricao'],
-                'category_id' => null,
-                'especie' => $this->state['especie'],
-                'total' => $total_formatado,
-                'user_id' => auth()->user()->id
+                Operation::create([
 
-            ]);
+                    'tipo' => $this->state['tipo'],
+                    'descricao' => $this->state['descricao'],
+                    'category_id' => null,
+                    'especie' => $this->state['especie'],
+                    'total' => $total_formatado,
+                    'user_id' => auth()->user()->id
 
-            $this->dispatchBrowserEvent('close-confirm-modal');
-            $this->reset('state');
-            $this->state['tipo'] = '3';
+                ]);
 
-            $this->emit('alert', 'Retirada realizada com sucesso!');
-            $this->emitTo('retirada', 'render');
+                $this->dispatchBrowserEvent('close-confirm-modal');
+                $this->reset('state');
+                $this->state['tipo'] = '3';
 
-        } else {
+                $this->emit('alert', 'Retirada realizada com sucesso!');
+                $this->emitTo('retirada', 'render');
 
-            $this->dispatchBrowserEvent('close-confirm-modal');
-            $this->reset('state');
-            $this->state['tipo'] = '3';
+            } else {
 
-            $this->emit('alert-error', 'Você não possui saldo suficiente para realizar uma retirada de caixa.');
-            $this->emitTo('retirada', 'render');
+                $this->dispatchBrowserEvent('close-confirm-modal');
+                $this->reset('state');
+                $this->state['tipo'] = '3';
+
+                $this->emit('alert-error', 'Você não possui saldo suficiente para realizar uma retirada de caixa.');
+                $this->emitTo('retirada', 'render');
+
+            }
 
         }
 
