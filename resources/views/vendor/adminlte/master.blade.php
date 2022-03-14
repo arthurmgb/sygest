@@ -176,6 +176,9 @@
         </script>
         <script>
             new ClipboardJS('.result-to-copy');
+            new ClipboardJS('.copy-pix', {
+                container: document.getElementById('modalHome')
+            });
         </script>
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>

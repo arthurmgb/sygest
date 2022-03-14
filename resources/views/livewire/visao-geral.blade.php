@@ -173,7 +173,7 @@
                                     <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult mr-2" wire:click.prevent="ocultarBox(3)">
                                         <i class="fad fa-eye fa-lg"></i>
                                     </div>
-                                    <span data-tooltip="Este é o seu saldo real. Retiradas são aplicadas às saídas."
+                                    <span data-tooltip="Este é o seu saldo real."
                                         data-flow="left">
                                         <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
                                     </span>                               
@@ -513,7 +513,7 @@
 
                     <form>                   
                         <div class="form-group mb-0">
-                            <label class="modal-label" for="total-op">Total do rendimento <span
+                            <label class="modal-label" for="total-op">Total do rendimento bancário <span
                                     class="red">*</span></label>
                             <div class="input-group mb-0">
                                 <div class="input-group-prepend">

@@ -40,4 +40,18 @@
 
 @section('js')
     <script src="{{ asset('js/newfont.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $("#modalHome").modal('show');
+        });
+    </script>
+    <script>
+        function changePix(){
+            var btn = document.getElementById("btn-pix");
+            btn.innerHTML = 'Copiado!';
+            setTimeout(() => {
+                btn.innerHTML = 'Copiar código do QR Code <i class="fa-fw fas fa-clone"></i>';
+            }, 1000);
+        }
+    </script>
 @stop
