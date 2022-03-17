@@ -38,11 +38,11 @@
                         <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
                     </div>
 
-                    <div wire:target="qtd" wire:loading.remove class="card-body px-0 pb-0">
+                    <div wire:target="qtd" wire:loading.remove class="card-body px-0 pb-0 table-responsive yampay-scroll">
 
                         @if($users->count())
         
-                            <table style="cursor: default;" class="table table-borderless">
+                            <table style="cursor: default; white-space: nowrap;" class="table table-borderless">
                                 <thead class="t-head">
                                     <tr class="t-head-border">
                                         <th>ID #</th>
@@ -183,7 +183,7 @@
                                             </td>
 
                                             <td class="align-middle">
-                                                <span style="font-size: 11px;" class="operacao-entrada">{{ $ultimo_login }}</span><br>
+                                                <span style="font-size: 11px;" class="operacao-entrada text-nowrap">{{ $ultimo_login }}</span><br>
                                                 <div class="mt-1">
                                                     <span class="g-light">há {{ $diferenca_log }} {{ $tempo_log }}</span>
                                                 </div>
@@ -193,7 +193,7 @@
                                           
                                                 <div class="dropdown">
 
-                                                    <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="Visualizar" data-flow="right">
+                                                    <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="Visualizar" data-flow="left">
                                                         <i style="color: #725BC2; font-size: 25px;" class="fad fa-eye fa-fw"></i>
                                                     </button>
 
