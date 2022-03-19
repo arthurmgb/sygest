@@ -1,7 +1,7 @@
 <div>
 
     <div class="page-header d-flex flex-row align-items-center justify-content-between mb-2">
-        @if(auth()->user()->id === 1)
+        @if(auth()->user()->is_admin === 1)
         <h2 class="f-h2">Área administrativa</h2>
         <div class="div-right-admin">
             <a href="{{route('register')}}" class="btn btn-new">+ Novo usuário</a>
@@ -18,7 +18,7 @@
 
     <div class="block">
 
-        @if(auth()->user()->id === 1)
+        @if(auth()->user()->is_admin === 1)
             <div class="admin-area">
 
                 <div class="card">
@@ -509,7 +509,7 @@
         <div style="user-select: none; padding-bottom: 150px;"
             class="d-flex flex-row align-items-center justify-content-between">
 
-            @if(auth()->user()->id === 1)
+            @if(auth()->user()->is_admin === 1)
                 <div class="resultados d-flex flex-row align-items-center">
                     <select wire:model="qtd" class="form-control modal-input-cat rpp">
                         <option value="10">10</option>

@@ -1,5 +1,5 @@
 <x-guest-layout>
-    @if(auth()->user()->id === 1)
+    @if(auth()->user()->is_admin === 1)
     <x-jet-authentication-card>
 
         <div class="primezze-header">

@@ -24,7 +24,7 @@
         $estado = $manutencao->estado;
     ?>
 
-    @if($estado === 1 and auth()->user()->id !== 1)
+    @if($estado === 1 and auth()->user()->is_admin !== 1)
         <div class="maintence">
             <div class="d-flex flex-column align-items-center justify-content-center px-4 py-5">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211"
@@ -174,7 +174,7 @@
                 </div>
             </div>
         </div>
-    @elseif($estado === 0 or auth()->user()->id == 1)
+    @elseif($estado === 0 or auth()->user()->is_admin == 1)
         <div class="wrapper">
 
             <div id="preloader">
