@@ -115,6 +115,7 @@
 
             $('#total-op').mask('####0,00', {reverse: true});
             $('#total-op2').mask('####0.00', {reverse: true});
+            $('#valor-contract').mask('####0,00', {reverse: true});
 
             $(function () {
             $('[data-toggle="tooltip"]').tooltip()
@@ -173,11 +174,86 @@
             })
             /* Rendimento */
 
+            /* Contratos */
+
+            /* Fechar */
+                window.addEventListener('fechar-modal-contract', event =>{
+                    $('#showContracts').modal('hide');
+                })               
+            /* Fechar */
+
+            window.addEventListener('show-modal-contract', event =>{
+                $('#new-contract').modal('show');
+            })
+            window.addEventListener('close-modal-contract', event =>{
+                $('#new-contract').modal('hide');
+            })
+            window.addEventListener('close-confirm-modal-contract', event =>{
+                $('#confirm-operation-contract').modal('hide');
+            })
+            window.addEventListener('confirmation-modal-contract', event =>{
+                $('#confirm-operation-contract').modal('show');
+            })
+
+            /* Contratos */
+
+            /* Mensalidades Admin */
+
+            window.addEventListener('show-pay-confirmation', event =>{
+                $('#pay-mensalidade-confirmation').modal('show');
+            })
+            window.addEventListener('close-pay-confirmation', event =>{
+                $('#pay-mensalidade-confirmation').modal('hide');
+            })
+            window.addEventListener('show-estorno-confirmation', event =>{
+                $('#estorno-mensalidade-confirmation').modal('show');
+            })
+            window.addEventListener('close-estorno-confirmation', event =>{
+                $('#estorno-mensalidade-confirmation').modal('hide');
+            })
+            window.addEventListener('show-vencimento-confirmation', event =>{
+                $('#vencimento-mensalidade-confirmation').modal('show');
+            })
+            window.addEventListener('close-vencimento-confirmation', event =>{
+                $('#vencimento-mensalidade-confirmation').modal('hide');
+            })
+            window.addEventListener('show-cancelamento-contrato-confirmation', event =>{
+                $('#cancelamento-contrato').modal('show');
+            })
+            window.addEventListener('close-cancelamento-contrato-confirmation', event =>{
+                $('#cancelamento-contrato').modal('hide');
+            })
+            window.addEventListener('show-exclusao-contrato-confirmation', event =>{
+                $('#exclusao-contrato').modal('show');
+            })
+            window.addEventListener('close-exclusao-contrato-confirmation', event =>{
+                $('#exclusao-contrato').modal('hide');
+            })
+            
+            /* Mensalidades Admin */
+
+            /*Comissões Admin */
+
+            window.addEventListener('show-comissao-confirmation', event =>{
+                $('#pay-comissao-confirmation').modal('show');
+            })
+            window.addEventListener('close-comissao-confirmation', event =>{
+                $('#pay-comissao-confirmation').modal('hide');
+            })
+
+            /*Comissões Admin */
+
         </script>
         <script>
             new ClipboardJS('.result-to-copy');
             new ClipboardJS('.copy-pix', {
                 container: document.getElementById('modalHome')
+            });
+            new ClipboardJS('.copy-invite', {
+                container: document.getElementById('como-funciona')
+            });
+            new ClipboardJS('.copy-pix-150', {
+                container: document.getElementById('fp-pix')
             });
         </script>
     @else
@@ -216,6 +292,13 @@
             'Atenção!',
             message,
             'warning'
+            )
+        })
+        Livewire.on('error-pagamento', function(message){
+            Swal.fire(
+            'Pagamento recusado!',
+            message,
+            'error'
             )
         })
     </script>

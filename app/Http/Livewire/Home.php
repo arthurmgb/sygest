@@ -8,6 +8,15 @@ use Livewire\Component;
 
 class Home extends Component
 {
+    
+    public function doNotShowAgain($id){
+        
+        $find_user = User::find($id);
+        $find_user->modal_start = 0;
+        $find_user->save();
+        
+    }
+
     public function render()
     {
 

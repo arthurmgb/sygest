@@ -33,7 +33,7 @@
                         R$ {{$coin_moeda}}
                     </span>
                 </div>
-                <div class="div-coin-box" data-flow="bottom" data-tooltip="Gaveta/Troco">
+                <div class="div-coin-box" data-flow="bottom" data-tooltip="Outros">
                     <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
                         <i style="color: #10B981;" class="fas fa-cash-register"></i>
                     </span>
@@ -217,11 +217,13 @@
                                 <table style="cursor: default;" class="table table-borderless">
                                     <thead class="t-head">
                                         <tr class="t-head-border">
+                                            <th>Cód.</th>
                                             <th>Descrição</th>
                                             <th>Data</th>
                                             <th>Total</th>
                                             <th>Categoria</th>
                                             <th>Espécie</th>
+                                            <th>Operador</th>
                                             <th width="200px">Operação</th>
                                         </tr>
                                     </thead>
@@ -287,13 +289,14 @@
                                                 }elseif($operation->especie === 3) {
                                                     $especie_op = 'Moedas';                                             
                                                 }elseif($operation->especie === 4) {
-                                                    $especie_op = 'Gaveta/Troco';
+                                                    $especie_op = 'Outros';
                                                 }
                                                 
                                             @endphp
 
                                             <tr class="tr-hover">
 
+                                                <td class="align-middle">{{ $operation->id }}</td>
                                                 <td class="align-middle font-desc">{{ $operation->descricao }}</td>
                                                 <td class="align-middle">{{ $data_operacao }}<br><span
                                                         class="g-light">há
@@ -307,6 +310,7 @@
                                                         class="especie">{{ $especie_op }}
                                                     </span>
                                                 </td>
+                                                <td class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
                                                 @if ($operation->tipo == 1)
                                                     <td class="align-middle"><span class="operacao-entrada">Movimento de
                                                             entrada</span></td>
@@ -643,7 +647,7 @@
                                     </span>
                                 </div>
                                 <div class="col-6 px-3">
-                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Gaveta/Troco">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Outros">
                                         <span class="emoji-coin">
                                             <i style="color: #10B981;" class="fas fa-cash-register"></i>
                                         </span>
@@ -751,7 +755,7 @@
                                     </span>
                                 </div>
                                 <div class="col-6 px-3">
-                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Gaveta/Troco">
+                                    <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Outros">
                                         <span class="emoji-coin">
                                             <i style="color: #10B981;" class="fas fa-cash-register"></i>
                                         </span>

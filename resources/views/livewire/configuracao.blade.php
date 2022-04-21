@@ -2,6 +2,15 @@
 
     <div class="page-header d-flex flex-row align-items-center justify-content-between mb-2">
         <h2 class="f-h2">Configurações</h2>
+        @if ($modal_start === 0)
+            <a wire:click.prevent="notifications(1)" wire:loading.attr="disabled" style="font-size: 16px !important; cursor: pointer; user-select: none;" class="verify-font">
+                <i class="fad fa-bell fa-fw mr-1"></i>Habilitar notificações na página inicial
+            </a>
+        @elseif($modal_start === 1)
+            <a wire:click.prevent="notifications(0)" wire:loading.attr="disabled" style="font-size: 16px !important; cursor: pointer; user-select: none; color: #f87171 !important;" class="verify-font">
+                <i class="fad fa-bell-slash fa-fw mr-1"></i>Desabilitar notificações na página inicial
+            </a>
+        @endif
     </div>
 
     <div class="block">
@@ -61,12 +70,7 @@
                                                         data-target="#editarCat" data-tooltip="Editar" data-flow="left"
                                                         class="cbe">
                                                         <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
-                                                    </div>
-                                                    <div wire:target="prepare({{$operator->id}})" wire:loading.attr="disabled"
-                                                        wire:click.prevent="prepare({{$operator->id}})" data-toggle="modal"
-                                                        data-target="#delete-cat-confirmation" data-tooltip="Apagar" data-flow="right" class="cba mr-2">
-                                                        <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
-                                                    </div>
+                                                    </div>                                                 
                                                 </div>
                                             </td>
                                         </tr>
@@ -304,41 +308,6 @@
                     <button wire:loading.attr="disabled" wire:click.prevent="resetOperation()" type="button"
                         class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
                     <button wire:loading.attr="disabled" wire:click.prevent="update()" type="button"
-                        class="btn btn-send">Confirmar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Deletar Confirmação -->
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-cat-confirmation" tabindex="-1"
-        aria-labelledby="delete-cat-confirmationLabel" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog">
-            <div class="modal-content modal-custom">
-                <div class="modal-header">
-                    <h5 class="modal-title px-3 py-3" id="delete-cat-confirmationLabel">Confirmação de apagamento</h5>
-                    <button type="button" class="close px-4" data-dismiss="modal"
-                        aria-label="Close">
-                        <i class="fal fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body py-4 px-4">
-
-                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente apagar este
-                        operador de caixa?</h5>
-
-                    <div class="confirmation-msg text-center mb-3">
-                        <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, este operador de caixa será
-                            apagado do sistema.
-                        </p>
-                    </div>
-
-                </div>
-                <div class="modal-footer py-4">
-                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
-                    <button wire:loading.attr="disabled" wire:click.prevent="delete()" type="button"
                         class="btn btn-send">Confirmar</button>
                     </form>
                 </div>

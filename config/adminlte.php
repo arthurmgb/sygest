@@ -283,9 +283,25 @@ return [
             'icon' => 'far ml-2 mr-3 fa-globe fa-lg fa-fw',
         ],
         [
-            'text' => 'Configurações',
-            'route'  => 'configuracoes',
-            'icon' => 'far ml-2 mr-3 fa-cog fa-lg fa-fw',
+            'text' => 'Minha conta',
+            'icon' => 'far ml-2 mr-3 fa-user fa-lg fa-fw',
+            'submenu' => [
+                [
+                    'text' => 'Meus contratos',
+                    'icon' => 'far ml-2 mr-3 fa-file-signature fa-lg fa-fw',
+                    'route'  => 'meus-contratos',
+                ],
+                [
+                    'text' => 'Minhas comissões',
+                    'icon' => 'far ml-2 mr-3 fa-hand-holding-usd fa-lg fa-fw',
+                    'route'  => 'minhas-comissoes',
+                ],
+                [
+                    'text' => 'Configurações',
+                    'icon' => 'far ml-2 mr-3 fa-cog fa-lg fa-fw',
+                    'route'  => 'configuracoes',
+                ],
+            ],
         ],
         [
             'text' => 'Administrador',

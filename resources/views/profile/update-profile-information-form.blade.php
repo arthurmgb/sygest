@@ -55,7 +55,7 @@
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="name" value="{{ __('Nome/Empresa') }}" />
-            <x-jet-input maxlength="24" id="name" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.name" autocomplete="off" />
+            <x-jet-input id="name" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.name" autocomplete="off" />
             <x-jet-input-error for="name" class="mt-2" />
         </div>
 
@@ -66,10 +66,68 @@
             <x-jet-input-error for="email" class="mt-2" />
         </div>
 
+        <!-- CPF/CNPJ -->
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label class="primezze-label" for="loja" value="{{ __('Link do seu website') }}" />
-            <x-jet-input id="loja" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.loja" autocomplete="off" />
-            <x-jet-input-error for="loja" class="mt-2" />
+            <x-jet-label class="primezze-label" for="documento" value="{{ __('CPF/CNPJ') }}" />
+            <x-jet-input placeholder="" id="documento" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.documento" autocomplete="off" />
+            <x-jet-input-error for="documento" class="mt-2" />
+        </div>
+
+        <!-- Cidade -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label class="primezze-label" for="cidade" value="{{ __('Cidade') }}" />
+            <x-jet-input placeholder="" id="cidade" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.cidade" autocomplete="off" />
+            <x-jet-input-error for="cidade" class="mt-2" />
+        </div>
+
+        <!-- Estado -->
+        <div class="col-span-2">
+            <x-jet-label class="primezze-label" for="estado" value="{{ __('Estado') }}" />
+            <select id="estado" class="mt-1 block modal-input-cat yampay-scroll" wire:model.defer="state.estado" autocomplete="off">
+                <option value="">Selecione</option>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+            </select>
+            <x-jet-input-error for="estado" class="mt-2" />
+        </div>
+
+        <!-- Chave PIX -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label class="primezze-label" for="pix" value="{{ __('Chave PIX') }}" />
+            <x-jet-input placeholder="CPF, e-mail ou celular" id="pix" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.chave_pix" autocomplete="off" />
+            <x-jet-input-error for="pix" class="mt-2" />
+        </div>
+
+        <!-- Banco -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label class="primezze-label" for="banco" value="{{ __('Banco/Instituição') }}" />
+            <x-jet-input placeholder="" id="banco" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.banco" autocomplete="off" />
+            <x-jet-input-error for="banco" class="mt-2" />
         </div>
 
     </x-slot>

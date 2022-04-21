@@ -1,20 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Área Administrativa')
+@section('title', 'Notificações')
 
 @section('content_header')
 @stop
 
 @section('content')
 
-    <div @if(auth()->user()->is_admin == 1) style="max-width: 100% !important;" @endif class="uk-container">
+    <div class="uk-container">
 
-        @livewire('admin')
+        @livewire('notificacao')
 
     </div>
-
-    @livewire('create-contract')
-
+    
 @stop
 
 @section('css')

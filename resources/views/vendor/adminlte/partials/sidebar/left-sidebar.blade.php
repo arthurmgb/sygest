@@ -15,7 +15,7 @@
                 <img class="bg-img" style="width: 45px !important; object-fit: cover;" src="{{Auth::user()->profile_photo_url}}">
                 </div>
                 <div class="my-auto ml-1">
-                <span style="font-size: 15px; font-weight: 500; color: #333333;" class="d-block">{{Auth::user()->name}}</span>
+                <span style="font-size: 15px; font-weight: 500; color: #333333; max-width: 160px;" class="d-block text-truncate">{{Auth::user()->name}}</span>
                 </div>
             </div>
         </a>

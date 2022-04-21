@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Operation;
+use App\Models\Operator;
 use Livewire\Component;
 
 class CreateOp extends Component
@@ -16,6 +17,7 @@ class CreateOp extends Component
         'state.tipo' => 'required',
         'state.descricao' => 'required|max:100',
         'state.categoria' => 'required',
+        'state.operador' => 'required',
         'state.total' => 'required',
         'state.especie' => 'required',
 
@@ -26,6 +28,7 @@ class CreateOp extends Component
         'state.tipo.required' => 'O tipo de operação é obrigatório.',
         'state.descricao.required' => 'A descrição da operação é obrigatória.',
         'state.categoria.required' => 'A categoria da operação é obrigatória.',
+        'state.operador.required' => 'O operador de caixa é obrigatório.',
         'state.total.required' => 'O total da operação é obrigatório.',
         'state.especie.required' => 'A espécie da operação é obrigatória.',
 
@@ -34,6 +37,7 @@ class CreateOp extends Component
     public function changeOperation()
     {
         $this->state['categoria'] = "";
+        $this->state['operador'] = "";
         $this->state['especie'] = "";
     }
 
@@ -58,6 +62,7 @@ class CreateOp extends Component
         $this->reset('state');
         $this->state['tipo'] = '1';
         $this->state['categoria'] = "";
+        $this->state['operador'] = "";
         $this->state['especie'] = "";
     }
 
@@ -68,6 +73,7 @@ class CreateOp extends Component
         $this->reset('state');
         $this->state['tipo'] = '1';
         $this->state['categoria'] = "";
+        $this->state['operador'] = "";
         $this->state['especie'] = "";
     }
 
@@ -90,6 +96,7 @@ class CreateOp extends Component
                 'tipo' => $this->state['tipo'],
                 'descricao' => $this->state['descricao'],
                 'category_id' => $this->state['categoria'],
+                'operator_id' => $this->state['operador'],
                 'especie'=> $this->state['especie'],
                 'total' => $total_formatado,
                 'user_id' => auth()->user()->id
@@ -100,6 +107,7 @@ class CreateOp extends Component
             $this->reset('state');
             $this->state['tipo'] = '1';
             $this->state['categoria'] = "";
+            $this->state['operador'] = "";
             $this->state['especie'] = "";
     
             $this->emit('alert', 'Operação realizada com sucesso!');
@@ -121,7 +129,11 @@ class CreateOp extends Component
             ->where('tipo', $this->state['tipo'])
             ->orderBy('descricao', 'asc')
             ->get();
+        
+        $operadores = Operator::where('user_id', auth()->user()->id)
+        ->orderBy('nome', 'asc')
+        ->get();
 
-        return view('livewire.create-op', compact('categorias'));
+        return view('livewire.create-op', compact('categorias', 'operadores'));
     }
 }

@@ -52,5 +52,33 @@
         @stack('modals')
 
         @livewireScripts
+        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+        <script>
+            $("#documento").keydown(function(){
+            try {
+                $("#documento").unmask();
+            } catch (e) {}
+
+            var tamanho = $("#documento").val().length;
+
+            if(tamanho < 11){
+                $("#documento").mask("999.999.999-99");
+            } else {
+                $("#documento").mask("99.999.999/9999-99");
+            }
+
+            // ajustando foco
+            var elem = this;
+            setTimeout(function(){
+                // mudo a posição do seletor
+                elem.selectionStart = elem.selectionEnd = 10000;
+            }, 0);
+            // reaplico o valor para mudar o foco
+            var currentValue = $(this).val();
+            $(this).val('');
+            $(this).val(currentValue);
+        });
+        </script>
     </body>
 </html>

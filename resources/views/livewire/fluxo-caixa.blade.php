@@ -59,11 +59,13 @@
                     <table style="cursor: default;" class="table table-borderless">
                         <thead class="t-head">
                             <tr class="t-head-border">
+                                <th>Cód.</th>
                                 <th>Descrição</th>
                                 <th>Data</th>
                                 <th>Total</th>
                                 <th>Categoria</th>
                                 <th>Espécie</th>
+                                <th>Operador</th>
                                 <th width="200px">Operação</th>
                             </tr>
                         </thead>
@@ -123,13 +125,14 @@
                                     }elseif($operation->especie === 3) {
                                         $especie_op = 'Moedas';                                             
                                     }elseif($operation->especie === 4) {
-                                        $especie_op = 'Gaveta/Troco';
+                                        $especie_op = 'Outros';
                                     }
                                     
                                 @endphp
 
                                 <tr class="tr-hover">
 
+                                    <td class="align-middle">{{ $operation->id }}</td>
                                     <td class="align-middle font-desc">{{ $operation->descricao }}</td>
                                     <td class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
@@ -141,6 +144,7 @@
                                             class="especie">{{ $especie_op }}
                                         </span>
                                     </td>
+                                    <td class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
                                     @if ($operation->tipo == 1)
                                         <td class="align-middle"><span class="operacao-entrada">Movimento de
                                                 entrada</span></td>

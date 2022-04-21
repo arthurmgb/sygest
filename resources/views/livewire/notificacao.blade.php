@@ -1,123 +1,90 @@
 <div>
-    <div class="page-header d-flex flex-row align-items-center mb-2">
-        <h2 class="f-h2">Retiradas</h2>
-        <span class="f-span">{{ $retiradas_count }} operações</span>
-        <a data-toggle="modal" data-target="#operacao" class="btn btn-new ml-auto">+ Nova retirada</a>
-    </div>
-    <div class="block">
-        <div class="card">
-            <div class="card-topo mb-3">
-                <input wire:model="search" placeholder="buscar operação" class="search-input" autocomplete="off">
-                <i class="fa fa-search"></i>
-            </div>
 
-            <div style="margin-top: 125px; margin-bottom: 125px;" wire:loading wire:loading.class="d-flex flex-row align-items-center justify-content-center">
+    <div class="page-header d-flex flex-row align-items-center mb-2">
+        <h2 class="f-h2">Notificações</h2>
+        <span class="f-span">{{$notificacoes_not_read}} notificações não lidas</span>
+    </div>
+
+    <div class="block">
+
+        <div style="padding: 0px 0px 0px 0px !important;" class="card">
+
+            <div wire:target="qtd, filter" style="margin-top: 125px; margin-bottom: 125px;"
+                wire:loading wire:loading.class="d-flex flex-row align-items-center justify-content-center">
                 <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
             </div>
 
-            <div wire:loading.remove class="card-body px-0 pb-0">
+            <div wire:target="qtd, filter" wire:loading.remove class="card-body px-0 py-0">
+           
+                <div class="px-4 pt-4 pb-3" style="white-space: nowrap; border-bottom: 1px solid #e5e5e5;">
+                    <div class="d-flex flex-row align-items-center justify-content-start">
+                                            
+                        <i wire:loading.class="pe-none" wire:target="filter" wire:click="filter([0,1])" style="color: #448DE2;" class="fad fa-bells mr-2 filter-icon"></i>
+                        <span wire:loading.class="pe-none" wire:target="filter" wire:click="filter([0,1])" class="mr-4 filter-text @if($select == [0,1]) marked @endif">Todas ({{$notificacoes_all}})</span>
+                        
+                        <i wire:loading.class="pe-none" wire:target="filter" wire:click="filter([0])" style="color: #CC9214;" class="fad fa-bell-exclamation mr-2 filter-icon"></i>
+                        <span wire:loading.class="pe-none" wire:target="filter" wire:click="filter([0])" class="mr-4 filter-text @if($select == [0]) marked @endif">Não lidas ({{$notificacoes_not_read}})</span>
 
-                @if ($retiradas->count())
+                        <i wire:loading.class="pe-none" wire:target="filter" wire:click="filter([1])" style="color: #00A3A3;" class="fad fa-bell-on mr-2 filter-icon"></i>
+                        <span wire:loading.class="pe-none" wire:target="filter" wire:click="filter([1])" class="mr-4 filter-text @if($select == [1]) marked @endif">Lidas ({{$notificacoes_read}})</span>
 
-                    <table style="cursor: default;" class="table table-borderless">
-                        <thead class="t-head">
-                            <tr class="t-head-border">
-                                <th>Cód.</th>
-                                <th>Descrição</th>
-                                <th>Data</th>
-                                <th>Total</th>
-                                <th>Espécie</th>
-                                <th>Operador</th>
-                                <th width="200px">Operação</th>
-                            </tr>
-                        </thead>
-                        <tbody class="t-body">
+                        @if ($notificacoes->count())
+                            @if ($notificacoes_not_read != 0)                            
+                                <div class="div-read-all-ntf ml-auto">
+                                    <a wire:click.prevent="readAll()" wire:loading.attr="disabled" style="cursor: pointer; user-select: none;">
+                                        <i style="color: #7559da;" class="fad fa-check-square fa-fw fa-lg"></i>
+                                        <span class="verify-font">Marcar tudo como lido</span>
+                                    </a>
+                                </div>
+                            @endif
+                        @endif
+                    </div>                  
+                </div>
+
+                @if ($notificacoes->count())
+
+                <table style="cursor: default;" class="table table-borderless">
+                    <thead class="t-head d-none">
+                        <tr class="t-head-border">
+                            <th width="50px"></th>
+                            <th width="50px"></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="t-body">
+
+                        @foreach ($notificacoes as $notificacao)
 
                             @php
-                                $dia_atual = Carbon\Carbon::now();
+                                $ntf_data = $notificacao->created_at->format('d/m/Y H:i');
                             @endphp
 
-                            @foreach ($retiradas as $retirada)
+                            <tr @if($notificacao->is_read === 1) style="background-color: #F9FAFB;" @endif class="tr-hover">
+                                <td @if($notificacao->is_read === 0) style="border-left: 3px solid #8a17d7 !important;" @elseif($notificacao->is_read === 1) style="border-left: 3px solid rgb(186, 186, 186); !important;" @endif class="align-middle text-center pl-4">
+                                    @if ($notificacao->is_read === 0)
+                                        <i style="color: #8a17d7;" class="fad fa-circle fa-lg fa-fw"></i>
+                                    @elseif($notificacao->is_read === 1)
+                                        <i style="color: rgb(186, 186, 186);" class="fad fa-circle fa-lg fa-fw"></i>
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    <div class="div-mark" @if($notificacao->is_read === 0) data-tooltip="Marcar como lida" @elseif($notificacao->is_read === 1) data-tooltip="Desmarcar como lida" @endif data-flow="top">
+                                        <input wire:key="ntf-num-{{$notificacao->id}}" wire:click.prevent="alternateMark({{$notificacao->id}})" @if ($notificacao->is_read == 1) checked @endif type="checkbox" id="notification-{{$notificacao->id}}" name="notification-{{$notificacao->id}}">
+                                        <label for="notification-{{$notificacao->id}}"></label>
+                                    </div>                                
+                                </td>
+                                <td style="font-size: 15px;" class="align-middle">{!! $notificacao->content !!}</td>
+                                <td style="white-space: nowrap;" class="align-middle text-center pr-4">{{$ntf_data}}</td>
+                                
+                            </tr>
 
-                                @php
-                                    
-                                    $total_operacao = number_format($retirada->total, 2, ',', '.');
-                                    $data_operacao = $retirada->created_at->format('d/m/Y H:i');
-                                    
-                                    $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
-                                    $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $retirada->created_at);
-                                    
-                                    $diferenca = $date2->diffInDays($date1);
-                                    $tempo = 'dias';
-                                    
-                                    if ($diferenca === 1) {
-                                        $diferenca = 'um';
-                                        $tempo = 'dia';
-                                    }
-                                    
-                                    if ($diferenca === 0) {
-                                        $diferenca = $date2->diffInHours($date1);
-                                        $tempo = 'horas';
-
-                                        if ($diferenca === 1) {
-                                            $diferenca = 'uma';
-                                            $tempo = 'hora';
-                                        }
-                                    
-                                        if ($diferenca === 0) {
-                                            $diferenca = $date2->diffInMinutes($date1);
-                                            $tempo = 'minutos';
-                                    
-                                            if ($diferenca === 1) {
-                                                $diferenca = 'um';
-                                                $tempo = 'minuto';
-                                            }
-                                    
-                                            if ($diferenca === 0) {
-                                                $diferenca = 'poucos';
-                                                $tempo = 'segundos';
-                                            }
-                                        }
-                                    }
-
-                                    if ($retirada->especie === 1 ) {
-                                        $especie_op = 'Dinheiro';
-                                    }elseif($retirada->especie === 2){
-                                        $especie_op = 'Cheque';
-                                    }elseif($retirada->especie === 3) {
-                                        $especie_op = 'Moedas';                                             
-                                    }elseif($retirada->especie === 4) {
-                                        $especie_op = 'Outros';
-                                    }
-                                    
-                                @endphp
-
-                                <tr class="tr-hover">
-
-                                    <td class="align-middle">{{ $retirada->id }}</td>
-                                    <td class="align-middle font-desc">{{ $retirada->descricao }}</td>
-                                    <td class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
-                                            {{ $diferenca }} {{ $tempo }}</span></td>
-                                    <td class="align-middle">R$ {{ $total_operacao }}</td>
-                                    <td class="align-middle">
-                                        <span
-                                            class="especie">{{ $especie_op }}
-                                        </span>
-                                    </td>
-                                    <td class="align-middle">{{ $retirada->operator->nome ?? auth()->user()->name}}</td>
-                                    <td class="align-middle"><span class="operacao-retirada">Retirada de caixa</span>
-                                    </td>
-
-                                </tr>
-
-                            @endforeach
-
-                        </tbody>
-                    </table>
-
+                        @endforeach
+                    </tbody>
+                </table>
                 @else
-
-                    <div class="d-flex flex-column align-items-center justify-content-center">
+                    
+                    <div class="d-flex flex-column align-items-center justify-content-center mt-5 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211"
                             height="145">
                             <style>
@@ -243,16 +210,14 @@
                                     d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                             </defs>
                         </svg>
-                        <h3 class="my-4 no-results">Não há retiradas a serem exibidas.</h3>
-                        <div class="d-flex flex-column align-items-center justify-content-center mb-4">
-                            <h3 class="no-results-create mb-3">Comece fazendo uma</h3>
-                            <a data-toggle="modal" data-target="#operacao" class="ml-2 btn btn-nr">+ Nova retirada</a>
-                        </div>
+                        <h3 class="my-4 no-results">Não há notificações a serem exibidas.</h3>                      
                     </div>
 
                 @endif
 
             </div>
+
+
         </div>
 
         <div style="user-select: none; padding-bottom: 150px;"
@@ -267,14 +232,16 @@
                 </select>
                 <span class="ml-3 ipp">Itens por página</span>
             </div>
-
-            @if ($retiradas->hasPages())
+             
+            @if ($notificacoes->hasPages())
                 <div class="paginacao">
-                    {{ $retiradas->links() }}
+                    {{ $notificacoes->links() }}
                 </div>
-
             @endif
+            
+            
         </div>
 
     </div>
+
 </div>

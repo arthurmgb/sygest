@@ -7,20 +7,24 @@
             <span class="span-relatorio">Período de</span>
             <input wire:model.defer="data.inicial" id="from" type="date" class="search-relatorio ml-3 mr-3"
                 min="2000-01-01" max="2100-01-01" autocomplete="off">
-            <span class="span-relatorio">Até</span>
+            <span class="span-relatorio">até</span>
             <input wire:model.defer="data.final" id="to" type="date" class="search-relatorio ml-3 mr-3" min="2000-01-01"
                 max="2100-01-01" autocomplete="off">
-            <button wire:click.prevent="render()" wire:loading.attr="disabled" wire:loading.class="desativado"
-                class="button-relatorio">Buscar</button>
+            <button wire:click.prevent="render()" wire:loading.attr="disabled" wire:loading.class="desativado" class="button-relatorio">
+                <span class="fad fa-search fa-fw fa-lg mr-1"></span>Buscar
+            </button>
             @if (isset($operations))
-                <button wire:click.prevent="resetRelatorio()" wire:loading.attr="disabled"
-                    wire:loading.class="desativado" class="button-relatorio ml-2">Limpar busca</button>
+                <button wire:click.prevent="resetRelatorio()" wire:loading.attr="disabled" wire:loading.class="desativado" class="button-relatorio ml-2">
+                    <span class="fad fa-broom fa-fw fa-lg mr-1"></span>Limpar busca
+                </button>
                 @if($operations->count())
-                    <button wire:click.prevent="printPage()" class="btn-new ml-2">Imprimir</button>
+                    <button wire:click.prevent="printPage()" class="btn-new ml-2">
+                        <span class="fad fa-print fa-fw fa-lg mr-1"></span>Imprimir
+                    </button>
                 @endif
             @endif
         </div>
-        <div class="card-topo-2 mb-4 d-flex flex-row align-items-center">
+        <div class="card-topo-2 mb-3 d-flex flex-row align-items-center">
             <span class="span-relatorio">Categoria</span>
             <select wire:model="categoria" style="padding-left: 15px; width: 180px;" class="form-control modal-input-cat rpp ml-3">
                 <option value="all">Todas</option>
@@ -42,6 +46,9 @@
                 @endif
             @endif
         </div>
+        <button wire:click.prevent="caixaHoje()" wire:target="caixaHoje()" wire:loading.attr="disabled" class="btn btn-new btn-cx-hoje ml-3" type="button">
+            <i class="fal fa-cash-register fa-fw mr-1 fa-lg"></i> Caixa de hoje
+        </button>
         <div class="card" id="printable">
 
             <div style="margin-top: 125px; margin-bottom: 125px;" wire:loading
@@ -65,7 +72,12 @@
 
                                 <div class="period-rel-block mb-1">
                                     <span style="color: #725bc2;" class="rc-alert-font">
+                                        @if ($data_inicial == $data_final)
+                                        Período selecionado: <b><span style="color: #444;">{{$data_inicial}}</span></b>
+                                        @else
                                         Período selecionado: <b><span style="color: #444;">{{$data_inicial}} &nbsp;até&nbsp; {{$data_final}}</span></b>
+                                        @endif
+                                        
                                     </span>
                                 </div>                               
                                                                                              
@@ -168,7 +180,7 @@
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between mb-1">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             <i style="color: #10B981;" class="fas fa-cash-register fa-fw"></i>
-                                            Gaveta/Troco em caixa hoje
+                                            Outros em caixa hoje
                                         </span>
                                         <div style="width: 200px;" class="input-group mb-0">
                                             <div class="input-group-prepend">
@@ -179,7 +191,9 @@
                                         </div>
                                     </div>
                                     <div class="calc-button-imp val-block d-flex flex-row align-items-center justify-content-end">
-                                        <button style="width: 200px;" wire:click.prevent="render()" class="btn-new">Calcular</button>
+                                        <button style="width: 200px;" wire:click.prevent="render()" class="btn-new">
+                                            <i class="fad fa-calculator fa-fw fa-lg mr-1"></i>Calcular
+                                        </button>
                                     </div>
                                     <hr class="my-2">
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
@@ -277,10 +291,10 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-12">
-                                            <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Gaveta/Troco">
+                                            <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Outros">
                                                 <span class="emoji-coin ec-rel">
                                                     <i style="color: #10B981;" class="fas fa-cash-register"></i>
-                                                    <span class="ml-1">Gaveta/Troco</span>
+                                                    <span class="ml-1">Outros</span>
                                                 </span>
                                                 <span class="coin-valor">
                                                     R$ {{$coin_outros_rel}}
@@ -347,11 +361,13 @@
                     <table style="cursor: default;" class="table table-borderless">
                         <thead class="t-head">
                             <tr class="t-head-border">
+                                <th>Cód.</th>
                                 <th>Descrição</th>
                                 <th>Data</th>
                                 <th>Total</th>
                                 <th>Categoria</th>
                                 <th>Espécie</th>
+                                <th>Operador</th>
                                 <th width="200px">Operação</th>
                             </tr>
                         </thead>
@@ -417,13 +433,14 @@
                                     }elseif($operation->especie === 3) {
                                         $especie_op = 'Moedas';                                             
                                     }elseif($operation->especie === 4) {
-                                        $especie_op = 'Gaveta/Troco';
+                                        $especie_op = 'Outros';
                                     }
 
                                 @endphp
 
                                 <tr class="tr-hover">
 
+                                    <td class="align-middle">{{ $operation->id }}</td>
                                     <td style="font-size: 15px !important;" class="align-middle font-desc">{{ $operation->descricao }}</td>
                                     <td style="font-size: 15px;" class="align-middle">{{ $data_operacao }}<br><span style="font-size: 13px;" class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
@@ -434,6 +451,7 @@
                                             class="especie">{{ $especie_op }}
                                         </span>
                                     </td>
+                                    <td class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
                                     @if ($operation->tipo == 1)
                                         <td class="align-middle"><span class="operacao-entrada">Movimento de
                                                 entrada</span></td>

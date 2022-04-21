@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Operator;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,6 +15,7 @@ class Configuracao extends Component
     protected $paginationTheme = 'bootstrap';
     public $qtd = 10;
     protected $listeners = ['render'];
+    public $modal_start;
 
     public $rules = [
 
@@ -26,6 +28,10 @@ class Configuracao extends Component
         'operador.nome.required' => 'O nome do operador é obrigatório.',
 
     ];
+
+    public function mount(){
+        $this->modal_start = auth()->user()->modal_start;
+    }
 
     public function confirmation()
     {
@@ -61,18 +67,14 @@ class Configuracao extends Component
         $this->emit('alert', 'Operador editado com sucesso!');
     }
 
-    public function prepare(Operator $operador)
-    {
+    public function notifications($id){
 
-        $this->operador = $operador;
-        
-    }
+        $find_user = User::find(auth()->user()->id);
+        $find_user->modal_start = $id;
+        $find_user->save();
 
-    public function delete()
-    {       
-        $this->operador->delete();
-        $this->dispatchBrowserEvent('close-delete-cat-confirmation-modal');
-        $this->emit('alert', 'Operador apagado com sucesso!');
+        $this->modal_start = $find_user->modal_start;
+
     }
     
     public function render()

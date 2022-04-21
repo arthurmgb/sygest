@@ -52,6 +52,8 @@
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
                             Ao clicar em <span class="msg-bold">Confirmar</span>, um novo operador de caixa será cadastrado no sistema.
+                            <br>
+                            <span class="msg-bold text-uppercase">Atenção: </span>Este operador não poderá ser excluído futuramente!
                         </p>                      
                     </div>
 
@@ -66,4 +68,5 @@
             </div>
         </div>
     </div>
+    
 </div>

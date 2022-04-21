@@ -47,6 +47,13 @@ class Relatorio extends Component
         $this->operador = 'select-op';
     }
 
+    public function caixaHoje(){
+
+        $this->data['inicial'] = Carbon::today()->format('Y-m-d');
+        $this->data['final'] = Carbon::today()->format('Y-m-d');
+
+    }
+
     public function render()
     {
         

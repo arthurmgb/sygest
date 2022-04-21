@@ -7,10 +7,13 @@ use App\Http\Livewire\Ferramenta;
 use App\Http\Livewire\FluxoCaixa;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Navegador;
+use App\Http\Livewire\Notificacao;
 use App\Http\Livewire\Relatorio;
 use App\Http\Livewire\Retirada;
 use App\Http\Livewire\Shortcut;
 use App\Http\Livewire\Tarefa;
+use App\Http\Livewire\UserComissao;
+use App\Http\Livewire\UserContrato;
 use App\Http\Livewire\VisaoGeral;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +31,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/tarefas', Tarefa::class)->name('tarefas');
     Route::get('/configuracoes', Configuracao::class)->name('configuracoes');
     Route::get('/admin', Admin::class)->name('admin');
+    Route::get('/meus-contratos', UserContrato::class)->name('meus-contratos');
+    Route::get('/minhas-comissoes', UserComissao::class)->name('minhas-comissoes');
+    Route::get('/notificacoes', Notificacao::class)->name('notificacoes');
     
 });
 

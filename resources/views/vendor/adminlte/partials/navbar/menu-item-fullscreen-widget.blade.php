@@ -3,11 +3,7 @@
         <i class="fas fa-expand-arrows-alt"></i>
     </a>
 </li>
-<li class="nav-item">
-    <a style="color: #D4D4DF;" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Ver website" class="nav-link pl-1" href="http://{{ Auth::user()->loja }}" target="_blank" role="button">
-        <i class="fal fa-eye fa-lg"></i>
-    </a>
-</li>
+@livewire('bell')
 <li class="nav-item">
     <a style="color: #D4D4DF;" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Configurações" class="nav-link pl-1" href="{{route('configuracoes')}}" role="button">
         <i class="fal fa-cog fa-lg"></i>

@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Relatórios')
+@section('title', 'Minhas comissões')
 
 @section('content_header')
 @stop
 
 @section('content')
 
-    <div class="uk-container">
+    <div style="max-width: 1600px !important;" class="uk-container">
 
-        @livewire('relatorio')
+        @livewire('user-comissao')
 
     </div>
-
+    
 @stop
 
 @section('css')
@@ -25,7 +25,7 @@
                 margin: 0px !important;
             }
 
-            .page-header, .card-topo, .card-topo-2, .calc-button-imp, .btn-cx-hoje{
+            .modal-footer{
                 display: none !important;
             }
 
@@ -36,8 +36,13 @@
                 border: 0 !important;
             }
 
-            #printable, #printable * {
+            #get-recibo, #get-recibo * {
                 visibility: visible;
+                overflow: visible !important;
+            }
+
+            #get-recibo .modal-dialog{
+                min-width: 100% !important;
             }
 
         }
@@ -46,6 +51,15 @@
 
 @section('js')
     <script src="{{asset('js/newfont.js')}}"></script>
+    <script>
+        function copyInvite(){
+            var btn = document.getElementById("btn-invite");
+            btn.innerHTML = 'Copiado!';
+            setTimeout(() => {
+                btn.innerHTML = 'Copiar link de convite <i class="fa-fw fas fa-clone ml-1"></i>';
+            }, 1000);
+        }
+    </script>
     <script>
         window.addEventListener('call-print', event =>{
             window.print();

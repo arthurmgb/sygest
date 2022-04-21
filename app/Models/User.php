@@ -28,7 +28,14 @@ class User extends Authenticatable
         'email',
         'password',
         'last_login',
-        'loja',
+        'documento',
+        'cidade',
+        'estado',
+        'banco',
+        'chave_pix',
+        'is_admin',
+        'is_blocked',
+        'modal_start',
     ];
 
     /**
@@ -93,6 +100,18 @@ class User extends Authenticatable
     //Relação um a muitos
     public function tasks(){
         return $this->hasMany(Task::class);
+    }
+    //Relação um a muitos
+    public function payments(){
+        return $this->hasMany(Payment::class);
+    }
+
+    public function comissions(){
+        return $this->hasMany(Comission::class);
+    }
+
+    public function notifications(){
+        return $this->hasMany(Notification::class);
     }
 
 }

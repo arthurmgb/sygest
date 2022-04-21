@@ -29,7 +29,7 @@
     </a>
 
     {{-- User menu dropdown --}}
-    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right dropdown-user">
+    <ul style="padding: 16px 32px;" class="dropdown-menu dropdown-menu-lg dropdown-menu-right dropdown-user">
 
         {{-- User menu header --}}
         @if(!View::hasSection('usermenu_header') && config('adminlte.usermenu_header'))

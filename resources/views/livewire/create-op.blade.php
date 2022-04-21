@@ -18,11 +18,11 @@
                             <br>
                             <input wire:model="state.tipo" wire:click="changeOperation" value="1" class="radio" type="radio" name="operation"
                                 id="op-entrada">
-                            <label class="label-op" for="op-entrada">Entrada</label>
+                            <label class="label-op" for="op-entrada"><i class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>Entrada</label>
 
                             <input wire:model="state.tipo" wire:click="changeOperation" value="0" class="radio" type="radio" name="operation"
                                 id="op-saida">
-                            <label class="label-op" for="op-saida">Saída</label>
+                            <label class="label-op" for="op-saida">Saída<i class="fad fa-arrow-from-top fa-fw fa-lg ml-1"></i></label>
                             @error('state.tipo')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
@@ -56,6 +56,26 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label class="modal-label" for="operator-op">Operador <span class="red">*</span></label>
+
+                            @if ($operadores->count())
+
+                                <select style="font-size: 17px;" wire:model.defer="state.operador" class="form-control modal-input-cat"
+                                    id="operador-op">
+                                    <option value="">Selecione um operador</option>
+
+                                    @foreach ($operadores as $operador)
+                                        <option value="{{ $operador->id }}">{{ $operador->nome }}</option>
+                                    @endforeach
+                                </select>
+                            @else
+                            <a href="{{ route('configuracoes') }}" class="btn btn-new btn-block">+ Novo operador</a>
+                            @endif
+                            @error('state.operador')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label class="modal-label" for="especie-op">Espécie  <span class="red">*</span></label>
                                 <select style="font-size: 17px;" wire:model.defer="state.especie" class="form-control modal-input-cat"
                                     id="especie-op">
@@ -63,7 +83,7 @@
                                     <option value="1">💵 Dinheiro</option>
                                     <option value="2">💲 Cheque</option>
                                     <option value="3">💰 Moedas</option>
-                                    <option value="4">💼 Gaveta/Troco</option>
+                                    <option value="4">💼 Outros</option>
                                 </select>
                             @error('state.especie')
                                 <span class="wire-error">{{ $message }}</span>
