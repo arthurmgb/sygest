@@ -60,7 +60,13 @@
                             <div style="background-color: #f9fafb;" class="card-header p-3" id="heading{{$contract->id}}">
                                 <h2 class="mb-0 d-flex flex-row align-items-center justify-content-between">
                                 <button style="color: #725BC2;" class="btn py-2 btn-link btn-block text-left collapsed font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse{{$contract->id}}" aria-expanded="false" aria-controls="collapse{{$contract->id}}">
-                                    <i class="fad fa-chevron-down fa-fw mr-1"></i> Sistema Yampay [{{$contract->id}}]
+                                    <i class="fad fa-chevron-down fa-fw mr-1"></i> 
+                                    Sistema Yampay 
+                                    @if($contract->is_test == 1) 
+                                    [<span style="color: #08af45;">PERÍODO DE AVALIAÇÃO GRATUITA: <span style="color: #a855f7;">1 MÊS</span></span>]
+                                    @elseif($contract->is_test == 0)
+                                    [<span style="color: #a855f7;">{{$contract->id}}</span>]
+                                    @endif
                                 </button>
                                 <div class="div-accordion-right d-flex flex-row align-items-center">
 
@@ -252,19 +258,33 @@
                                                             </div>                                                   
                                                         </td>
                                                     @elseif($mensalidade->status == 1)
-                                                        <td class="align-middle">
-                                                            <div class="div-btns-actions text-center">
 
-                                                                <button class="btn btn-success btn-sm mr-1" disabled>
-                                                                    <i class="far fa-money-bill-alt fa-fw mr-2"></i>Pago
-                                                                </button> 
+                                                        @if ($contract->is_test == 0)
+                                                            <td class="align-middle">
+                                                                <div class="div-btns-actions text-center">
 
-                                                                <button wire:click.prevent="openReceipt({{$mensalidade->id}})" wire:target="openReceipt({{$mensalidade->id}})" wire:loading.attr="disabled" data-toggle="modal" data-target="#get-recibo" type="button" class="btn btn-outline-primary btn-sm">
-                                                                    <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
-                                                                </button>
+                                                                    <button class="btn btn-success btn-sm mr-1" disabled>
+                                                                        <i class="far fa-money-bill-alt fa-fw mr-2"></i>Pago
+                                                                    </button> 
 
-                                                            </div>                                                   
-                                                        </td>                                              
+                                                                    <button wire:click.prevent="openReceipt({{$mensalidade->id}})" wire:target="openReceipt({{$mensalidade->id}})" wire:loading.attr="disabled" data-toggle="modal" data-target="#get-recibo" type="button" class="btn btn-outline-primary btn-sm">
+                                                                        <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
+                                                                    </button>
+
+                                                                </div>                                                   
+                                                            </td>
+                                                        @elseif($contract->is_test == 1)
+                                                            <td class="align-middle">
+                                                                <div class="div-btns-actions text-center">
+
+                                                                    <button class="btn btn-danger btn-sm mr-1" disabled>
+                                                                        <i class="far fa-clock fa-fw mr-2"></i>Período de avaliação encerrado
+                                                                    </button>                                                           
+
+                                                                </div>                                                   
+                                                            </td>
+                                                        @endif
+                                              
                                                     @endif
 
                                                 @endif
@@ -554,16 +574,33 @@
                                     </td> 
                                     
                                     @if ($row_mensalidade->status == 0)
-                                        <td class="align-middle">
-                                            <div class="div-btns-actions text-center">
+                                        
+                                        @if ($row_mensalidade->contract->is_test == 0)
+                                            <td class="align-middle">
+                                                <div class="div-btns-actions text-center">
 
-                                                <button data-toggle="modal" data-target="#formas-pagamento" class="btn btn-success btn-sm mr-1">
-                                                    <i class="far fa-money-bill-alt fa-fw mr-2"></i>Pagar
-                                                </button>                                         
+                                                    <button data-toggle="modal" data-target="#formas-pagamento" class="btn btn-success btn-sm mr-1">
+                                                        <i class="far fa-money-bill-alt fa-fw mr-2"></i>Pagar
+                                                    </button>                                         
 
-                                            </div>                                                   
-                                        </td>
+                                                </div>                                                   
+                                            </td>
+                                        @elseif($row_mensalidade->contract->is_test == 1)
+                                            <td class="align-middle">
+                                                <div class="div-btns-actions text-center">
+
+                                                    <button class="btn btn-success btn-sm mr-1" disabled>
+                                                        <i class="far fa-clock fa-fw mr-2"></i>
+                                                        Período de avaliação encerra em: {{date('d/m/Y', strtotime($row_mensalidade->contract->vencimento))}}
+                                                    </button>                                         
+
+                                                </div>                                                   
+                                            </td>
+                                        @endif                                 
+
                                     @elseif($row_mensalidade->status == 1)
+
+                                    @if ($row_mensalidade->contract->is_test == 0)
                                         <td class="align-middle">
                                             <div class="div-btns-actions text-center">
 
@@ -576,7 +613,20 @@
                                                 </button>
 
                                             </div>                                                   
-                                        </td>                                              
+                                        </td>
+                                    @elseif($row_mensalidade->contract->is_test == 1)
+                                        <td class="align-middle">
+                                            <div class="div-btns-actions text-center">
+
+                                                <button class="btn btn-danger btn-sm mr-1" disabled>
+                                                    <i class="far fa-clock fa-fw mr-2"></i>Período de avaliação encerrado
+                                                </button>
+
+                                            </div>                                                   
+                                        </td>
+                                    @endif
+                                        
+
                                     @endif
 
                                 </tr>    

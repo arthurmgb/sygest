@@ -15,6 +15,8 @@ class CreateContract extends Component
 
     public $state = [];
     public $id_user;
+    public $is_test;
+    public $disable_inputs;
 
     public $rules = [
 
@@ -34,6 +36,31 @@ class CreateContract extends Component
 
     public function mount(){
         $this->state['comissionado'] = 'no-comissionado';
+        $this->is_test = false;
+    }
+
+    public function avaliacaoContract(){
+
+        if($this->is_test == 'selected'){
+
+            $this->reset('is_test', 'state', 'disable_inputs');
+            $this->state['comissionado'] = 'no-comissionado';
+
+        }
+        else{
+
+            $this->reset('state');
+
+            $date_one_month = date('Y-m-d', strtotime(' + 1 month'));
+
+            $this->is_test = 'selected';
+            $this->disable_inputs = 'selected';
+            $this->state['pagamento'] = $date_one_month;
+            $this->state['valor'] = '0,00';
+            $this->state['meses'] = 1;
+            $this->state['comissionado'] = 'no-comissionado';
+
+        }
     }
 
     public function getUser($id){
@@ -51,14 +78,16 @@ class CreateContract extends Component
     public function resetNewOperation(){
 
         $this->dispatchBrowserEvent('close-modal-contract');
-        $this->reset('state');
+        $this->reset('state', 'is_test', 'disable_inputs');
+        $this->state['comissionado'] = 'no-comissionado';
 
     }
 
     public function resetOperation(){
 
         $this->dispatchBrowserEvent('close-confirm-modal-contract');
-        $this->reset('state');
+        $this->reset('state', 'is_test', 'disable_inputs');
+        $this->state['comissionado'] = 'no-comissionado';
 
     }
 
@@ -77,6 +106,13 @@ class CreateContract extends Component
             $this->state['comissionado'] = null;
         }
 
+        if($this->is_test == 'selected'){
+            $contrato_teste = 1;
+        }
+        else{
+            $contrato_teste = 0;
+        }
+
         $contrato = Contract::create([
 
             'user_id' => $this->id_user,
@@ -85,6 +121,7 @@ class CreateContract extends Component
             'valor' => $valor_formatado,
             'vencimento' => $this->state['pagamento'],
             'status' => 1,
+            'is_test' => $contrato_teste,
 
         ]); 
 
@@ -159,7 +196,7 @@ class CreateContract extends Component
         $notification_contrato->save();
         
         $this->dispatchBrowserEvent('close-confirm-modal-contract');
-        $this->reset('state');
+        $this->reset('state', 'is_test', 'disable_inputs');
         $this->state['comissionado'] = 'no-comissionado';
         $this->dispatchBrowserEvent('fechar-modal-contract');   
         $this->emit('alert', 'Contrato cadastrado com sucesso!');

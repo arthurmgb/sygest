@@ -15,7 +15,8 @@
         <h2 class="f-h2">Área restrita</h2>
         @endif
     </div>
-
+    {{$user_to_delete}}
+    {{$username_to_delete}}
     <div class="block">
 
         @if(auth()->user()->is_admin === 1)
@@ -100,6 +101,7 @@
                                         <th>Situação</th>
                                         <th>Outros dados</th>
                                         <th>Acesso</th>
+                                        <th>Conta</th>
                                     </tr>
                                 </thead>
                                 <tbody class="t-body">
@@ -286,7 +288,7 @@
 
                                             <td class="align-middle">
                                             
-                                                <div class="dropdown">
+                                                <div class="dropdown" wire:ignore>
 
                                                     <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="Visualizar" data-flow="left">
                                                         <i style="color: #725BC2; font-size: 25px;" class="fad fa-eye fa-fw"></i>
@@ -316,6 +318,12 @@
                                                 @elseif ($user->is_blocked == 1)
                                                     <button wire:target="acesso({{$user->id}})" wire:loading.attr="disabled" wire:click.prevent="acesso({{$user->id}})" type="button" class="btn btn-desbloquear"><i class="fad fa-lock-open-alt fa-fw mr-1"></i>Desbloquear</button>
                                                 @endif
+                                            </td>
+
+                                            <td class="align-middle">
+                                                
+                                                <button wire:key="delUser{{$user->id}}" wire:target="deletarUser({{$user->id}})" wire:loading.attr="disabled" wire:click.prevent="deletarUser({{$user->id}})" type="button" class="btn btn-bloquear"><i class="fad fa-trash fa-fw mr-1"></i>Deletar</button>
+                                                
                                             </td>
                                                 
                                         </tr>
@@ -1031,7 +1039,13 @@
                                 <div style="background-color: #f9fafb;" class="card-header p-3" id="heading{{$contract->id}}">
                                     <h2 class="mb-0 d-flex flex-row align-items-center justify-content-between">
                                     <button style="color: #725BC2;" class="btn py-2 btn-link btn-block text-left collapsed font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse{{$contract->id}}" aria-expanded="false" aria-controls="collapse{{$contract->id}}">
-                                        <i class="fad fa-chevron-down fa-fw mr-1"></i> Sistema Yampay [{{$contract->id}}]
+                                        <i class="fad fa-chevron-down fa-fw mr-1"></i> 
+                                        Sistema Yampay 
+                                        @if($contract->is_test == 1) 
+                                        [<span style="color: #08af45;">PERÍODO DE AVALIAÇÃO GRATUITA: <span style="color: #a855f7;">1 MÊS</span></span>]
+                                        @elseif($contract->is_test == 0)
+                                        [<span style="color: #a855f7;">{{$contract->id}}</span>]
+                                        @endif
                                     </button>
                                     <div class="div-accordion-right d-flex flex-row align-items-center">
 
@@ -1591,6 +1605,40 @@
                         <button wire:loading.attr="disabled" wire:click.prevent="resetExclusao()" type="button"
                             class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
                         <button wire:click.prevent="deleteContract({{$contrato_target}})" wire:loading.attr="disabled" type="button" class="btn btn-send" data-dismiss="modal">
+                            Confirmar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Confirmação Exclusão USUÁRIO -->
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-user-confirmation" tabindex="-1"
+        aria-labelledby="delete-user-confirmationLabel" aria-hidden="true" wire:ignore.self>
+            <div class="modal-dialog">
+                <div class="modal-content modal-custom">
+                    <div class="modal-header">
+                        <h5 class="modal-title px-3 py-3" id="delete-user-confirmationLabel">Confirmação de exclusão</h5>
+                        <button wire:click.prevent="resetUserToDeleteInfo()" wire:loading.attr="disabled" type="button" class="close px-4" aria-label="Close" data-dismiss="modal">
+                            <i class="fal fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body py-4 px-4">
+
+                        <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente deletar este usuário do sistema?</h5>
+
+                        <div class="confirmation-msg text-center mb-3">
+                            <p class="m-0 mb-3 px-4">
+                                Ao clicar em <span class="msg-bold">Confirmar</span>, o usuário <span class="msg-bold">{{$username_to_delete}}</span> e todos os seus dados serão inteiramente excluídos do sistema.
+                                <br>
+                                <span class="msg-bold text-uppercase">Atenção:</span> Esta ação é irreversível e o usuário não poderá ser recuperado!
+                            </p>                      
+                        </div>
+
+                    </div>
+                    <div class="modal-footer py-4">
+                        <button wire:click.prevent="resetUserToDeleteInfo()" wire:loading.attr="disabled" type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                        <button wire:click.prevent="confirmDeletarUser()" wire:loading.attr="disabled" type="button" class="btn btn-send" data-dismiss="modal">
                             Confirmar
                         </button>
                     </div>

@@ -27,13 +27,29 @@
         <div class="card-topo-2 mb-3 d-flex flex-row align-items-center">
             <span class="span-relatorio">Categoria</span>
             <select wire:model="categoria" style="padding-left: 15px; width: 180px;" class="form-control modal-input-cat rpp ml-3">
-                <option value="all">Todas</option>
+                <option value="">Todas</option>
                 @foreach ($categories as $categorie)
                     <option value="{{$categorie->id}}">{{$categorie->descricao}}</option>
                 @endforeach
             </select>
+
+            <span class="span-relatorio ml-4">Operador</span>
+            @if($operators_filter->count())
+                <select wire:model="operador_filter" style="padding-left: 15px; width: 250px;" class="form-control modal-input-cat rpp ml-3">
+                    <option value="">Todos</option>
+                    @foreach ($operators_filter as $single_operator)
+                        <option value="{{$single_operator->id}}">{{$single_operator->nome}}</option>
+                    @endforeach
+                </select>
+            @else
+            <a href="{{route('configuracoes')}}" class="btn btn-new ml-3">+ Novo operador</a>
+            @endif
+            
+        </div>
+        <div class="card-topo-3 mb-3 d-flex flex-row align-items-center">
+
             @if (isset($operations) and $operations->count())
-                <span class="span-relatorio ml-4">Operador</span>
+                <span class="span-relatorio">Quem está imprimindo?</span>
                 @if($operators->count())
                     <select wire:model="operador" style="padding-left: 15px; width: 250px;" class="form-control modal-input-cat rpp ml-3">
                         <option value="select-op">Selecione um operador</option>
@@ -45,6 +61,7 @@
                 <a href="{{route('configuracoes')}}" class="btn btn-new ml-3">+ Novo operador</a>
                 @endif
             @endif
+            
         </div>
         <button wire:click.prevent="caixaHoje()" wire:target="caixaHoje()" wire:loading.attr="disabled" class="btn btn-new btn-cx-hoje ml-3" type="button">
             <i class="fal fa-cash-register fa-fw mr-1 fa-lg"></i> Caixa de hoje
@@ -72,12 +89,27 @@
 
                                 <div class="period-rel-block mb-1">
                                     <span style="color: #725bc2;" class="rc-alert-font">
+
                                         @if ($data_inicial == $data_final)
                                         Período selecionado: <b><span style="color: #444;">{{$data_inicial}}</span></b>
                                         @else
                                         Período selecionado: <b><span style="color: #444;">{{$data_inicial}} &nbsp;até&nbsp; {{$data_final}}</span></b>
                                         @endif
                                         
+                                    </span><br>
+                                    <span style="color: #725bc2;" class="rc-alert-font">
+                                        @if (is_null($categoria) or empty($categoria))
+                                        Categoria selecionada: <b><span style="color: #444;">Todas</span></b>
+                                        @else
+                                        Categoria selecionada: <b><span style="color: #444;">{{$nome_categoria}}</span></b>
+                                        @endif
+                                    </span><br>
+                                    <span style="color: #725bc2;" class="rc-alert-font">
+                                        @if (is_null($operador_filter) or empty($operador_filter))
+                                        Operador selecionado: <b><span style="color: #444;">Todos</span></b>
+                                        @else
+                                        Operador selecionado: <b><span style="color: #444;">{{$nome_operador}}</span></b>
+                                        @endif
                                     </span>
                                 </div>                               
                                                                                              
@@ -315,9 +347,9 @@
                                                     <br>
                                                     @if($operators->count())
                 
-                                                    <span style="color: #444;">
+                                                    <span style="color: #444; font-size: 17px;">
                                                         <b>
-                                                            @if($operador == 'select-op')Selecione um operador de caixa autorizado
+                                                            @if($operador == 'select-op')Selecione um operador de caixa autorizado para poder imprimir o relatório
                                                             <br>
                                                             <span style="color: red; font-size: 16px;">
                                                                 <i class="fad fa-times-circle mr-1"></i>
@@ -336,8 +368,8 @@
                 
                                                     @else
                 
-                                                    <span style="color: #444;">
-                                                        <b>Cadastre um operador de caixa autorizado</b>
+                                                    <span style="color: #444; font-size: 17px;">
+                                                        <b>Cadastre um operador de caixa autorizado para poder imprimir o relatório</b>
                                                     </span>
                                                     <br>
                                                     <span style="color: red; font-size: 16px;">

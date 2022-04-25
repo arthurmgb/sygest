@@ -18,8 +18,11 @@ class Relatorio extends Component
     public $data = [];
     public $categoria;
     public $operador;
+    public $operador_filter;
     public $relDinheiro, $relCheques, $relMoedas, $relGaveta;
     public $qtd = 10;
+    public $nome_categoria;
+    public $nome_operador;
 
     public function mount(){
         $this->operador = 'select-op';
@@ -34,7 +37,7 @@ class Relatorio extends Component
             $this->qtd = 250;
             $this->dispatchBrowserEvent('call-print');
         }else{
-            $this->emit('error-operator', 'É necessário selecionar um operador de caixa autorizado para realizar a impressão de um relatório.');
+            $this->emit('error-operator', 'É necessário selecionar um operador de caixa autorizado para realizar a impressão de um relatório. "Quem está imprimindo?"');
             $this->operador = 'select-op';
         }
         
@@ -42,7 +45,7 @@ class Relatorio extends Component
 
     public function resetRelatorio()
     {
-        $this->reset('data', 'categoria', 'relDinheiro', 'relCheques', 'relMoedas', 'relGaveta');
+        $this->reset('data', 'categoria', 'operador_filter', 'relDinheiro', 'relCheques', 'relMoedas', 'relGaveta');
         $this->qtd = 10;
         $this->operador = 'select-op';
     }
@@ -78,230 +81,234 @@ class Relatorio extends Component
             $operators = Operator::where('user_id', auth()->user()->id)
             ->get();
 
-            if(is_null($this->categoria) or $this->categoria == 'all'){
+            $operators_filter = Operator::where('user_id', auth()->user()->id)
+            ->get();
 
-                $operations = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->latest('id')
-                ->paginate($this->qtd);
+            //FIND NOMES CATEGORIAS E OPERADORES
+                if(!is_null($this->categoria) and !empty($this->categoria)){
+                    $this->nome_categoria = Category::find($this->categoria);
+                    $this->nome_categoria = $this->nome_categoria->descricao;
+                }
+                if(!is_null($this->operador_filter) and !empty($this->operador_filter)){
+                    $this->nome_operador = Operator::find($this->operador_filter);
+                    $this->nome_operador = $this->nome_operador->nome;
+                }
+            //FIM FIND
 
-                $entradas_total = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', 1)
-                ->sum('total');
-    
-                $saidas_ret_total = Operation::where('user_id', auth()->user()->id)
-                ->whereIn('tipo', [0,3])
-                ->sum('total');
+            $operations = Operation::where('user_id', auth()->user()->id)
+            ->whereBetween('created_at', [$di, $df])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+                })
+            ->latest('id')
+            ->paginate($this->qtd);
 
-                $caixa_total = $entradas_total - $saidas_ret_total;
+            $entradas_total = Operation::where('user_id', auth()->user()->id)
+            ->where('tipo', 1)
+            ->sum('total');
 
-                $receita_entrada = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->whereIn('tipo', [1])
-                ->sum('total');
+            $saidas_ret_total = Operation::where('user_id', auth()->user()->id)
+            ->whereIn('tipo', [0,3])
+            ->sum('total');
 
-                $receita_saida = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->whereIn('tipo', [0,3])
-                ->sum('total');
+            $caixa_total = $entradas_total - $saidas_ret_total;
 
-                $rec_only_saida = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->whereIn('tipo', [0])
-                ->sum('total');
+            $receita_entrada = Operation::where('user_id', auth()->user()->id)
+            ->whereBetween('created_at', [$di, $df])
+            ->whereIn('tipo', [1])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                $rec_total = $receita_entrada - $rec_only_saida; 
-                $receita_valor = $receita_entrada - $receita_saida;
+            $receita_saida = Operation::where('user_id', auth()->user()->id)
+            ->whereBetween('created_at', [$di, $df])
+            ->whereIn('tipo', [0,3])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                $receita_ret = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->whereIn('tipo', [3])
-                ->sum('total');
+            $rec_only_saida = Operation::where('user_id', auth()->user()->id)
+            ->whereBetween('created_at', [$di, $df])
+            ->whereIn('tipo', [0])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                $operations_count = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->count();
+            $rec_total = $receita_entrada - $rec_only_saida; 
+            $receita_valor = $receita_entrada - $receita_saida;
 
-                //Coins relatório
+            $receita_ret = Operation::where('user_id', auth()->user()->id)
+            ->whereBetween('created_at', [$di, $df])
+            ->whereIn('tipo', [3])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                $coin_dinheiro_entrada_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', 1)
-                ->where('especie', 1)
-                ->whereBetween('created_at', [$di, $df])
-                ->sum('total');
+            $operations_count = Operation::where('user_id', auth()->user()->id)
+            ->whereBetween('created_at', [$di, $df])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->count();
 
-                $coin_dinheiro_saida_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', [0,3])
-                ->where('especie', 1)
-                ->whereBetween('created_at', [$di, $df])
-                ->sum('total');
+            //Coins relatório
 
-                $coin_dinheiro_rel = $coin_dinheiro_entrada_rel - $coin_dinheiro_saida_rel;
+            $coin_dinheiro_entrada_rel = Operation::where('user_id', auth()->user()->id)
+            ->where('tipo', 1)
+            ->where('especie', 1)
+            ->whereBetween('created_at', [$di, $df])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                $coin_cheque_entrada_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', 1)
-                ->where('especie', 2)
-                ->whereBetween('created_at', [$di, $df])
-                ->sum('total');
+            $coin_dinheiro_saida_rel = Operation::where('user_id', auth()->user()->id)
+            ->where('tipo', [0,3])
+            ->where('especie', 1)
+            ->whereBetween('created_at', [$di, $df])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                $coin_cheque_saida_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', [0,3])
-                ->where('especie', 2)
-                ->whereBetween('created_at', [$di, $df])
-                ->sum('total');
+            $coin_dinheiro_rel = $coin_dinheiro_entrada_rel - $coin_dinheiro_saida_rel;
 
-                $coin_cheque_rel = $coin_cheque_entrada_rel - $coin_cheque_saida_rel;
+            $coin_cheque_entrada_rel = Operation::where('user_id', auth()->user()->id)
+            ->where('tipo', 1)
+            ->where('especie', 2)
+            ->whereBetween('created_at', [$di, $df])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                $coin_moeda_entrada_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', 1)
-                ->where('especie', 3)
-                ->whereBetween('created_at', [$di, $df])
-                ->sum('total');
+            $coin_cheque_saida_rel = Operation::where('user_id', auth()->user()->id)
+            ->where('tipo', [0,3])
+            ->where('especie', 2)
+            ->whereBetween('created_at', [$di, $df])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                $coin_moeda_saida_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', [0,3])
-                ->where('especie', 3)
-                ->whereBetween('created_at', [$di, $df])
-                ->sum('total');
+            $coin_cheque_rel = $coin_cheque_entrada_rel - $coin_cheque_saida_rel;
 
-                $coin_moeda_rel = $coin_moeda_entrada_rel - $coin_moeda_saida_rel;
+            $coin_moeda_entrada_rel = Operation::where('user_id', auth()->user()->id)
+            ->where('tipo', 1)
+            ->where('especie', 3)
+            ->whereBetween('created_at', [$di, $df])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                $coin_outros_entrada_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', 1)
-                ->where('especie', 4)
-                ->whereBetween('created_at', [$di, $df])
-                ->sum('total');
+            $coin_moeda_saida_rel = Operation::where('user_id', auth()->user()->id)
+            ->where('tipo', [0,3])
+            ->where('especie', 3)
+            ->whereBetween('created_at', [$di, $df])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                $coin_outros_saida_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', [0,3])
-                ->where('especie', 4)
-                ->whereBetween('created_at', [$di, $df])
-                ->sum('total');
+            $coin_moeda_rel = $coin_moeda_entrada_rel - $coin_moeda_saida_rel;
 
-                $coin_outros_rel = $coin_outros_entrada_rel - $coin_outros_saida_rel;
+            $coin_outros_entrada_rel = Operation::where('user_id', auth()->user()->id)
+            ->where('tipo', 1)
+            ->where('especie', 4)
+            ->whereBetween('created_at', [$di, $df])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-                //Fim coins relatório
+            $coin_outros_saida_rel = Operation::where('user_id', auth()->user()->id)
+            ->where('tipo', [0,3])
+            ->where('especie', 4)
+            ->whereBetween('created_at', [$di, $df])
+            ->where(function ($query) {
+                $query->where('category_id', 'like', '%' . $this->categoria . '%')
+                ->orWhereNull('category_id');
+                })
+            ->where(function ($query) {
+                $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
+                ->orWhereNull('operator_id');
+            })
+            ->sum('total');
 
-            }else{
+            $coin_outros_rel = $coin_outros_entrada_rel - $coin_outros_saida_rel;
 
-                $operations = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('category_id', $this->categoria)
-                ->latest('id')
-                ->paginate($this->qtd);
-
-                $entradas_total = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', 1)
-                ->sum('total');
-    
-                $saidas_ret_total = Operation::where('user_id', auth()->user()->id)
-                ->whereIn('tipo', [0,3])
-                ->sum('total');
-
-                $caixa_total = $entradas_total - $saidas_ret_total;
-
-                $receita_entrada = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->whereIn('tipo', [1])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $receita_saida = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->whereIn('tipo', [0,3])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $rec_only_saida = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->whereIn('tipo', [0])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $rec_total = $receita_entrada - $rec_only_saida; 
-                $receita_valor = $receita_entrada - $receita_saida;
-
-                $receita_ret = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->whereIn('tipo', [3])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $operations_count = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('category_id', $this->categoria)
-                ->count();
-
-                //Coins relatório
-
-                $coin_dinheiro_entrada_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', 1)
-                ->where('especie', 1)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $coin_dinheiro_saida_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', [0,3])
-                ->where('especie', 1)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $coin_dinheiro_rel = $coin_dinheiro_entrada_rel - $coin_dinheiro_saida_rel;
-
-                $coin_cheque_entrada_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', 1)
-                ->where('especie', 2)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $coin_cheque_saida_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', [0,3])
-                ->where('especie', 2)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $coin_cheque_rel = $coin_cheque_entrada_rel - $coin_cheque_saida_rel;
-
-                $coin_moeda_entrada_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', 1)
-                ->where('especie', 3)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $coin_moeda_saida_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', [0,3])
-                ->where('especie', 3)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $coin_moeda_rel = $coin_moeda_entrada_rel - $coin_moeda_saida_rel;
-
-                $coin_outros_entrada_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', 1)
-                ->where('especie', 4)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $coin_outros_saida_rel = Operation::where('user_id', auth()->user()->id)
-                ->where('tipo', [0,3])
-                ->where('especie', 4)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('category_id', $this->categoria)
-                ->sum('total');
-
-                $coin_outros_rel = $coin_outros_entrada_rel - $coin_outros_saida_rel;
-
-                //Fim coins relatório
+            //Fim coins relatório
         
-            }
-
             $rec_total = number_format($rec_total,2,",",".");
             $receita_valor = number_format($receita_valor,2,",",".");
             $receita_entrada = number_format($receita_entrada,2,",",".");
@@ -347,6 +354,7 @@ class Relatorio extends Component
             compact(
                 'categories',
                 'operators',
+                'operators_filter',
                 'operations',
                 'caixa_total', 
                 'rec_total',
@@ -378,7 +386,10 @@ class Relatorio extends Component
             ->where('status', 1)
             ->get();
 
-            return view('livewire.relatorio', compact('categories'))
+            $operators_filter = Operator::where('user_id', auth()->user()->id)
+            ->get();
+
+            return view('livewire.relatorio', compact('categories', 'operators_filter'))
                 ->layout('pages.relatorios');
         }
     }

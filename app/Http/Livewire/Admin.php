@@ -29,6 +29,8 @@ class Admin extends Component
     public $contrato_target;
     public $modalidade_mensalidade;
     public $search_mensalidade;
+    public $user_to_delete;
+    public $username_to_delete;
 
     public $rules = [
 
@@ -45,6 +47,29 @@ class Admin extends Component
         $manutencao = Maintence::find(1);
         $this->estado_manutencao = $manutencao->estado;
         $this->modalidade_mensalidade = 1;
+    }
+
+    public function deletarUser($id){
+
+        $this->user_to_delete = $id;
+        $usuario_to_delete = User::find($this->user_to_delete);
+        $this->username_to_delete = $usuario_to_delete->name;
+        $this->dispatchBrowserEvent('show-delete-user');
+
+    }
+
+    public function confirmDeletarUser(){
+
+        $proceed_deletion = User::find($this->user_to_delete);
+        $proceed_deletion->delete();
+
+        $this->reset('user_to_delete', 'username_to_delete');
+        $this->emit('alert', 'Usuário deletado com sucesso!');
+
+    }
+
+    public function resetUserToDeleteInfo(){
+        $this->reset('user_to_delete', 'username_to_delete');
     }
 
     public function updatingSearch(){
@@ -162,6 +187,8 @@ class Admin extends Component
 
         //NOTIFICAÇÃO DE MENSALIDADE PAGA
 
+        if($get_contract->is_test == 0){
+
         $dia_mensalidade_msg = date('d/m/Y', strtotime($mensalidade->vencimento));
 
         $msg_notification_mensalidade_paga = 'Olá! Recebemos seu pagamento referente à mensalidade do dia <b style="color: green;">' . $dia_mensalidade_msg . '</b>. Para visualizar os detalhes da mensalidade e imprimir o seu recibo, vá até o menu <b>Minha conta</b> e em seguida <b>></b> <b>Meus contratos</b>. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Yampay</b>.';
@@ -171,6 +198,8 @@ class Admin extends Component
         $notification_mensalidade_paga->content = $msg_notification_mensalidade_paga;
         $notification_mensalidade_paga->is_read = 0;
         $notification_mensalidade_paga->save();
+
+        }
 
         $this->dispatchBrowserEvent('close-pay-confirmation');
         $this->reset('mensalidade_target');
@@ -226,6 +255,8 @@ class Admin extends Component
 
         $recibo = Receipt::where('payment_id', $mensalidade->id)->delete();
 
+        if($get_contract->is_test == 0){
+
         $venc_mensalidade_estornada = date('d/m/Y', strtotime($mensalidade->vencimento));
 
         $msg_notification_mensalidade_estornada = 'Olá! Sua mensalidade com vencimento no dia <b>'. $venc_mensalidade_estornada .'</b> foi estornada. Para realizar o pagamento novamente, vá até o menu <b>Minha conta</b> e em seguida <b>></b> <b>Meus contratos</b>, clique no botão pagar e conclua o passo a passo. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Yampay</b>.';
@@ -235,6 +266,8 @@ class Admin extends Component
         $notification_mensalidade_estornada->content = $msg_notification_mensalidade_estornada;
         $notification_mensalidade_estornada->is_read = 0;
         $notification_mensalidade_estornada->save();
+
+        }
 
         $this->dispatchBrowserEvent('close-estorno-confirmation');
         $this->reset('mensalidade_target');

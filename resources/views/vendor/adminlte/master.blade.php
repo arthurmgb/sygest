@@ -243,6 +243,14 @@
 
             /*Comissões Admin */
 
+            /*Deletar Usuário */
+
+            window.addEventListener('show-delete-user', event =>{
+                $('#delete-user-confirmation').modal('show');
+            })
+            
+            /*Deletar Usuário */
+
         </script>
         <script>
             new ClipboardJS('.result-to-copy');

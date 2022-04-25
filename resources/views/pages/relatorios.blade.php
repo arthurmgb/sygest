@@ -25,7 +25,7 @@
                 margin: 0px !important;
             }
 
-            .page-header, .card-topo, .card-topo-2, .calc-button-imp, .btn-cx-hoje{
+            .page-header, .card-topo, .card-topo-2, .card-topo-3, .calc-button-imp, .btn-cx-hoje{
                 display: none !important;
             }
 
