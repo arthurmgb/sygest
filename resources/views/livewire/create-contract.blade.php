@@ -17,7 +17,7 @@
                                 <div class="d-flex flex-row align-items-center">
                                     <input type="checkbox" id="avaliacao" wire:click.prevent="avaliacaoContract()" @if($is_test == 'selected') checked @endif>
                                     <label for="avaliacao"></label>
-                                    <label style="margin: 16px 12px;" class="modal-label" for="primeiro-pag">Contrato de avalição grátis?</label>  
+                                    <label style="margin: 16px 12px;" class="modal-label" for="primeiro-pag">Contrato de avaliação gratuita?</label>  
                                 </div>                                                          
                             </div>
                             <div class="form-group">

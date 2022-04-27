@@ -201,6 +201,14 @@ class Admin extends Component
 
         }
 
+        if($get_contract->is_test == 1){
+
+            $usr_to_block = User::find($mensalidade->user_id);
+            $usr_to_block->is_blocked = 1;
+            $usr_to_block->save(); 
+
+        }
+
         $this->dispatchBrowserEvent('close-pay-confirmation');
         $this->reset('mensalidade_target');
         

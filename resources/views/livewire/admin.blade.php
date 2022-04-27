@@ -685,7 +685,18 @@
                                                         <button wire:click.prevent="vencimentoConfirmation({{$row_mensalidade->id}})" wire:loading.attr="disabled" wire:target="vencimentoConfirmation({{$row_mensalidade->id}})" class="btn btn-warning btn-sm">
                                                             <i class="far fa-money-check-edit-alt fa-fw mr-2"></i>Alterar venc.
                                                         </button>
-
+                                                        @if ($row_mensalidade->contract->is_test == 1)
+                                                            <br>
+                                                            @if ($modalidade_mensalidade === 1)
+                                                                <div class="div-space-span mt-2">
+                                                                    <span class="operacao-entrada">Período de avaliação ativo</span>
+                                                                </div>
+                                                            @elseif($modalidade_mensalidade === 0)
+                                                                <div class="div-space-span mt-2">
+                                                                    <span class="operacao-saida">Período de avaliação encerrado</span>
+                                                                </div>
+                                                            @endif                                                         
+                                                        @endif
                                                     </div>                                                   
                                                 </td>
                                             @elseif($row_mensalidade->status == 1)
@@ -694,7 +705,20 @@
 
                                                         <button wire:click.prevent="estornoConfirmation({{$row_mensalidade->id}})" wire:loading.attr="disabled" wire:target="estornoConfirmation({{$row_mensalidade->id}})" type="button" class="btn btn-primary btn-sm mr-1">
                                                             <i class="far fa-undo-alt fa-fw mr-1"></i>Estornar
-                                                        </button>                                                     
+                                                        </button>
+                                                        
+                                                        @if ($row_mensalidade->contract->is_test == 1)
+                                                            <br>
+                                                            @if ($modalidade_mensalidade === 1)
+                                                                <div class="div-space-span mt-2">
+                                                                    <span class="operacao-entrada">Período de avaliação ativo</span>
+                                                                </div>
+                                                            @elseif($modalidade_mensalidade === 0)
+                                                                <div class="div-space-span mt-2">
+                                                                    <span class="operacao-saida">Período de avaliação encerrado</span>
+                                                                </div>
+                                                            @endif
+                                                        @endif
 
                                                     </div>                                                   
                                                 </td>                                              
