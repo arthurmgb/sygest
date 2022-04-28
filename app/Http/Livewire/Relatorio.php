@@ -141,7 +141,21 @@ class Relatorio extends Component
                 $caixa_fechado_no_dia = number_format($caixa_fechado_no_dia,2,",",".");
 
             }else{
-                $caixa_fechado_no_dia = null;
+
+                $fechado_entradas_total = Operation::where('user_id', auth()->user()->id)
+                ->whereBetween('created_at', [$di, $df])
+                ->where('tipo', 1)
+                ->sum('total');
+
+                $fechado_saidas_ret_total = Operation::where('user_id', auth()->user()->id)
+                ->whereBetween('created_at', [$di, $df])
+                ->whereIn('tipo', [0,3])
+                ->sum('total');
+
+                $caixa_fechado_no_dia = $fechado_entradas_total - $fechado_saidas_ret_total;
+
+                $caixa_fechado_no_dia = number_format($caixa_fechado_no_dia,2,",",".");
+
             }
 
             //FIM FECHAMENTO DO DIA

@@ -149,6 +149,18 @@
                                             </span>
                                             <span style="color: #725BC2; font-size: 22px;"><b>R$ {{ $caixa_fechado_no_dia }}</b></span>
                                         </div>
+                                    @elseif($data_inicial != $data_final)
+                                        <hr class="my-2">
+                                        <div class="val-block d-flex flex-row align-items-center justify-content-between">
+                                            <span class="rc-alert-font-2 text-uppercase">
+                                                Do dia                                     
+                                                <span style="color: #444;">{{$data_inicial}}</span> 
+                                                <br>
+                                                até o dia
+                                                <span style="color: #444;">{{$data_final}}</span> você teve em caixa
+                                            </span>
+                                            <span style="color: #725BC2; font-size: 22px;"><b>R$ {{ $caixa_fechado_no_dia }}</b></span>
+                                        </div>
                                     @endif                         
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between mt-1">
                                         <span class="rc-alert-font">
