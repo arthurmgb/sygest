@@ -26,8 +26,8 @@
 
                             @if ($operadores->count())
 
-                                <select style="font-size: 17px;" wire:model.defer="state.operador" class="form-control modal-input-cat"
-                                    id="operador-op">
+                                <select style="font-size: 17px;" wire:model.defer="state.operador" class="form-control modal-input-cat yampay-scroll"
+                                    id="operador-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                                     <option value="">Selecione um operador</option>
 
                                     @foreach ($operadores as $operador)
@@ -43,8 +43,8 @@
                         </div>
                         <div class="form-group">
                             <label class="modal-label" for="especie-op">Espécie  <span class="red">*</span></label>
-                                <select style="font-size: 17px;" wire:model.defer="state.especie" class="form-control modal-input-cat"
-                                    id="especie-op">
+                                <select style="font-size: 17px;" wire:model.defer="state.especie" class="form-control modal-input-cat yampay-scroll"
+                                    id="especie-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                                     <option value="">Selecione o tipo de espécie</option>
                                     <option value="1">💵 Dinheiro</option>
                                     <option value="2">💲 Cheque</option>
