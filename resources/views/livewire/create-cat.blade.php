@@ -18,11 +18,11 @@
                             <br>
                             <input wire:model.defer="state.tipo" value="1" class="radio" type="radio" name="tipo-cat"
                                 id="cat-entrada">
-                            <label class="label-op" for="cat-entrada">Entrada</label>
+                            <label class="label-op" for="cat-entrada"><i class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>Entrada</label>
 
                             <input wire:model.defer="state.tipo" value="0" class="radio" type="radio" name="tipo-cat"
                                 id="cat-saida">
-                            <label class="label-op" for="cat-saida">Saída</label>
+                            <label class="label-op" for="cat-saida">Saída<i class="fad fa-arrow-from-top fa-fw fa-lg ml-1"></i></label>
                             @error('state.tipo')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
@@ -32,11 +32,11 @@
                             <br>
                             <input wire:model.defer="state.status" value="1" class="radio" type="radio" name="status-cat"
                                 id="status-ativa">
-                            <label class="label-op" for="status-ativa">Ativa</label>
+                            <label class="label-op" for="status-ativa"><i class="fad fa-chevron-circle-up fa-fw fa-lg mr-1"></i>Ativa</label>
 
                             <input wire:model.defer="state.status" value="0" class="radio" type="radio" name="status-cat"
                                 id="status-inativa">
-                            <label class="label-op" for="status-inativa">Inativa</label>
+                            <label class="label-op" for="status-inativa">Inativa<i class="far fa-chevron-circle-down fa-fw fa-lg ml-1"></i></label>
                             @error('state.status')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
