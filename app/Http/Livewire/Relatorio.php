@@ -108,6 +108,8 @@ class Relatorio extends Component
             ->latest('id')
             ->paginate($this->qtd);
 
+            //CAIXA TOTAL
+
             $entradas_total = Operation::where('user_id', auth()->user()->id)
             ->where('tipo', 1)
             ->sum('total');
@@ -117,6 +119,32 @@ class Relatorio extends Component
             ->sum('total');
 
             $caixa_total = $entradas_total - $saidas_ret_total;
+
+            //FIM CAIXA TOTAL
+
+            //FECHAMENTO DO DIA
+
+            if($this->data['inicial'] == $this->data['final']){
+
+                $fechado_entradas_total = Operation::where('user_id', auth()->user()->id)
+                ->where('created_at', '<=', $df)
+                ->where('tipo', 1)
+                ->sum('total');
+
+                $fechado_saidas_ret_total = Operation::where('user_id', auth()->user()->id)
+                ->where('created_at', '<=', $df)
+                ->whereIn('tipo', [0,3])
+                ->sum('total');
+
+                $caixa_fechado_no_dia = $fechado_entradas_total - $fechado_saidas_ret_total;
+
+                $caixa_fechado_no_dia = number_format($caixa_fechado_no_dia,2,",",".");
+
+            }else{
+                $caixa_fechado_no_dia = null;
+            }
+
+            //FIM FECHAMENTO DO DIA
 
             $receita_entrada = Operation::where('user_id', auth()->user()->id)
             ->whereBetween('created_at', [$di, $df])
@@ -346,7 +374,6 @@ class Relatorio extends Component
 
             $relResultado = $relDinheiro + $relCheques + $relMoedas + $relGaveta;
             $relResultado = number_format($relResultado,2,",",".");
-            //dd($relResultado);
 
             //Fim Conferência de caixa
 
@@ -377,6 +404,7 @@ class Relatorio extends Component
                 'coin_outros_entrada_rel', 
                 'coin_outros_saida_rel',
                 'relResultado',
+                'caixa_fechado_no_dia',
                 )
             )
                 ->layout('pages.relatorios');

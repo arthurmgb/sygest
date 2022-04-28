@@ -141,7 +141,16 @@
                                         </span>
                                         <span style="color: green; font-size: 22px;"><b>R$ {{ $receita_valor }}</b></span>
                                     </div>
-                                    <div class="val-block d-flex flex-row align-items-center justify-content-between">
+                                    @if ($data_inicial == $data_final)
+                                        <hr class="my-2">
+                                        <div class="val-block d-flex flex-row align-items-center justify-content-between">
+                                            <span class="rc-alert-font-2 text-uppercase">
+                                                Caixa de <span style="color: #444;">{{$data_inicial}}</span> fechado em 
+                                            </span>
+                                            <span style="color: #725BC2; font-size: 22px;"><b>R$ {{ $caixa_fechado_no_dia }}</b></span>
+                                        </div>
+                                    @endif                         
+                                    <div class="val-block d-flex flex-row align-items-center justify-content-between mt-1">
                                         <span class="rc-alert-font">
                                             <span style="color: #8369DF;"><b> {{ $operations_count }}</b></span> operações realizadas 
                                         </span>                                    
