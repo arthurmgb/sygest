@@ -147,10 +147,23 @@ class Relatorio extends Component
                 ->where('tipo', 1)
                 ->sum('total');
 
+                $anteriores_fechado_entradas_total = Operation::where('user_id', auth()->user()->id)
+                ->where('created_at', '<', $di)
+                ->where('tipo', 1)
+                ->sum('total');
+
                 $fechado_saidas_ret_total = Operation::where('user_id', auth()->user()->id)
                 ->whereBetween('created_at', [$di, $df])
                 ->whereIn('tipo', [0,3])
                 ->sum('total');
+
+                $anteriores_fechado_saidas_ret_total = Operation::where('user_id', auth()->user()->id)
+                ->where('created_at', '<', $di)
+                ->whereIn('tipo', [0,3])
+                ->sum('total');
+
+                $fechado_entradas_total = $fechado_entradas_total + $anteriores_fechado_entradas_total;
+                $fechado_saidas_ret_total = $fechado_saidas_ret_total + $anteriores_fechado_saidas_ret_total;
 
                 $caixa_fechado_no_dia = $fechado_entradas_total - $fechado_saidas_ret_total;
 
