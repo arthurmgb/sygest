@@ -589,7 +589,7 @@
                         <hr class="my-2">
                         <div class="operation-block d-flex flex-row justify-content-between align-items-center">
                             <label class="type-operation mt-1" for="total-op">Total em caixa</label>                          
-                            <span class="value-real">R$ {{ $total_hoje }}</span>
+                            <span style="font-weight: 500;" class="value-real">R$ {{ $total_hoje }}</span>
                         </div>
                         <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
                             <span>{{ $op_hoje }} operações <span class="bold-span">realizadas hoje.</span></span>
@@ -697,7 +697,7 @@
                         <hr class="my-2">
                         <div class="operation-block d-flex flex-row justify-content-between align-items-center">
                             <label class="type-operation mt-1" for="total-op">Total em caixa</label>                          
-                            <span class="value-real">R$ {{ $total_mes }}</span>
+                            <span style="font-weight: 500;" class="value-real">R$ {{ $total_mes }}</span>
                         </div>
                         <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
                             <span>{{ $op_mes }} operações <span class="bold-span">realizadas nesse mês.</span></span>

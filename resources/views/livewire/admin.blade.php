@@ -15,8 +15,7 @@
         <h2 class="f-h2">Área restrita</h2>
         @endif
     </div>
-    {{$user_to_delete}}
-    {{$username_to_delete}}
+
     <div class="block">
 
         @if(auth()->user()->is_admin === 1)
