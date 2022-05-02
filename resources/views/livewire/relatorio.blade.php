@@ -361,6 +361,19 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-12">
+                                            <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Retiradas" style="border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;">
+                                                <span class="emoji-coin ec-rel">                                               
+                                                    <i style="color: #E6274C;" class="fad fa-wallet"></i>
+                                                    <span class="ml-1">Retiradas</span>
+                                                </span>
+                                                <span style="color: #E6274C;" class="coin-valor">
+                                                   - R$ {{$receita_ret}}
+                                                </span>
+                                            </div>            
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
                                             <div class="div-block-autorized p-2">
                                                 <span class="rc-alert-font">
 

@@ -257,7 +257,7 @@ class Relatorio extends Component
             ->sum('total');
 
             $coin_dinheiro_saida_rel = Operation::where('user_id', auth()->user()->id)
-            ->where('tipo', [0,3])
+            ->where('tipo', 0)
             ->where('especie', 1)
             ->whereBetween('created_at', [$di, $df])
             ->where(function ($query) {
@@ -287,7 +287,7 @@ class Relatorio extends Component
             ->sum('total');
 
             $coin_cheque_saida_rel = Operation::where('user_id', auth()->user()->id)
-            ->where('tipo', [0,3])
+            ->where('tipo', 0)
             ->where('especie', 2)
             ->whereBetween('created_at', [$di, $df])
             ->where(function ($query) {
@@ -317,7 +317,7 @@ class Relatorio extends Component
             ->sum('total');
 
             $coin_moeda_saida_rel = Operation::where('user_id', auth()->user()->id)
-            ->where('tipo', [0,3])
+            ->where('tipo', 0)
             ->where('especie', 3)
             ->whereBetween('created_at', [$di, $df])
             ->where(function ($query) {
@@ -347,7 +347,7 @@ class Relatorio extends Component
             ->sum('total');
 
             $coin_outros_saida_rel = Operation::where('user_id', auth()->user()->id)
-            ->where('tipo', [0,3])
+            ->where('tipo', 0)
             ->where('especie', 4)
             ->whereBetween('created_at', [$di, $df])
             ->where(function ($query) {

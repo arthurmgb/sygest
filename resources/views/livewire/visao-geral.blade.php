@@ -84,6 +84,10 @@
                                 <span class="type-operation">Saídas</span>
                                 <span class="value-real">- R$ {{ $saidas_hoje }}</span>
                             </div>
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Retiradas</span>
+                                <span class="value-real">- R$ {{ $retiradas_hoje }}</span>
+                            </div>
                             <hr class="my-2">
                             <div class="operation-block d-flex flex-row justify-content-between align-items-center">
                                 <span class="type-operation">Total</span>
@@ -118,6 +122,10 @@
                             <div class="operation-block d-flex flex-row justify-content-between align-items-center">
                                 <span class="type-operation">Saídas</span>
                                 <span class="value-real">- R$ {{ $saidas_mes }}</span>
+                            </div>
+                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                <span class="type-operation">Retiradas</span>
+                                <span class="value-real">- R$ {{ $retiradas_mes }}</span>
                             </div>
                             <hr class="my-2">
                             <div class="operation-block d-flex flex-row justify-content-between align-items-center">
@@ -586,6 +594,10 @@
                             <label class="type-operation mt-1" for="total-op">Saídas hoje</label>                          
                             <span class="value-real">- R$ {{ $saidas_hoje }}</span>
                         </div>
+                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                            <label class="type-operation mt-1" for="total-op">Retiradas hoje</label>                          
+                            <span class="value-real">- R$ {{ $retiradas_hoje }}</span>
+                        </div>
                         <hr class="my-2">
                         <div class="operation-block d-flex flex-row justify-content-between align-items-center">
                             <label class="type-operation mt-1" for="total-op">Total em caixa</label>                          
@@ -593,7 +605,7 @@
                         </div>
                         <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
                             <span>{{ $op_hoje }} operações <span class="bold-span">realizadas hoje.</span></span>
-                            <span class="align-self-start" data-tooltip="Este é o valor total em que o caixa fechará hoje."
+                            <span class="align-self-start" data-tooltip="Este é o valor total em que a receita fechará hoje."
                                 data-flow="left">
                                 <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
                             </span>
@@ -661,7 +673,18 @@
                                     </span>
                                 </div>
                             </div>
-                            
+                            <div class="row mt-3">
+                                <div class="col-12 px-3">
+                                    <div onclick="window.location = '{{route('retiradas')}}';" class="div-coin-box mr-0" data-flow="bottom" data-tooltip="Retiradas">
+                                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                            <i style="color: #E6274C;" class="fad fa-wallet"></i>
+                                        </span>
+                                        <span style="color: #E6274C;" class="coin-valor">
+                                            - R$ {{$coin_retiradas_hj}}
+                                        </span>
+                                    </div>
+                                </div> 
+                            </div>                                       
                         </div>
 
                 </div>
@@ -694,6 +717,10 @@
                             <label class="type-operation mt-1" for="total-op">Saídas no mês</label>                          
                             <span class="value-real">- R$ {{ $saidas_mes }}</span>
                         </div>
+                        <div class="operation-block d-flex flex-row justify-content-between align-items-center">
+                            <label class="type-operation mt-1" for="total-op">Retiradas no mês</label>                          
+                            <span class="value-real">- R$ {{ $retiradas_mes }}</span>
+                        </div>
                         <hr class="my-2">
                         <div class="operation-block d-flex flex-row justify-content-between align-items-center">
                             <label class="type-operation mt-1" for="total-op">Total em caixa</label>                          
@@ -701,7 +728,7 @@
                         </div>
                         <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
                             <span>{{ $op_mes }} operações <span class="bold-span">realizadas nesse mês.</span></span>
-                            <span class="align-self-start" data-tooltip="Este é o valor total em que o caixa fechará no mês."
+                            <span class="align-self-start" data-tooltip="Este é o valor total em que a receita fechará no mês."
                                 data-flow="left">
                                 <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
                             </span>
@@ -769,7 +796,18 @@
                                     </span>
                                 </div>
                             </div>
-                            
+                            <div class="row mt-3">
+                                <div class="col-12 px-3">
+                                    <div onclick="window.location = '{{route('retiradas')}}';" class="div-coin-box mr-0" data-flow="bottom" data-tooltip="Retiradas">
+                                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                            <i style="color: #E6274C;" class="fad fa-wallet"></i>
+                                        </span>
+                                        <span style="color: #E6274C;" class="coin-valor">
+                                            - R$ {{$coin_retiradas_mes}}
+                                        </span>
+                                    </div>
+                                </div> 
+                            </div>     
                         </div>
 
                 </div>
