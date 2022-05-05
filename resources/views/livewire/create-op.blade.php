@@ -78,12 +78,12 @@
                         <div class="form-group">
                             <label class="modal-label" for="especie-op">Espécie  <span class="red">*</span></label>
                                 <select style="font-size: 17px;" wire:model.defer="state.especie" class="form-control modal-input-cat yampay-scroll"
-                                    id="especie-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    id="especie-op" onfocus='this.size=6;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                                     <option wire:click.prevent="$refresh" value="">Selecione o tipo de espécie</option>
                                     <option wire:click.prevent="$refresh" value="1">💵 Dinheiro</option>
                                     <option wire:click.prevent="$refresh" value="2">💲 Cheque</option>
                                     <option wire:click.prevent="$refresh" value="3">💰 Moedas</option>
-                                    <option wire:click.prevent="$refresh" value="4">💳 Outros (+ Mais opções)</option>
+                                    <option style="margin-bottom: 0px !important;" wire:click.prevent="$refresh" value="4">💳 Outros (+ Mais opções)</option>
                                 </select>
                             @error('state.especie')
                                 <span class="wire-error">{{ $message }}</span>
