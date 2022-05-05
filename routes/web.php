@@ -5,6 +5,7 @@ use App\Http\Livewire\Categoria;
 use App\Http\Livewire\Configuracao;
 use App\Http\Livewire\Ferramenta;
 use App\Http\Livewire\FluxoCaixa;
+use App\Http\Livewire\FormaPagamento;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Navegador;
 use App\Http\Livewire\Notificacao;
@@ -34,6 +35,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/meus-contratos', UserContrato::class)->name('meus-contratos');
     Route::get('/minhas-comissoes', UserComissao::class)->name('minhas-comissoes');
     Route::get('/notificacoes', Notificacao::class)->name('notificacoes');
+    Route::get('/formas-pagamento', FormaPagamento::class)->name('formas-pagamento');
     
 });
 

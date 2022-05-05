@@ -1,9 +1,9 @@
 <div>
 
     <div class="page-header d-flex flex-row align-items-center mb-2">
-        <h2 class="f-h2">Categorias</h2>
-        <span class="f-span">{{ $categorias_count }} categorias cadastradas</span>
-        <a data-toggle="modal" data-target="#operacao" class="btn btn-new ml-auto">+ Nova categoria</a>
+        <h2 class="f-h2">Formas de pagamento</h2>
+        <span class="f-span">{{$formas_de_pagamento_count}} formas de pagamento cadastradas</span>
+        <a data-toggle="modal" data-target="#operacao" class="btn btn-new ml-auto">+ Nova forma de pagamento</a>
     </div>
 
     <div class="block">
@@ -11,7 +11,7 @@
         <div class="card">
             
             <div class="card-topo mb-3">
-                <input wire:model="search" placeholder="buscar categoria" class="search-input" autocomplete="off">
+                <input wire:model="search" placeholder="buscar forma de pagamento" class="search-input" autocomplete="off">
                 <i class="fa fa-search"></i>
             </div>
 
@@ -22,121 +22,66 @@
 
             <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove class="card-body px-0 pb-0">
 
-                @if ($categorias->count())
+                @if ($formas_de_pagamento->count())
+                
+                <table style="cursor: default;" class="table table-borderless">
+                    <thead class="t-head">
+                        <tr class="t-head-border">
+                            <th>ID #</th>
+                            <th>Descrição</th>
+                            <th>Data de cadastro</th>
+                            <th>Status</th>
+                            <th width="200px">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="t-body">
 
-                    <table style="cursor: default;" class="table table-borderless">
-                        <thead class="t-head">
-                            <tr class="t-head-border">
-                                <th>ID #</th>
-                                <th>Descrição</th>
-                                <th>Data de cadastro</th>
-                                <th>Tipo</th>
-                                <th>Status</th>
-                                <th width="200px">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody class="t-body">
+                        @foreach ($formas_de_pagamento as $single_fp)
 
-                            @php
-                                $dia_atual = Carbon\Carbon::now();
-                            @endphp
+                        @php
+                            $data_criacao = date('d/m/Y H:i', strtotime($single_fp->created_at));
+                        @endphp
 
-                            @foreach ($categorias as $categoria)
+                            <tr class="tr-hover">
 
-                                @php
-                                    
-                                    $total_operacao = number_format($categoria->total, 2, ',', '.');
-                                    $data_operacao = $categoria->created_at->format('d/m/Y H:i');
-                                    
-                                    $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
-                                    $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $categoria->created_at);
-                                    
-                                    $diferenca = $date2->diffInDays($date1);
-                                    $tempo = 'dias';
-                                    
-                                    if ($diferenca === 1) {
-                                        $diferenca = 'um';
-                                        $tempo = 'dia';
-                                    }
-                                    
-                                    if ($diferenca === 0) {
-                                        $diferenca = $date2->diffInHours($date1);
-                                        $tempo = 'horas';
+                                <td class="align-middle">{{ $single_fp->id }}</td>
+                                <td class="align-middle font-desc">{{ $single_fp->descricao }}</td>
+                                <td class="align-middle">{{ $data_criacao }}</td>
 
-                                        if ($diferenca === 1) {
-                                            $diferenca = 'uma';
-                                            $tempo = 'hora';
-                                        }
-                                    
-                                        if ($diferenca === 0) {
-                                            $diferenca = $date2->diffInMinutes($date1);
-                                            $tempo = 'minutos';
-                                    
-                                            if ($diferenca === 1) {
-                                                $diferenca = 'um';
-                                                $tempo = 'minuto';
-                                            }
-                                    
-                                            if ($diferenca === 0) {
-                                                $diferenca = 'poucos';
-                                                $tempo = 'segundos';
-                                            }
-                                        }
-                                    }
-                                    
-                                    if ($categoria->tipo == 1) {
-                                        $categoria->tipo = 'Entrada';
-                                    } else {
-                                        $categoria->tipo = 'Saída';
-                                    }
-                                    if ($categoria->status == 1) {
-                                        $categoria_status = 'Ativa';
-                                    } else {
-                                        $categoria_status = 'Inativa';
-                                    }
-                                    
-                                @endphp
-
-                                <tr class="tr-hover">
-                                    <td class="align-middle">{{ $categoria->id }}</td>
-                                    <td class="align-middle font-desc">{{ $categoria->descricao }}</td>
-                                    <td class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
-                                            {{ $diferenca }} {{ $tempo }}</span></td>
-                                    <td class="align-middle font-weight-bold text-uppercase">{{ $categoria->tipo }}
-                                    </td>
-
-                                    @if ($categoria->status == 1)
-                                        <td class="align-middle"><span
-                                                class="operacao-entrada">{{ $categoria_status }}</span></td>
-                                    @else
-                                        <td class="align-middle"><span
-                                                class="operacao-saida">{{ $categoria_status }}</span></td>
-                                    @endif
-
+                                @if ($single_fp->status == 1)
                                     <td class="align-middle">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <div wire:target="edit({{ $categoria->id }})" wire:loading.attr="disabled"
-                                                wire:click.prevent="edit({{ $categoria->id }})" data-toggle="modal"
-                                                data-target="#editarCat" data-tooltip="Editar" data-flow="left"
-                                                class="cbe">
-                                                <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
-                                            </div>
-                                            <div wire:target="prepare({{ $categoria->id }})" wire:loading.attr="disabled"
-                                                wire:click.prevent="prepare({{ $categoria->id }})" data-toggle="modal"
-                                                data-target="#delete-cat-confirmation" data-tooltip="Apagar" data-flow="right" class="cba mr-2">
-                                                <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
-                                            </div>
-                                        </div>
+                                        <span class="operacao-entrada">Ativa</span>
                                     </td>
-                                </tr>
+                                @else
+                                    <td class="align-middle">
+                                        <span class="operacao-saida">Inativa</span>
+                                    </td>
+                                @endif
 
-                            @endforeach
+                                <td class="align-middle">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div wire:target="edit({{ $single_fp->id }})" wire:loading.attr="disabled"
+                                            wire:click.prevent="edit({{ $single_fp->id }})" data-toggle="modal"
+                                            data-target="#editarCat" data-tooltip="Editar" data-flow="left"
+                                            class="cbe">
+                                            <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
+                                        </div>
+                                        <div wire:target="prepare({{ $single_fp->id }})" wire:loading.attr="disabled"
+                                            wire:click.prevent="prepare({{ $single_fp->id }})" data-toggle="modal"
+                                            data-target="#delete-cat-confirmation" data-tooltip="Apagar" data-flow="right" class="cba mr-2">
+                                            <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
+                                        </div>
+                                    </div>
+                                </td>
 
-                        </tbody>
-                    </table>
+                            </tr>
+
+                        @endforeach
+
+                    </tbody>
+                </table>
 
                 @else
-
                     <div class="d-flex flex-column align-items-center justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211"
                             height="145">
@@ -263,14 +208,15 @@
                                     d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                             </defs>
                         </svg>
-                        <h3 class="my-4 no-results">Não há categorias a serem exibidas.</h3>
+                        <h3 class="my-4 no-results">Não há formas de pagamento a serem exibidas.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                             <h3 class="no-results-create mb-3">Comece criando uma</h3>
-                            <a data-toggle="modal" data-target="#operacao" class="ml-2 btn btn-nr">+ Nova categoria</a>
+                            <a data-toggle="modal" data-target="#operacao" class="ml-2 btn btn-nr">+ Nova forma de pagamento</a>
                         </div>
                     </div>
-
                 @endif
+
+                    
 
             </div>
         </div>
@@ -287,13 +233,14 @@
                 </select>
                 <span class="ml-3 ipp">Itens por página</span>
             </div>
-
-            @if ($categorias->hasPages())
+            
+            @if ($formas_de_pagamento->hasPages())
                 <div class="paginacao">
-                    {{ $categorias->links() }}
+                    {{ $formas_de_pagamento->links() }}
                 </div>
 
             @endif
+            
         </div>
 
     </div>
@@ -306,7 +253,7 @@
         <div class="modal-dialog">
             <div class="modal-content modal-custom">
                 <div class="modal-header">
-                    <h5 class="modal-title px-3 py-3" id="editarCatLabel">Editar categoria</h5>
+                    <h5 class="modal-title px-3 py-3" id="editarCatLabel">Editar forma de pagamento</h5>
                     <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
                         <i class="fal fa-times"></i>
                     </button>
@@ -315,38 +262,24 @@
 
                     <form wire:submit.prevent="confirmation()">
                         <div class="form-group mb-1">
-                            <label class="modal-label">Tipo de categoria <span class="red">*</span></label>
+                            <label class="modal-label">Status da forma de pagamento <span class="red">*</span></label>
                             <br>
-                            <input wire:model.defer="categoria.tipo" value="1" class="radio" type="radio"
-                                name="tipo-cat" id="edit-cat-entrada">
-                            <label class="label-op" for="edit-cat-entrada"><i class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>Entrada</label>
-
-                            <input wire:model.defer="categoria.tipo" value="0" class="radio" type="radio"
-                                name="tipo-cat" id="edit-cat-saida">
-                            <label class="label-op" for="edit-cat-saida">Saída<i class="fad fa-arrow-from-top fa-fw fa-lg ml-1"></i></label>
-                            @error('categoria.tipo')
-                                <span class="wire-error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group mb-1">
-                            <label class="modal-label">Status da categoria <span class="red">*</span></label>
-                            <br>
-                            <input wire:model.defer="categoria.status" value="1" class="radio" type="radio"
+                            <input wire:model.defer="method.status" value="1" class="radio" type="radio"
                                 name="status-cat" id="edit-status-ativa">
                             <label class="label-op" for="edit-status-ativa"><i class="fad fa-chevron-circle-up fa-fw fa-lg mr-1"></i>Ativa</label>
 
-                            <input wire:model.defer="categoria.status" value="0" class="radio" type="radio"
+                            <input wire:model.defer="method.status" value="0" class="radio" type="radio"
                                 name="status-cat" id="edit-status-inativa">
                             <label class="label-op" for="edit-status-inativa">Inativa<i class="far fa-chevron-circle-down fa-fw fa-lg ml-1"></i></label>
-                            @error('categoria.status')
+                            @error('method.status')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group mb-0">
                             <label class="modal-label" for="desc-op">Descrição <span class="red">*</span></label>
-                            <input wire:model.defer="categoria.descricao" type="text" class="form-control modal-input"
+                            <input wire:model.defer="method.descricao" type="text" class="form-control modal-input"
                                 id="desc-op" autocomplete="off">
-                            @error('categoria.descricao')
+                            @error('method.descricao')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
@@ -375,15 +308,15 @@
                 <div class="modal-body py-4 px-4">
 
                     <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente editar esta
-                        categoria?</h5>
+                        forma de pagamento?</h5>
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, essa categoria de operação será
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, esta forma de pagamento será
                             editada no sistema.
                         </p>
                         <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
-                            data-dismiss="modal" class="px-4 verify-font">Verificar dados da categoria</button>
+                            data-dismiss="modal" class="px-4 verify-font">Verificar dados da forma de pagamento</button>
                     </div>
 
                 </div>
@@ -413,11 +346,11 @@
                 <div class="modal-body py-4 px-4">
 
                     <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente apagar esta
-                        categoria?</h5>
+                        forma de pagamento?</h5>
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, esta categoria de operação será
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, esta forma de pagamento será
                             apagada e não poderá mais ser utilizada no sistema.
                         </p>
                     </div>

@@ -1630,3 +1630,18 @@ color: #fff;
     margin-top: -30px;
     margin-left: 8px;
 }
+.fp-infos{
+    cursor: pointer;
+}
+.fp-info-ico{
+    color: #725bc2;
+}
+.fp-info-ico:hover{
+    color: #0696BD;
+}
+.icon-info-cod{
+    color: #725bc2;
+}
+.icon-info-cod:hover{
+    color: #0696BD;
+}

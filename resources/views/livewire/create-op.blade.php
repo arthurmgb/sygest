@@ -56,7 +56,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label class="modal-label" for="operator-op">Operador <span class="red">*</span></label>
+                            <label class="modal-label" for="operador-op">Operador <span class="red">*</span></label>
 
                             @if ($operadores->count())
 
@@ -79,16 +79,34 @@
                             <label class="modal-label" for="especie-op">Espécie  <span class="red">*</span></label>
                                 <select style="font-size: 17px;" wire:model.defer="state.especie" class="form-control modal-input-cat yampay-scroll"
                                     id="especie-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
-                                    <option value="">Selecione o tipo de espécie</option>
-                                    <option value="1">💵 Dinheiro</option>
-                                    <option value="2">💲 Cheque</option>
-                                    <option value="3">💰 Moedas</option>
-                                    <option value="4">💼 Outros</option>
+                                    <option wire:click.prevent="$refresh" value="">Selecione o tipo de espécie</option>
+                                    <option wire:click.prevent="$refresh" value="1">💵 Dinheiro</option>
+                                    <option wire:click.prevent="$refresh" value="2">💲 Cheque</option>
+                                    <option wire:click.prevent="$refresh" value="3">💰 Moedas</option>
+                                    <option wire:click.prevent="$refresh" value="4">💳 Outros (+ Mais opções)</option>
                                 </select>
                             @error('state.especie')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
+                        
+                        @if (isset($state['especie']) and $state['especie'] == 4)
+                            <div class="form-group">
+                                <label class="modal-label" for="fp-op">Forma de pagamento  <span style="font-size: 12px;">(opcional)</span></label>
+                                <a style="padding: 3px 14px;" href="{{ route('formas-pagamento') }}" class="btn btn-new my-1 float-right">+ Nova FP</a>
+                                    <select style="font-size: 17px;" wire:model.defer="state.fp" class="form-control modal-input-cat yampay-scroll"
+                                    id="fp-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    <option value="">Não especificada</option>
+                                        @foreach ($formas_de_pag as $single_form_pag)
+                                            <option value="{{$single_form_pag->id}}">{{$single_form_pag->descricao}}</option>
+                                        @endforeach
+                                    </select>
+                                @error('state.fp')
+                                    <span class="wire-error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+                        
                         <div class="form-group mb-0">
                             <label class="modal-label" for="total-op">Total da operação <span
                                     class="red">*</span></label>

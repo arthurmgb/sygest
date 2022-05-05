@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
+use App\Models\Method;
 use App\Models\Operation;
 use App\Models\Operator;
 use Livewire\Component;
@@ -39,12 +40,13 @@ class CreateOp extends Component
         $this->state['categoria'] = "";
         $this->state['operador'] = "";
         $this->state['especie'] = "";
+        $this->state['fp'] = "";
     }
 
     public function mount()
     {
-
         $this->state['tipo'] = '1';
+        $this->state['fp'] = "";
     }
 
     public function confirmation()
@@ -64,6 +66,7 @@ class CreateOp extends Component
         $this->state['categoria'] = "";
         $this->state['operador'] = "";
         $this->state['especie'] = "";
+        $this->state['fp'] = "";
     }
 
     public function resetOperation()
@@ -75,6 +78,7 @@ class CreateOp extends Component
         $this->state['categoria'] = "";
         $this->state['operador'] = "";
         $this->state['especie'] = "";
+        $this->state['fp'] = "";
     }
 
     public function alternate()
@@ -89,6 +93,10 @@ class CreateOp extends Component
 
         $total_formatado = str_replace(',', '.', $this->state['total']);
 
+        if(empty($this->state['fp'])){
+            $this->state['fp'] = null;
+        }
+
         if($total_formatado > 0){
 
             Operation::create([
@@ -98,6 +106,7 @@ class CreateOp extends Component
                 'category_id' => $this->state['categoria'],
                 'operator_id' => $this->state['operador'],
                 'especie'=> $this->state['especie'],
+                'method_id' => $this->state['fp'],
                 'total' => $total_formatado,
                 'user_id' => auth()->user()->id
     
@@ -109,6 +118,7 @@ class CreateOp extends Component
             $this->state['categoria'] = "";
             $this->state['operador'] = "";
             $this->state['especie'] = "";
+            $this->state['fp'] = "";
     
             $this->emit('alert', 'Operação realizada com sucesso!');
             $this->emitTo('fluxo-caixa', 'render');
@@ -134,6 +144,15 @@ class CreateOp extends Component
         ->orderBy('nome', 'asc')
         ->get();
 
-        return view('livewire.create-op', compact('categorias', 'operadores'));
+        $formas_de_pag = Method::where('user_id', auth()->user()->id)
+        ->where('status', 1)
+        ->orderBy('descricao', 'asc')
+        ->get();
+
+        if(isset($this->state['especie']) and $this->state['especie'] != 4){
+            $this->state['fp'] = "";
+        }
+
+        return view('livewire.create-op', compact('categorias', 'operadores', 'formas_de_pag'));
     }
 }

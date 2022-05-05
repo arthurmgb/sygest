@@ -263,6 +263,11 @@ return [
             'icon' => 'fab ml-2 mr-3 fa-buffer fa-lg fa-fw',
         ],
         [
+            'text' => 'Formas de pagamento',
+            'route'  => 'formas-pagamento',
+            'icon' => 'far ml-2 mr-3 fa-credit-card fa-lg fa-fw',
+        ],
+        [
             'text' => 'Meus links',
             'route'  => 'links',
             'icon' => 'far ml-2 mr-3 fa-paperclip fa-lg fa-fw',

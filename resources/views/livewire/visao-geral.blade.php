@@ -231,6 +231,11 @@
                                             <th>Total</th>
                                             <th>Categoria</th>
                                             <th>Espécie</th>
+                                            <th>
+                                                <div class="d-flex flex-row align-items-center fp-infos">
+                                                FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="top" title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>' style="margin-top: 2px;" class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
+                                                </div>
+                                            </th>
                                             <th>Operador</th>
                                             <th width="200px">Operação</th>
                                         </tr>
@@ -304,30 +309,47 @@
 
                                             <tr class="tr-hover">
 
-                                                <td class="align-middle">{{ $operation->id }}</td>
+                                                <td class="align-middle">
+                                                    <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{$operation->id}}" class="div-codigo">
+                                                        <i class="fad fa-info-circle fa-fw fa-lg icon-info-cod"></i>
+                                                    </div>                                                
+                                                </td>
                                                 <td class="align-middle font-desc">{{ $operation->descricao }}</td>
-                                                <td class="align-middle">{{ $data_operacao }}<br><span
+                                                <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span
                                                         class="g-light">há
                                                         {{ $diferenca }} {{ $tempo }}</span></td>
-                                                <td class="align-middle">R$ {{ $total_operacao }}</td>
+                                                <td style="white-space: nowrap; font-weight: 500;" class="align-middle">R$ {{ $total_operacao }}</td>
                                                 <td class="align-middle"><span
                                                         class="categoria">{{ $categoria_op }}</span>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <span
-                                                        class="especie">{{ $especie_op }}
+                                                    <span class="especie">
+                                                        {{ $especie_op }}
+                                                    </span>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <span>
+                                                        @if (is_null($operation->method_id))
+                                                            @if ($operation->especie == 4)
+                                                                <span style="color: #725BC2; font-weight: 500;">Não especificada</span> 
+                                                            @else
+                                                                {{$especie_op}}
+                                                            @endif
+                                                        @else
+                                                            {{ $operation->method->descricao }}
+                                                        @endif
                                                     </span>
                                                 </td>
                                                 <td class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
                                                 @if ($operation->tipo == 1)
-                                                    <td class="align-middle"><span class="operacao-entrada">Movimento de
+                                                    <td class="align-middle"><span style="white-space: nowrap;" class="operacao-entrada">Movimento de
                                                             entrada</span></td>
 
                                                 @elseif ($operation->tipo == 3)
-                                                    <td class="align-middle"><span class="operacao-retirada">Retirada de
+                                                    <td class="align-middle"><span style="white-space: nowrap;" class="operacao-retirada">Retirada de
                                                             caixa</span></td>
                                                 @else
-                                                    <td class="align-middle"><span class="operacao-saida">Movimento de
+                                                    <td class="align-middle"><span style="white-space: nowrap;" class="operacao-saida">Movimento de
                                                             saída</span>
                                                     </td>
                                                 @endif

@@ -23,4 +23,17 @@
 
 @section('js')
     <script src="{{ asset('js/newfont.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+    
+            Livewire.hook('message.processed', (message, component) => {
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                })
+            })
+        });
+    </script>
 @stop

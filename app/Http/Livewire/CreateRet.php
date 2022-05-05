@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Method;
 use App\Models\Operation;
 use App\Models\Operator;
 use Livewire\Component;
@@ -33,6 +34,7 @@ class CreateRet extends Component
     {
 
         $this->state['tipo'] = '3';
+        $this->state['fp'] = "";
     }
 
     public function confirmation()
@@ -50,6 +52,8 @@ class CreateRet extends Component
         $this->reset('state');
         $this->state['tipo'] = '3';
         $this->state['operador'] = "";
+        $this->state['especie'] = "";
+        $this->state['fp'] = "";
     }
 
     public function resetOperation()
@@ -59,6 +63,8 @@ class CreateRet extends Component
         $this->reset('state');
         $this->state['tipo'] = '3';
         $this->state['operador'] = "";
+        $this->state['especie'] = "";
+        $this->state['fp'] = "";
     }
 
     public function alternate()
@@ -90,6 +96,10 @@ class CreateRet extends Component
 
             if ($total_formatado <= $receita_valor) {
 
+                if(empty($this->state['fp'])){
+                    $this->state['fp'] = null;
+                }
+
                 Operation::create([
 
                     'tipo' => $this->state['tipo'],
@@ -97,6 +107,7 @@ class CreateRet extends Component
                     'category_id' => null,
                     'operator_id' => $this->state['operador'],
                     'especie' => $this->state['especie'],
+                    'method_id' => $this->state['fp'],
                     'total' => $total_formatado,
                     'user_id' => auth()->user()->id
 
@@ -106,8 +117,10 @@ class CreateRet extends Component
                 $this->reset('state');
                 $this->state['tipo'] = '3';
                 $this->state['operador'] = "";
+                $this->state['especie'] = "";
+                $this->state['fp'] = "";
 
-                $this->emit('alert', 'Retirada realizada com sucesso!');
+                $this->emit('alert', 'Retirada de caixa realizada com sucesso!');
                 $this->emitTo('retirada', 'render');
 
             } else {
@@ -116,6 +129,8 @@ class CreateRet extends Component
                 $this->reset('state');
                 $this->state['tipo'] = '3';
                 $this->state['operador'] = "";
+                $this->state['especie'] = "";
+                $this->state['fp'] = "";
 
                 $this->emit('alert-error', 'Você não possui saldo suficiente para realizar uma retirada de caixa.');
                 $this->emitTo('retirada', 'render');
@@ -135,6 +150,15 @@ class CreateRet extends Component
         ->orderBy('nome', 'asc')
         ->get();
 
-        return view('livewire.create-ret', compact('operadores'));
+        $formas_de_pag = Method::where('user_id', auth()->user()->id)
+        ->where('status', 1)
+        ->orderBy('descricao', 'asc')
+        ->get();
+
+        if(isset($this->state['especie']) and $this->state['especie'] != 4){
+            $this->state['fp'] = "";
+        }
+
+        return view('livewire.create-ret', compact('operadores', 'formas_de_pag'));
     }
 }

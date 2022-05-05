@@ -24,9 +24,6 @@
 @section('footer')
     <strong>Copyright &copy; {{ date('Y') }} <a class="default-link" href="{{ route('home') }}">Yampay</a>.</strong>
     Todos os direitos reservados.
-    <div class="float-right d-none d-sm-inline-block">
-        <b>Versão</b> 1.0.0
-    </div>
 @stop
 
 @section('css')

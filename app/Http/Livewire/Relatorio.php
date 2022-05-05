@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Operation;
 use App\Models\Category;
+use App\Models\Method;
 use App\Models\Operator;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -19,10 +20,13 @@ class Relatorio extends Component
     public $categoria;
     public $operador;
     public $operador_filter;
+    public $forma_pag;
     public $relDinheiro, $relCheques, $relMoedas, $relGaveta;
     public $qtd = 10;
     public $nome_categoria;
     public $nome_operador;
+    public $nome_fp;
+    public $especie;
 
     public function mount(){
         $this->operador = 'select-op';
@@ -45,7 +49,7 @@ class Relatorio extends Component
 
     public function resetRelatorio()
     {
-        $this->reset('data', 'categoria', 'operador_filter', 'relDinheiro', 'relCheques', 'relMoedas', 'relGaveta');
+        $this->reset('data', 'categoria', 'operador_filter', 'forma_pag', 'relDinheiro', 'relCheques', 'relMoedas', 'relGaveta');
         $this->qtd = 10;
         $this->operador = 'select-op';
     }
@@ -76,6 +80,7 @@ class Relatorio extends Component
 
             $categories = Category::where('user_id', auth()->user()->id)
             ->where('status', 1)
+            ->orderBy('descricao', 'asc')
             ->get();
 
             $operators = Operator::where('user_id', auth()->user()->id)
@@ -84,7 +89,12 @@ class Relatorio extends Component
             $operators_filter = Operator::where('user_id', auth()->user()->id)
             ->get();
 
-            //FIND NOMES CATEGORIAS E OPERADORES
+            $methods = Method::where('user_id', auth()->user()->id)
+            ->where('status', 1)
+            ->orderBy('descricao', 'asc')
+            ->get();
+
+            //FIND NOMES CATEGORIAS, OPERADORES, FPS
                 if(!is_null($this->categoria) and !empty($this->categoria)){
                     $this->nome_categoria = Category::find($this->categoria);
                     $this->nome_categoria = $this->nome_categoria->descricao;
@@ -93,7 +103,27 @@ class Relatorio extends Component
                     $this->nome_operador = Operator::find($this->operador_filter);
                     $this->nome_operador = $this->nome_operador->nome;
                 }
+                if(!is_null($this->forma_pag) and !empty($this->forma_pag)){
+                    $this->nome_fp = Method::find($this->forma_pag);
+                    $this->nome_fp = $this->nome_fp->descricao;
+                }
             //FIM FIND
+
+            //CHANGE ESPECIE
+
+                if(empty($this->forma_pag)){
+                    $this->especie = [1, 2, 3, 4];
+                }else{
+                    $this->especie = [4];
+                }
+
+            //FIM CHANGE
+
+            if(!empty($this->forma_pag)){
+                $get_fp = $this->forma_pag;
+            }else{
+                $get_fp = false;
+            }
 
             $operations = Operation::where('user_id', auth()->user()->id)
             ->whereBetween('created_at', [$di, $df])
@@ -105,6 +135,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
                 })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->latest('id')
             ->paginate($this->qtd);
 
@@ -124,52 +158,52 @@ class Relatorio extends Component
 
             //FECHAMENTO DO DIA
 
-            if($this->data['inicial'] == $this->data['final']){
+                if($this->data['inicial'] == $this->data['final']){
 
-                $fechado_entradas_total = Operation::where('user_id', auth()->user()->id)
-                ->where('created_at', '<=', $df)
-                ->where('tipo', 1)
-                ->sum('total');
+                    $fechado_entradas_total = Operation::where('user_id', auth()->user()->id)
+                    ->where('created_at', '<=', $df)
+                    ->where('tipo', 1)
+                    ->sum('total');
 
-                $fechado_saidas_ret_total = Operation::where('user_id', auth()->user()->id)
-                ->where('created_at', '<=', $df)
-                ->whereIn('tipo', [0,3])
-                ->sum('total');
+                    $fechado_saidas_ret_total = Operation::where('user_id', auth()->user()->id)
+                    ->where('created_at', '<=', $df)
+                    ->whereIn('tipo', [0,3])
+                    ->sum('total');
 
-                $caixa_fechado_no_dia = $fechado_entradas_total - $fechado_saidas_ret_total;
+                    $caixa_fechado_no_dia = $fechado_entradas_total - $fechado_saidas_ret_total;
 
-                $caixa_fechado_no_dia = number_format($caixa_fechado_no_dia,2,",",".");
+                    $caixa_fechado_no_dia = number_format($caixa_fechado_no_dia,2,",",".");
 
-            }else{
+                }else{
 
-                $fechado_entradas_total = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->where('tipo', 1)
-                ->sum('total');
+                    $fechado_entradas_total = Operation::where('user_id', auth()->user()->id)
+                    ->whereBetween('created_at', [$di, $df])
+                    ->where('tipo', 1)
+                    ->sum('total');
 
-                $anteriores_fechado_entradas_total = Operation::where('user_id', auth()->user()->id)
-                ->where('created_at', '<', $di)
-                ->where('tipo', 1)
-                ->sum('total');
+                    $anteriores_fechado_entradas_total = Operation::where('user_id', auth()->user()->id)
+                    ->where('created_at', '<', $di)
+                    ->where('tipo', 1)
+                    ->sum('total');
 
-                $fechado_saidas_ret_total = Operation::where('user_id', auth()->user()->id)
-                ->whereBetween('created_at', [$di, $df])
-                ->whereIn('tipo', [0,3])
-                ->sum('total');
+                    $fechado_saidas_ret_total = Operation::where('user_id', auth()->user()->id)
+                    ->whereBetween('created_at', [$di, $df])
+                    ->whereIn('tipo', [0,3])
+                    ->sum('total');
 
-                $anteriores_fechado_saidas_ret_total = Operation::where('user_id', auth()->user()->id)
-                ->where('created_at', '<', $di)
-                ->whereIn('tipo', [0,3])
-                ->sum('total');
+                    $anteriores_fechado_saidas_ret_total = Operation::where('user_id', auth()->user()->id)
+                    ->where('created_at', '<', $di)
+                    ->whereIn('tipo', [0,3])
+                    ->sum('total');
 
-                $fechado_entradas_total = $fechado_entradas_total + $anteriores_fechado_entradas_total;
-                $fechado_saidas_ret_total = $fechado_saidas_ret_total + $anteriores_fechado_saidas_ret_total;
+                    $fechado_entradas_total = $fechado_entradas_total + $anteriores_fechado_entradas_total;
+                    $fechado_saidas_ret_total = $fechado_saidas_ret_total + $anteriores_fechado_saidas_ret_total;
 
-                $caixa_fechado_no_dia = $fechado_entradas_total - $fechado_saidas_ret_total;
+                    $caixa_fechado_no_dia = $fechado_entradas_total - $fechado_saidas_ret_total;
 
-                $caixa_fechado_no_dia = number_format($caixa_fechado_no_dia,2,",",".");
+                    $caixa_fechado_no_dia = number_format($caixa_fechado_no_dia,2,",",".");
 
-            }
+                }
 
             //FIM FECHAMENTO DO DIA
 
@@ -184,6 +218,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $receita_saida = Operation::where('user_id', auth()->user()->id)
@@ -197,6 +235,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $rec_only_saida = Operation::where('user_id', auth()->user()->id)
@@ -210,6 +252,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $rec_total = $receita_entrada - $rec_only_saida; 
@@ -226,6 +272,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $operations_count = Operation::where('user_id', auth()->user()->id)
@@ -238,6 +288,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->count();
 
             //Coins relatório
@@ -254,6 +308,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $coin_dinheiro_saida_rel = Operation::where('user_id', auth()->user()->id)
@@ -268,6 +326,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $coin_dinheiro_rel = $coin_dinheiro_entrada_rel - $coin_dinheiro_saida_rel;
@@ -284,6 +346,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $coin_cheque_saida_rel = Operation::where('user_id', auth()->user()->id)
@@ -298,6 +364,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $coin_cheque_rel = $coin_cheque_entrada_rel - $coin_cheque_saida_rel;
@@ -314,6 +384,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $coin_moeda_saida_rel = Operation::where('user_id', auth()->user()->id)
@@ -328,6 +402,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $coin_moeda_rel = $coin_moeda_entrada_rel - $coin_moeda_saida_rel;
@@ -344,6 +422,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $coin_outros_saida_rel = Operation::where('user_id', auth()->user()->id)
@@ -358,6 +440,10 @@ class Relatorio extends Component
                 $query->where('operator_id', 'like', '%' . $this->operador_filter . '%')
                 ->orWhereNull('operator_id');
             })
+            ->when($get_fp, function ($query, $get_fp) {
+                $query->where('method_id', 'like', '%' . $get_fp . '%');
+            })
+            ->whereIn('especie', $this->especie)
             ->sum('total');
 
             $coin_outros_rel = $coin_outros_entrada_rel - $coin_outros_saida_rel;
@@ -409,6 +495,7 @@ class Relatorio extends Component
                 'categories',
                 'operators',
                 'operators_filter',
+                'methods',
                 'operations',
                 'caixa_total', 
                 'rec_total',
@@ -439,12 +526,18 @@ class Relatorio extends Component
 
             $categories = Category::where('user_id', auth()->user()->id)
             ->where('status', 1)
+            ->orderBy('descricao', 'asc')
             ->get();
 
             $operators_filter = Operator::where('user_id', auth()->user()->id)
             ->get();
 
-            return view('livewire.relatorio', compact('categories', 'operators_filter'))
+            $methods = Method::where('user_id', auth()->user()->id)
+            ->where('status', 1)
+            ->orderBy('descricao', 'asc')
+            ->get();
+
+            return view('livewire.relatorio', compact('categories', 'operators_filter', 'methods'))
                 ->layout('pages.relatorios');
         }
     }

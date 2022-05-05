@@ -47,6 +47,15 @@
             
         </div>
         <div class="card-topo-3 mb-3 d-flex flex-row align-items-center">
+            <span class="span-relatorio">Formas de pagamento</span>
+            <select wire:model="forma_pag" style="padding-left: 15px; width: 250px;" class="form-control modal-input-cat rpp ml-3">
+                <option value="">Todas</option>
+                @foreach ($methods as $method)
+                    <option value="{{$method->id}}">{{$method->descricao}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="card-topo-4 mb-3 d-flex flex-row align-items-center">
 
             @if (isset($operations) and $operations->count())
                 <span class="span-relatorio">Quem está imprimindo?</span>
@@ -110,6 +119,13 @@
                                         @else
                                         Operador selecionado: <b><span style="color: #444;">{{$nome_operador}}</span></b>
                                         @endif
+                                    </span><br>
+                                    <span style="color: #725bc2;" class="rc-alert-font">
+                                        @if (is_null($forma_pag) or empty($forma_pag))
+                                        Forma de pagamento selecionada: <b><span style="color: #444;">Todas</span></b>
+                                        @else
+                                        Forma de pagamento selecionada: <b><span style="color: #444;">{{$nome_fp}}</span></b>
+                                        @endif
                                     </span>
                                 </div>                               
                                                                                              
@@ -142,11 +158,21 @@
                                         <span style="color: green; font-size: 22px;"><b>R$ {{ $receita_valor }}</b></span>
                                     </div>
                                     @if ($data_inicial == $data_final)
+                                    @php
+                                        $todays_date = date('d/m/Y');                                      
+                                    @endphp
                                         <hr class="my-2">
                                         <div class="val-block d-flex flex-row align-items-center justify-content-between">
+                                            @if ($data_inicial == $todays_date)
+                                            <span class="rc-alert-font-2 text-uppercase">
+                                                Caixa de <span style="color: #444;">{{$data_inicial}}</span> fechará às <span style="color: #444;">00:00</span> em 
+                                            </span>
+                                            @else
                                             <span class="rc-alert-font-2 text-uppercase">
                                                 Caixa de <span style="color: #444;">{{$data_inicial}}</span> fechado em 
                                             </span>
+                                            @endif
+                                            
                                             <span style="color: #725BC2; font-size: 22px;"><b>R$ {{ $caixa_fechado_no_dia }}</b></span>
                                         </div>
                                     @elseif($data_inicial != $data_final)
@@ -433,6 +459,11 @@
                                 <th>Total</th>
                                 <th>Categoria</th>
                                 <th>Espécie</th>
+                                <th>
+                                    <div class="d-flex flex-row align-items-center fp-infos">
+                                    FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="top" title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>' style="margin-top: 2px;" class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
+                                    </div>
+                                </th>
                                 <th>Operador</th>
                                 <th width="200px">Operação</th>
                             </tr>
@@ -506,26 +537,43 @@
 
                                 <tr class="tr-hover">
 
-                                    <td class="align-middle">{{ $operation->id }}</td>
+                                    <td class="align-middle">
+                                        <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{$operation->id}}" class="div-codigo">
+                                            <i class="fad fa-info-circle fa-fw fa-lg icon-info-cod"></i>
+                                        </div>                                                
+                                    </td>
                                     <td style="font-size: 15px !important;" class="align-middle font-desc">{{ $operation->descricao }}</td>
-                                    <td style="font-size: 15px;" class="align-middle">{{ $data_operacao }}<br><span style="font-size: 13px;" class="g-light">há
+                                    <td style="font-size: 15px; white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span style="font-size: 13px;" class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
-                                    <td style="font-size: 15px;" class="align-middle">R$ {{ $total_operacao }}</td>
+                                    <td style="font-size: 15px; white-space: nowrap; font-weight: 500;" class="align-middle">R$ {{ $total_operacao }}</td>
                                     <td class="align-middle"><span style="font-size: 14px;" class="categoria">{{ $categoria_op }}</span></td>
                                     <td style="font-size: 15px;" class="align-middle">
                                         <span
                                             class="especie">{{ $especie_op }}
                                         </span>
                                     </td>
+                                    <td class="align-middle">
+                                        <span>
+                                            @if (is_null($operation->method_id))
+                                                @if ($operation->especie == 4)
+                                                    <span style="color: #725BC2; font-weight: 500;">Não especificada</span> 
+                                                @else
+                                                    {{$especie_op}}
+                                                @endif
+                                            @else
+                                                {{ $operation->method->descricao }}
+                                            @endif
+                                        </span>
+                                    </td>
                                     <td class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
                                     @if ($operation->tipo == 1)
-                                        <td class="align-middle"><span class="operacao-entrada">Movimento de
+                                        <td class="align-middle"><span style="white-space: nowrap;" class="operacao-entrada">Movimento de
                                                 entrada</span></td>
                                     @elseif ($operation->tipo == 3)
-                                        <td class="align-middle"><span class="operacao-retirada">Retirada de
+                                        <td class="align-middle"><span style="white-space: nowrap;" class="operacao-retirada">Retirada de
                                                 caixa</span></td>
                                     @else
-                                        <td class="align-middle"><span class="operacao-saida">Movimento de
+                                        <td class="align-middle"><span style="white-space: nowrap;" class="operacao-saida">Movimento de
                                                 saída</span>
                                         </td>
                                     @endif
