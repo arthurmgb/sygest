@@ -26,7 +26,7 @@
         </div>
         <div class="card-topo-2 mb-3 d-flex flex-row align-items-center">
             <span class="span-relatorio">Categoria</span>
-            <select wire:model="categoria" style="padding-left: 15px; width: 180px;" class="form-control modal-input-cat rpp ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+            <select wire:model="categoria" style="padding-left: 15px; width: 180px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                 <option value="">Todas</option>
                 @foreach ($categories as $categorie)
                     <option value="{{$categorie->id}}">{{$categorie->descricao}}</option>
@@ -35,7 +35,7 @@
 
             <span class="span-relatorio ml-4">Operador</span>
             @if($operators_filter->count())
-                <select wire:model="operador_filter" style="padding-left: 15px; width: 250px;" class="form-control modal-input-cat rpp ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                <select wire:model="operador_filter" style="padding-left: 15px; width: 250px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                     <option value="">Todos</option>
                     @foreach ($operators_filter as $single_operator)
                         <option value="{{$single_operator->id}}">{{$single_operator->nome}}</option>
@@ -48,7 +48,7 @@
         </div>
         <div class="card-topo-3 mb-3 d-flex flex-row align-items-center">
             <span class="span-relatorio">Formas de pagamento</span>
-            <select wire:model="forma_pag" style="padding-left: 15px; width: 250px;" class="form-control modal-input-cat rpp ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+            <select wire:model="forma_pag" style="padding-left: 15px; width: 250px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                 <option value="">Todas</option>
                 @foreach ($methods as $method)
                     <option value="{{$method->id}}">{{$method->descricao}}</option>
@@ -60,7 +60,7 @@
             @if (isset($operations) and $operations->count())
                 <span class="span-relatorio">Quem está imprimindo?</span>
                 @if($operators->count())
-                    <select wire:model="operador" style="padding-left: 15px; width: 250px;" class="form-control modal-input-cat rpp ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                    <select wire:model="operador" style="padding-left: 15px; width: 250px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                         <option value="select-op">Selecione um operador</option>
                         @foreach ($operators as $operator)
                             <option value="{{$operator->nome}}">{{$operator->nome}}</option>

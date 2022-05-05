@@ -514,6 +514,7 @@ select > option {
     margin-bottom: 5px;
     background: #f5f5f5;
     transition: all 0.2s;
+    white-space: pre-wrap;
 }
 select > option:hover{
     background: #8369DF;
@@ -788,7 +789,12 @@ ul.pagination{
     font-weight: 500;
 }
 .rpp option{
+    color: #725BC2;
     font-size: 16px;
+}
+.rpp option:checked{
+    background: #725BC2;
+    color: #fff;
 }
 .ipp{
     font-size: 13px;
