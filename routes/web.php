@@ -43,3 +43,7 @@ Route::get('/opt', function() {
     Artisan::call('optimize');
     return "Cleared";
 });
+
+Route::get('/storagelink', function () {
+    Artisan::call('storage:link');
+});

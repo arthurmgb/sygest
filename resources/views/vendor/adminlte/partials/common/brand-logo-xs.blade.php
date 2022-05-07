@@ -8,7 +8,7 @@
     @php( $dashboard_url = $dashboard_url ? url($dashboard_url) : '' )
 @endif
 
-<a style="background-color: #352B73; padding: 10px;" href="{{ $dashboard_url }}"
+<a style="background-color: #352B73; padding: 10.5px;" href="{{ $dashboard_url }}"
     @if($layoutHelper->isLayoutTopnavEnabled())
         class="navbar-brand {{ config('adminlte.classes_brand') }}"
     @else
@@ -16,13 +16,13 @@
     @endif>
 
     {{-- Small brand logo --}}
-    <img style="margin-top: 0px;" src="{{ asset(config('adminlte.logo_img', 'vendor/adminlte/dist/img/AdminLTELogo.png')) }}"
+    <img style="margin-top: 0px; width: 32px; height: 32px; max-height: 32px;" src="{{ asset(config('adminlte.logo_img', 'vendor/adminlte/dist/img/AdminLTELogo.png')) }}"
          alt="{{ config('adminlte.logo_img_alt', 'AdminLTE') }}"
          class="{{ config('adminlte.logo_img_class', 'brand-image img-circle elevation-3') }}">
-
+    
     {{-- Brand text --}}
-    <span style="font-size: 24px !important; font-weight: 600 !important;" class="brand-text font-weight-light {{ config('adminlte.classes_brand_text') }}">
-        {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
+    <span style="font-size: 24px !important;" class="brand-text font-weight-light {{ config('adminlte.classes_brand_text') }}">
+        <span class="text-uppercase" style="font-weight: 600; letter-spacing: 1px; font-family: 'Poppins', sans-serif;">Ca<span style="color: #f472b6;">$</span>hiers</span>
     </span>
 
 </a>

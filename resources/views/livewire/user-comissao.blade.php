@@ -349,10 +349,10 @@
                         </p>
                         
                         @php
-                            $stripped_name = preg_replace('/\s+/', '%20', auth()->user()->name . ' [Código: YAM' . auth()->user()->id . ']');                      
+                            $stripped_name = preg_replace('/\s+/', '%20', auth()->user()->name . ' [Código: CASH' . auth()->user()->id . ']');                      
                         @endphp
 
-                        <button onclick="copyInvite()" id="btn-invite" data-clipboard-text="Olá!! Estou-lhe convidando a fazer parte da melhor plataforma de *Sistema de Caixa e Gerenciamento Financeiro - Yampay*! Você não pode ficar fora dessa! 🤑&#10;&#10;🔗 *Meu link de convite:* https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Fui%20indicado%20a%20participar%20da%20plataforma%20Yampay%20pelo%20*{{$stripped_name}}*%2C%20quero%20saber%20mais%20detalhes%2C%20como%20funciona%3F" style="font-size: 18px;" class="copy-invite btn btn-new mb-4">Copiar link de convite <i class="fa-fw fas fa-clone ml-1"></i></button>
+                        <button onclick="copyInvite()" id="btn-invite" data-clipboard-text="Olá!! Estou-lhe convidando a fazer parte da melhor *Plataforma de Gerenciamento Financeiro - Cashiers*! Você não pode ficar fora dessa! 🤑&#10;&#10;🔗 *Meu link de convite:* https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Fui%20indicado%20a%20participar%20da%20Plataforma%20Cashiers%20pelo(a)%20*{{$stripped_name}}*%2C%20quero%20saber%20mais%20detalhes%2C%20como%20funciona%3F" style="font-size: 18px;" class="copy-invite btn btn-new mb-4">Copiar link de convite <i class="fa-fw fas fa-clone ml-1"></i></button>
 
                         <h5 style="font-size: 25px;" class="modal-confirmation-msg m-0 text-center px-4 mb-3">Atenção!</h5>
 
@@ -373,7 +373,7 @@
                         <p style="font-size: 18px;" class="m-0 mt-3 px-4">
                             Quer nos dar alguma sugestão de melhoria? <span class="msg-bold">Entre em contato</span>!
                         </p>
-                        <a style="font-size: 18px !important; padding-bottom: 30px;" href="https://api.whatsapp.com/send?phone=5534998395367&amp;text=Ol%C3%A1!%20Quero%20fazer%20uma%20sugestão%20de%20melhoria%20para%20a%20Yampay!" target="_blank" type="button" class="px-4 verify-font">Fale conosco</a><br>                   
+                        <a style="font-size: 18px !important; padding-bottom: 30px;" href="https://api.whatsapp.com/send?phone=5534998395367&amp;text=Ol%C3%A1!%20Quero%20fazer%20uma%20sugestão%20de%20melhoria%20para%20a%20Cashiers!" target="_blank" type="button" class="px-4 verify-font">Fale conosco</a><br>                   
                     </div>
 
                     <img style="position: absolute; margin-top: -55px; left: -4px; bottom: -20px; z-index: 5;" class="urso-img" src="{{asset('vendor/adminlte/dist/img/no-results-300.png')}}">
@@ -396,7 +396,7 @@
                     <div class="confirmation-msg">
 
                         <div class="div-title-recibo d-flex flex-row align-items-center mb-4">
-                            <img style="width: 64px; height: 64px; -webkit-user-drag: none !important; user-select: none;" src="{{asset('vendor/adminlte/dist/img/primezzecrown.png')}}">
+                            <img style="width: 64px; height: 64px; -webkit-user-drag: none !important; user-select: none;" src="{{asset('vendor/adminlte/dist/img/cashier-logo.png')}}">
                             <div class="mx-auto">
                                 <h5 style="font-size: 24px; color: #725BC2;" class="mb-0">Recibo de Pagamento</h5>
                             </div>

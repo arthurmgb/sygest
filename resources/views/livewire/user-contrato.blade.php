@@ -61,7 +61,7 @@
                                 <h2 class="mb-0 d-flex flex-row align-items-center justify-content-between">
                                 <button style="color: #725BC2;" class="btn py-2 btn-link btn-block text-left collapsed font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse{{$contract->id}}" aria-expanded="false" aria-controls="collapse{{$contract->id}}">
                                     <i class="fad fa-chevron-down fa-fw mr-1"></i> 
-                                    Sistema Yampay 
+                                    Plataforma Cashiers 
                                     @if($contract->is_test == 1) 
                                     [<span style="color: #08af45;">PERÍODO DE AVALIAÇÃO GRATUITA: <span style="color: #a855f7;">1 MÊS</span></span>]
                                     @elseif($contract->is_test == 0)
@@ -973,7 +973,7 @@
                     <div class="confirmation-msg">
 
                         <div class="div-title-recibo d-flex flex-row align-items-center mb-4">
-                            <img style="width: 64px; height: 64px; -webkit-user-drag: none !important; user-select: none;" src="{{asset('vendor/adminlte/dist/img/primezzecrown.png')}}">
+                            <img style="width: 64px; height: 64px; -webkit-user-drag: none !important; user-select: none;" src="{{asset('vendor/adminlte/dist/img/cashier-logo.png')}}">
                             <div class="mx-auto">
                                 <h5 style="font-size: 24px; color: #725BC2;" class="mb-0">Recibo de Prestação de Serviço</h5>
                             </div>
@@ -996,7 +996,7 @@
 
                         <div class="div-row-1 mb-2">
                             <span style="font-size: 17px; color: #444;">
-                                Recebemos de <span style="font-weight: 600;">{{$recibo_info['0']['nome']}}</span> - CPF/CNPJ nº <span style="font-weight: 600;">{{$recibo_info['0']['documento']}}</span>, a importância de <span style="font-weight: 600;">cento e cinquenta reais</span> referente à <span style="font-weight: 600;">Mensalidade do Sistema de Caixa e Gerenciamento Financeiro - Yampay</span>.
+                                Recebemos de <span style="font-weight: 600;">{{$recibo_info['0']['nome']}}</span> - CPF/CNPJ nº <span style="font-weight: 600;">{{$recibo_info['0']['documento']}}</span>, a importância de <span style="font-weight: 600;">cento e cinquenta reais</span> referente à <span style="font-weight: 600;">Mensalidade da Plataforma de Gerenciamento Financeiro - Cashiers</span>.
                             </span>
                         </div>
 

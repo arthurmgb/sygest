@@ -72,7 +72,7 @@ class Comissao extends Component
         $valor_comissao_ntf = number_format($comissao->valor,2,",",".");
         $data_comissao_ntf = date('d/m/Y', strtotime($comissao->previsao));
 
-        $msg_notification_comissao_paga = 'Olá! Enviamos seu pagamento de <b style="color: green;">R$ ' . $valor_comissao_ntf . '</b> referente à comissão que estava prevista para ser paga no dia <b>' . $data_comissao_ntf . '</b>. Para visualizar os detalhes da comissão e imprimir o seu recibo, vá até o menu <b>Minha conta</b> e em seguida <b>></b> <b>Minhas comissões</b>. Continue compartilhando seu código de convite com seus amigos para receber cada vez mais! Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Yampay</b>.';
+        $msg_notification_comissao_paga = 'Olá! Enviamos seu pagamento de <b style="color: green;">R$ ' . $valor_comissao_ntf . '</b> referente à comissão que estava prevista para ser paga no dia <b>' . $data_comissao_ntf . '</b>. Para visualizar os detalhes da comissão e imprimir o seu recibo, vá até o menu <b>Minha conta</b> e em seguida <b>></b> <b>Minhas comissões</b>. Continue compartilhando seu código de convite com seus amigos para receber cada vez mais! Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
 
         $notification_comissao_paga = new Notification;
         $notification_comissao_paga->user_id = $comissao->comissionado_id;

@@ -1,4 +1,4 @@
-<nav style="background-color: #352B73; box-shadow: 0 1px 4px 0 rgba(0,0,0,.15);" class="main-header navbar
+<nav style="background-color: #352B73; box-shadow: 0 1px 4px 0 rgba(0,0,0,.15); padding: 8.5px;" class="main-header navbar
     {{ config('adminlte.classes_topnav_nav', 'navbar-expand') }}
     {{ config('adminlte.classes_topnav', 'navbar-white navbar-light') }}">
 

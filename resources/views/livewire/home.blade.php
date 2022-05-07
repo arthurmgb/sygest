@@ -5,7 +5,7 @@
     </div>
 
     <div class="initial-div">
-        <p class="initial-msg mb-0">Seja bem-vindo ao <span class="panel-adm">Painel Administrativo</span>!</p>
+        <p class="initial-msg mb-0">Seja bem-vindo à <span class="panel-adm">Plataforma Cashiers</span>!</p>
         <p class="initial-msg mb-0">Último acesso: {{ $last_login }} - há {{ $diferenca }} {{ $tempo }}</p>
     </div>
 
@@ -53,7 +53,7 @@
                         <p style="font-size: 18px;" class="m-0 mt-4 px-4">
                             Ficou com alguma dúvida ou quer nos dar alguma sugestão de melhoria?<br><span class="msg-bold">Entre em contato</span>!
                         </p>
-                        <a style="font-size: 18px !important;" href="https://api.whatsapp.com/send?phone=5534998395367&amp;text=Ol%C3%A1!%20Quero%20fazer%20uma%20sugestão%20de%20melhoria%20para%20a%20Yampay!" target="_blank" type="button" class="px-4 verify-font">Fale conosco</a>
+                        <a style="font-size: 18px !important;" href="https://api.whatsapp.com/send?phone=5534998395367&amp;text=Ol%C3%A1!%20Quero%20fazer%20uma%20sugestão%20de%20melhoria%20para%20a%20Cashiers!" target="_blank" type="button" class="px-4 verify-font">Fale conosco</a>
                     </div>
 
                 </div>

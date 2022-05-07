@@ -14,9 +14,9 @@ return [
     |
     */
 
-    'title' => 'Yampay',
+    'title' => 'Cashiers',
     'title_prefix' => '',
-    'title_postfix' => '· Yampay',
+    'title_postfix' => '· Cashiers',
 
     /*
     |--------------------------------------------------------------------------
@@ -45,8 +45,8 @@ return [
     |
     */
 
-    'logo' => 'Yamp<span style="color: #FE509C">a</span>y',
-    'logo_img' => 'vendor/adminlte/dist/img/primezzecrown.png',
+    'logo' => '',
+    'logo_img' => 'vendor/adminlte/dist/img/cashier-logo.png',
     'logo_img_class' => 'brand-image',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',

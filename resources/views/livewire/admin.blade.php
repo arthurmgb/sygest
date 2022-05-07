@@ -1011,7 +1011,7 @@
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                             <h3 style="font-size: 26px;" class="no-results-create mb-3">Você não possui permissão para visualizar este conteúdo.</h3>
                             <h3 style="font-size: 22px; color: #666;" class="no-results-create mb-3 mt-2">Tem dúvidas?</h3>
-                            <a target="_blank" href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20sistema%20financeiro%20da%20Yampay!" class="ml-2 btn btn-nr"><i class="fad fa-user-headset fa-lg mr-2"></i>Fale conosco</a>
+                            <a target="_blank" href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!" class="ml-2 btn btn-nr"><i class="fad fa-user-headset fa-lg mr-2"></i>Fale conosco</a>
                         </div>
                     </div>
                 </div>
@@ -1063,7 +1063,7 @@
                                     <h2 class="mb-0 d-flex flex-row align-items-center justify-content-between">
                                     <button style="color: #725BC2;" class="btn py-2 btn-link btn-block text-left collapsed font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse{{$contract->id}}" aria-expanded="false" aria-controls="collapse{{$contract->id}}">
                                         <i class="fad fa-chevron-down fa-fw mr-1"></i> 
-                                        Sistema Yampay 
+                                        Plataforma Cashiers 
                                         @if($contract->is_test == 1) 
                                         [<span style="color: #08af45;">PERÍODO DE AVALIAÇÃO GRATUITA: <span style="color: #a855f7;">1 MÊS</span></span>]
                                         @elseif($contract->is_test == 0)
@@ -1648,11 +1648,11 @@
                     </div>
                     <div class="modal-body py-4 px-4">
 
-                        <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente deletar este usuário do sistema?</h5>
+                        <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente deletar este usuário da plataforma?</h5>
 
                         <div class="confirmation-msg text-center mb-3">
                             <p class="m-0 mb-3 px-4">
-                                Ao clicar em <span class="msg-bold">Confirmar</span>, o usuário <span class="msg-bold">{{$username_to_delete}}</span> e todos os seus dados serão inteiramente excluídos do sistema.
+                                Ao clicar em <span class="msg-bold">Confirmar</span>, o usuário <span class="msg-bold">{{$username_to_delete}}</span> e todos os seus dados serão inteiramente excluídos da plataforma.
                                 <br>
                                 <span class="msg-bold text-uppercase">Atenção:</span> Esta ação é irreversível e o usuário não poderá ser recuperado!
                             </p>                      

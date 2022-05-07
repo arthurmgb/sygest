@@ -155,7 +155,7 @@
                 <h3 style="font-size: 20px;" class="my-4 no-results text-center">Estamos em manutenção, em breve retornaremos.</h3>
                 <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                     <h3 style="font-size: 25px;" class="no-results-create mb-3">Tem dúvidas?</h3>
-                    <a href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20sistema%20financeiro%20da%20Yampay!" target="_blank" class="btn btn-nr"><i class="fad fa-user-headset fa-fw fa-lg mr-2"></i>Fale conosco</a>
+                    <a href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!" target="_blank" class="btn btn-nr"><i class="fad fa-user-headset fa-fw fa-lg mr-2"></i>Fale conosco</a>
                     
                     @php( $logout_url = View::getSection('logout_url') ?? config('adminlte.logout_url', 'logout') )
 
@@ -181,7 +181,7 @@
 
                 <div id="preloader">
                     <div class="inner">
-                        <img style="width: 60px; height: auto; margin-left: 10px;" src="{{ asset('vendor/adminlte/dist/img/primezzecrown.png') }}">
+                        <img style="width: 64px; height: 64px; margin-bottom: 20px; margin-left: 10px;" src="{{ asset('vendor/adminlte/dist/img/cashier-logo.png') }}">
                         <div class="bolas">
                             <div></div>
                             <div></div>
@@ -367,7 +367,7 @@
                 <h3 style="font-size: 22px;" class="my-4 no-results text-center">Ops! Parece que sua mensalidade venceu e seu acesso ao sistema expirou :(</h3>
                 <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                     <h3 style="font-size: 23px;" class="no-results-create mb-3">Entre em contato para regularizar sua situação.</h3>
-                    <a href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20sistema%20financeiro%20da%20Yampay!" target="_blank" class="btn btn-nr"><i class="fad fa-user-headset fa-fw fa-lg mr-2"></i>Fale conosco</a>
+                    <a href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!" target="_blank" class="btn btn-nr"><i class="fad fa-user-headset fa-fw fa-lg mr-2"></i>Fale conosco</a>
                     
                     @php( $logout_url = View::getSection('logout_url') ?? config('adminlte.logout_url', 'logout') )
 
@@ -516,10 +516,10 @@
                             d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                     </defs>
                 </svg>
-                <h3 style="font-size: 20px;" class="my-4 no-results text-center">A Yampay ainda não está disponível para dispositivos móveis.</h3>
+                <h3 style="font-size: 20px;" class="my-4 no-results text-center">A Cashiers ainda não está disponível para dispositivos móveis.</h3>
                 <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                     <h3 style="font-size: 25px;" class="no-results-create mb-3">Tem dúvidas?</h3>
-                    <a href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20sistema%20financeiro%20da%20Yampay!" target="_blank" class="btn btn-nr"><i class="fad fa-user-headset fa-fw fa-lg mr-2"></i>Fale conosco</a>
+                    <a href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!" target="_blank" class="btn btn-nr"><i class="fad fa-user-headset fa-fw fa-lg mr-2"></i>Fale conosco</a>
                     
                     @php( $logout_url = View::getSection('logout_url') ?? config('adminlte.logout_url', 'logout') )
 

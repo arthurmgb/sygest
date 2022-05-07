@@ -15,14 +15,14 @@
         <div class="help-div">
             <h3 class="home-subtitle">Tem dúvidas?</h3>
             <a class="home-link"
-                href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20sistema%20financeiro%20da%20Yampay!"
+                href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!"
                 target="_blank"><i class="fas fa-external-link-alt mr10"></i>Acesse nossa central de ajuda</a>
         </div>
     </div>
 @stop
 
 @section('footer')
-    <strong>Copyright &copy; {{ date('Y') }} <a class="default-link" href="{{ route('home') }}">Yampay</a>.</strong>
+    <strong>Copyright &copy; {{ date('Y') }} <a class="default-link" href="{{ route('home') }}">Cashiers</a>.</strong>
     Todos os direitos reservados.
 @stop
 

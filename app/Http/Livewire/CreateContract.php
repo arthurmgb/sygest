@@ -147,7 +147,7 @@ class CreateContract extends Component
             $valor_comissao_format =  number_format($valor_comissao,2,",",".");
             $previsao_comissao_format = date('d/m/Y', strtotime($this->state['pagamento']));
 
-            $msg_notification_comissao = 'Parabéns! Seu amigo/empresa acaba de entrar para a plataforma utilizando o seu código de convite. Você tem uma comissão pendente a ser recebida no valor de <b style="color: green;">R$ ' . $valor_comissao_format . '</b>, esta comissão está prevista para ser paga no dia <b>' . $previsao_comissao_format . '.</b> Para mais detalhes, acesse o menu <b>Minha conta</b> e em seguida <b>></b> <b>Minhas comissões</b>, para visualizar todos os detalhes da sua comissão e entender como você pode recebê-la! Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Yampay</b>.';
+            $msg_notification_comissao = 'Parabéns! Seu amigo/empresa acaba de entrar para a plataforma utilizando o seu código de convite. Você tem uma comissão pendente a ser recebida no valor de <b style="color: green;">R$ ' . $valor_comissao_format . '</b>, esta comissão está prevista para ser paga no dia <b>' . $previsao_comissao_format . '.</b> Para mais detalhes, acesse o menu <b>Minha conta</b> e em seguida <b>></b> <b>Minhas comissões</b>, para visualizar todos os detalhes da sua comissão e entender como você pode recebê-la! Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
 
             $notification_comissao = new Notification;
             $notification_comissao->user_id = $this->state['comissionado'];
@@ -187,7 +187,7 @@ class CreateContract extends Component
 
         //NOTIFICAÇÃO DE CONTRATO CRIADO
 
-        $msg_notification_contrato = 'Olá! Seu contrato com a plataforma Yampay acaba de ser efetivado e você já pode utilizar todos os nossos serviços. Este contrato tem sua vigência por <b>' . $this->state['meses'] . ' meses</b>, e seu vencimento em <b>' . $venc_mensalidade_format . '.</b> Para mais detalhes, acesse o menu <b>Minha conta</b> e em seguida <b>></b> <b>Meus contratos</b>, para visualizar todos os detalhes do seu contrato e suas respectivas mensalidades. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Yampay</b>.';
+        $msg_notification_contrato = 'Olá! Seu contrato com a Plataforma Cashiers acaba de ser efetivado e você já pode utilizar todos os nossos serviços. Este contrato tem sua vigência por <b>' . $this->state['meses'] . ' meses</b>, e seu vencimento em <b>' . $venc_mensalidade_format . '.</b> Para mais detalhes, acesse o menu <b>Minha conta</b> e em seguida <b>></b> <b>Meus contratos</b>, para visualizar todos os detalhes do seu contrato e suas respectivas mensalidades. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
 
         $notification_contrato = new Notification;
         $notification_contrato->user_id = $this->id_user;
