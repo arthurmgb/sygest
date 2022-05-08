@@ -240,7 +240,7 @@ return [
         [
             'text' => 'Visão geral',
             'route'  => 'geral',
-            'icon' => 'far ml-2 pl-1 mr-3 fa-signal-alt-3 fa-lg fa-fw',
+            'icon' => 'far ml-2 mr-3 fa-analytics fa-lg fa-fw',
         ],
         [
             'text' => 'Fluxo de caixa',
@@ -268,24 +268,19 @@ return [
             'icon' => 'far ml-2 mr-3 fa-credit-card fa-lg fa-fw',
         ],
         [
-            'text' => 'Meus links',
-            'route'  => 'links',
-            'icon' => 'far ml-2 mr-3 fa-paperclip fa-lg fa-fw',
-        ],
-        [
             'text' => 'Minhas tarefas',
             'route'  => 'tarefas',
             'icon' => 'far ml-2 mr-3 fa-tasks fa-lg fa-fw',
         ],
         [
+            'text' => 'Meus links',
+            'route'  => 'links',
+            'icon' => 'far ml-2 mr-3 fa-link fa-lg fa-fw',
+        ],
+        [
             'text' => 'Ferramentas',
             'route'  => 'ferramentas',
             'icon' => 'far ml-2 mr-3 fa-tools fa-lg fa-fw',
-        ],
-        [
-            'text' => 'Navegador integrado',
-            'route'  => 'navegador',
-            'icon' => 'far ml-2 mr-3 fa-globe fa-lg fa-fw',
         ],
         [
             'text' => 'Minha conta',

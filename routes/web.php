@@ -7,7 +7,6 @@ use App\Http\Livewire\Ferramenta;
 use App\Http\Livewire\FluxoCaixa;
 use App\Http\Livewire\FormaPagamento;
 use App\Http\Livewire\Home;
-use App\Http\Livewire\Navegador;
 use App\Http\Livewire\Notificacao;
 use App\Http\Livewire\Relatorio;
 use App\Http\Livewire\Retirada;
@@ -28,7 +27,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/categorias', Categoria::class)->name('categorias');
     Route::get('/links', Shortcut::class)->name('links');
     Route::get('/ferramentas', Ferramenta::class)->name('ferramentas');
-    Route::get('/navegador', Navegador::class)->name('navegador');
     Route::get('/tarefas', Tarefa::class)->name('tarefas');
     Route::get('/configuracoes', Configuracao::class)->name('configuracoes');
     Route::get('/admin', Admin::class)->name('admin');
@@ -42,8 +40,4 @@ Route::group(['middleware' => 'auth'], function(){
 Route::get('/opt', function() {
     Artisan::call('optimize');
     return "Cleared";
-});
-
-Route::get('/storagelink', function () {
-    Artisan::call('storage:link');
 });
