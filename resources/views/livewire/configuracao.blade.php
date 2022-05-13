@@ -19,7 +19,7 @@
 
                 <div class="card">
                     
-                    <div class="topo-ico d-flex flex-row align-items-center mb-1">
+                    <div class="topo-ico d-flex flex-row align-items-center mb-3">
                         <i style="color: #725BC2;" class="fad fa-users fa-fw fa-lg mr-2"></i>                                                                        
                         <div class="card-topo">
                             <div style="margin-bottom: 0 !important;" class="title-block f-calc">
@@ -33,6 +33,25 @@
                             </div> 
                         @endif
                     </div>
+
+                    @if($operators->count())
+                        <div class="topo-ico d-flex flex-row align-items-center mb-1">
+                            <i style="color: #db2777;" class="fad fa-user-crown fa-fw fa-lg mr-2"></i>                                                                    
+                            <div class="card-topo">
+                                <div style="margin-bottom: 0 !important;" class="title-block f-calc">
+                                    Operador padrão:
+                                    @if (is_null($default_operator_name))
+                                        <span class="period mr-1">Nenhum</span>                           
+                                    @else
+                                        <span style="color: #725BC2 !important;" class="period mr-1">{{$default_operator_name->nome}}</span>
+                                    @endif
+                                </div>                                                                         
+                            </div>
+                            <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-html="true" data-placement="bottom" title="O operador definido como padrão, ficará pré-selecionado no momento de criar uma nova operação para que você possa agilizar o processo, no entanto, você poderá alterar o operador normalmente durante a criação da operação caso seja necessário." data-flow="top" class="div-ttp-op-default">
+                                <i class="fad fa-info-circle fa-fw fa-lg fp-info-ico"></i>
+                            </div>
+                        </div>
+                    @endif
                 
                     <div wire:target="qtd" style="margin-top: 125px; margin-bottom: 125px;"
                         wire:loading wire:loading.class="d-flex flex-row align-items-center justify-content-center">
@@ -44,8 +63,7 @@
                         @if($operators->count())
                             <table style="cursor: default;" class="table table-borderless">
                                 <thead class="t-head">
-                                    <tr class="t-head-border">
-                                        <th>ID #</th>
+                                    <tr class="t-head-border">                                      
                                         <th>Nome completo</th>
                                         <th>Data de cadastro</th>                                 
                                         <th>Ações</th>
@@ -59,8 +77,7 @@
                                     $data_criacao = $operator->created_at->format('d/m/Y H:i');
                                     @endphp
 
-                                        <tr class="tr-hover">
-                                            <td class="align-middle">{{$operator->id}}</td>
+                                        <tr class="tr-hover">                                        
                                             <td class="align-middle font-desc">{{$operator->nome}}</td>
                                             <td class="align-middle">{{$data_criacao}}</td>
                                             <td class="align-middle">
@@ -70,7 +87,20 @@
                                                         data-target="#editarCat" data-tooltip="Editar" data-flow="left"
                                                         class="cbe">
                                                         <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
-                                                    </div>                                                 
+                                                    </div>
+                                                    @if ($operator->is_default == 0)
+                                                        <div wire:target="toggleDefault({{$operator->id}})" wire:loading.attr="disabled"
+                                                            wire:click.prevent="toggleDefault({{$operator->id}})" data-tooltip="Definir como padrão" data-flow="right"
+                                                            class="cbe">
+                                                            <i style="color: #6b7280 !important;" class="fad fa-toggle-off fa-fw fa-crud fac-edit"></i>                                                
+                                                        </div> 
+                                                    @elseif($operator->is_default == 1)
+                                                        <div wire:target="toggleDefault({{$operator->id}})" wire:loading.attr="disabled"
+                                                            wire:click.prevent="toggleDefault({{$operator->id}})" data-tooltip="Remover como padrão" data-flow="right"
+                                                            class="cbe">
+                                                            <i style="color: #22c55e !important;" class="fad fa-toggle-on fa-fw fa-crud fac-edit"></i>                                                
+                                                        </div>
+                                                    @endif                                                            
                                                 </div>
                                             </td>
                                         </tr>

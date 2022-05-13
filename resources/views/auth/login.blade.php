@@ -22,7 +22,7 @@
 
             <div>
                 <x-jet-label class="primezze-label" for="email" value="{{ __('E-mail') }}" />
-                <x-jet-input placeholder="exemplo@email.com.br" id="email" class="block mt-1 w-full primezze-input"
+                <x-jet-input placeholder="seuemail@exemplo.com" id="email" class="block mt-1 w-full primezze-input"
                     type="email" name="email" :value="old('email')" required autofocus autocomplete="off" />
             </div>
 
@@ -33,8 +33,8 @@
             </div>
 
             <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-jet-checkbox id="remember_me" name="remember" />
+                <label style="cursor: pointer; user-select: none;" for="remember_me" class="flex items-center">
+                    <x-jet-checkbox style="cursor: pointer;" id="remember_me" name="remember" />
                     <span class="ml-2 text-sm text-gray-600">{{ __('Lembrar-me') }}</span>
                 </label>
             </div>

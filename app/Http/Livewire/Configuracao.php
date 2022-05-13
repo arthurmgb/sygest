@@ -76,6 +76,44 @@ class Configuracao extends Component
         $this->modal_start = $find_user->modal_start;
 
     }
+
+    public function toggleDefault($id){
+
+        $default_operator = Operator::find($id);
+
+        $defined_default = Operator::where('user_id', auth()->user()->id)
+            ->where('is_default', 1)
+            ->get();
+
+        if($default_operator->is_default == 0){
+
+            if($defined_default->isEmpty()){
+
+                $default_operator->is_default = 1;
+                $default_operator->save();
+
+            }else{
+
+                Operator::where('user_id', auth()->user()->id)
+                ->where('is_default', 1)
+                ->update(['is_default' => 0]);
+                
+                $default_operator->is_default = 1;
+                $default_operator->save();
+            }
+
+            $this->emit('alert', 'Operador padrão alterado com sucesso!');
+
+        }elseif($default_operator->is_default == 1){
+
+            $default_operator->is_default = 0;
+            $default_operator->save();
+
+            $this->emit('alert', 'Operador padrão removido com sucesso!');
+
+        }
+
+    }
     
     public function render()
     {
@@ -86,7 +124,11 @@ class Configuracao extends Component
 
         $operators_count = $operators->count();
 
-        return view('livewire.configuracao', compact('operators', 'operators_count'))
+        $default_operator_name = Operator::where('user_id', auth()->user()->id)
+        ->where('is_default', 1)
+        ->first();
+
+        return view('livewire.configuracao', compact('operators', 'operators_count', 'default_operator_name'))
         ->layout('pages.configuracoes');
     }
 }

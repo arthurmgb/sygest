@@ -47,6 +47,23 @@ class CreateOp extends Component
     {
         $this->state['tipo'] = '1';
         $this->state['fp'] = "";
+
+        $get_default_operator = Operator::where('user_id', auth()->user()->id)->where('is_default', 1)->first();
+        
+        if(!is_null($get_default_operator)){
+            $this->state['operador'] = $get_default_operator->id;
+        }
+
+    }
+
+    public function dehydrate(){
+
+        $get_default_operator = Operator::where('user_id', auth()->user()->id)->where('is_default', 1)->first();
+        
+        if(!is_null($get_default_operator)){
+            $this->state['operador'] = $get_default_operator->id;
+        }
+        
     }
 
     public function confirmation()
