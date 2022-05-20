@@ -31,7 +31,7 @@
                                     <option value="">Selecione um operador</option>
 
                                     @foreach ($operadores as $operador)
-                                        <option value="{{ $operador->id }}">{{ $operador->nome }}</option>
+                                    <option value="{{ $operador->id }}">@if($operador->is_default == 1) 🟣 @endif{{ $operador->nome }} @if($operador->is_default == 1) (Padrão)@endif</option>
                                     @endforeach
                                 </select>
                             @else
