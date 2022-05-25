@@ -209,7 +209,7 @@ class VisaoGeral extends Component
         //Contagem de operações
         $op_hoje = Operation::where('user_id', auth()->user()->id)
             ->where('created_at', 'like', $data_hoje . '%')
-            ->whereIn('tipo', [1, 0])
+            ->whereIn('tipo', [1, 0, 3])
             ->count();
         //Fim contagem de operações
 
@@ -328,7 +328,7 @@ class VisaoGeral extends Component
         //Contagem de operações
         $op_mes = Operation::where('user_id', auth()->user()->id)
             ->where('created_at', 'like', $data_mes . '%')
-            ->whereIn('tipo', [1, 0])
+            ->whereIn('tipo', [1, 0, 3])
             ->count();
         //Fim contagem de operações
 
