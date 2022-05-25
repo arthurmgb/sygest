@@ -12,6 +12,7 @@ class CreateOp extends Component
 {
 
     public $state = [];
+    public $is_operator_default;
 
     public $rules = [
 
@@ -52,6 +53,9 @@ class CreateOp extends Component
         
         if(!is_null($get_default_operator)){
             $this->state['operador'] = $get_default_operator->id;
+            $this->is_operator_default = 'disabled';
+        }else{
+            $this->is_operator_default = 'active';
         }
 
     }
@@ -62,6 +66,9 @@ class CreateOp extends Component
         
         if(!is_null($get_default_operator)){
             $this->state['operador'] = $get_default_operator->id;
+            $this->is_operator_default = 'disabled';
+        }else{
+            $this->is_operator_default = 'active';
         }
         
     }

@@ -26,8 +26,7 @@
                 
                 <table style="cursor: default;" class="table table-borderless">
                     <thead class="t-head">
-                        <tr class="t-head-border">
-                            <th>ID #</th>
+                        <tr class="t-head-border">                         
                             <th>Descrição</th>
                             <th>Data de cadastro</th>
                             <th>Status</th>
@@ -43,8 +42,7 @@
                         @endphp
 
                             <tr class="tr-hover">
-
-                                <td class="align-middle">{{ $single_fp->id }}</td>
+                             
                                 <td class="align-middle font-desc">{{ $single_fp->descricao }}</td>
                                 <td class="align-middle">{{ $data_criacao }}</td>
 

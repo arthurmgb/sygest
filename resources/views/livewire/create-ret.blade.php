@@ -27,7 +27,7 @@
                             @if ($operadores->count())
 
                                 <select style="font-size: 17px;" wire:model.defer="state.operador" class="form-control modal-input-cat yampay-scroll"
-                                    id="operador-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    id="operador-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' @if($is_operator_default == 'disabled') disabled @endif>
                                     <option value="">Selecione um operador</option>
 
                                     @foreach ($operadores as $operador)

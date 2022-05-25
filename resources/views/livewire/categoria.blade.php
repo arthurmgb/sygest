@@ -26,8 +26,7 @@
 
                     <table style="cursor: default;" class="table table-borderless">
                         <thead class="t-head">
-                            <tr class="t-head-border">
-                                <th>ID #</th>
+                            <tr class="t-head-border">                               
                                 <th>Descrição</th>
                                 <th>Data de cadastro</th>
                                 <th>Tipo</th>
@@ -98,7 +97,6 @@
                                 @endphp
 
                                 <tr class="tr-hover">
-                                    <td class="align-middle">{{ $categoria->id }}</td>
                                     <td class="align-middle font-desc">{{ $categoria->descricao }}</td>
                                     <td class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>

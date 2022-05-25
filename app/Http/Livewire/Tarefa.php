@@ -15,13 +15,11 @@ class Tarefa extends Component
 
     public $rules = [
         'inputTask' => 'required',
-        //'tasks.*.descricao' => 'required',
     ];
 
     protected $messages = [
 
         'inputTask.required' => 'Qual o sentido de adicionar uma tarefa vazia? =D',
-        //'tasks.*.descricao.required' => 'Qual o sentido de salvar uma tarefa vazia? =D',
     ];
 
     public function mount(){

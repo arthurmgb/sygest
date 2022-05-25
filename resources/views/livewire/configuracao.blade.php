@@ -47,7 +47,7 @@
                                     @endif
                                 </div>                                                                         
                             </div>
-                            <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-html="true" data-placement="bottom" title="O operador definido como padrão, ficará pré-selecionado no momento de criar uma nova operação para que você possa agilizar o processo, no entanto, você poderá alterar o operador normalmente durante a criação da operação caso seja necessário." data-flow="top" class="div-ttp-op-default">
+                            <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-html="true" data-placement="bottom" title="O operador definido como padrão, ficará pré-selecionado no momento de criar uma nova operação para que você possa agilizar o processo, no entanto, você não poderá alterar o operador durante a criação da operação, caso seja necessário, desabilite o operador padrão para que a opção de escolha seja ativada novamente." data-flow="top" class="div-ttp-op-default">
                                 <i class="fad fa-info-circle fa-fw fa-lg fp-info-ico"></i>
                             </div>
                         </div>
