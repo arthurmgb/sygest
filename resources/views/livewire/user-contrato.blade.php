@@ -813,10 +813,9 @@
                             </div>
 
                             <div class="col-12">
-                                <a data-tooltip="Ao escolher esta forma de pagamento será cobrada uma taxa de R$ 7,00 pelo Mercado Pago." data-flow="bottom" href="https://mpago.la/2iiLYRy" target="_blank" style="font-size: 18px;" class="mt-2 mb-4 btn btn-new py-0">
-                                    <img class="mr-1" style="width: 35px; heigth: 35px;" src="{{asset('vendor/adminlte/dist/img/logo-mercado-pago.png')}}"> Mercado Pago
-                                    <br>
-                                    <span style="font-size: 12px; display: block; margin-top: -6px; margin-bottom: 4px;" class="float-right">+ R$ 7,00</span>
+                                <a href="https://seguro.cashiers.com.br/r/NAAMX2PKRO" target="_blank" style="font-size: 18px;" class="mt-2 mb-4 btn btn-new py-2">
+                                    <img class="mr-1" style="width: 32px; heigth: 32px;" src="{{asset('vendor/adminlte/dist/img/cashier-logo.png')}}"> 
+                                    Checkout Cashiers
                                 </a>
                             </div>
                             
