@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link class="primezze-nav" href="{{ route('home') }}" :active="request()->routeIs('home')">
-                        {{ __('Página inicial') }}
+                      <span style="font-size: 20px;  transform: scaleX(-1); margin-right: 8px;">&#x279C;</span>  {{ __('Voltar ao início') }}
                     </x-jet-nav-link>
                 </div>
             </div>
