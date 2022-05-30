@@ -1,56 +1,70 @@
 <div>
     <div class="page-header d-flex flex-row align-items-center justify-content-between">
         <h2 class="f-h2">Visão geral</h2>
-        <div class="div-right-vg d-flex flex-row">
-            <div class="div-label-totais d-flex flex-row align-items-center">
-                <span class="mr-1 info-total-cx" data-tooltip="Estes valores somados devem coincidir com o total em caixa." data-flow="bottom">
-                    <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
-                </span>
-                <span class="totais-label-style">Totais: </span>
+
+        @if ($totais == 0)
+            <div class="div-right-vg d-flex flex-row">
+                <div class="div-label-totais d-flex flex-row align-items-center">
+                    <span wire:click.prevent="ocultarTotais()" class="mr-2 info-total-cx" data-tooltip="Ocultar totais" data-flow="bottom">
+                        <i class="fa-fw fad fa-eye fa-lg"></i>
+                    </span>
+                    <span class="mr-2 info-total-cx" data-tooltip="Estes valores somados devem coincidir com o total em caixa." data-flow="bottom">
+                        <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
+                    </span>
+                    <span class="totais-label-style">Totais: </span>
+                </div>
+                <div class="div-coins d-flex flex-row align-items-end">
+                    <div class="div-coin-box" data-flow="bottom" data-tooltip="Dinheiro">
+                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                            <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
+                        </span>
+                        <span class="coin-valor">
+                            R$ {{$coin_dinheiro}}
+                        </span>
+                    </div>
+                    <div class="div-coin-box" data-flow="bottom" data-tooltip="Cheques">
+                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                            <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
+                        </span>
+                        <span class="coin-valor">
+                            R$ {{$coin_cheque}}
+                        </span>
+                    </div>
+                    <div class="div-coin-box" data-flow="bottom" data-tooltip="Moedas">
+                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                            <i style="color: #e6c300;" class="fad fa-coins"></i>
+                        </span>
+                        <span class="coin-valor">
+                            R$ {{$coin_moeda}}
+                        </span>
+                    </div>
+                    <div class="div-coin-box" data-flow="bottom" data-tooltip="Outros">
+                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                            <i style="color: #10B981;" class="fas fa-cash-register"></i>
+                        </span>
+                        <span class="coin-valor">
+                            R$ {{$coin_outros}}
+                        </span>
+                    </div>
+                    <div onclick="window.location = '{{route('retiradas')}}';" style="margin-right: 0;" class="div-coin-box" data-flow="bottom" data-tooltip="Retiradas">
+                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                            <i style="color: #E6274C;" class="fad fa-wallet"></i>
+                        </span>
+                        <span style="color: #E6274C;" class="coin-valor">
+                            - R$ {{$coin_retiradas}}
+                        </span>
+                    </div>
+                </div>    
             </div>
-            <div class="div-coins d-flex flex-row align-items-end">
-                <div class="div-coin-box" data-flow="bottom" data-tooltip="Dinheiro">
-                    <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                        <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
-                    </span>
-                    <span class="coin-valor">
-                        R$ {{$coin_dinheiro}}
-                    </span>
-                </div>
-                <div class="div-coin-box" data-flow="bottom" data-tooltip="Cheques">
-                    <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                        <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
-                    </span>
-                    <span class="coin-valor">
-                        R$ {{$coin_cheque}}
-                    </span>
-                </div>
-                <div class="div-coin-box" data-flow="bottom" data-tooltip="Moedas">
-                    <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                        <i style="color: #e6c300;" class="fad fa-coins"></i>
-                    </span>
-                    <span class="coin-valor">
-                        R$ {{$coin_moeda}}
-                    </span>
-                </div>
-                <div class="div-coin-box" data-flow="bottom" data-tooltip="Outros">
-                    <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                        <i style="color: #10B981;" class="fas fa-cash-register"></i>
-                    </span>
-                    <span class="coin-valor">
-                        R$ {{$coin_outros}}
-                    </span>
-                </div>
-                <div onclick="window.location = '{{route('retiradas')}}';" style="margin-right: 0;" class="div-coin-box" data-flow="bottom" data-tooltip="Retiradas">
-                    <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                        <i style="color: #E6274C;" class="fad fa-wallet"></i>
-                    </span>
-                    <span style="color: #E6274C;" class="coin-valor">
-                        - R$ {{$coin_retiradas}}
-                    </span>
-                </div>
-            </div>    
-        </div>
+        @elseif($totais == 1)
+            <div class="div-view-tt">
+                <span wire:click.prevent="ocultarTotais()" class="mr-1 info-total-cx" data-tooltip="Exibir totais" data-flow="bottom">
+                    <i class="fa-fw fad fa-eye fa-lg"></i>
+                </span>
+                <span wire:click.prevent="ocultarTotais()" class="text-show-boxes">Exibir totais</span>
+            </div>
+        @endif
+
     </div>
     <div class="vg">
 

@@ -22,10 +22,34 @@ class VisaoGeral extends Component
 
     public $rc;
 
+    public $totais;
+
     protected $listeners = ['render'];
 
     public function mount(){
         $this->rc = 0;
+        $this->totais = auth()->user()->view_totais;
+    }
+
+    public function ocultarTotais(){
+
+        $user = User::find(auth()->user()->id);
+
+        $view_tt = $user->view_totais;
+
+        if($view_tt == 0){
+
+            $user->view_totais = 1;
+
+        }elseif($view_tt == 1){
+
+            $user->view_totais = 0;
+
+        }
+
+        $user->save();
+        $this->totais = $user->view_totais;
+
     }
 
     public function ocultarBox($num){
