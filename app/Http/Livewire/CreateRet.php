@@ -16,7 +16,7 @@ class CreateRet extends Component
     public $rules = [
 
         'state.descricao' => 'required|max:100',
-        'state.total' => 'required',
+        'state.total' => 'required|max:10',
         'state.operador' => 'required',
         'state.especie' => 'required',
 

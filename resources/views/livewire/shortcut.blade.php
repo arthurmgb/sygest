@@ -38,7 +38,7 @@
                                         
                                         <div class="d-flex flex-row justify-content-end align-items-center">
 
-                                            <div style="cursor: grab;" wire:sortable.handle data-tooltip="Arraste para mover" data-flow="left" class="div-link mr-auto">
+                                            <div style="cursor: grab;" wire:sortable.handle data-tooltip="Arraste para mover" data-flow="right" class="div-link mr-auto">
                                                 <i style="cursor: grab !important;" class="fas fa-grip-vertical fa-crud fac-cor"></i>                                        
                                             </div>
 

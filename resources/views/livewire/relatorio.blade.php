@@ -275,8 +275,8 @@
                                         </button>
                                     </div>
                                     <hr class="my-2">
-                                    <div class="val-block d-flex flex-row align-items-center justify-content-between">
-                                        <span class="rc-alert-font-2 text-uppercase">
+                                    <div class="val-block d-flex flex-row align-items-center justify-content-between text-break">
+                                        <span style="white-space: nowrap;" class="rc-alert-font-2 text-uppercase">
                                             Subtotal
                                         </span>
                                         @if ($relResultado == $caixa_total)                                        

@@ -20,7 +20,7 @@ class CreateOp extends Component
         'state.descricao' => 'required|max:100',
         'state.categoria' => 'required',
         'state.operador' => 'required',
-        'state.total' => 'required',
+        'state.total' => 'required|max:10',
         'state.especie' => 'required',
 
     ];
