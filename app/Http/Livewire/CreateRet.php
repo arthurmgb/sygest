@@ -112,7 +112,8 @@ class CreateRet extends Component
 
         $receita_valor = $receita_entrada - $receita_saida;
 
-        $total_formatado = str_replace(',', '.', $this->state['total']);
+        $total_formatado = str_replace(".", "", $this->state['total']);
+        $total_formatado = str_replace(',', '.', $total_formatado);
 
         if($total_formatado == 0){
             $this->emit('alert-error', 'O total da operação deve ser maior do que zero.');

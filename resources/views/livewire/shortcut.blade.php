@@ -247,7 +247,7 @@
                         <div class="form-group">
                             <label class="modal-label" for="url-op">URL <span class="red">*</span></label>
                             <input wire:model.defer="atalho.url" type="text" class="form-control modal-input"
-                                id="url-op" autocomplete="off" placeholder="https://www.exemplo.com" required pattern="https?://.+" title="Insira o protocolo https:// ou http://">
+                                id="url-op" autocomplete="off" placeholder="https://www.exemplo.com" required pattern="https?://.*" title="Insira o protocolo https:// ou http://">
                             @error('atalho.url')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror

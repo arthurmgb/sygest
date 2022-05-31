@@ -115,7 +115,8 @@ class CreateOp extends Component
     public function save()
     {
 
-        $total_formatado = str_replace(',', '.', $this->state['total']);
+        $total_formatado = str_replace(".", "", $this->state['total']);
+        $total_formatado = str_replace(',', '.', $total_formatado);
 
         if(empty($this->state['fp'])){
             $this->state['fp'] = null;

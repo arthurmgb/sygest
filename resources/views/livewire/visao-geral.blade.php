@@ -1,20 +1,20 @@
 <div>
     <div class="page-header d-flex flex-row align-items-center justify-content-between">
-        <h2 class="f-h2">Visão geral</h2>
+        <h2 style="white-space: nowrap;" class="f-h2">Visão geral</h2>
 
         @if ($totais == 0)
             <div class="div-right-vg d-flex flex-row">
-                <div class="div-label-totais d-flex flex-row align-items-center">
-                    <span wire:click.prevent="ocultarTotais()" class="mr-2 info-total-cx" data-tooltip="Ocultar totais" data-flow="bottom">
+                <div class="div-label-totais d-flex flex-row align-items-center ml-4">
+                    <span wire:click.prevent="ocultarTotais()" class="mr-2 info-total-cx" data-flow="bottom" data-tooltip="Ocultar totais" id="tt-show">
                         <i class="fa-fw fad fa-eye fa-lg"></i>
                     </span>
-                    <span class="mr-2 info-total-cx" data-tooltip="Estes valores somados devem coincidir com o total em caixa." data-flow="bottom">
+                    <span class="mr-2 info-total-cx" data-flow="bottom" data-tooltip="Estes valores somados devem coincidir com o total em caixa." id="tt-info">
                         <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
                     </span>
                     <span class="totais-label-style">Totais: </span>
                 </div>
-                <div class="div-coins d-flex flex-row align-items-end">
-                    <div class="div-coin-box" data-flow="bottom" data-tooltip="Dinheiro">
+                <div class="div-coins d-flex flex-wrap flex-row align-items-end">
+                    <div class="div-coin-box my-1" data-flow="bottom" data-tooltip="Dinheiro">
                         <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
                             <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
                         </span>
@@ -22,7 +22,7 @@
                             R$ {{$coin_dinheiro}}
                         </span>
                     </div>
-                    <div class="div-coin-box" data-flow="bottom" data-tooltip="Cheques">
+                    <div class="div-coin-box my-1" data-flow="bottom" data-tooltip="Cheques">
                         <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
                             <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
                         </span>
@@ -30,7 +30,7 @@
                             R$ {{$coin_cheque}}
                         </span>
                     </div>
-                    <div class="div-coin-box" data-flow="bottom" data-tooltip="Moedas">
+                    <div class="div-coin-box my-1" data-flow="bottom" data-tooltip="Moedas">
                         <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
                             <i style="color: #e6c300;" class="fad fa-coins"></i>
                         </span>
@@ -38,7 +38,7 @@
                             R$ {{$coin_moeda}}
                         </span>
                     </div>
-                    <div class="div-coin-box" data-flow="bottom" data-tooltip="Outros">
+                    <div class="div-coin-box my-1" data-flow="bottom" data-tooltip="Outros">
                         <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
                             <i style="color: #10B981;" class="fas fa-cash-register"></i>
                         </span>
@@ -46,7 +46,7 @@
                             R$ {{$coin_outros}}
                         </span>
                     </div>
-                    <div onclick="window.location = '{{route('retiradas')}}';" style="margin-right: 0;" class="div-coin-box" data-flow="bottom" data-tooltip="Retiradas">
+                    <div onclick="window.location = '{{route('retiradas')}}';" style="margin-right: 0;" class="div-coin-box my-1" data-flow="bottom" data-tooltip="Retiradas">
                         <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
                             <i style="color: #E6274C;" class="fad fa-wallet"></i>
                         </span>
@@ -206,7 +206,6 @@
                 </div>
             @endif
         </div>
-
         <div class="row">
             <div class="col-12">
                 <div class="block">

@@ -113,7 +113,7 @@
                 $(this).find('.dropdown-menu').first().stop(true, true).slideUp(100);
             });
 
-            $('#total-op').mask('####0,00', {reverse: true});
+            $('#total-op').mask('#.##0,00', {reverse: true});
             $('#total-op2').mask('####0.00', {reverse: true});
             $('#valor-contract').mask('####0,00', {reverse: true});
 
