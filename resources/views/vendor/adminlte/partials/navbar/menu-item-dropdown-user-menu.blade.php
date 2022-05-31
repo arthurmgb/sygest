@@ -41,7 +41,7 @@
                     {{ Auth::user()->name }}
                 </p>
                
-                <p class="drop-user user-desc-font">{{ Auth::user()->adminlte_desc() }}</p>
+                <p class="drop-user user-desc-font text-truncate">{{ Auth::user()->adminlte_desc() }}</p>
                
                 <a class="drop-link my-3 user-profile-font" href="{{route('profile.show')}}">Editar perfil</a>
 
