@@ -198,6 +198,7 @@
                                 <div class="period-rel-block mt-2 mb-1">
                                     <span style="color: #725bc2;" class="rc-alert-font">
                                         Conferência dos valores em caixa
+                                        <span style="font-size: 14px;">(opcional)</span>
                                     </span>
                                 </div>
 
@@ -454,17 +455,17 @@
                         <thead class="t-head">
                             <tr class="t-head-border">
                                 <th>Cód.</th>
-                                <th>Descrição</th>
+                                <th style="min-width: 200px;">Descrição</th>
                                 <th>Data</th>
                                 <th>Total</th>
-                                <th>Categoria</th>
+                                <th width="200px">Categoria</th>
                                 <th>Espécie</th>
-                                <th>
+                                <th width="100px">
                                     <div class="d-flex flex-row align-items-center fp-infos">
                                     FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="top" title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>' style="margin-top: 2px;" class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
                                     </div>
                                 </th>
-                                <th>Operador</th>
+                                <th width="100px">Operador</th>
                                 <th width="200px">Operação</th>
                             </tr>
                         </thead>
@@ -538,21 +539,21 @@
                                 <tr class="tr-hover">
 
                                     <td class="align-middle">
-                                        <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{$operation->id}}" class="div-codigo">
+                                        <div style="cursor: pointer;" data-tooltip="{{$operation->id}}" data-flow="right" class="div-codigo">
                                             <i class="fad fa-info-circle fa-fw fa-lg icon-info-cod"></i>
                                         </div>                                                
                                     </td>
-                                    <td style="font-size: 15px !important;" class="align-middle font-desc">{{ $operation->descricao }}</td>
+                                    <td style="font-size: 15px !important; word-break: break-all" class="align-middle font-desc">{{ $operation->descricao }}</td>
                                     <td style="font-size: 15px; white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span style="font-size: 13px;" class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
                                     <td style="font-size: 15px; white-space: nowrap; font-weight: 500;" class="align-middle">R$ {{ $total_operacao }}</td>
-                                    <td class="align-middle"><span style="font-size: 14px;" class="categoria">{{ $categoria_op }}</span></td>
+                                    <td style="word-break: break-all;" class="align-middle"><span style="font-size: 14px;" class="categoria">{{ $categoria_op }}</span></td>
                                     <td style="font-size: 15px;" class="align-middle">
                                         <span
                                             class="especie">{{ $especie_op }}
                                         </span>
                                     </td>
-                                    <td class="align-middle">
+                                    <td style="word-break: break-all;" class="align-middle">
                                         <span>
                                             @if (is_null($operation->method_id))
                                                 @if ($operation->especie == 4)
@@ -565,7 +566,7 @@
                                             @endif
                                         </span>
                                     </td>
-                                    <td class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
+                                    <td style="word-break: break-all;" class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
                                     @if ($operation->tipo == 1)
                                         <td class="align-middle"><span style="white-space: nowrap;" class="operacao-entrada">Movimento de
                                                 entrada</span></td>

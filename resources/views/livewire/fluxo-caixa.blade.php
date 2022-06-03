@@ -37,7 +37,7 @@
                 <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
             </div>
 
-            <div wire:loading.remove class="card-body px-0 pb-0 @if ($receita) pt-3 @endif">
+            <div wire:loading.remove class="card-body px-0 pb-0 pt-1 @if ($receita) pt-1 @endif @if(auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif">
 
                 @if ($operations->count())
 
@@ -56,21 +56,27 @@
 
                     @endif
 
-                    <table style="cursor: default;" class="table table-borderless">
+                    <div class="div-opt-table my-2">
+                        <a class="home-link my-0" href="{{route('configuracoes')}}">
+                            <i class="fal fa-cog mr-1"></i>Opções de tabela
+                        </a>
+                    </div> 
+
+                    <table style="cursor: default;" class="table table-borderless mb-2">
                         <thead class="t-head">
                             <tr class="t-head-border">
                                 <th>Cód.</th>
-                                <th>Descrição</th>
+                                <th style="min-width: 220px;">Descrição</th>
                                 <th>Data</th>
                                 <th>Total</th>
-                                <th>Categoria</th>
+                                <th width="200px">Categoria</th>
                                 <th>Espécie</th>
-                                <th>
+                                <th width="100px">
                                     <div class="d-flex flex-row align-items-center fp-infos">
                                     FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="top" title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>' style="margin-top: 2px;" class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
                                     </div>
                                 </th>
-                                <th>Operador</th>
+                                <th width="100px">Operador</th>
                                 <th width="200px">Operação</th>
                             </tr>
                         </thead>
@@ -138,22 +144,22 @@
                                 <tr class="tr-hover">
 
                                     <td class="align-middle">
-                                        <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="{{$operation->id}}" class="div-codigo">
+                                        <div style="cursor: pointer;" data-tooltip="{{$operation->id}}" data-flow="right" class="div-codigo">
                                             <i class="fad fa-info-circle fa-fw fa-lg icon-info-cod"></i>
                                         </div>                                                
                                     </td>
-                                    <td class="align-middle font-desc">{{ $operation->descricao }}</td>
+                                    <td style="@if(auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif" class="align-middle font-desc">{{ $operation->descricao }}</td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
                                     <td style="white-space: nowrap; font-weight: 500;" class="align-middle">R$ {{ $total_operacao }}</td>
-                                    <td class="align-middle"><span
-                                            class="categoria">{{ $operation->category->descricao }}</span></td>
+                                    <td style="@if(auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif" class="align-middle">
+                                        <span class="categoria">{{ $operation->category->descricao }}</span></td>
                                     <td class="align-middle">
                                         <span
                                             class="especie">{{ $especie_op }}
                                         </span>
                                     </td>
-                                    <td class="align-middle">
+                                    <td style="word-wrap: break-word;" class="align-middle">
                                         <span>
                                             @if (is_null($operation->method_id))
                                                 @if ($operation->especie == 4)
@@ -166,7 +172,7 @@
                                             @endif
                                         </span>
                                     </td>
-                                    <td class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
+                                    <td style="word-wrap: break-word;" class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
                                     @if ($operation->tipo == 1)
                                         <td class="align-middle"><span style="white-space: nowrap;" class="operacao-entrada">Movimento de
                                                 entrada</span></td>
@@ -319,6 +325,14 @@
 
                 @endif
             </div>
+            @if(auth()->user()->table_scroll == 1)
+            <div wire:ignore style="width: fit-content; cursor: pointer; user-select: none;" class="tip-scroll mt-3" data-toggle="tooltip" data-html="true" data-placement="right" title="Pressione <b>SHIFT</b> + <b>Scroll do Mouse</b> em cima da tabela para visualizar todo o conteúdo. Ou se preferir, segure e arraste a barra de rolagem.">
+                <span class="info-total-cx">
+                    <i class="fa-fw fad fa-info-circle fa-lg info-ret" aria-hidden="true"></i>
+                </span>
+                <span style="font-size: 15px !important; color: #666; text-transform: uppercase; font-weight: 600;">Dica</span>
+            </div>
+            @endif
         </div>
 
         <div style="user-select: none; padding-bottom: 150px;"

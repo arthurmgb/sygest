@@ -97,17 +97,17 @@
                                 @endphp
 
                                 <tr class="tr-hover">
-                                    <td class="align-middle font-desc">{{ $categoria->descricao }}</td>
-                                    <td class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
+                                    <td style="word-break: break-all" class="align-middle font-desc">{{ $categoria->descricao }}</td>
+                                    <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
-                                    <td class="align-middle font-weight-bold text-uppercase">{{ $categoria->tipo }}
+                                    <td style="white-space: nowrap;" class="align-middle font-weight-bold text-uppercase">{{ $categoria->tipo }}
                                     </td>
 
                                     @if ($categoria->status == 1)
-                                        <td class="align-middle"><span
+                                        <td style="white-space: nowrap;" class="align-middle"><span
                                                 class="operacao-entrada">{{ $categoria_status }}</span></td>
                                     @else
-                                        <td class="align-middle"><span
+                                        <td style="white-space: nowrap;" class="align-middle"><span
                                                 class="operacao-saida">{{ $categoria_status }}</span></td>
                                     @endif
 

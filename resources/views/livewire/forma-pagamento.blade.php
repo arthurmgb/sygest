@@ -43,15 +43,15 @@
 
                             <tr class="tr-hover">
                              
-                                <td class="align-middle font-desc">{{ $single_fp->descricao }}</td>
-                                <td class="align-middle">{{ $data_criacao }}</td>
+                                <td style="word-break: break-all" class="align-middle font-desc">{{ $single_fp->descricao }}</td>
+                                <td style="white-space: nowrap;" class="align-middle">{{ $data_criacao }}</td>
 
                                 @if ($single_fp->status == 1)
-                                    <td class="align-middle">
+                                    <td style="white-space: nowrap;" class="align-middle">
                                         <span class="operacao-entrada">Ativa</span>
                                     </td>
                                 @else
-                                    <td class="align-middle">
+                                    <td style="white-space: nowrap;" class="align-middle">
                                         <span class="operacao-saida">Inativa</span>
                                     </td>
                                 @endif

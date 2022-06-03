@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <div class="uk-container">
+    <div style="max-width: 1600px !important;" class="uk-container">
 
         @livewire('relatorio')
 

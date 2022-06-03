@@ -20,6 +20,56 @@
                 <div class="card">
                     
                     <div class="topo-ico d-flex flex-row align-items-center mb-3">
+                        <i style="color: #725BC2;" class="fad fa-table fa-fw fa-lg mr-2"></i>                                                                        
+                        <div class="card-topo">
+                            <div style="margin-bottom: 0 !important;" class="title-block f-calc">
+                                Opções de tabela
+                            </div>                                               
+                        </div>
+                    </div>
+                
+
+                    <div class="card-body px-0 pb-0">
+
+                        <div class="div-table-options d-flex flex-row align-items-center">
+
+                            @if ($table_scroll == 0)
+                                <div style="width: fit-content; user-select: none;" wire:target="toggleTableScroll()" wire:loading.attr="disabled"
+                                wire:click.prevent="toggleTableScroll()" data-tooltip="Habilitar" data-flow="right"
+                                class="cbe d-flex flex-row align-items-center">
+                                <i style="color: #6b7280 !important;" class="fad fa-toggle-off fa-fw fa-crud fac-edit"></i>
+                                <div class="div-active-scroll">
+                                    <span style="font-size: 14px; color: #666; font-weight: 600;" class="text-uppercase">Barra de rolagem horizontal</span>     
+                                </div>
+                                </div>
+                            @elseif($table_scroll == 1)
+                                <div style="width: fit-content; user-select: none;" wire:target="toggleTableScroll()" wire:loading.attr="disabled"
+                                    wire:click.prevent="toggleTableScroll()" data-tooltip="Desabilitar" data-flow="right"
+                                    class="cbe d-flex flex-row align-items-center">
+                                    <i style="color: #22c55e !important;" class="fad fa-toggle-on fa-fw fa-crud fac-edit"></i>
+                                    <div class="div-active-scroll">
+                                        <span style="font-size: 14px; color: #666; font-weight: 600;" class="text-uppercase">Barra de rolagem horizontal</span>     
+                                    </div>                                          
+                                </div>
+                            @endif
+                            
+                            <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Esta opção ativará uma barra de rolagem horizontal nas tabelas de <b>Visão geral</b>, <b>Fluxo de caixa</b> e <b>Retiradas</b>. Ative esta opção caso o conteúdo da tabela seja muito longo ou esteja transpassando os limites da tela." data-flow="top" class="div-ttp-op-default ml-1">
+                                <i class="fad fa-info-circle fa-fw fa-lg fp-info-ico"></i>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="admin-area">
+
+                <div class="card">
+                    
+                    <div class="topo-ico d-flex flex-row align-items-center mb-3">
                         <i style="color: #725BC2;" class="fad fa-users fa-fw fa-lg mr-2"></i>                                                                        
                         <div class="card-topo">
                             <div style="margin-bottom: 0 !important;" class="title-block f-calc">

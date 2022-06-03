@@ -16,6 +16,7 @@ class Configuracao extends Component
     public $qtd = 10;
     protected $listeners = ['render'];
     public $modal_start;
+    public $table_scroll;
 
     public $rules = [
 
@@ -31,6 +32,7 @@ class Configuracao extends Component
 
     public function mount(){
         $this->modal_start = auth()->user()->modal_start;
+        $this->table_scroll = auth()->user()->table_scroll;
     }
 
     public function confirmation()
@@ -112,6 +114,25 @@ class Configuracao extends Component
             $this->emit('alert', 'Operador padrão removido com sucesso!');
 
         }
+
+    }
+
+    public function toggleTableScroll(){
+
+        $get_table_scroll = User::find(auth()->user()->id);
+        
+        if($get_table_scroll->table_scroll == 0){
+
+            $get_table_scroll->table_scroll = 1;
+
+        }elseif($get_table_scroll->table_scroll == 1){
+
+            $get_table_scroll->table_scroll = 0;
+
+        }
+
+        $get_table_scroll->save();
+        $this->table_scroll = $get_table_scroll->table_scroll;
 
     }
     

@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <div class="uk-container">
+    <div @if(auth()->user()->table_scroll == 1) style="overflow-x: hidden;" @endif class="uk-container">
 
         @livewire('fluxo-caixa')
 
