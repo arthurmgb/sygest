@@ -5,9 +5,15 @@ body{
     background-color: #F4F6F8 !important;
     -webkit-print-color-adjust: exact;
 }
+.main-topic:hover{
+    background-color: #F3F4F6 !important;
+}
 ::selection {
     color: #fff !important;
     background: #725BC2 !important;
+}
+.sidebar-dark-purple .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-purple .nav-sidebar>.nav-item>.nav-link.active{
+    background: #E5E8EB !important;
 }
 .nav-tool a:hover{
     background-color: #E5E8EB !important;
@@ -18,9 +24,10 @@ body{
 }
 .nav-tool a.active{
     color: #292961 !important;
+    font-weight: 500;
 }
 .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {
-    border-width: 3px !important;
+    border-width: 4px !important;
 }
 .user-panel{
     padding: 8px !important;
@@ -1529,11 +1536,16 @@ color: #fff;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
+.sidebar-dark-purple .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-purple .nav-sidebar>.nav-item>.nav-link.active{
+    color: #292961 !important;
+    font-weight: 500;
+}
 .nav-treeview{
-    background-color: #EEF0F2 !important;
+    background-color: #F3F4F6 !important;
 }
 .nav-flat .nav-item .nav-treeview>.nav-item>.nav-link.active{ 
     border-color: #292961 !important;
+    border-width: 4px !important;
 }
 .nav-flat .nav-item .nav-treeview>.nav-item>.nav-link{ 
     border-color: transparent !important;

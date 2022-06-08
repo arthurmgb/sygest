@@ -203,7 +203,7 @@
                 @endif
 
                 {{-- Content Wrapper --}}
-                <div style="background-color: #F4F6F8;" class="content-wrapper {{ config('adminlte.classes_content_wrapper') ?? '' }}">
+                <div style="background-color: #f3f4f6;" class="content-wrapper {{ config('adminlte.classes_content_wrapper') ?? '' }}">
 
                     {{-- Content Header --}}
                     @hasSection('content_header')

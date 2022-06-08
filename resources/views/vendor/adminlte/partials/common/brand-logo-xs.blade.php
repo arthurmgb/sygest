@@ -8,11 +8,11 @@
     @php( $dashboard_url = $dashboard_url ? url($dashboard_url) : '' )
 @endif
 
-<a style="background-color: #352B73; padding: 10.5px;" href="{{ $dashboard_url }}"
+<a style="background-color: #fff; padding: 10.5px; border-bottom: 1px solid #dee2e6 !important;" href="{{ $dashboard_url }}"
     @if($layoutHelper->isLayoutTopnavEnabled())
         class="navbar-brand {{ config('adminlte.classes_brand') }}"
     @else
-        class="brand-link {{ config('adminlte.classes_brand') }}"
+        class="brand-link main-topic {{ config('adminlte.classes_brand') }}"
     @endif>
 
     {{-- Small brand logo --}}
@@ -22,7 +22,7 @@
     
     {{-- Brand text --}}
     <span style="font-size: 24px !important;" class="brand-text font-weight-light {{ config('adminlte.classes_brand_text') }}">
-        <span class="text-uppercase" style="font-weight: 600; letter-spacing: 1px; font-family: 'Poppins', sans-serif;">Ca<span style="color: #f472b6;">$</span>hiers</span>
+        <span class="text-uppercase" style="color: #352B73; font-weight: 600; letter-spacing: 1px;">Ca<span style="color: #f472b6;">$</span>hiers</span>
     </span>
 
 </a>

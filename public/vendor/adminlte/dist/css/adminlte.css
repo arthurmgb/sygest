@@ -13703,7 +13703,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 .sidebar-dark-purple .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,
 .sidebar-light-purple .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {
-  border-color:#292961; 
+  border-color:#292961;
   background-color: #EEF0F2;
 }
 
