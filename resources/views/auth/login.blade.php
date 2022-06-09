@@ -5,7 +5,7 @@
             <x-slot name="logo">
                 <x-jet-authentication-card-logo />
             </x-slot>
-            <h1>Identifique-se</h1>
+            <h1>Login</h1>
             <p>Digite seu e-mail e senha</p>
         </div>
 
@@ -41,7 +41,7 @@
 
             <div class="flex items-center mt-4">
                 <x-jet-button class="w-full justify-center primezze-btn">
-                    {{ __('Entrar') }}
+                    {{ __('Acessar') }}
                 </x-jet-button>
             </div>
         </form>

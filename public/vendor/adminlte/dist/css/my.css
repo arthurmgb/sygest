@@ -1560,6 +1560,9 @@ color: #fff;
 .nav-legacy.nav-sidebar>.nav-item.has-treeview.menu-open>.nav-link:hover {
     background-color: #DBDDDF !important;
 }
+.nav-item.has-treeview>.nav-link:hover{
+    background-color: #E5E8EB !important;
+}
 .nav-legacy.nav-sidebar>.nav-item.has-treeview>.nav-link {
     font-size: 15px !important;
     color: #666 !important;

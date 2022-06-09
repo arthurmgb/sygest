@@ -22,8 +22,7 @@
 @stop
 
 @section('footer')
-    <strong>Copyright &copy; {{ date('Y') }} <a class="default-link" href="{{ route('home') }}">Cashiers</a>.</strong>
-    Todos os direitos reservados.
+    
 @stop
 
 @section('css')
