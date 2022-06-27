@@ -494,6 +494,12 @@
                     </div>
                 </div> 
             </div>
+
+            @if ($get_mensalidades_vencidas > 0 and $modalidade_mensalidade === 1)
+                <div class="div-ntf-mensalidades-vencidas">
+                    <span style="font-size: 14px;"><span style="color: red; font-weight: 500;">ATENÇÃO: </span>Existem mensalidades vencidas, alterne a aba para visualizar.</span>
+                </div>
+            @endif 
                     
             <div class="card-body px-0 py-0 table-responsive yampay-scroll">
 

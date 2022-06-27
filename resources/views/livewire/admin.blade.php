@@ -551,6 +551,12 @@
                         </div> 
                     </div>
 
+                    @if ($get_mensalidades_vencidas > 0 and $modalidade_mensalidade === 1)
+                        <div class="div-ntf-mensalidades-vencidas">
+                            <span style="font-size: 14px;"><span style="color: red; font-weight: 500;">ATENÇÃO: </span>Existem mensalidades vencidas, alterne a aba para visualizar.</span>
+                        </div>
+                    @endif  
+
                     <div class="card-topo mt-3 mb-2">
                         <input type="number" wire:model="search_mensalidade" placeholder="buscar por ID do usuário" class="search-input" autocomplete="off">
                         <i class="fa fa-search"></i>
