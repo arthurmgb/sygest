@@ -140,11 +140,11 @@ body{
 }
 .initial-msg{
     color: #777 !important;
-    font-size: 16px !important;
+    font-size: 20px !important;
     font-weight: 400 !important;
 }
 .home-link{
-    font-size: 14px !important;
+    font-size: 16px !important;
     color: #7559da !important;
 }
 .home-link:hover{
@@ -154,11 +154,9 @@ body{
     margin-right: 10px !important;
 }
 .img-user{
-    margin-top: 12px !important;
-    margin-right: 25px !important;
     z-index: 99 !important;
-    width: 95px !important;
-    height: 95px !important;
+    width: 120px !important;
+    height: 120px !important;
 }
 .content-inicial{
     max-width: 850px !important;
@@ -1721,4 +1719,31 @@ color: #fff;
 }
 .div-coin-box-light:hover{
     background-color: #F3F4F6;
+}
+.list-secret{
+    font-weight: 600;
+    background-color: #f9fafb;
+    min-width: 125px;
+    max-width: 125px;
+}
+.blur-secret{
+    filter: blur(5px);
+    cursor: default;
+}
+.btn-block-gerenciador{
+    color: #fff !important;
+    background-color: #dc2626;
+    font-weight: 700;
+    padding: 9px 25px;
+    font-size: 13px;
+    line-height: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: none;
+}
+.btn-block-gerenciador:hover{
+    background-color: #ef4444;
 }

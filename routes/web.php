@@ -10,6 +10,7 @@ use App\Http\Livewire\Home;
 use App\Http\Livewire\Notificacao;
 use App\Http\Livewire\Relatorio;
 use App\Http\Livewire\Retirada;
+use App\Http\Livewire\Senha;
 use App\Http\Livewire\Shortcut;
 use App\Http\Livewire\Tarefa;
 use App\Http\Livewire\UserComissao;
@@ -34,6 +35,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/minhas-comissoes', UserComissao::class)->name('minhas-comissoes');
     Route::get('/notificacoes', Notificacao::class)->name('notificacoes');
     Route::get('/formas-pagamento', FormaPagamento::class)->name('formas-pagamento');
+    Route::get('/gerenciador-de-senhas', Senha::class)->name('gerenciador-de-senhas');
     
 });
 

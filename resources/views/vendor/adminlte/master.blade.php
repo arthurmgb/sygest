@@ -251,6 +251,52 @@
             
             /*Deletar Usuário */
 
+             /* Senhas Open */
+
+            window.addEventListener('open-secret-folder', event =>{
+                $('#folder-secret').modal('show');
+            })
+
+            window.addEventListener('close-secret-folder', event =>{
+                $('#folder-secret').modal('hide');
+            })
+
+             /* Senhas Open */
+
+             /* Senhas DELETE */
+
+            window.addEventListener('delete-secret', event =>{
+                $('#delete-secret').modal('show');
+            })
+
+            window.addEventListener('close-delete-secret', event =>{
+                $('#delete-secret').modal('hide');
+            })
+
+            /* Senhas DELETE */
+
+            /* Senhas EDIT */
+
+            window.addEventListener('edit-secret', event =>{
+                $('#edit-secret').modal('show');
+            })
+
+            window.addEventListener('close-edit-secret', event =>{
+                $('#edit-secret').modal('hide');
+            })
+
+            window.addEventListener('confirm-edit-secret', event =>{
+                $('#confirm-edit-secret').modal('show');
+            })
+
+            window.addEventListener('close-confirm-edit-secret', event =>{
+                $('#confirm-edit-secret').modal('hide');
+            })
+
+
+
+            /* Senhas EDIT */
+
         </script>
         <script>
             new ClipboardJS('.result-to-copy');
@@ -263,6 +309,15 @@
             new ClipboardJS('.copy-pix-150', {
                 container: document.getElementById('fp-pix')
             });
+
+            new ClipboardJS('.copy-login', {
+                container: document.getElementById('folder-secret')
+            });
+
+            new ClipboardJS('.copy-senha', {
+                container: document.getElementById('folder-secret')
+            });
+
         </script>
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
@@ -307,6 +362,27 @@
             'Pagamento recusado!',
             message,
             'error'
+            )
+        })
+        Livewire.on('alert-locked', function(message){
+            Swal.fire(
+            'Acesso negado!',
+            message,
+            'error'
+            )
+        })
+        Livewire.on('alert-unlocked', function(message){
+            Swal.fire(
+            'Acesso liberado!',
+            message,
+            'success'
+            )
+        })
+        Livewire.on('alert-blocked', function(message){
+            Swal.fire(
+            'Tudo pronto!',
+            message,
+            'success'
             )
         })
     </script>

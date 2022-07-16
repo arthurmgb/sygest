@@ -37,7 +37,7 @@
             <li>
             <div class="d-flex flex-column">
 
-                <p class="drop-user user-name-font @if(!config('adminlte.usermenu_image')) mt-0 @endif">
+                <p class="drop-user text-truncate user-name-font @if(!config('adminlte.usermenu_image')) mt-0 @endif">
                     {{ Auth::user()->name }}
                 </p>
                
