@@ -33,7 +33,7 @@
                         <h5 class="modal-confirmation-msg m-0 text-center px-4 mb-3">Gerenciador de Senhas!</h5>
 
                         <p style="font-size: 18px;" class="m-0 mb-3 px-4">
-                            Chegou o Gerenciador de Senhas pessoais da <span class="msg-bold">Cashiers</span>! Esta ferramenta te permite cadastrar senhas pessoais com a segurança da criptografia <span style="text-decoration: underline;" class="msg-bold">bcrypt</span>
+                            Chegou o Gerenciador de Senhas pessoais da <span class="msg-bold">Cashiers</span>! Esta ferramenta te permite cadastrar senhas pessoais com a segurança da criptografia <a class="home-link" href="https://pt.wikipedia.org/wiki/Bcrypt" target="_blank"><span class="msg-bold">bcrypt</span></a>. Clique no menu <span class="msg-bold">"Minhas senhas"</span> para conhecer!
                         </p>
 
                         <span style="font-size: 14px; user-select: none;">Imagem meramente ilustrativa</span>
