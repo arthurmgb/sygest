@@ -91,14 +91,12 @@
                                         <th>CPF/CNPJ</th>
                                         <th>Cidade e Estado</th>
                                         <th>Banco/Instituição</th>
-                                        <th>Chave PIX</th>
-                                        <th>Montante</th>
+                                        <th>Chave PIX</th>                                      
                                         <th>Qtd. de operações</th>
                                         <th>Data de criação</th>                                 
                                         <th>Último login</th>
                                         <th>Contratos</th>
-                                        <th>Situação</th>
-                                        <th>Outros dados</th>
+                                        <th>Situação</th>                                       
                                         <th>Acesso</th>
                                         <th>Conta</th>
                                     </tr>
@@ -193,22 +191,7 @@
                                                     }
                                                 }
                                             }
-                                        @endphp
-
-                                        @php
-                                        
-
-                                            $entradas_total = App\Models\Operation::where('user_id', $user->id)
-                                            ->where('tipo', 1)
-                                            ->sum('total');
-
-                                            $saidas_ret_total = App\Models\Operation::where('user_id', $user->id)
-                                            ->whereIn('tipo', [0,3])
-                                            ->sum('total');
-
-                                            $caixa_total = $entradas_total - $saidas_ret_total;
-                                            $caixa_total = number_format($caixa_total,2,",",".");
-                                        @endphp
+                                        @endphp                                   
         
                                         <tr @if ($user->is_blocked == 1) style="border: 2px solid #fca5a5 !important;" @endif class="tr-hover">
 
@@ -242,10 +225,7 @@
                                                 @else
                                                     {{ $user->chave_pix }}
                                                 @endif 
-                                            </td>
-                                            <td style="font-size: 15px; font-weight: 500; color: #01984E;" class="align-middle">
-                                                R$ {{$caixa_total}}
-                                            </td>
+                                            </td>                                       
                                             <td style="font-size: 14px; font-weight: 500; color: #725BC2;" class="align-middle">
                                                 @if ($user->operations->count() === 0)
                                                     Nenhuma
@@ -283,33 +263,7 @@
                                                         </span>
                                                     @endif
                                                 </div>                                                     
-                                            </td>
-
-                                            <td class="align-middle">
-                                            
-                                                <div class="dropdown" wire:ignore>
-
-                                                    <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="Visualizar" data-flow="left">
-                                                        <i style="color: #725BC2; font-size: 25px;" class="fad fa-eye fa-fw"></i>
-                                                    </button>
-
-                                                    <div style="padding: 20px !important;" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <div style="margin-bottom: 8px !important;" class="title-block f-calc">                                                                        
-                                                            Qtd. de categorias:
-                                                            <span style="font-size: 15px; color: #725BC2 !important;" class="period px-1"> {{$user->categories->count()}}</span>
-                                                        </div> 
-                                                        <div style="margin-bottom: 8px !important;" class="title-block f-calc">                                                                        
-                                                            Qtd. de links:
-                                                            <span style="font-size: 15px; color: #725BC2 !important;" class="period px-1"> {{$user->shortcuts->count()}}</span>
-                                                        </div> 
-                                                        <div style="margin-bottom: 0 !important;" class="title-block f-calc">                                                                        
-                                                            Qtd. de tarefas:
-                                                            <span style="font-size: 15px; color: #725BC2 !important;" class="period px-1"> {{$user->tasks->count()}}</span>
-                                                        </div> 
-                                                    </div>
-                                                </div>  
-
-                                            </td>
+                                            </td>                                           
 
                                             <td class="align-middle">
                                                 @if ($user->is_blocked == 0)
