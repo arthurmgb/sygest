@@ -1747,3 +1747,13 @@ color: #fff;
 .btn-block-gerenciador:hover{
     background-color: #ef4444;
 }
+.refreshing-component{
+    user-select: none;
+    color: #725BC2;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.refreshing-component:hover{
+    text-decoration: underline;
+}

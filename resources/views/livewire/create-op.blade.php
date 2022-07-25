@@ -10,8 +10,18 @@
                         <i class="fal fa-times"></i>
                     </button>
                 </div>
-                <div class="modal-body py-4 px-4">
-
+                <div class="modal-body pt-3 pb-4 px-4">
+                    <div class="div-refreshing d-flex flex-row align-items-center justify-content-end m-0 p-0">
+                        <div wire:click="refreshOp()" class="refreshing-component d-flex flex-row align-items-center">
+                            <div wire:loading.remove wire:target="refreshOp" class="div-icon-refreshed">
+                                <i class="fas fa-sync-alt fa-fw mr-1"></i>
+                            </div>
+                            <div wire:loading wire:target="refreshOp" class="div-icon-refreshed">
+                                <i class="fas fa-sync-alt fa-fw mr-1 fa-spin"></i>
+                            </div>
+                            Atualizar
+                        </div>
+                    </div>
                     <form wire:submit.prevent="confirmation()">
                         <div class="form-group mb-1">
                             <label class="modal-label">Tipo de operação <span class="red">*</span></label>
@@ -37,8 +47,8 @@
                         </div>
                         <div class="form-group">
                             <label class="modal-label" for="categoria-op">Categoria <span class="red">*</span></label>
-
                             @if ($categorias->count())
+                            <a style="padding: 3px 14px;" href="{{ route('categorias') }}" target="_blank" class="btn btn-new my-1 float-right">+ Nova</a>
 
                                 <select style="font-size: 17px;" wire:model.defer="state.categoria" class="form-control modal-input-cat yampay-scroll"
                                     id="categoria-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
@@ -49,7 +59,7 @@
                                     @endforeach
                                 </select>
                             @else
-                            <a href="{{ route('categorias') }}" class="btn btn-new btn-block">+ Nova categoria</a>
+                            <a href="{{ route('categorias') }}" target="_blank" class="btn btn-new btn-block">+ Nova categoria</a>
                             @endif
                             @error('state.categoria')
                                 <span class="wire-error">{{ $message }}</span>
@@ -57,8 +67,8 @@
                         </div>
                         <div class="form-group">
                             <label class="modal-label" for="operador-op">Operador <span class="red">*</span></label>
-
                             @if ($operadores->count())
+                            <a style="padding: 3px 14px;" href="{{ route('configuracoes') }}" target="_blank" class="btn btn-new my-1 float-right">+ Novo</a>
 
                                 <select style="font-size: 17px;" wire:model.defer="state.operador" class="form-control modal-input-cat yampay-scroll"
                                     id="operador-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' @if($is_operator_default == 'disabled') disabled @endif>
@@ -69,7 +79,7 @@
                                     @endforeach
                                 </select>
                             @else
-                            <a href="{{ route('configuracoes') }}" class="btn btn-new btn-block">+ Novo operador</a>
+                            <a href="{{ route('configuracoes') }}" target="_blank" class="btn btn-new btn-block">+ Novo operador</a>
                             @endif
                             @error('state.operador')
                                 <span class="wire-error">{{ $message }}</span>
@@ -93,7 +103,7 @@
                         @if (isset($state['especie']) and $state['especie'] == 4)
                             <div class="form-group">
                                 <label class="modal-label" for="fp-op">Forma de pagamento  <span style="font-size: 12px;">(opcional)</span></label>
-                                <a style="padding: 3px 14px;" href="{{ route('formas-pagamento') }}" class="btn btn-new my-1 float-right">+ Nova FP</a>
+                                <a style="padding: 3px 14px;" href="{{ route('formas-pagamento') }}" target="_blank" class="btn btn-new my-1 float-right">+ Nova FP</a>
                                     <select style="font-size: 17px;" wire:model.defer="state.fp" class="form-control modal-input-cat yampay-scroll"
                                     id="fp-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                                     <option value="">Não especificada</option>
@@ -125,8 +135,8 @@
                 </div>
                 <div class="modal-footer py-4">
                     <button wire:loading.attr="disabled" type="button" class="btn btn-cancel"
-                        wire:click.prevent="resetNewOperation()">Cancelar</button>
-                    <button wire:loading.attr="disabled" type="submit" class="btn btn-send">Adicionar</button>
+                        wire:click.prevent="resetNewOperation()" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:target="confirmation" type="submit" class="btn btn-send">Adicionar</button>
                     </form>
                 </div>
             </div>

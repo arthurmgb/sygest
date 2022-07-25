@@ -10,6 +10,7 @@ use Livewire\Component;
 class CreateRet extends Component
 {
 
+    protected $listeners = ['refreshComponent' => '$refresh'];
     public $state = [];
     public $is_operator_default;
 
@@ -30,6 +31,10 @@ class CreateRet extends Component
         'state.especie.required' => 'A espécie da operação é obrigatória.',
 
     ];
+
+    public function refreshOp(){
+        $this->emit('refreshComponent');
+    }
 
     public function mount()
     {
