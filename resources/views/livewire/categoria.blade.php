@@ -97,7 +97,13 @@
                                 @endphp
 
                                 <tr class="tr-hover">
-                                    <td style="word-break: break-all" class="align-middle font-desc">{{ $categoria->descricao }}</td>
+                                    <td style="word-break: break-all" class="align-middle font-desc">
+                                        <span class="ident-cdg">
+                                            Código: <span style="color: #725BC2; font-weight: 500;">{{$categoria->id}}</span>
+                                        </span>
+                                        <br>
+                                        {{ $categoria->descricao }}
+                                    </td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
                                     <td style="white-space: nowrap;" class="align-middle font-weight-bold text-uppercase">{{ $categoria->tipo }}

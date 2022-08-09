@@ -54,6 +54,10 @@ class Categoria extends Component
 
     public function edit(Category $categoria)
     {
+        if($categoria->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
 
         $this->categoria = $categoria;
     }
@@ -68,6 +72,9 @@ class Categoria extends Component
 
     public function prepare(Category $categoria)
     {
+        if($categoria->user_id != auth()->user()->id){
+            return redirect('404');
+        }
 
         $this->categoria = $categoria;
         $this->categoria['status'] = 3;

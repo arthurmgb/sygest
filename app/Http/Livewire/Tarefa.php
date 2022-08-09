@@ -59,6 +59,10 @@ class Tarefa extends Component
     public function check($id){
 
         $tarefa = Task::find($id);
+
+        if($tarefa->user_id != auth()->user()->id){
+            return redirect('404');
+        }
         
         if($tarefa->status == 0){
 
@@ -88,6 +92,10 @@ class Tarefa extends Component
 
         $tarefa = Task::find($id);
 
+        if($tarefa->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
         $tarefa->update([
             'status' => 3,
         ]);
@@ -99,6 +107,11 @@ class Tarefa extends Component
     public function delete($id){
 
         $tarefa = Task::find($id);
+
+        if($tarefa->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
         $tarefa->delete();
 
         $this->dispatchBrowserEvent('tarefa-excluida', ['message' => 'Tarefa excluída!']);
@@ -108,6 +121,10 @@ class Tarefa extends Component
     public function restore($id){
 
         $tarefa = Task::find($id);
+
+        if($tarefa->user_id != auth()->user()->id){
+            return redirect('404');
+        }
 
         $tarefa->update([
             'status' => 0,
@@ -137,6 +154,10 @@ class Tarefa extends Component
             if(!is_null($task)){
 
                 $editedTask = Task::find($task['id']);
+
+                if($editedTask->user_id != auth()->user()->id){
+                    return redirect('404');
+                }
     
                 if($editedTask){
                     $editedTask->update($task);

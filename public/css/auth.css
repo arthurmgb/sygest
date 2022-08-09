@@ -6,11 +6,11 @@
     background: #725BC2 !important;
 }
 .primezze-card{
-    padding: 70px !important;
+    padding: 50px 60px !important;
     margin: 40px 0 !important;
     background: #fff !important;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.1) !important;
-    border-radius: 3px !important;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,.1) !important;
+    border-radius: 10px !important;
 }
 .primezze-header{
     margin: auto !important;
@@ -148,4 +148,11 @@
 .modal-input-cat:focus{
     border-color: #725bc2 !important;
     box-shadow: inset 0 0 0 1px #725bc2 !important;
+}
+.create-account{
+    color: #725BC2;
+    font-weight: 500;
+}
+.create-account:hover{
+    text-decoration: underline;
 }

@@ -45,5 +45,14 @@
                 </x-jet-button>
             </div>
         </form>
+
+        <div class="flex items-center justify-center mt-4 ">
+            <span style="color: #444;">Ainda não tem uma conta? </span>         
+        </div>
+
+        <div class="flex items-center justify-center mt-1">
+            <a class="create-account" href="https://cashiers.com.br/#cashiers-plans" target="_blank">Criar minha conta</a>
+        </div>
+
     </x-jet-authentication-card>
 </x-guest-layout>

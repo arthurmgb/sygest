@@ -66,6 +66,10 @@ class Senha extends Component
 
         $this->data_pass = Secret::find($id);
 
+        if($this->data_pass->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
         $this->dispatchBrowserEvent('open-secret-folder');
         
     }
@@ -97,6 +101,11 @@ class Senha extends Component
     public function editSecret(Secret $data){
 
         $this->data_pass_edit = $data;
+
+        if($this->data_pass_edit->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
         $this->dispatchBrowserEvent('edit-secret');
 
     }
@@ -167,6 +176,12 @@ class Senha extends Component
     }
 
     public function deleteSecret($id){
+
+        $check_user_auth = Secret::find($id);
+
+        if($check_user_auth->user_id != auth()->user()->id){
+            return redirect('404');
+        }
 
         $this->dispatchBrowserEvent('delete-secret');
         $this->secret_to_delete = $id;

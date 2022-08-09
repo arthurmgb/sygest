@@ -57,6 +57,9 @@ class Configuracao extends Component
 
     public function edit(Operator $operador)
     {
+        if($operador->user_id != auth()->user()->id){
+            return redirect('404');
+        }
 
         $this->operador = $operador;
     }
@@ -82,6 +85,10 @@ class Configuracao extends Component
     public function toggleDefault($id){
 
         $default_operator = Operator::find($id);
+
+        if($default_operator->user_id != auth()->user()->id){
+            return redirect('404');
+        }
 
         $defined_default = Operator::where('user_id', auth()->user()->id)
             ->where('is_default', 1)

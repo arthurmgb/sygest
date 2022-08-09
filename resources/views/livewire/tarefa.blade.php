@@ -95,12 +95,13 @@
                         class="wrap-task @if($task['status'] != 3) ml-3 mt-1 @endif 
                         @if($task['status'] == 1)task-checked @elseif($task['status'] == 3)task-deleted @else span-task @endif">
 
-                        {{$task['descricao']}}
+                        {!! nl2br(e($task['descricao'])) !!} 
 
                         </span> 
                     @else  
                     
-                    <textarea style="resize: none; height: 100%;" class="input-task-edit ml-3 yampay-scroll" wire:keydown.enter="updateTask({{$index}})" wire:model.defer="tasks.{{$index}}.descricao" rows="3" autocomplete="off"></textarea>
+                    <textarea style="resize: none; height: 100%;" class="input-task-edit ml-3 yampay-scroll" wire:model.defer="tasks.{{$index}}.descricao" rows="3" autocomplete="off"></textarea>
+
                     <button wire:loading.class="pe-none" wire:target="updateTask" style="height: 35px;" wire:click.prevent="updateTask({{$index}})" class="btn btn-new ml-2 mr-1">
                         <span wire:loading.remove wire:target="updateTask">
                             Salvar

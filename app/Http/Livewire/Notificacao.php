@@ -28,6 +28,10 @@ class Notificacao extends Component
 
         $get_ntf_to_alternate = Notification::find($this->ntf);
 
+        if($get_ntf_to_alternate->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
         if($get_ntf_to_alternate->is_read == 1){
 
             $get_ntf_to_alternate->is_read = 0;

@@ -27,6 +27,10 @@ class Shortcut extends Component
 
     public function edit(ModelsShortcut $atalho)
     {
+        if($atalho->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
         $this->atalho = $atalho;
     }
 
@@ -40,6 +44,10 @@ class Shortcut extends Component
 
     public function prepare(ModelsShortcut $atalho)
     {
+        if($atalho->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
         $this->atalho = $atalho;
            
     }

@@ -28,8 +28,18 @@ class UserContrato extends Component
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         date_default_timezone_set('America/Sao_Paulo');
 
+        //CHECK IF USER IS AUTHORIZED
+
+            $check_auth_receipt = Payment::find($id);
+
+            if($check_auth_receipt->user_id != auth()->user()->id){
+                return redirect('404');
+            }
+
+        //ENDCHECK
+
         $this->recibo = $id;
-        $recibo_data = Receipt::where('payment_id', $this->recibo)->get()->toArray();
+        $recibo_data = Receipt::where('payment_id', $this->recibo)->get()->toArray();    
         
         if($recibo_data != null){
         

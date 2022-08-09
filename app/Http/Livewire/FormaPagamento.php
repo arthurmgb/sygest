@@ -52,6 +52,10 @@ class FormaPagamento extends Component
 
     public function edit(Method $method)
     {
+        if($method->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
         $this->method = $method;
     }
 
@@ -65,6 +69,10 @@ class FormaPagamento extends Component
 
     public function prepare(Method $method)
     {
+        if($method->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
         $this->method = $method;
         $this->method['status'] = 3;
     }

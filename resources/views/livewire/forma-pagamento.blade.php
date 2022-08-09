@@ -43,7 +43,13 @@
 
                             <tr class="tr-hover">
                              
-                                <td style="word-break: break-all" class="align-middle font-desc">{{ $single_fp->descricao }}</td>
+                                <td style="word-break: break-all" class="align-middle font-desc">
+                                    <span class="ident-cdg">
+                                        Código: <span style="color: #725BC2; font-weight: 500;">{{$single_fp->id}}</span>
+                                    </span>
+                                    <br>
+                                    {{ $single_fp->descricao }}
+                                </td>
                                 <td style="white-space: nowrap;" class="align-middle">{{ $data_criacao }}</td>
 
                                 @if ($single_fp->status == 1)
