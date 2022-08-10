@@ -406,7 +406,7 @@
                 </div>
                 <div class="modal-body py-4 px-4">
 
-                    <h5 style="font-size: 24px; word-break: break-all;" class="modal-confirmation-msg m-0 text-center px-4 mb-3">
+                    <h5 style="font-size: 24px; word-wrap: break-word;" class="modal-confirmation-msg m-0 text-center px-4 mb-3">
                         Dados de senha de: <span class="text-bold">{{$data_pass->descricao ?? null}}</span>
                     </h5>
 
