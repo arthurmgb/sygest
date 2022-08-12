@@ -142,14 +142,12 @@ class Tarefa extends Component
 
         $task = $this->tasks[$taskIndex] ?? NULL;
 
-        if(empty($task['descricao'])){
+        if(empty($task['descricao']) or !strlen(trim($task['descricao']))){
 
             $this->editedTaskIndex = null;
             
         }
         else{
-
-            
             
             if(!is_null($task)){
 
