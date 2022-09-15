@@ -364,9 +364,9 @@
                             d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                     </defs>
                 </svg>
-                <h3 style="font-size: 22px;" class="my-4 no-results text-center">Ops! Parece que sua mensalidade venceu e seu acesso ao sistema expirou :(</h3>
+                <h3 style="font-size: 22px;" class="my-4 no-results text-center">Ops! Parece que sua mensalidade venceu e seu acesso à plataforma expirou :(</h3>
                 <div class="d-flex flex-column align-items-center justify-content-center mb-4">
-                    <h3 style="font-size: 23px;" class="no-results-create mb-3">Entre em contato para regularizar sua situação.</h3>
+                    <h3 style="font-size: 23px;" class="no-results-create mb-3 text-center">Entre em contato para regularizar sua situação.</h3>
                     <a href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!" target="_blank" class="btn btn-nr"><i class="fad fa-user-headset fa-fw fa-lg mr-2"></i>Fale conosco</a>
                     
                     @php( $logout_url = View::getSection('logout_url') ?? config('adminlte.logout_url', 'logout') )
@@ -390,7 +390,8 @@
         @endif
         
         <div class="mobile">
-            <div class="d-flex flex-column align-items-center justify-content-center px-4 py-5">
+            <div style="width: 100%;" class="d-flex flex-column align-items-center justify-content-center px-4 py-5">
+
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211"
                     height="145">
                     <style>
@@ -516,27 +517,35 @@
                             d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                     </defs>
                 </svg>
-                <h3 style="font-size: 20px;" class="my-4 no-results text-center">A Cashiers ainda não está disponível para dispositivos móveis.</h3>
-                <div class="d-flex flex-column align-items-center justify-content-center mb-4">
-                    <h3 style="font-size: 25px;" class="no-results-create mb-3">Tem dúvidas?</h3>
-                    <a href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!" target="_blank" class="btn btn-nr"><i class="fad fa-user-headset fa-fw fa-lg mr-2"></i>Fale conosco</a>
-                    
-                    @php( $logout_url = View::getSection('logout_url') ?? config('adminlte.logout_url', 'logout') )
 
-                    <a class="btn btn-default btn-logout btn-block my-4"
-                    href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-fw fa-sign-out-alt"></i>
-                    Sair
-                    </a>
+                <h3 style="font-size: 20px;" class="my-4 no-results text-center">
+                    O aplicativo da Cashiers já está disponível.
+                </h3>
+                
+                <h3 style="font-size: 25px;" class="no-results-create mb-3">
+                    Faça o download agora!
+                </h3>
 
-                    <form id="logout-form" action="{{ $logout_url }}" method="POST" style="display: none;">
-                        @if(config('adminlte.logout_method'))
-                            {{ method_field(config('adminlte.logout_method')) }}
-                        @endif
-                        {{ csrf_field() }}
-                    </form>
-                    
-                </div>
+                <a href="https://cashiers.com.br/#cashiers-app" target="_blank" class="btn btn-nr">
+                    <i class="fab fa-android fa-fw fa-lg mr-2"></i>
+                    Baixar aplicativo
+                </a>
+                
+                @php( $logout_url = View::getSection('logout_url') ?? config('adminlte.logout_url', 'logout') )
+
+                <a style="padding: 7px 80px;" class="btn btn-default btn-logout my-4"
+                href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                Sair
+                </a>
+
+                <form id="logout-form" action="{{ $logout_url }}" method="POST" style="display: none;">
+                    @if(config('adminlte.logout_method'))
+                        {{ method_field(config('adminlte.logout_method')) }}
+                    @endif
+                    {{ csrf_field() }}
+                </form>
+                
             </div>
         </div>
 
