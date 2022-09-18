@@ -84,9 +84,11 @@ class Relatorio extends Component
             ->get();
 
             $operators = Operator::where('user_id', auth()->user()->id)
+            ->where('status', 0)
             ->get();
 
             $operators_filter = Operator::where('user_id', auth()->user()->id)
+            ->where('status', 0)
             ->get();
 
             $methods = Method::where('user_id', auth()->user()->id)
@@ -530,6 +532,7 @@ class Relatorio extends Component
             ->get();
 
             $operators_filter = Operator::where('user_id', auth()->user()->id)
+            ->where('status', 0)
             ->get();
 
             $methods = Method::where('user_id', auth()->user()->id)

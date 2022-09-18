@@ -124,6 +124,48 @@ class Configuracao extends Component
 
     }
 
+    public function toggleStatus($id){
+
+        $operator_to_modify = Operator::find($id);
+
+        if($operator_to_modify->user_id != auth()->user()->id){
+            return redirect('404');
+        }
+
+        if($operator_to_modify->status == 0){
+
+            $operator_to_modify->status = 1;
+           
+            if($operator_to_modify->is_default == 1){
+
+                $operator_to_modify->is_default = 0;
+
+                $operator_to_modify->save();
+
+                $this->emit('alert', 'Operador desativado e removido como padrão com sucesso! Este operador não poderá mais ser utilizado para criar novas operações até ser reativado novamente.');
+
+            }else{
+
+                $operator_to_modify->save();
+
+                $this->emit('alert', 'Operador desativado com sucesso! Este operador não poderá mais ser utilizado para criar novas operações até ser reativado novamente.');
+            }
+
+          
+
+        }elseif($operator_to_modify->status == 1){
+
+            $operator_to_modify->status = 0;
+            $operator_to_modify->save();
+
+            $this->emit('alert', 'Operador reativado com sucesso!');
+
+        }
+
+        
+
+    }
+
     public function toggleTableScroll(){
 
         $get_table_scroll = User::find(auth()->user()->id);

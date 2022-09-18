@@ -127,17 +127,21 @@
                                     $data_criacao = $operator->created_at->format('d/m/Y H:i');
                                     @endphp
 
-                                        <tr class="tr-hover">                                        
+                                        <tr class="tr-hover" @if($operator->status == 1) style="background-color: #fff0f2 !important;" @endif>                                        
                                             <td class="align-middle font-desc">{{$operator->nome}}</td>
                                             <td class="align-middle">{{$data_criacao}}</td>
                                             <td class="align-middle">
                                                 <div class="d-flex flex-row align-items-center">
+                                                    {{-- CHECK STATUS --}}
+                                                    @if ($operator->status == 0)
+                                                    {{-- EDIT --}}
                                                     <div wire:target="edit({{$operator->id}})" wire:loading.attr="disabled"
                                                         wire:click.prevent="edit({{$operator->id}})" data-toggle="modal"
                                                         data-target="#editarCat" data-tooltip="Editar" data-flow="left"
                                                         class="cbe">
                                                         <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
                                                     </div>
+                                                    {{-- PADRÃO --}}
                                                     @if ($operator->is_default == 0)
                                                         <div wire:target="toggleDefault({{$operator->id}})" wire:loading.attr="disabled"
                                                             wire:click.prevent="toggleDefault({{$operator->id}})" data-tooltip="Definir como padrão" data-flow="right"
@@ -150,7 +154,24 @@
                                                             class="cbe">
                                                             <i style="color: #22c55e !important;" class="fad fa-toggle-on fa-fw fa-crud fac-edit"></i>                                                
                                                         </div>
-                                                    @endif                                                            
+                                                    @endif
+
+                                                    @endif
+                                                    {{-- STATUS --}}
+                                                    @if ($operator->status == 0)
+                                                        <div wire:target="toggleStatus({{$operator->id}})" wire:loading.attr="disabled"
+                                                            wire:click.prevent="toggleStatus({{$operator->id}})" data-tooltip="Desativar operador" data-flow="right"
+                                                            class="cbe">
+                                                            <i style="color: #E6274C !important;" class="fad fa-user-slash fa-fw fa-crud fac-edit mr-0"></i>                                                
+                                                        </div> 
+                                                    @elseif($operator->status == 1)
+                                                        <div wire:target="toggleStatus({{$operator->id}})" wire:loading.attr="disabled"
+                                                            wire:click.prevent="toggleStatus({{$operator->id}})" data-tooltip="Reativar operador" data-flow="right"
+                                                            class="cbe">
+                                                            <i style="color: #22c55e !important;" class="fad fa-user-check fa-fw fa-crud fac-edit ml-1 mr-0"></i>                                                
+                                                        </div>
+                                                    @endif
+
                                                 </div>
                                             </td>
                                         </tr>

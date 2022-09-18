@@ -54,7 +54,22 @@ class CreateOp extends Component
         $this->state['tipo'] = '1';
         $this->state['fp'] = "";
 
-        $get_default_operator = Operator::where('user_id', auth()->user()->id)->where('is_default', 1)->first();
+        if(isset($this->state['operador']) and !empty($this->state['operador'])){
+            
+            $check_operator_active = Operator::where('user_id', auth()->user()->id)
+            ->where('id', $this->state['operador'])
+            ->first();
+
+            if($check_operator_active->status == 1){
+                $this->state['operador'] = "";
+            }
+
+        }
+
+        $get_default_operator = Operator::where('user_id', auth()->user()->id)
+        ->where('is_default', 1)
+        ->where('status', 0)
+        ->first();
         
         if(!is_null($get_default_operator)){
             $this->state['operador'] = $get_default_operator->id;
@@ -67,7 +82,22 @@ class CreateOp extends Component
 
     public function dehydrate(){
 
-        $get_default_operator = Operator::where('user_id', auth()->user()->id)->where('is_default', 1)->first();
+        if(isset($this->state['operador']) and !empty($this->state['operador'])){
+            
+            $check_operator_active = Operator::where('user_id', auth()->user()->id)
+            ->where('id', $this->state['operador'])
+            ->first();
+
+            if($check_operator_active->status == 1){
+                $this->state['operador'] = "";
+            }
+
+        }
+
+        $get_default_operator = Operator::where('user_id', auth()->user()->id)
+        ->where('is_default', 1)
+        ->where('status', 0)
+        ->first();
         
         if(!is_null($get_default_operator)){
             $this->state['operador'] = $get_default_operator->id;
@@ -171,6 +201,7 @@ class CreateOp extends Component
             ->get();
         
         $operadores = Operator::where('user_id', auth()->user()->id)
+        ->where('status', 0)
         ->orderBy('nome', 'asc')
         ->get();
 
