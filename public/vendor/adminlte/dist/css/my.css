@@ -1,6 +1,7 @@
 *{
     font-family: 'Rubik', sans-serif;
 }
+.modal { overflow: auto !important; }
 body{
     background-color: #F4F6F8 !important;
     -webkit-print-color-adjust: exact;
