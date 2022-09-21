@@ -38,7 +38,7 @@ class Relatorio extends Component
             ->get();
 
         if(isset($this->operador) and $this->operador != 'select-op' and $operadores->count()){
-            $this->qtd = 250;
+            $this->qtd = 500;
             $this->dispatchBrowserEvent('call-print');
         }else{
             $this->emit('error-operator', 'É necessário selecionar um operador de caixa autorizado para realizar a impressão de um relatório. "Quem está imprimindo?"');

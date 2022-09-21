@@ -10,15 +10,15 @@
             <span class="span-relatorio">até</span>
             <input wire:model.defer="data.final" id="to" type="date" class="search-relatorio ml-3 mr-3" min="2000-01-01"
                 max="2100-01-01" autocomplete="off">
-            <button wire:click.prevent="render()" wire:loading.attr="disabled" wire:loading.class="desativado" class="button-relatorio">
-                <span class="fad fa-search fa-fw fa-lg mr-1"></span>Buscar
+            <button wire:click.prevent="render()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn btn-new">
+                <span class="far fa-search fa-fw fa-lg mr-1"></span>Buscar
             </button>
             @if (isset($operations))
                 <button wire:click.prevent="resetRelatorio()" wire:loading.attr="disabled" wire:loading.class="desativado" class="button-relatorio ml-2">
                     <span class="fad fa-broom fa-fw fa-lg mr-1"></span>Limpar busca
                 </button>
                 @if($operations->count())
-                    <button wire:click.prevent="printPage()" class="btn-new ml-2">
+                    <button wire:click.prevent="printPage()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn-new ml-2">
                         <span class="fad fa-print fa-fw fa-lg mr-1"></span>Imprimir
                     </button>
                 @endif
@@ -72,8 +72,8 @@
             @endif
             
         </div>
-        <button wire:click.prevent="caixaHoje()" wire:target="caixaHoje()" wire:loading.attr="disabled" class="btn btn-new btn-cx-hoje ml-3" type="button">
-            <i class="fal fa-cash-register fa-fw mr-1 fa-lg"></i> Caixa de hoje
+        <button wire:click.prevent="caixaHoje()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn btn-new btn-cx-hoje ml-3" type="button">
+            <i class="fal fa-cash-register fa-fw mr-1 fa-lg"></i> Buscar caixa de hoje
         </button>
         <div class="card" id="printable">
 
@@ -716,7 +716,7 @@
                         </svg>
                         <h3 class="my-4 no-results">Não há operações para este filtro.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
-                            <h3 class="no-results-create mb-3">Faça uma busca para filtrar as operações</h3>
+                            <h3 class="no-results-create mb-3 text-center">Faça uma busca para filtrar as operações</h3>
                         </div>
                     </div>
 
@@ -736,6 +736,7 @@
                     <option value="50">50</option>
                     <option value="100">100</option>
                     <option value="250">250</option>
+                    <option value="500">500</option>
                 </select>
                 <span class="ml-3 ipp">Itens por página</span>
             </div>
