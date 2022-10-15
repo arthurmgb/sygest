@@ -14,38 +14,135 @@
                     <span class="totais-label-style">Totais: </span>
                 </div>
                 <div class="div-coins d-flex flex-wrap flex-row align-items-end">
-                    <div class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Dinheiro">
-                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                            <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
-                        </span>
-                        <span class="coin-valor">
-                            R$ {{$coin_dinheiro}}
-                        </span>
+                    
+                    <div class="dropdown">
+
+                        <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Dinheiro">
+                            <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
+                            </span>
+                            <span class="coin-valor">
+                                R$ {{$coin_dinheiro}}
+                            </span>
+                        </div>
+
+                        <div class="dropdown-menu dropdown-vg-totais">
+
+                            <div class="d-flex flex-column">
+                                <span>
+                                    Entrou: 
+                                    <span style="color: green; white-space: nowrap;">
+                                        R$ {{$coin_dinheiro_entrada}}
+                                    </span>
+                                </span>
+                                <span>
+                                    Saiu: 
+                                    <span style="color: red; white-space: nowrap;">
+                                        R$ {{$coin_dinheiro_saida}}
+                                    </span>
+                                </span>
+                            </div>
+                            
+                        </div>
+
                     </div>
-                    <div class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Cheques">
-                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                            <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
-                        </span>
-                        <span class="coin-valor">
-                            R$ {{$coin_cheque}}
-                        </span>
+
+                    <div class="dropdown">
+
+                        <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Cheques">
+                            <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
+                            </span>
+                            <span class="coin-valor">
+                                R$ {{$coin_cheque}}
+                            </span>
+                        </div>
+
+                        <div class="dropdown-menu dropdown-vg-totais">
+
+                            <div class="d-flex flex-column">
+                                <span>
+                                    Entrou: 
+                                    <span style="color: green; white-space: nowrap;">
+                                        R$ {{$coin_cheque_entrada}}
+                                    </span>
+                                </span>
+                                <span>
+                                    Saiu: 
+                                    <span style="color: red; white-space: nowrap;">
+                                        R$ {{$coin_cheque_saida}}
+                                    </span>
+                                </span>
+                            </div>
+                            
+                        </div>
+
                     </div>
-                    <div class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Moedas">
-                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                            <i style="color: #e6c300;" class="fad fa-coins"></i>
-                        </span>
-                        <span class="coin-valor">
-                            R$ {{$coin_moeda}}
-                        </span>
+
+                    <div class="dropdown">
+
+                        <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Moedas">
+                            <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                <i style="color: #e6c300;" class="fad fa-coins"></i>
+                            </span>
+                            <span class="coin-valor">
+                                R$ {{$coin_moeda}}
+                            </span>
+                        </div>
+
+                        <div class="dropdown-menu dropdown-vg-totais">
+
+                            <div class="d-flex flex-column">
+                                <span>
+                                    Entrou: 
+                                    <span style="color: green; white-space: nowrap;">
+                                        R$ {{$coin_moeda_entrada}}
+                                    </span>
+                                </span>
+                                <span>
+                                    Saiu: 
+                                    <span style="color: red; white-space: nowrap;">
+                                        R$ {{$coin_moeda_saida}}
+                                    </span>
+                                </span>
+                            </div>
+                            
+                        </div>
+
                     </div>
-                    <div class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Outros">
-                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                            <i style="color: #10B981;" class="fas fa-cash-register"></i>
-                        </span>
-                        <span class="coin-valor">
-                            R$ {{$coin_outros}}
-                        </span>
+
+                    <div class="dropdown">
+
+                        <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Outros">
+                            <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                <i style="color: #10B981;" class="fas fa-cash-register"></i>
+                            </span>
+                            <span class="coin-valor">
+                                R$ {{$coin_outros}}
+                            </span>
+                        </div>
+
+                        <div class="dropdown-menu dropdown-vg-totais">
+
+                            <div class="d-flex flex-column">
+                                <span>
+                                    Entrou: 
+                                    <span style="color: green; white-space: nowrap;">
+                                        R$ {{$coin_outros_entrada}}
+                                    </span>
+                                </span>
+                                <span>
+                                    Saiu: 
+                                    <span style="color: red; white-space: nowrap;">
+                                        R$ {{$coin_outros_saida}}
+                                    </span>
+                                </span>
+                            </div>
+                            
+                        </div>
+
                     </div>
+
                     <div onclick="window.location = '{{route('retiradas')}}';" style="margin-right: 0;" class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Retiradas">
                         <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
                             <i style="color: #E6274C;" class="fad fa-wallet"></i>
@@ -54,6 +151,7 @@
                             - R$ {{$coin_retiradas}}
                         </span>
                     </div>
+
                 </div>    
             </div>
         @elseif($totais == 1)
@@ -237,7 +335,7 @@
 
                                 <div class="div-opt-table mb-2">
                                     <a class="home-link my-0" href="{{route('configuracoes')}}">
-                                        <i class="fal fa-cog mr-1"></i>Opções de tabela
+                                        <i class="fal fa-cog mr-1"></i>Configurações
                                     </a>
                                 </div>    
 

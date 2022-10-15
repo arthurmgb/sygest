@@ -21,7 +21,7 @@
 
                     <div class="div-opt-table mb-2">
                         <a class="home-link my-0" href="{{route('configuracoes')}}">
-                            <i class="fal fa-cog mr-1"></i>Opções de tabela
+                            <i class="fal fa-cog mr-1"></i>Configurações
                         </a>
                     </div>  
 

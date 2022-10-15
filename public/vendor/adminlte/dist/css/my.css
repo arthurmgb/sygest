@@ -1776,3 +1776,13 @@ color: #fff;
     border-color: #725BC2;
     font-size: 14px;
 }
+.dropdown-vg-totais{
+    width: 190px !important;
+    max-width: 190px !important;
+    min-width: 190px !important;
+    padding: 8px 16px !important;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+}

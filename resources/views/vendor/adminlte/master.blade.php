@@ -299,6 +299,17 @@
 
         </script>
         <script>
+
+            // Relatorios 
+        
+            window.addEventListener('scroll_to_conf', event =>{
+                
+                document.getElementById('conf-block').scrollIntoView();
+
+            })
+
+        </script>
+        <script>
             new ClipboardJS('.result-to-copy');
             new ClipboardJS('.copy-pix', {
                 container: document.getElementById('modalHome')

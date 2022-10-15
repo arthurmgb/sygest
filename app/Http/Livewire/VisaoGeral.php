@@ -463,6 +463,16 @@ class VisaoGeral extends Component
         $coin_outros = number_format($coin_outros, 2, ",", ".");
         $coin_retiradas = number_format($coin_retiradas, 2, ",", ".");
 
+        //Dropdown
+        $coin_dinheiro_entrada = number_format($coin_dinheiro_entrada, 2, ",", ".");
+        $coin_dinheiro_saida = number_format($coin_dinheiro_saida, 2, ",", ".");
+        $coin_cheque_entrada = number_format($coin_cheque_entrada, 2, ",", ".");
+        $coin_cheque_saida = number_format($coin_cheque_saida, 2, ",", ".");
+        $coin_moeda_entrada = number_format($coin_moeda_entrada, 2, ",", ".");
+        $coin_moeda_saida = number_format($coin_moeda_saida, 2, ",", ".");
+        $coin_outros_entrada = number_format($coin_outros_entrada, 2, ",", ".");
+        $coin_outros_saida = number_format($coin_outros_saida, 2, ",", ".");
+
         if(is_numeric($rendimento)){
 
             $rendimento = number_format($rendimento, 2, ",", ".");
@@ -507,9 +517,17 @@ class VisaoGeral extends Component
                 'valor_real',
                 'rendimento',
                 'coin_dinheiro',
+                'coin_dinheiro_entrada',
+                'coin_dinheiro_saida',
                 'coin_cheque',
+                'coin_cheque_entrada',
+                'coin_cheque_saida',
                 'coin_moeda',
+                'coin_moeda_entrada',
+                'coin_moeda_saida',
                 'coin_outros',
+                'coin_outros_entrada',
+                'coin_outros_saida',
                 'coin_retiradas',
                 'coin_dinheiro_hj',
                 'coin_dinheiro_entrada_hj',

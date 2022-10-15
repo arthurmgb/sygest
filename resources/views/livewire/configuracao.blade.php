@@ -2,15 +2,6 @@
 
     <div class="page-header d-flex flex-row align-items-center justify-content-between mb-2">
         <h2 class="f-h2">Configurações</h2>
-        @if ($modal_start === 0)
-            <a wire:click.prevent="notifications(1)" wire:loading.attr="disabled" style="font-size: 16px !important; cursor: pointer; user-select: none;" class="verify-font">
-                <i class="fad fa-bell fa-fw mr-1"></i>Habilitar notificações na página inicial
-            </a>
-        @elseif($modal_start === 1)
-            <a wire:click.prevent="notifications(0)" wire:loading.attr="disabled" style="font-size: 16px !important; cursor: pointer; user-select: none; color: #f87171 !important;" class="verify-font">
-                <i class="fad fa-bell-slash fa-fw mr-1"></i>Desabilitar notificações na página inicial
-            </a>
-        @endif
     </div>
 
     <div class="block">
@@ -23,7 +14,7 @@
                         <i style="color: #725BC2;" class="fad fa-table fa-fw fa-lg mr-2"></i>                                                                        
                         <div class="card-topo">
                             <div style="margin-bottom: 0 !important;" class="title-block f-calc">
-                                Opções de tabela
+                                Opções adicionais
                             </div>                                               
                         </div>
                     </div>
@@ -31,7 +22,7 @@
 
                     <div class="card-body px-0 pb-0">
 
-                        <div class="div-table-options d-flex flex-row align-items-center">
+                        <div class="div-table-options d-flex flex-row align-items-center mb-2">
 
                             @if ($table_scroll == 0)
                                 <div style="width: fit-content; user-select: none;" wire:target="toggleTableScroll()" wire:loading.attr="disabled"
@@ -54,6 +45,38 @@
                             @endif
                             
                             <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Esta opção ativará uma barra de rolagem horizontal nas tabelas de <b>Visão geral</b>, <b>Fluxo de caixa</b> e <b>Retiradas</b>. Ative esta opção caso o conteúdo da tabela seja muito longo ou esteja transpassando os limites da tela." data-flow="top" class="div-ttp-op-default ml-1">
+                                <i class="fad fa-info-circle fa-fw fa-lg fp-info-ico"></i>
+                            </div>
+
+                        </div>
+
+                        <div class="div-table-options d-flex flex-row align-items-center">
+
+                            @if ($modal_start === 0)
+                                <div style="width: fit-content; user-select: none;" wire:target="notifications(1)" wire:loading.attr="disabled"
+                                wire:click.prevent="notifications(1)" data-tooltip="Habilitar" data-flow="right"
+                                class="cbe d-flex flex-row align-items-center">
+                                <i style="color: #6b7280 !important;" class="fad fa-toggle-off fa-fw fa-crud fac-edit"></i>
+                                <div class="div-active-scroll">
+                                    <span style="font-size: 14px; color: #666; font-weight: 600;" class="text-uppercase">
+                                    Notificações de novidades na página inicial
+                                    </span>     
+                                </div>
+                                </div>
+                            @elseif($modal_start === 1)
+                                <div style="width: fit-content; user-select: none;" wire:target="notifications(0)" wire:loading.attr="disabled"
+                                    wire:click.prevent="notifications(0)" data-tooltip="Desabilitar" data-flow="right"
+                                    class="cbe d-flex flex-row align-items-center">
+                                    <i style="color: #22c55e !important;" class="fad fa-toggle-on fa-fw fa-crud fac-edit"></i>
+                                    <div class="div-active-scroll">
+                                        <span style="font-size: 14px; color: #666; font-weight: 600;" class="text-uppercase">
+                                        Notificações de novidades na página inicial
+                                        </span>     
+                                    </div>                                          
+                                </div>
+                            @endif
+                            
+                            <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Esta opção ativará o pop-up de novidades da Plataforma na <b>Página inicial</b>." data-flow="top" class="div-ttp-op-default ml-1">
                                 <i class="fad fa-info-circle fa-fw fa-lg fp-info-ico"></i>
                             </div>
 

@@ -92,7 +92,7 @@
 
                     <div class="receita-alert">
 
-                        <div class="row">
+                        <div id="conf-block" class="row">
 
                             <div class="col-8">
 
@@ -271,7 +271,7 @@
                                         </div>
                                     </div>
                                     <div class="calc-button-imp val-block d-flex flex-row align-items-center justify-content-end">
-                                        <button style="width: 200px;" wire:click.prevent="render()" class="btn-new">
+                                        <button style="width: 200px;" wire:click.prevent="conferencia()" class="btn-new">
                                             <i class="fad fa-calculator fa-fw fa-lg mr-1"></i>Calcular
                                         </button>
                                     </div>

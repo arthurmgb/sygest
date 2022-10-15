@@ -32,6 +32,12 @@ class Relatorio extends Component
         $this->operador = 'select-op';
     }
 
+    public function conferencia(){
+        
+        $this->dispatchBrowserEvent('scroll_to_conf');
+
+    }
+
     public function printPage(){
 
         $operadores = Operator::where('user_id', auth()->user()->id)
