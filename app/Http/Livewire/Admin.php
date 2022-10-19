@@ -130,11 +130,26 @@ class Admin extends Component
         $cidade = $get_usr_to_check_data['0']['cidade'];
         $estado = $get_usr_to_check_data['0']['estado'];
 
-        if(empty($documento) or empty($cidade) or empty($estado)){
-            $this->emit('error-pagamento', 'Estão faltando dados para gerar o recibo!');
-        }else{
+        //VERIFICAR MENSALIDADE
+
+        $get_contract_to_check = $get_mensal_to_check_data['0']['contract_id'];
+        $result_contract = Contract::find($get_contract_to_check);
+        
+        if($result_contract->is_test === 1){
+
             $this->dispatchBrowserEvent('show-pay-confirmation');
+
+        }else{
+
+            if(empty($documento) or empty($cidade) or empty($estado)){
+                $this->emit('error-pagamento', 'Estão faltando dados para gerar o recibo!');
+            }else{
+                $this->dispatchBrowserEvent('show-pay-confirmation');
+            }
+
         }
+
+        //FIM VERIFICAÇÃO
 
     }
 
@@ -405,6 +420,21 @@ class Admin extends Component
     public function alternarModalidade($id){
         $this->modalidade_mensalidade = $id;
         $this->reset('search_mensalidade');
+    }
+
+    public function confirmDropdown(){
+
+        User::where('modal_start', 0)
+        ->update(['modal_start' => 1]);
+
+        $this->emit('alert', 'Novidades habilitadas na Página inicial para todos os usuários da Plataforma.');
+
+    }
+
+    public function closeDropdown(){
+
+        $this->dispatchBrowserEvent('close-admin-dropdown');
+
     }
 
     public function render()

@@ -308,6 +308,40 @@
 
             })
 
+            // Admin
+
+            window.addEventListener('close-admin-dropdown', event =>{
+                
+                $('#dpd-ntf').dropdown('hide');
+
+            })
+
+            window.addEventListener('open-adm-edit-operation', event =>{
+                
+                $('#adm-operacao').modal('show');
+                $('#total-op').mask('#.##0,00', {reverse: true});
+
+            })
+
+            window.addEventListener('close-adm-edit-operation', event =>{
+                
+                $('#adm-operacao').modal('hide');
+
+            })
+
+            window.addEventListener('open-adm-edit-retirada', event =>{
+                
+                $('#adm-retirada').modal('show');
+                $('#total-op').mask('#.##0,00', {reverse: true});
+
+            })
+
+            window.addEventListener('close-adm-edit-retirada', event =>{
+                
+                $('#adm-retirada').modal('hide');
+
+            })
+            
         </script>
         <script>
             new ClipboardJS('.result-to-copy');

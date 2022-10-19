@@ -3,13 +3,39 @@
     <div class="page-header d-flex flex-row align-items-center justify-content-between mb-2">
         @if(auth()->user()->is_admin === 1)
         <h2 class="f-h2">Área administrativa</h2>
-        <div class="div-right-admin">
-            <a href="{{route('register')}}" class="btn btn-new">+ Novo usuário</a>
+        <div class="div-right-admin d-flex flex-row align-items-center">
+            <a href="{{route('register')}}" class="btn btn-new mr-1">+ Novo usuário</a>
             @if ($estado_manutencao == 0)
-            <button wire:key="manut-active" wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn btn-new">Ativar manutenção</button>
+                <button wire:key="manut-active" wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn btn-new mr-1">
+                    Ativar manutenção
+                </button>
             @elseif($estado_manutencao == 1)
-            <button wire:key="manut-disabled" wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn-maint">Desativar manutenção</button>
+                <button style="user-select: none;" wire:key="manut-disabled" wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn-maint mr-1">
+                    Desativar manutenção
+                </button>
             @endif
+            <div class="dropdown" id="dpd-ntf">
+
+                <button style="user-select: none;" type="button" data-toggle="dropdown" aria-expanded="false" class="btn-maint">
+                    Habilitar novidades (global)
+                </button>
+
+                <div class="dropdown-menu dropdown-vg-totais">
+                    <span style="user-select: none;">Habilitar?</span>
+                    <div class="d-flex flex-column align-items-center justify-content-center my-1">
+
+                        <button wire:key="yes-notif-enable" wire:click.prevent="confirmDropdown()" wire:loading.attr="disabled" class="btn btn-sm btn-primary btn-block">
+                            Sim
+                        </button>
+
+                        <button wire:key="no-notif-enable" wire:click.prevent="closeDropdown()" wire:loading.attr="disabled" class="btn btn-sm btn-outline-danger btn-block">
+                            Não
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
         @else
         <h2 class="f-h2">Área restrita</h2>
@@ -631,10 +657,16 @@
                                                 <td class="align-middle">
                                                     <div wire:key="{{$row_mensalidade->id . 'p'}}" class="div-btns-actions text-center">
 
-                                                        @if (empty($row_mensalidade->user->documento) or empty($row_mensalidade->user->cidade) or empty($row_mensalidade->user->estado))
+                                                        @if ($row_mensalidade->contract->is_test == 0)
+                                                            @if (empty($row_mensalidade->user->documento) or empty($row_mensalidade->user->cidade) or empty($row_mensalidade->user->estado))
                                                             <button data-tooltip="Solicite os dados restantes para pagar a mensalidade." data-flow="left" class="btn btn-secondary btn-sm mr-1" disabled>
                                                                 <i class="far fa-money-bill-alt fa-fw mr-2"></i>Pagar
                                                             </button>
+                                                            @else
+                                                            <button wire:click.prevent="payConfirmation({{$row_mensalidade->id}})" wire:loading.attr="disabled" wire:target="payConfirmation({{$row_mensalidade->id}})" class="btn btn-success btn-sm mr-1">
+                                                                <i class="far fa-money-bill-alt fa-fw mr-2"></i>Pagar
+                                                            </button>
+                                                            @endif
                                                         @else
                                                             <button wire:click.prevent="payConfirmation({{$row_mensalidade->id}})" wire:loading.attr="disabled" wire:target="payConfirmation({{$row_mensalidade->id}})" class="btn btn-success btn-sm mr-1">
                                                                 <i class="far fa-money-bill-alt fa-fw mr-2"></i>Pagar
@@ -835,6 +867,14 @@
         {{-- ÁREA COMISSÕES--}}
         @livewire('comissao')
         {{-- ÁREA COMISSÕES--}}
+
+        {{-- ÁREA EDIT OPERATIONS --}}
+        @livewire('edit-operation')
+        {{-- ÁREA EDIT OPERATIONS --}}
+
+        {{-- ÁREA EDIT RETIRADA --}}
+        @livewire('edit-retirada')
+        {{-- ÁREA EDIT RETIRADA --}}
 
         @else
             <div class="card">

@@ -1,5 +1,5 @@
 <div>
-    <div class="div-block-area-3">
+    <div class="div-block-area-3 mb-4">
 
         <div class="admin-area">
 
