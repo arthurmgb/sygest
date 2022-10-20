@@ -17,7 +17,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}" id="cashiers-login-form">
             @csrf
 
             <div>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="flex items-center mt-4">
-                <x-jet-button class="w-full justify-center primezze-btn">
+                <x-jet-button class="w-full justify-center primezze-btn" id="cashiers-btn-acessar">
                     {{ __('Acessar') }}
                 </x-jet-button>
             </div>
