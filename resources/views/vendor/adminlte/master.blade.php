@@ -304,7 +304,7 @@
         
             window.addEventListener('scroll_to_conf', event =>{
                 
-                document.getElementById('conf-block').scrollIntoView();
+                document.getElementById('subtotal-result').scrollIntoView();
 
             })
 

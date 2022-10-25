@@ -195,7 +195,7 @@
                                     </div>
                                 </div>
 
-                                <div class="period-rel-block mt-2 mb-1">
+                                <div id="subtotal-result" class="period-rel-block mt-2 mb-1">
                                     <span style="color: #725bc2;" class="rc-alert-font">
                                         Conferência dos valores em caixa
                                         <span style="font-size: 14px;">(opcional)</span>
