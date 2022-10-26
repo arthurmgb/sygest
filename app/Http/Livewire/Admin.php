@@ -192,13 +192,15 @@ class Admin extends Component
 
         $user_from_payment = User::find($mensalidade->user_id);
 
-        $recibo = new Receipt;
-        $recibo->payment_id = $id;
-        $recibo->nome = $user_from_payment->name;
-        $recibo->documento = $user_from_payment->documento;
-        $recibo->cidade = $user_from_payment->cidade;
-        $recibo->estado = $user_from_payment->estado;
-        $recibo->save();
+        if($get_contract->is_test == 0){
+            $recibo = new Receipt;
+            $recibo->payment_id = $id;
+            $recibo->nome = $user_from_payment->name;
+            $recibo->documento = $user_from_payment->documento;
+            $recibo->cidade = $user_from_payment->cidade;
+            $recibo->estado = $user_from_payment->estado;
+            $recibo->save();
+        }
 
         //NOTIFICAÇÃO DE MENSALIDADE PAGA
 
