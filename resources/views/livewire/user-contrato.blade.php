@@ -905,43 +905,102 @@
                     <div class="confirmation-msg text-center mt-4 mb-0">
 
                         <div class="row">
-                            <div id="data-bank" class="col-12 blur-dados" wire:ignore>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item text-left list-bank flex-fill">
-                                        <i style="color: #725BC2;" class="fad fa-user fa-fw mr-2 fa-lg"></i>Beneficiário
-                                    </li>
-                                    <li class="list-group-item text-right list-bank-info flex-fill">Arthur de Oliveira Silva</li>
-                                </ul>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item text-left list-bank flex-fill">
-                                        <i style="color: #725BC2;" class="fad fa-id-card fa-fw mr-2 fa-lg"></i>CPF
-                                    </li>
-                                    <li class="list-group-item text-right list-bank-info flex-fill">155.332.526-57</li>
-                                </ul>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item text-left list-bank flex-fill">
-                                        <i style="color: #725BC2;" class="fad fa-university fa-fw mr-2 fa-lg"></i>Banco
-                                    </li>
-                                    <li class="list-group-item text-right list-bank-info flex-fill"><span class="text-bold">0260</span> · Nu Pagamentos S.A.</li>
-                                </ul>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item text-left list-bank flex-fill">
-                                        <i style="color: #725BC2;" class="fad fa-money-check-alt fa-fw mr-2 fa-lg"></i>Agência
-                                    </li>
-                                    <li class="list-group-item text-right list-bank-info flex-fill">0001</li>
-                                </ul>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item text-left list-bank flex-fill">
-                                        <i style="color: #725BC2;" class="fad fa-user-circle fa-fw mr-2 fa-lg"></i>Conta
-                                    </li>
-                                    <li class="list-group-item text-right list-bank-info flex-fill">14977424-2</li>
-                                </ul>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item text-left list-bank flex-fill">
-                                        <i style="color: #725BC2;" class="fad fa-shield-check fa-fw mr-2 fa-lg"></i>Tipo de conta
-                                    </li>
-                                    <li class="list-group-item text-right list-bank-info flex-fill">Conta de pagamentos</li>
-                                </ul>
+                            <div class="col-12">
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link pill-botao active mr-1" id="pill-nubank-tab" data-toggle="pill" data-target="#pill-nubank" type="button" role="tab" aria-controls="pill-nubank" aria-selected="true">Nubank</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link pill-botao" id="pill-picpay-tab" data-toggle="pill" data-target="#pill-picpay" type="button" role="tab" aria-controls="pill-picpay" aria-selected="false">PicPay</button>
+                                </li>                            
+                            </ul>
+
+                            <div class="tab-content" id="pills-tabContent">
+
+                                <div class="tab-pane fade show active" id="pill-nubank" role="tabpanel" aria-labelledby="pill-nubank-tab">
+                                    <div class="data-bank-col col-12 blur-dados" wire:ignore>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-user fa-fw mr-2 fa-lg"></i>Beneficiário
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill">Arthur de Oliveira Silva</li>
+                                        </ul>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-id-card fa-fw mr-2 fa-lg"></i>CPF
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill">155.332.526-57</li>
+                                        </ul>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-university fa-fw mr-2 fa-lg"></i>Banco
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill"><span class="text-bold">260</span> · Nu Pagamentos S.A.</li>
+                                        </ul>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-money-check-alt fa-fw mr-2 fa-lg"></i>Agência
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill">0001</li>
+                                        </ul>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-user-circle fa-fw mr-2 fa-lg"></i>Conta
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill">14977424-2</li>
+                                        </ul>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-shield-check fa-fw mr-2 fa-lg"></i>Tipo de conta
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill">Conta de pagamentos</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="pill-picpay" role="tabpanel" aria-labelledby="pill-picpay-tab">
+                                    <div class="data-bank-col col-12 blur-dados" wire:ignore>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-user fa-fw mr-2 fa-lg"></i>Beneficiário
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill">Arthur Oliveira</li>
+                                        </ul>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-id-card fa-fw mr-2 fa-lg"></i>CPF
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill">155.332.526-57</li>
+                                        </ul>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-university fa-fw mr-2 fa-lg"></i>Banco
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill"><span class="text-bold">380</span> · PicPay Serviços S.A.</li>
+                                        </ul>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-money-check-alt fa-fw mr-2 fa-lg"></i>Agência
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill">0001</li>
+                                        </ul>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-user-circle fa-fw mr-2 fa-lg"></i>Conta
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill">41002640-9</li>
+                                        </ul>
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item text-left list-bank flex-fill">
+                                                <i style="color: #725BC2;" class="fad fa-shield-check fa-fw mr-2 fa-lg"></i>Tipo de conta
+                                            </li>
+                                            <li class="list-group-item text-right list-bank-info flex-fill">Conta corrente</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
                             </div>
                         </div>
                         

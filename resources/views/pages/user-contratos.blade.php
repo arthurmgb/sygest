@@ -63,7 +63,7 @@
     </script>
     <script>
         
-        var $col = $('#data-bank');
+        var $col = $('.data-bank-col');
         var $btn_blur = $('#privacy');
 
         $btn_blur.click(function(){

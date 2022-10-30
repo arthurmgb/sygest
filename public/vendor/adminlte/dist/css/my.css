@@ -1786,3 +1786,31 @@ color: #fff;
     font-weight: 500;
     text-transform: uppercase;
 }
+.pill-botao.nav-link{
+    color: #666;
+    background-color: #fff;
+    outline: none;
+    border: 1px solid #b3b3b3;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 9px 25px;
+    user-select: none;
+}
+.pill-botao.nav-link:hover{
+    color: #666 !important;
+    background-color: #F4F6F8;
+}
+.pill-botao.nav-link.active{
+    color: #fff !important;
+    background-color: #725BC2 !important;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    cursor: default !important;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 9px 25px;
+    border: 1px solid transparent;
+}
