@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="card-topo mt-3 mb-2">
-                    <input type="number" wire:model="search_comissao" placeholder="buscar por ID do contrato" class="search-input" autocomplete="off">
+                    <input type="number" wire:model="search_comissao" placeholder="buscar por ID do plano" class="search-input" autocomplete="off">
                     <i class="fa fa-search"></i>
                 </div>
             
@@ -72,7 +72,7 @@
                         <table style="cursor: default; white-space: nowrap; user-select: none;" class="table table-borderless mb-2">
                             <thead class="t-head">
                                 <tr class="t-head-border">                                    
-                                    <th>ID Contrato #</th>
+                                    <th>ID Plano #</th>
                                     <th>Comissionado</th>
                                     <th>Chave PIX</th>
                                     <th>Banco/Instituição</th>

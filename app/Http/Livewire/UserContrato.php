@@ -66,7 +66,7 @@ class UserContrato extends Component
     public function render()
     {
 
-        //LISTAR CONTRATOS DO USUÁRIO
+        //LISTAR PLANOS DO USUÁRIO
 
         $contracts = Contract::where('user_id', auth()->user()->id)->get();
 

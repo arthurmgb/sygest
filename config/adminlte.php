@@ -292,9 +292,9 @@ return [
             'icon' => 'far mr-3 fa-user fa-lg fa-fw',
             'submenu' => [
                 [
-                    'text' => 'Meus contratos',
+                    'text' => 'Meus planos',
                     'icon' => 'far mr-3 fa-file-signature fa-lg fa-fw',
-                    'route'  => 'meus-contratos',
+                    'route'  => 'meus-planos',
                 ],
                 [
                     'text' => 'Minhas comissões',

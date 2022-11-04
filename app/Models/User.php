@@ -29,6 +29,7 @@ class User extends Authenticatable
         'password',
         'last_login',
         'documento',
+        'celular',
         'cidade',
         'estado',
         'banco',

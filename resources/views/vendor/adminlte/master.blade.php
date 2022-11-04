@@ -174,7 +174,7 @@
             })
             /* Rendimento */
 
-            /* Contratos */
+            /* Planos */
 
             /* Fechar */
                 window.addEventListener('fechar-modal-contract', event =>{
@@ -195,7 +195,7 @@
                 $('#confirm-operation-contract').modal('show');
             })
 
-            /* Contratos */
+            /* Planos */
 
             /* Mensalidades Admin */
 

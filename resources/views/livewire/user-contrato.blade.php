@@ -1,8 +1,8 @@
 <div>
 
     <div class="page-header d-flex flex-row align-items-center mb-2">
-        <h2 class="f-h2">Meus contratos</h2>
-        <span class="f-span">{{$all_contratos_user}} contratos</span>
+        <h2 class="f-h2">Meus planos</h2>
+        <span class="f-span">{{$all_contratos_user}} planos</span>
     </div>
 
     <div class="block">
@@ -13,7 +13,7 @@
                 <i style="color: #725BC2;" class="fad fa-file-signature fa-fw fa-lg mr-2"></i>
                 <div class="card-topo">
                     <div style="margin-bottom: 0 !important;" class="title-block f-calc">                                                                        
-                        Contratos com a plataforma
+                        Planos com a plataforma
                     </div>                     
                 </div>
                 <div class="dropdown" wire:key="drop1">
@@ -22,25 +22,25 @@
                     </button>
                     <div style="padding: 20px !important; width: 350px !important; max-width: 350px !important; min-width: 350px !important;" class="dropdown-menu text-uppercase" aria-labelledby="drop_details1">                        
                         <span style="font-size: 13px; font-weight: 600; color: #555;">
-                        Total de contratos: 
+                        Total de planos: 
                         <span class="ml-1" style="font-size: 15px; font-weight: 600; color: #725BC2;">
                             {{$all_contratos_user}}
                         </span>
                         </span><br>
                         <span style="font-size: 13px; font-weight: 600; color: #555;">
-                        Total de contratos ativos: 
+                        Total de planos ativos: 
                         <span class="ml-1" style="font-size: 15px; font-weight: 600; color: #16a34a;">
                             {{$ativos_contratos_user}}
                         </span>
                         </span><br>
                         <span style="font-size: 13px; font-weight: 600; color: #555;">
-                        Total de contratos inativos: 
+                        Total de planos inativos: 
                         <span class="ml-1" style="font-size: 15px; font-weight: 600; color: #dc2626;">
                             {{$inativos_contratos_user}}
                         </span>
                         </span><br>
                         <span style="font-size: 13px; font-weight: 600; color: #555;">
-                        Total de contratos cancelados: 
+                        Total de planos cancelados: 
                         <span class="ml-1" style="font-size: 15px; font-weight: 600; color: #4b5563;">
                             {{$cancelados_contratos_user}}
                         </span>
@@ -431,7 +431,7 @@
                                 d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                         </defs>
                     </svg>
-                    <h3 class="my-4 no-results">Não há contratos a serem exibidos.</h3>                
+                    <h3 class="my-4 no-results">Não há planos a serem exibidos.</h3>                
                 </div>
 
                 @endif
@@ -508,7 +508,7 @@
                     <table style="cursor: default; white-space: nowrap; user-select: none;" class="table table-borderless mb-2">
                         <thead class="t-head">
                             <tr class="t-head-border">                                    
-                                <th>ID Contrato #</th>                               
+                                <th>ID Plano #</th>                               
                                 <th>Vencimento</th>
                                 <th>Pago em</th>
                                 <th>Situação</th>
@@ -644,7 +644,7 @@
 
                 @else
 
-                    <div class="d-flex flex-column align-items-center justify-content-center">
+                    <div class="d-flex flex-column align-items-center justify-content-center pt-3">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211"
                             height="145">
                             <style>

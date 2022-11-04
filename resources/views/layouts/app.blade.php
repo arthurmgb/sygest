@@ -55,30 +55,26 @@
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
         <script>
-            $("#documento").keydown(function(){
-            try {
-                $("#documento").unmask();
-            } catch (e) {}
-
-            var tamanho = $("#documento").val().length;
-
-            if(tamanho < 11){
-                $("#documento").mask("999.999.999-99");
-            } else {
-                $("#documento").mask("99.999.999/9999-99");
+            var options = {
+                onKeyPress: function (cpf, ev, el, op) {
+                    var masks = ['000.000.000-000', '00.000.000/0000-00'];
+                    $('#documento').mask((cpf.length > 14) ? masks[1] : masks[0], op);
+                }
             }
 
-            // ajustando foco
-            var elem = this;
-            setTimeout(function(){
-                // mudo a posição do seletor
-                elem.selectionStart = elem.selectionEnd = 10000;
-            }, 0);
-            // reaplico o valor para mudar o foco
-            var currentValue = $(this).val();
-            $(this).val('');
-            $(this).val(currentValue);
-        });
+            $('#documento').length > 11 ? $('#documento').mask('00.000.000/0000-00', options) : $('#documento').mask('000.000.000-00#', options);
+        </script>
+        <script>
+            var behavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+            },
+            options = {
+                onKeyPress: function (val, e, field, options) {
+                    field.mask(behavior.apply({}, arguments), options);
+                }
+            };
+
+            $('#celular').mask(behavior, options);
         </script>
     </body>
 </html>

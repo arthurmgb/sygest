@@ -6,8 +6,8 @@
             <x-slot name="logo">
                 <x-jet-authentication-card-logo />
             </x-slot>
-            <h1>Cadastre-se</h1>
-            <p>Complete seu cadastro</p>
+            <h1>Criar uma conta</h1>
+            <p>Preencha as informações</p>
         </div>
 
         <x-jet-validation-errors class="mb-4" />
@@ -17,26 +17,43 @@
 
             <div>
                 <x-jet-label class="primezze-label" for="name" value="{{ __('Nome/Empresa') }}" />
-                <x-jet-input placeholder="Digite seu nome ou de sua empresa" id="name" class="block mt-1 w-full primezze-input primezze-input" type="text" name="name"
-                    :value="old('name')" required autofocus autocomplete="off" maxlength="24" />
+                <x-jet-input placeholder="Digite o nome ou a empresa" id="name" class="block mt-1 w-full primezze-input primezze-input" type="text" name="name"
+                    :value="old('name')" required autofocus autocomplete="off" />
             </div>
 
             <div class="mt-4">
                 <x-jet-label class="primezze-label" for="email" value="{{ __('E-mail') }}" />
-                <x-jet-input placeholder="exemplo@email.com.br" id="email" class="block mt-1 w-full primezze-input" type="email" name="email"
+                <x-jet-input placeholder="email@exemplo.com.br" id="email" class="block mt-1 w-full primezze-input" type="email" name="email"
                     :value="old('email')" required autocomplete="off" />
             </div>
 
             <div class="mt-4">
-                <x-jet-label class="primezze-label" for="password" value="{{ __('Senha') }}" />
-                <x-jet-input placeholder="Digite sua senha" id="password" class="block mt-1 w-full primezze-input" type="password" name="password"
+                <x-jet-label class="primezze-label" for="documento" value="{{ __('CPF/CNPJ') }}" />
+                <x-jet-input id="documento" class="block mt-1 w-full primezze-input" type="text" name="documento"
+                    :value="old('documento')" required autocomplete="off" />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label class="primezze-label" for="celular" value="{{ __('Celular') }}" />
+                <x-jet-input placeholder="(00) 00000-0000" id="celular" class="block mt-1 w-full primezze-input" type="text" name="celular"
+                    :value="old('celular')" required autocomplete="off" />
+            </div>
+
+            <div class="mt-4">
+                <div class="flex items-center justify-between">
+                    <x-jet-label class="primezze-label" for="password" value="{{ __('Senha') }}" />
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="https://www.lastpass.com/pt/features/password-generator" target="_blank">
+                        {{ __('Gerador de senhas') }}
+                    </a>
+                </div>
+                <x-jet-input placeholder="Digite a senha" id="password" class="block mt-1 w-full primezze-input" type="password" name="password"
                     required autocomplete="off" />
             </div>
 
             <div class="mt-4">
                 <x-jet-label class="primezze-label" for="password_confirmation"
                     value="{{ __('Confirmar Senha') }}" />
-                <x-jet-input  placeholder="Confirme sua senha" id="password_confirmation" class="block mt-1 w-full primezze-input" type="password"
+                <x-jet-input  placeholder="Confirme a senha" id="password_confirmation" class="block mt-1 w-full primezze-input" type="password"
                     name="password_confirmation" required autocomplete="off" />
             </div>
 
@@ -56,15 +73,11 @@
                     </x-jet-label>
                 </div>
             @endif
+
             <div class="flex items-center mt-4">
                 <x-jet-button class="w-full justify-center primezze-btn">
-                    {{ __('Cadastrar') }}
+                    {{ __('Criar conta') }}
                 </x-jet-button>
-            </div>
-            <div class="flex items-center justify-end mt-2">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Já possui cadastro?') }}
-                </a>
             </div>
 
         </form>

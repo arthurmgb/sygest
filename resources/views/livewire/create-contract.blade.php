@@ -5,7 +5,7 @@
             <div class="modal-dialog">
                 <div class="modal-content modal-custom">
                     <div class="modal-header">
-                        <h5 class="modal-title px-3 py-3" id="new-contractLabel">Novo contrato</h5>
+                        <h5 class="modal-title px-3 py-3" id="new-contractLabel">Novo plano</h5>
                         <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
                             <i class="fal fa-times"></i>
                         </button>
@@ -17,7 +17,7 @@
                                 <div class="d-flex flex-row align-items-center">
                                     <input type="checkbox" id="avaliacao" wire:click.prevent="avaliacaoContract()" @if($is_test == 'selected') checked @endif>
                                     <label for="avaliacao"></label>
-                                    <label style="margin: 16px 12px;" class="modal-label" for="primeiro-pag">Contrato de avaliação gratuita?</label>  
+                                    <label style="margin: 16px 12px;" class="modal-label" for="avaliacao">Plano de avaliação gratuita?</label>  
                                 </div>                                                          
                             </div>
                             <div class="form-group">
@@ -88,11 +88,11 @@
                     <div class="modal-body py-4 px-4">
 
                         <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente cadastrar este
-                            contrato?</h5>
+                            plano?</h5>
 
                         <div class="confirmation-msg text-center mb-3">
                             <p class="m-0 mb-3 px-4">
-                                Ao clicar em <span class="msg-bold">Confirmar</span>, um novo contrato será cadastrado para este usuário do sistema.
+                                Ao clicar em <span class="msg-bold">Confirmar</span>, um novo plano será cadastrado para este usuário da Plataforma.
                             </p>                      
                         </div>
 

@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/tarefas', Tarefa::class)->name('tarefas');
     Route::get('/configuracoes', Configuracao::class)->name('configuracoes');
     Route::get('/admin', Admin::class)->name('admin');
-    Route::get('/meus-contratos', UserContrato::class)->name('meus-contratos');
+    Route::get('/meus-planos', UserContrato::class)->name('meus-planos');
     Route::get('/minhas-comissoes', UserComissao::class)->name('minhas-comissoes');
     Route::get('/notificacoes', Notificacao::class)->name('notificacoes');
     Route::get('/formas-pagamento', FormaPagamento::class)->name('formas-pagamento');

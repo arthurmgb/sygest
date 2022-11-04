@@ -72,7 +72,7 @@
                     <table style="cursor: default; white-space: nowrap; user-select: none;" class="table table-borderless mb-2">
                         <thead class="t-head">
                             <tr class="t-head-border">                                    
-                                <th>ID Contrato #</th>
+                                <th>ID Plano #</th>
                                 <th>Comissionado</th>
                                 <th>Valor</th>
                                 <th>Previsto para</th>
@@ -345,7 +345,7 @@
 
                     <div style="z-index: 10; position: relative;" class="confirmation-msg text-center">
                         <p style="font-size: 18px;" class="m-0 mb-4 px-4">
-                            Convide <span class="msg-bold">um amigo ou empresa</span> para se juntar à plataforma. <br>Assim que seu parceiro efetivar um contrato conosco e <span class="msg-bold">realizar o primeiro pagamento</span>, você receberá uma comissão de <span style="font-size: 20px;" class="msg-bold">10%</span> diretamente em sua conta!
+                            Convide <span class="msg-bold">um amigo ou empresa</span> para se juntar à plataforma. <br>Assim que seu parceiro efetivar um plano conosco e <span class="msg-bold">realizar o primeiro pagamento</span>, você receberá uma comissão de <span style="font-size: 20px;" class="msg-bold">10%</span> diretamente em sua conta!
                         </p>
                         
                         @php
@@ -419,7 +419,7 @@
 
                         <div class="div-row-1 mb-2">
                             <span style="font-size: 17px; color: #444;">
-                                Recebemos de <span style="font-weight: 600;">Arthur de Oliveira Silva</span> - CPF nº <span style="font-weight: 600;">155.332.526-57</span>, a importância de <span style="font-weight: 600;">quinze reais</span> referente ao <span style="font-weight: 600;">Pagamento de Comissão do contrato [{{$contract_number}}]</span>.
+                                Recebemos de <span style="font-weight: 600;">Arthur de Oliveira Silva</span> - CPF nº <span style="font-weight: 600;">155.332.526-57</span>, a importância de <span style="font-weight: 600;">quinze reais</span> referente ao <span style="font-weight: 600;">Pagamento de Comissão do plano [{{$contract_number}}]</span>.
                             </span>
                         </div>
 

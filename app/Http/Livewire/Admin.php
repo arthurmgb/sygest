@@ -178,9 +178,9 @@ class Admin extends Component
             $get_contract->status = 0;
             $get_contract->save();
 
-            //NOTIFICAÇÃO DE CONTRATO INATIVO
+            //NOTIFICAÇÃO DE PLANO INATIVO
 
-            $msg_notification_contrato_inativo = 'Olá! Viemos te avisar que seu contrato com a Plataforma Cashiers acaba de ser inativado, todas as mensalidades foram quitadas e você não possui mais nenhum débito conosco. Para continuar a usar os serviços da nossa plataforma, entre em contato conosco para realizarmos a renovação do seu contrato. <a target="_blank" class="verify-font" href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Gostaria%20de%20estar%20realizando%20a%20renova%C3%A7%C3%A3o%20do%20meu%20contrato%20com%20a%20Plataforma%20Cashiers!">Clique aqui</a> para falar com o suporte. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
+            $msg_notification_contrato_inativo = 'Olá! Viemos te avisar que seu plano com a Plataforma Cashiers acaba de ser inativado, todas as mensalidades foram quitadas e você não possui mais nenhum débito conosco. Para continuar a usar os serviços da nossa plataforma, entre em contato conosco para realizarmos a renovação do seu plano. <a target="_blank" class="verify-font" href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Gostaria%20de%20estar%20realizando%20a%20renova%C3%A7%C3%A3o%20do%20meu%20plano%20com%20a%20Plataforma%20Cashiers!">Clique aqui</a> para falar com o suporte. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
 
             $notification_contrato_inativo = new Notification;
             $notification_contrato_inativo->user_id = $mensalidade->user_id;
@@ -208,7 +208,7 @@ class Admin extends Component
 
         $dia_mensalidade_msg = date('d/m/Y', strtotime($mensalidade->vencimento));
 
-        $msg_notification_mensalidade_paga = 'Olá! Recebemos seu pagamento referente à mensalidade do dia <b style="color: green;">' . $dia_mensalidade_msg . '</b>. Para visualizar os detalhes da mensalidade e imprimir o seu recibo, vá até o menu <b>Minha conta</b> e em seguida <b>></b> <b>Meus contratos</b>. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
+        $msg_notification_mensalidade_paga = 'Olá! Recebemos seu pagamento referente à mensalidade do dia <b style="color: green;">' . $dia_mensalidade_msg . '</b>. Para visualizar os detalhes da mensalidade e imprimir o seu recibo, vá até o menu <b>Minha conta</b> e em seguida <b>></b> <b>Meus planos</b>. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
 
         $notification_mensalidade_paga = new Notification;
         $notification_mensalidade_paga->user_id = $mensalidade->user_id;
@@ -262,11 +262,11 @@ class Admin extends Component
             $get_contract->status = 1;
             $get_contract->save();
 
-            //NOTIFICAÇÃO DE CONTRATO REATIVO
+            //NOTIFICAÇÃO DE PLANO REATIVO
 
             $venc_mensalidade_ntf = date('d/m/Y', strtotime($mensalidade->vencimento));
 
-            $msg_notification_contrato_reativo = 'Olá! Sua mensalidade com vencimento no dia <b>' . $venc_mensalidade_ntf . '</b> foi estornada, sendo assim, seu contrato que anteriormente estava inativo, voltou a estar ativo até que todas as mensalidades estejam quitadas. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
+            $msg_notification_contrato_reativo = 'Olá! Sua mensalidade com vencimento no dia <b>' . $venc_mensalidade_ntf . '</b> foi estornada, sendo assim, seu plano que anteriormente estava inativo, voltou a estar ativo até que todas as mensalidades estejam quitadas. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
 
             $notification_contrato_reativo = new Notification;
             $notification_contrato_reativo->user_id = $mensalidade->user_id;
@@ -284,7 +284,7 @@ class Admin extends Component
 
         $venc_mensalidade_estornada = date('d/m/Y', strtotime($mensalidade->vencimento));
 
-        $msg_notification_mensalidade_estornada = 'Olá! Sua mensalidade com vencimento no dia <b>'. $venc_mensalidade_estornada .'</b> foi estornada. Para realizar o pagamento novamente, vá até o menu <b>Minha conta</b> e em seguida <b>></b> <b>Meus contratos</b>, clique no botão pagar e conclua o passo a passo. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
+        $msg_notification_mensalidade_estornada = 'Olá! Sua mensalidade com vencimento no dia <b>'. $venc_mensalidade_estornada .'</b> foi estornada. Para realizar o pagamento novamente, vá até o menu <b>Minha conta</b> e em seguida <b>></b> <b>Meus planos</b>, clique no botão pagar e conclua o passo a passo. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
 
         $notification_mensalidade_estornada = new Notification;
         $notification_mensalidade_estornada->user_id = $mensalidade->user_id;
@@ -335,7 +335,7 @@ class Admin extends Component
         $novo_vencimento = date('d/m/Y', strtotime($this->vencimento_mensalidade));
         $antigo_vencimento = date('d/m/Y', strtotime($antigo_vencimento));
 
-        $msg_notification_vencimento_alterado = 'Olá! Alteramos o vencimento da sua mensalidade referente ao dia <b>'. $antigo_vencimento .'</b>, a nova data de vencimento foi estabelecida para o dia <b style="color: green;">'. $novo_vencimento .'</b>. Para realizar o pagamento, vá até o menu <b>Minha conta</b> e em seguida <b>></b> <b>Meus contratos</b>, clique no botão pagar e conclua o passo a passo. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
+        $msg_notification_vencimento_alterado = 'Olá! Alteramos o vencimento da sua mensalidade referente ao dia <b>'. $antigo_vencimento .'</b>, a nova data de vencimento foi estabelecida para o dia <b style="color: green;">'. $novo_vencimento .'</b>. Para realizar o pagamento, vá até o menu <b>Minha conta</b> e em seguida <b>></b> <b>Meus planos</b>, clique no botão pagar e conclua o passo a passo. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
 
         $notification_vencimento_alterado = new Notification;
         $notification_vencimento_alterado->user_id = $alt_mensalidade->user_id;
@@ -382,7 +382,7 @@ class Admin extends Component
             $comission_to_cancel->save();
         }
 
-        $msg_notification_contrato_cancelado = 'Olá! Seu <b>contrato [' . $contract_cancel->id . ']</b> foi cancelado, caso não tenha nenhum contrato ativo com a plataforma, seu acesso irá expirar em até 2 dias úteis. Para continuar a usar os serviços da nossa plataforma, entre em contato conosco para realizarmos a renovação/efetivação do seu contrato. <a target="_blank" class="verify-font" href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Gostaria%20de%20estar%20realizando%20a%20renova%C3%A7%C3%A3o%20do%20meu%20contrato%20com%20a%20Plataforma%20Cashiers!">Clique aqui</a> para falar com o suporte. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
+        $msg_notification_contrato_cancelado = 'Olá! Seu <b>plano [' . $contract_cancel->id . ']</b> foi cancelado, caso não tenha nenhum plano ativo com a plataforma, seu acesso irá expirar em até 2 dias úteis. Para continuar a usar os serviços da nossa plataforma, entre em contato conosco para realizarmos a renovação/efetivação do seu plano. <a target="_blank" class="verify-font" href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Gostaria%20de%20estar%20realizando%20a%20renova%C3%A7%C3%A3o%20do%20meu%20plano%20com%20a%20Plataforma%20Cashiers!">Clique aqui</a> para falar com o suporte. Caso tenha alguma dúvida, não hesite em clicar no botão de <b>Ajuda</b> no canto superior direito da tela e falar conosco! Será sempre um prazer te atender. <b>- Equipe Cashiers</b>.';
 
         $notification_contrato_cancelado = new Notification;
         $notification_contrato_cancelado->user_id = $contract_cancel->user_id;
@@ -391,7 +391,7 @@ class Admin extends Component
         $notification_contrato_cancelado->save();
 
         $this->reset('contrato_target');
-        $this->emit('alert', 'Contrato cancelado com sucesso!');
+        $this->emit('alert', 'Plano cancelado com sucesso!');
         $this->emitTo('comissao', 'render');
 
     }
@@ -414,7 +414,7 @@ class Admin extends Component
         $contract_delete = Contract::find($this->contrato_target);
         $contract_delete->delete();
         $this->reset('contrato_target');
-        $this->emit('alert', 'Contrato excluído com sucesso!');
+        $this->emit('alert', 'Plano excluído com sucesso!');
         $this->emitTo('comissao', 'render');
 
     }
@@ -449,7 +449,7 @@ class Admin extends Component
 
         $users_count = $users->count();
 
-        //LISTAR CONTRATOS
+        //LISTAR PLANOS
 
         $contracts = Contract::where('user_id', $this->user_id)->get();
 

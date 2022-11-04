@@ -53,17 +53,17 @@
                         <img style="width: 431px; height: 304px; pointer-events: none; user-drag: none;" class="rounded mx-auto d-block" src="{{'vendor/adminlte/dist/img/novidade1.png'}}">
 
                         <p style="font-size: 18px;" class="m-0 mt-3 px-4">
-                            Fique sempre atento às notificações, pois sempre te enviaremos <span class="msg-bold">informações importantes</span> sobre seu contrato, mensalidades e comissões. 
+                            Fique sempre atento às notificações, pois sempre te enviaremos <span class="msg-bold">informações importantes</span> sobre seu plano, mensalidades e comissões. 
                         </p>
 
                         <h5 class="modal-confirmation-msg m-0 text-center px-4 mt-4 mb-3">Confira nosso novo menu!</h5>
 
                         <p style="font-size: 18px;" class="m-0 my-3 px-4">
-                            Na seção <span class="msg-bold">"Minha conta"</span>, você pode acompanhar o andamento de seu contrato, visualizar suas mensalidades, realizar pagamentos, ver detalhes de suas comissões e muito mais! 
+                            Na seção <span class="msg-bold">"Minha conta"</span>, você pode acompanhar o andamento de seu plano, visualizar suas mensalidades, realizar pagamentos, ver detalhes de suas comissões e muito mais! 
                         </p>
 
                         <span style="font-size: 14px; user-select: none;">Imagem meramente ilustrativa</span>
-                        <img style="width: 371px; height: 253px; pointer-events: none; user-drag: none;" class="rounded mx-auto d-block" src="{{'vendor/adminlte/dist/img/novidade2.png'}}">
+                        <img style="width: 362px; height: 274px; pointer-events: none; user-drag: none;" class="rounded mx-auto d-block" src="{{'vendor/adminlte/dist/img/novidade2.png'}}">
 
                         <h5 class="modal-confirmation-msg m-0 text-center px-4 mt-4 mb-3">Sistema de Comissões!</h5>
 

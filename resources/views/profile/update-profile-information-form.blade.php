@@ -73,6 +73,12 @@
             <x-jet-input-error for="documento" class="mt-2" />
         </div>
 
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label class="primezze-label" for="celular" value="{{ __('Celular') }}" />
+            <x-jet-input placeholder="(00) 00000-0000" id="celular" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.celular" autocomplete="off" />
+            <x-jet-input-error for="celular" class="mt-2" />
+        </div>
+
         <!-- Cidade -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="cidade" value="{{ __('Cidade') }}" />

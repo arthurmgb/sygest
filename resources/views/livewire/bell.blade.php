@@ -16,17 +16,19 @@
                <div class="div-notifications-box">
                 
                     @if ($notificacoes->count())
-                        <a href="{{route('notificacoes')}}">
-                            <div class="div-has-notifications">
-                                @foreach ($notificacoes as $notificacao)
-                                    
-                                    <div class="div-single-notification">
-                                        <span>{!!$notificacao->content!!}</span>
-                                    </div>    
+                        
+                        <div onclick="location.href='{{route('notificacoes')}}'" class="div-has-notifications">
+                            @foreach ($notificacoes as $notificacao)
+                                
+                                <div class="div-single-notification">
+                                    <span>
+                                        {!! nl2br($notificacao->content)!!}
+                                    </span>
+                                </div>    
 
-                                @endforeach                  
-                            </div>
-                        </a>
+                            @endforeach                  
+                        </div>
+                        
                     @else
                         <div style="user-select: none;" class="div-zero-notifications text-center py-5">
                             <i style="color: #725BC2;" class="fad fa-bell fa-fw fa-lg mr-1 mb-2"></i>

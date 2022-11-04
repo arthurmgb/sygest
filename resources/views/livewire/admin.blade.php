@@ -46,7 +46,7 @@
 
         @if(auth()->user()->is_admin === 1)
 
-        {{-- ÁREA USERS E CONTRATOS --}}
+        {{-- ÁREA USERS E PLANOS --}}
         <div class="div-block-area-1 mb-4">
 
             <div class="admin-area">
@@ -67,25 +67,25 @@
                             </button>
                             <div style="padding: 20px !important; width: 350px !important; max-width: 350px !important; min-width: 350px !important;" class="dropdown-menu text-uppercase" aria-labelledby="drop_details1">                        
                                 <span style="font-size: 13px; font-weight: 600; color: #555;">
-                                Total de contratos cadastrados: 
+                                Total de planos cadastrados: 
                                 <span class="ml-1" style="font-size: 15px; font-weight: 600; color: #725BC2;">
                                     {{$all_contratos}}
                                 </span>
                                 </span><br>
                                 <span style="font-size: 13px; font-weight: 600; color: #555;">
-                                Total de contratos ativos: 
+                                Total de planos ativos: 
                                 <span class="ml-1" style="font-size: 15px; font-weight: 600; color: #16a34a;">
                                     {{$ativos_contratos}}
                                 </span>
                                 </span><br>
                                 <span style="font-size: 13px; font-weight: 600; color: #555;">
-                                Total de contratos inativos: 
+                                Total de planos inativos: 
                                 <span class="ml-1" style="font-size: 15px; font-weight: 600; color: #dc2626;">
                                     {{$inativos_contratos}}
                                 </span>
                                 </span><br>
                                 <span style="font-size: 13px; font-weight: 600; color: #555;">
-                                Total de contratos cancelados: 
+                                Total de planos cancelados: 
                                 <span class="ml-1" style="font-size: 15px; font-weight: 600; color: #4b5563;">
                                     {{$cancelados_contratos}}
                                 </span>
@@ -115,13 +115,14 @@
                                         <th>Nome</th>
                                         <th>E-mail</th>
                                         <th>CPF/CNPJ</th>
+                                        <th>Celular</th>
                                         <th>Cidade e Estado</th>
                                         <th>Banco/Instituição</th>
                                         <th>Chave PIX</th>                                      
                                         <th>Qtd. de operações</th>
                                         <th>Data de criação</th>                                 
                                         <th>Último login</th>
-                                        <th>Contratos</th>
+                                        <th>Planos</th>
                                         <th>Situação</th>                                       
                                         <th>Acesso</th>
                                         <th>Conta</th>
@@ -229,6 +230,13 @@
                                                     <span style="color: #725BC2; font-weight: 500;">Não cadastrado</span>
                                                 @else
                                                     {{ $user->documento }}
+                                                @endif                                              
+                                            </td>
+                                            <td style="user-select: text;" class="align-middle">
+                                                @if (empty($user->celular))
+                                                    <span style="color: #725BC2; font-weight: 500;">Não cadastrado</span>
+                                                @else
+                                                    {{ $user->celular }}
                                                 @endif                                              
                                             </td>
                                             <td style="user-select: text;" class="align-middle">
@@ -471,7 +479,7 @@
             </div>
             
         </div>
-        {{-- ÁREA USERS E CONTRATOS --}}
+        {{-- ÁREA USERS E PLANOS --}}
 
         {{-- ÁREA MENSALIDADES--}}
         <div class="div-block-area-2 mb-4">
@@ -554,7 +562,7 @@
                             <table style="cursor: default; white-space: nowrap; user-select: none;" class="table table-borderless mb-2">
                                 <thead class="t-head">
                                     <tr class="t-head-border">                                    
-                                        <th>ID Contrato #</th>
+                                        <th>ID Plano #</th>
                                         <th>ID Usuário #</th>
                                         <th>Nome</th>
                                         <th>CPF/CNPJ</th>
@@ -1026,17 +1034,17 @@
 
     @if(auth()->user()->is_admin === 1)
 
-        {{-- Modal Contratos --}}
+        {{-- Modal Planos --}}
         <div class="modal fade" id="showContracts" tabindex="-1"
         aria-labelledby="showContractsLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content modal-custom">
                     <div class="modal-header">
                     
-                        <h5 class="modal-title px-3 py-3" id="showContractsLabel">Contratos de {{$username}}</h5>
+                        <h5 class="modal-title px-3 py-3" id="showContractsLabel">Planos de {{$username}}</h5>
                         <div class="div-fl-modal float-right">
                             <button data-toggle="modal" data-target="#new-contract" type="button" class="btn btn-new my-3">
-                                + Novo contrato
+                                + Novo plano
                             </button>                  
                             <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
                                 <i class="fal fa-times"></i>
@@ -1050,7 +1058,7 @@
 
                         <div class="div-qtd-contracts text-uppercase">
                             <span style="font-size: 13px; font-weight: 600; color: #555;">
-                                Quantidade de contratos: 
+                                Quantidade de planos: 
                                 <span class="ml-1" style="font-size: 15px; font-weight: 600; color: #725BC2;">{{$contracts->count()}}</span>
                             </span>
                         </div>
@@ -1159,18 +1167,18 @@
                                                             @if($contract->status != 3)
                                                             <div wire:key="{{$contract->id}}" class="div-key-contract">
                                                                 <button wire:click.prevent="cancelamentoConfirmation({{$contract->id}})" wire:loading.attr="disabled" wire:target="cancelamentoConfirmation({{$contract->id}})" class="btn btn-sm btn-outline-secondary mr-1">
-                                                                    <i class="far fa-ban fa-fw mr-1"></i>Cancelar contrato
+                                                                    <i class="far fa-ban fa-fw mr-1"></i>Cancelar plano
                                                                 </button>
                                                             </div>
                                                             @endif
                                                             @if($contract->status == 3)
                                                                 @if ($contract->comissionado_id == null)
                                                                     <button wire:click.prevent="exclusaoConfirmation({{$contract->id}})" wire:loading.attr="disabled" wire:target="exclusaoConfirmation({{$contract->id}})" class="btn btn-sm btn-danger">
-                                                                        <i class="far fa-trash-alt fa-fw mr-1"></i>Excluir contrato
+                                                                        <i class="far fa-trash-alt fa-fw mr-1"></i>Excluir plano
                                                                     </button>
                                                                 @else
-                                                                    <button data-tooltip="Não é possível excluir um contrato caso haja um comissionado." data-flow="bottom" class="btn btn-sm btn-danger" disabled>
-                                                                        <i class="far fa-trash-alt fa-fw mr-1"></i>Excluir contrato
+                                                                    <button data-tooltip="Não é possível excluir um plano caso haja um comissionado." data-flow="bottom" class="btn btn-sm btn-danger" disabled>
+                                                                        <i class="far fa-trash-alt fa-fw mr-1"></i>Excluir plano
                                                                     </button>
                                                                 @endif
                                                             @endif
@@ -1444,10 +1452,10 @@
                                             d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                                     </defs>
                                 </svg>
-                                <h3 class="my-4 no-results">Não há contratos a serem exibidos.</h3>
+                                <h3 class="my-4 no-results">Não há planos a serem exibidos.</h3>
                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                     <h3 class="no-results-create mb-3">Comece criando um</h3>                               
-                                    <a data-toggle="modal" data-target="#new-contract" class="ml-2 btn btn-nr">+ Novo contrato</a>
+                                    <a data-toggle="modal" data-target="#new-contract" class="ml-2 btn btn-nr">+ Novo plano</a>
                                 </div>
                             </div>
                         @endif
@@ -1563,7 +1571,7 @@
             </div>
         </div>
 
-        <!-- Modal Confirmação Cancelamento Contrato-->
+        <!-- Modal Confirmação Cancelamento Plano-->
         <div class="modal fade" data-backdrop="static" data-keyboard="false" id="cancelamento-contrato" tabindex="-1"
         aria-labelledby="cancelamento-contratoLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog">
@@ -1577,13 +1585,13 @@
                     </div>
                     <div class="modal-body py-4 px-4">
 
-                        <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente cancelar este contrato?</h5>
+                        <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente cancelar este plano?</h5>
 
                         <div class="confirmation-msg text-center mb-3">
                             <p class="m-0 mb-3 px-4">
-                                Ao clicar em <span class="msg-bold">Confirmar</span>, este contrato será cancelado no sistema.
+                                Ao clicar em <span class="msg-bold">Confirmar</span>, este plano será cancelado na Plataforma.
                                 <br>
-                                <span class="msg-bold text-uppercase">Atenção:</span> Esta ação é irreversível e o contrato não poderá ser ativo novamente!
+                                <span class="msg-bold text-uppercase">Atenção:</span> Esta ação é irreversível e o plano não poderá ser ativo novamente!
                             </p>                      
                         </div>
 
@@ -1599,7 +1607,7 @@
             </div>
         </div>
 
-        <!-- Modal Confirmação Exclusão Contrato-->
+        <!-- Modal Confirmação Exclusão Plano-->
         <div class="modal fade" data-backdrop="static" data-keyboard="false" id="exclusao-contrato" tabindex="-1"
         aria-labelledby="exclusao-contratoLabel" aria-hidden="true" wire:ignore.self>
             <div class="modal-dialog">
@@ -1613,13 +1621,13 @@
                     </div>
                     <div class="modal-body py-4 px-4">
 
-                        <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente excluir este contrato?</h5>
+                        <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente excluir este plano?</h5>
 
                         <div class="confirmation-msg text-center mb-3">
                             <p class="m-0 mb-3 px-4">
-                                Ao clicar em <span class="msg-bold">Confirmar</span>, este contrato será inteiramente excluído do sistema.
+                                Ao clicar em <span class="msg-bold">Confirmar</span>, este plano será inteiramente excluído da Plataforma.
                                 <br>
-                                <span class="msg-bold text-uppercase">Atenção:</span> Esta ação é irreversível e o contrato não poderá ser visualizado novamente!
+                                <span class="msg-bold text-uppercase">Atenção:</span> Esta ação é irreversível e o plano não poderá ser visualizado novamente!
                             </p>                      
                         </div>
 
