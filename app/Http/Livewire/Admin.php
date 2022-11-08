@@ -444,7 +444,11 @@ class Admin extends Component
 
         $users = User::latest('last_login')
         ->where('is_admin', '!=', 1)
-        ->where('name', 'like', '%' . $this->search . '%')
+        ->where(function($query){
+            $query->where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('email', 'like', '%' . $this->search . '%')
+            ->orWhere('documento', 'like', '%' . $this->search . '%');
+        })
         ->paginate($this->qtd);
 
         $users_count = $users->count();

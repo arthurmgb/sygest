@@ -95,8 +95,10 @@
                     </div>
 
                     <div class="card-topo mt-3 mb-2">
-                        <input wire:model="search" placeholder="buscar usuário" class="search-input" autocomplete="off">
-                        <i class="fa fa-search"></i>
+                        <div style="display: inline-flex; cursor: text;" class="div-ttp-user" data-tooltip="Nome, e-mail ou documento" data-flow="right">
+                            <input wire:model="search" placeholder="buscar usuário" class="search-input" autocomplete="off">
+                            <i style="cursor: default;" class="fa fa-search"></i>
+                        </div>
                     </div>
                 
                     <div wire:target="qtd, search" style="margin-top: 125px; margin-bottom: 125px;"
