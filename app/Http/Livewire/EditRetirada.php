@@ -118,6 +118,14 @@ class EditRetirada extends Component
 
     }
 
+    public function deleteRetirada(){
+
+        $this->state->delete();
+        $this->dispatchBrowserEvent('close-adm-edit-retirada');
+        $this->emit('alert', 'Retirada excluída com sucesso!');
+        
+    }
+
     public function render()
     {
 

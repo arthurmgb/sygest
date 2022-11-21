@@ -483,7 +483,7 @@
                     @endif
 
                 </div>
-                <div class="modal-footer py-4">
+                <div class="modal-footer pt-4 pb-3 d-flex flex-row flex-wrap align-items-center justify-content-end">
 
                     <button type="button" class="btn btn-cancel" wire:click.prevent="resetNewOperation()" wire:loading.attr="disabled" data-dismiss="modal">
                         Cancelar
@@ -492,6 +492,14 @@
                     <button type="button" wire:click.prevent="updateOperation()" wire:loading.attr="disabled" wire:target="updateOperation" class="btn btn-send">
                         Editar
                     </button>
+
+                    <div wire:click="deleteOperation()" wire:loading.class="pe-none" style="user-select: none;" class="mr-auto lixeira d-flex flex-row mx-2 my-2">
+                        <i class="fad fa-trash fa-fw fa-crud fac-del mr-1" aria-hidden="true">
+                        </i>
+                        <span class="lixeira-text">
+                            Excluir operação
+                        </span>
+                    </div>
 
                 </div>
             </div>

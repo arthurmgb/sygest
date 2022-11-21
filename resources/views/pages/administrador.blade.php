@@ -19,6 +19,11 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('vendor\adminlte\dist\css\preloader.css')}}">
+    <style>
+        .pe-none{
+            pointer-events: none;
+        }
+    </style>
 @stop
 
 @section('js')

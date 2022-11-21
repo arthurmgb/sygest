@@ -127,6 +127,14 @@ class EditOperation extends Component
 
     }
 
+    public function deleteOperation(){
+
+        $this->state->delete();
+        $this->dispatchBrowserEvent('close-adm-edit-operation');
+        $this->emit('alert', 'Operação excluída com sucesso!');
+        
+    }
+
     public function render()
     {
 
