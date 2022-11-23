@@ -68,7 +68,7 @@ class UserContrato extends Component
 
         //LISTAR PLANOS DO USUÁRIO
 
-        $contracts = Contract::where('user_id', auth()->user()->id)->get();
+        $contracts = Contract::where('user_id', auth()->user()->id)->latest('id')->get();
 
         $all_contratos_user = Contract::where('user_id', auth()->user()->id)->count();
         $ativos_contratos_user = Contract::where('status', 1)->where('user_id', auth()->user()->id)->count();

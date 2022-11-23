@@ -1087,36 +1087,34 @@
                                             @endphp
 
                                             @if ($contract->status == 1)
-                                                <span style="color: #16a34a; font-weight: 600;" class="span-contract mr-4">
+                                                <span style="color: #16a34a; font-weight: 600;" class="span-contract mr-2">
                                                     Ativo
                                                 </span>
                                             @elseif($contract->status == 0)
-                                                <span style="color: #dc2626; font-weight: 600;" class="span-contract mr-4">
+                                                <span style="color: #dc2626; font-weight: 600;" class="span-contract mr-2">
                                                     Inativo
                                                 </span>
                                             @elseif($contract->status == 3)
-                                                <span style="color: #4b5563; font-weight: 600;" class="span-contract mr-4">
+                                                <span style="color: #4b5563; font-weight: 600;" class="span-contract mr-2">
                                                     Cancelado
                                                 </span>
-                                            @endif                                 
+                                            @endif
 
-                                        <span style="color: #725BC2" class="span-contract mr-2">
-                                            {{$data_contrato}}
-                                        </span>
-
-                                        <button style="padding: 4px 7px;" class="btn btn-light rounded-circle text-primary" type="button" data-toggle="collapse" data-target="#contract-info{{$contract->id}}" aria-expanded="false" aria-controls="contract-info{{$contract->id}}">
+                                        <button style="padding: 4px 7px;" class="btn btn-light text-primary text-nowrap" type="button" data-toggle="collapse" data-target="#contract-info{{$contract->id}}" aria-expanded="false" aria-controls="contract-info{{$contract->id}}">
                                             <i class="fas fa-info-circle fa-fw"></i>
-                                        </button>                          
+                                            Detalhes
+                                        </button>
 
                                     </div>
                                     </h2>
 
                                     <div class="collapse" id="contract-info{{$contract->id}}" wire:ignore.self>
-                                        <div style="margin-bottom: 0 !important; padding: 10px 15px 15px 15px!important;" class="card card-body">
+                                        <div style="margin-bottom: 0 !important; padding: 10px 15px 15px 15px!important;" class="card card-body table-responsive yampay-scroll mt-2">
 
                                             <table style="cursor: default; white-space: nowrap; user-select: none;" class="table table-borderless">
                                                 <thead class="t-head">
                                                     <tr class="t-head-border">
+                                                        <th>Criação</th>
                                                         <th>Vigência</th>
                                                         <th>Valor</th>
                                                         <th>Vencimento</th>     
@@ -1133,7 +1131,11 @@
                         
                                                     <tr class="tr-hover">
 
-                                                        <td style="font-size: 14px; font-weight: 600; color: #725BC2;" class="align-middle">                                                 
+                                                        <td style="font-size: 14px; font-weight: 500; color: #2563eb;" class="align-middle">
+                                                            {{$data_contrato}}
+                                                        </td>
+
+                                                        <td style="font-size: 14px; font-weight: 600; color: #725BC2;" class="align-middle">
                                                             {{$contract->periodo}} meses                   
                                                         </td>
 
