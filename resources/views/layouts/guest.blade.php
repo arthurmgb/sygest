@@ -22,6 +22,22 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
+        <link rel="stylesheet" href="{{asset('vendor/adminlte/dist/css/tooltip.css')}}">
+        <style>
+            /* TOGGLE PASS VISIBILITY */
+
+            .btn-toggle-pass-visib i{
+                cursor: pointer;
+                color: #725BC2;
+            }
+
+            .btn-toggle-pass-visib-2 i{
+                cursor: pointer;
+                color: #725BC2;
+            }
+
+        </style>
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
@@ -69,6 +85,51 @@
 
             $('#celular').mask(behavior, options);
         </script>
+        <script>
+                    
+            var passToggler = document.querySelector('.btn-toggle-pass-visib');
+            var iconToggler = document.querySelector('#toggler-pass');
+            var password = document.querySelector('#password');
 
+            var confirm_passToggler = document.querySelector('.btn-toggle-pass-visib-2');
+            var confirm_iconToggler = document.querySelector('#toggler-pass-2');
+            var confirm_password = document.querySelector('#password_confirmation');
+                       
+            passToggler.addEventListener('click', ()=>{
+
+                if (iconToggler.classList.contains('fa-eye')) {
+                    password.type = 'text';
+                    iconToggler.classList.remove("fa-eye");
+                    iconToggler.classList.add("fa-eye-slash");
+                    passToggler.setAttribute("data-tooltip", "Ocultar");
+
+                }else{
+                    password.type = 'password';
+                    iconToggler.classList.remove("fa-eye-slash");
+                    iconToggler.classList.add("fa-eye");
+                    passToggler.setAttribute("data-tooltip", "Exibir");
+                }
+               
+            });
+
+            confirm_passToggler.addEventListener('click', ()=>{
+
+                if (confirm_iconToggler.classList.contains('fa-eye')) {
+                    confirm_password.type = 'text';
+                    confirm_iconToggler.classList.remove("fa-eye");
+                    confirm_iconToggler.classList.add("fa-eye-slash");
+                    confirm_passToggler.setAttribute("data-tooltip", "Ocultar");
+
+                }else{
+                    confirm_password.type = 'password';
+                    confirm_iconToggler.classList.remove("fa-eye-slash");
+                    confirm_iconToggler.classList.add("fa-eye");
+                    confirm_passToggler.setAttribute("data-tooltip", "Exibir");
+
+                }
+               
+            });
+
+        </script>
     </body>
 </html>

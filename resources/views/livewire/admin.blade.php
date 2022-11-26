@@ -4,7 +4,7 @@
         @if(auth()->user()->is_admin === 1)
         <h2 class="f-h2">Área administrativa</h2>
         <div class="div-right-admin d-flex flex-row align-items-center">
-            <a href="{{route('register')}}" class="btn btn-new mr-1">+ Novo usuário</a>
+            <a href="{{route('register')}}" target="_blank" class="btn btn-new mr-1">+ Novo usuário</a>
             @if ($estado_manutencao == 0)
                 <button wire:key="manut-active" wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn btn-new mr-1">
                     Ativar manutenção

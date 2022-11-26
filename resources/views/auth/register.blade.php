@@ -46,15 +46,29 @@
                         {{ __('Gerador de senhas') }}
                     </a>
                 </div>
-                <x-jet-input placeholder="Digite a senha" id="password" class="block mt-1 w-full primezze-input" type="password" name="password"
+                <div class="flex items-center justify-between">
+                    <x-jet-input placeholder="Digite a senha" id="password" class="block mt-1 w-full primezze-input" type="password" name="password"
                     required autocomplete="off" />
+                    <div class="guest-toggle-pass ml-2">
+                        <div class="btn-toggle-pass-visib" data-tooltip="Exibir" data-flow="top">
+                            <i id="toggler-pass" style="font-family: 'Font Awesome 5 Pro' !important;" class="fad fa-eye fa-fw fa-lg"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-4">
                 <x-jet-label class="primezze-label" for="password_confirmation"
-                    value="{{ __('Confirmar Senha') }}" />
-                <x-jet-input  placeholder="Confirme a senha" id="password_confirmation" class="block mt-1 w-full primezze-input" type="password"
-                    name="password_confirmation" required autocomplete="off" />
+                        value="{{ __('Confirmar Senha') }}" />
+                <div class="flex items-center justify-between">
+                    <x-jet-input  placeholder="Confirme a senha" id="password_confirmation" class="block mt-1 w-full primezze-input" type="password"
+                        name="password_confirmation" required autocomplete="off" />
+                    <div class="guest-toggle-pass ml-2">
+                        <div class="btn-toggle-pass-visib-2" data-tooltip="Exibir" data-flow="top">
+                            <i id="toggler-pass-2" style="font-family: 'Font Awesome 5 Pro' !important;" class="fad fa-eye fa-fw fa-lg"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())

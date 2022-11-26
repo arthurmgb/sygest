@@ -19,7 +19,7 @@ class GuestLayout extends Component
         }
 
         if (\Route::current()->getName() == 'register') {
-            $titulo = 'Cadastrar';
+            $titulo = 'Criar uma conta';
         }
 
         return view('layouts.guest', compact('titulo'));

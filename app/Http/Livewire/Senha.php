@@ -44,6 +44,7 @@ class Senha extends Component
 
                 $this->locker = 'unlocked';
                 $this->reset('pass');
+                $this->blur = 'yes';
                 $this->emit('alert-unlocked', 'Bem-vindo ao Gerenciador de Senhas.');
 
             }

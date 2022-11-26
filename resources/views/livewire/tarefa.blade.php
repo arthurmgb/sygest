@@ -281,21 +281,25 @@
                         if($status == [0,1]){
                             $tipo_tarefa = 'tarefas';
                             $local_tarefa = 'a serem exibidas';
+                            $categoria_tarefa = 'tarefas';
                         }elseif($status == [0]){
                             $tipo_tarefa = 'tarefas pendentes';
                             $local_tarefa = 'a serem exibidas';
+                            $categoria_tarefa = 'tarefas pendentes';
                         }elseif($status == [1]){
                             $tipo_tarefa = 'tarefas concluídas';
                             $local_tarefa = 'a serem exibidas';
+                            $categoria_tarefa = 'tarefas concluídas';
                         }elseif($status == [3]){
                             $tipo_tarefa = 'tarefas';
                             $local_tarefa = 'na lixeira';
+                            $categoria_tarefa = 'tarefas excluídas';
                         }
 
                     @endphp
-                    <h3 class="my-4 no-results">Não há {{$tipo_tarefa}} {{$local_tarefa}}.</h3>
+                    <h3 class="mt-4 mb-3 no-results">Não há {{$tipo_tarefa}} {{$local_tarefa}}.</h3>
                     <div class="d-flex flex-column align-items-center justify-content-center mb-4">
-                        <h3 style="font-size: 28px;" class="no-results-create mb-3">Suas tarefas serão exibidas aqui!</h3>          
+                        <h3 style="font-size: 26px;" class="no-results-create mb-3">Suas {{$categoria_tarefa}} serão exibidas aqui!</h3>          
                     </div>
                 </div>
             </div>

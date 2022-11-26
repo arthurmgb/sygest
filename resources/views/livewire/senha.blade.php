@@ -150,7 +150,7 @@
                                         d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                                 </defs>
                             </svg>
-                            <h3 style="font-size: 24px;" class="mt-4 no-results">Esta é uma área restrita protegida com criptografia. <i class="fad fa-lock-alt fa-fw"></i></h3>
+                            <h3 style="font-size: 24px;" class="mt-4 no-results text-center">Esta é uma área restrita protegida com criptografia. <i class="fad fa-lock-alt fa-fw"></i></h3>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                                 <h3 style="font-size: 26px;" class="no-results-create mb-3">
                                     Para continuar, digite sua senha. 
@@ -159,12 +159,25 @@
                                     </span>
                                 </h3>
 
-                                <div style="width: 100%;" class="d-flex flex-row align-items-center my-3">
-                                    <input style="-webkit-text-security: disc;" wire:model.defer="pass" wire:keydown.enter="authenticate()" wire:loading.attr="disabled" type="text" class="form-control modal-input" placeholder="Digite sua senha" autocomplete="new-password" autofocus>
-                                    <button wire:click.prevent="authenticate()" wire:loading.attr="disabled" style="white-space: nowrap;" class="btn btn-new ml-2">
-                                        Desbloquear <i class="fad fa-lock-open-alt fa-fw ml-1"></i>
-                                    </button>
+                                <div style="width: 100%;" class="d-flex flex-row align-items-center justify-content-center my-3">
+
+                                    <input style="@if($blur == 'yes')-webkit-text-security: disc; @endif max-width: 330px;" wire:model.defer="pass" wire:keydown.enter="authenticate()" wire:loading.attr="disabled" type="text" class="form-control modal-input" placeholder="Digite sua senha" autocomplete="new-password" autofocus>
+
+                                    @if($blur == 'yes')
+                                        <div wire:click.prevent="toggleBlur()" class="div-copy-secret-pass" data-tooltip="Exibir" data-flow="top">
+                                            <i style="color: #0696BD;" class="fad fa-eye fa-fw fa-lg ml-3"></i>
+                                        </div>
+                                    @elseif($blur == 'no')
+                                        <div wire:click.prevent="toggleBlur()" class="div-copy-secret-pass" data-tooltip="Ocultar" data-flow="top">
+                                            <i style="color: #0696BD;" class="fad fa-eye-slash fa-fw fa-lg ml-3"></i>
+                                        </div>
+                                    @endif
+
                                 </div>
+
+                                <button wire:click.prevent="authenticate()" wire:loading.attr="disabled" style="white-space: nowrap;" class="btn btn-new">
+                                    Desbloquear <i class="fad fa-lock-open-alt fa-fw ml-1"></i>
+                                </button>
                                 
                                 <h3 style="font-size: 22px; color: #666;" class="no-results-create my-3">Precisa de ajuda?</h3>
                                 <a target="_blank" href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!" class="ml-2 btn btn-nr"><i class="fad fa-user-headset fa-lg mr-2"></i>Fale conosco</a>
@@ -419,7 +432,7 @@
                                     <li class="list-group-item text-left flex-fill list-secret">
                                         <i style="color: #725BC2;" class="fad fa-user-circle fa-fw mr-2 fa-lg"></i>Login
                                     </li>
-                                    <li class="list-group-item text-right list-bank-info flex-fill" style="word-break: break-all;">
+                                    <li class="list-group-item text-left list-bank-info flex-fill" style="word-break: break-all;">
                                         
                                         <div class="d-flex flex-row align-items-center justify-content-between">
                                             
@@ -447,7 +460,7 @@
                                     <li class="list-group-item text-left flex-fill list-secret">
                                         <i style="color: #725BC2;" class="fad fa-lock-alt fa-fw mr-2 fa-lg"></i>Senha
                                     </li>
-                                    <li class="list-group-item text-right list-bank-info flex-fill" style="word-break: break-all;">
+                                    <li class="list-group-item text-left list-bank-info flex-fill" style="word-break: break-all;">
 
                                         <div class="d-flex flex-row align-items-center justify-content-between">
 
