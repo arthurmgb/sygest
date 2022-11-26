@@ -31,7 +31,7 @@
                 <div class="flex items-center justify-between">
                     <x-jet-input placeholder="Digite sua senha" id="password" class="block mt-1 w-full primezze-input"
                         type="password" name="password" required autocomplete="off" />
-                    <div class="guest-toggle-pass ml-2">
+                    <div class="guest-toggle-pass ml-3">
                         <div class="btn-toggle-pass-visib" data-tooltip="Exibir" data-flow="top">
                             <i id="toggler-pass" style="font-family: 'Font Awesome 5 Pro' !important;" class="fad fa-eye fa-fw fa-lg"></i>
                         </div>
