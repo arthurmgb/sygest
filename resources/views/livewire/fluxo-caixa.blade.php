@@ -48,7 +48,7 @@
                                 {{ $operations_find }} / Operações na página: {{ $operations->count() }}</span>
                             <a class="limpar-filtro" wire:click.prevent="geraReceita()" href="#">Limpar filtro</a>
                             @if ($option == [1, 0])
-                            <span class="ml-auto mt-1" data-tooltip="O total das retiradas não é considerado no fluxo de caixa, portanto a receita aqui calculada não corresponde ao seu saldo real." data-flow="left">    
+                            <span style="cursor: pointer;" wire:ignore class="ml-auto mt-1" data-toggle="tooltip" data-placement="bottom" title="O total das retiradas não é considerado no fluxo de caixa, portanto a receita aqui calculada não corresponde ao seu total em caixa.">    
                                 <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
                             </span> 
                             @endif

@@ -8,7 +8,7 @@
                     <span wire:click.prevent="ocultarTotais()" class="mr-2 info-total-cx" data-flow="bottom" data-tooltip="Ocultar totais" id="tt-show">
                         <i class="fa-fw fad fa-eye fa-lg"></i>
                     </span>
-                    <span class="mr-2 info-total-cx" data-flow="bottom" data-tooltip="Estes valores somados devem coincidir com o total em caixa." id="tt-info">
+                    <span class="mr-2 info-total-cx" data-flow="bottom" data-tooltip="Capital por espécie / GERAL" id="tt-info">
                         <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
                     </span>
                     <span class="totais-label-style">Totais: </span>
@@ -290,13 +290,9 @@
                             <div class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
                                 <span>{{ $op_total }} operações <span class="bold-span"> realizadas</span></span>
                                 <div class="div-left-oc d-flex flex-row align-items-center">
-                                    <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult mr-2" wire:click.prevent="ocultarBox(3)">
+                                    <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult" wire:click.prevent="ocultarBox(3)">
                                         <i class="fad fa-eye fa-lg"></i>
-                                    </div>
-                                    <span data-tooltip="Este é o seu saldo real."
-                                        data-flow="left">
-                                        <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
-                                    </span>                               
+                                    </div>                                                 
                                 </div>
                             </div>
                         </div>
