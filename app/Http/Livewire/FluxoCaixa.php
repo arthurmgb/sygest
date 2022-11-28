@@ -85,6 +85,8 @@ class FluxoCaixa extends Component
 
                 $receita_valor = $receita_entrada;
 
+                $receita_saida = 0;
+
             }elseif($this->option == [0]){
 
                 $receita_saida = Operation::where('user_id', auth()->user()->id)
@@ -93,11 +95,15 @@ class FluxoCaixa extends Component
 
                 $receita_valor = $receita_saida;
 
+                $receita_entrada = 0;
+
             }
 
             $receita_valor = number_format($receita_valor,2,",",".");
+            $receita_entrada = number_format($receita_entrada,2,",",".");
+            $receita_saida = number_format($receita_saida,2,",",".");
 
-            return view('livewire.fluxo-caixa', compact('operations', 'operations_count', 'receita_valor', 'operations_find'))
+            return view('livewire.fluxo-caixa', compact('operations', 'operations_count', 'receita_valor', 'operations_find', 'receita_entrada', 'receita_saida'))
                 ->layout('pages.fluxo-caixa');
         } else {
             return view('livewire.fluxo-caixa', compact('operations', 'operations_count'))

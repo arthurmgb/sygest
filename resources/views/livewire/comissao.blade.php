@@ -65,7 +65,7 @@
                     <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
                 </div>
 
-                <div wire:target="search_comissao, qtd_comissao" wire:loading.remove class="card-body px-0 pb-0 table-responsive yampay-scroll">
+                <div wire:target="search_comissao, qtd_comissao" wire:loading.remove class="card-body px-0 pb-0 table-responsive yampay-scroll-lg">
 
                     @if ($get_comissoes->count())
     

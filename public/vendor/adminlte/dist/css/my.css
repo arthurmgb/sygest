@@ -828,15 +828,20 @@ ul.pagination{
     box-shadow: 0px 5px 20px -15px #000000;
 }
 .limpar-filtro{
-    font-size: 13px;
-    font-weight: 400;
-    color: #ee368c;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: #ee368c;
+    color: #fff;
+    padding: 2px 12px;
+    border: 1px solid #ee368c;
+    border-radius: 4px;
+    text-transform: uppercase;
     cursor: pointer;
-    margin-left: 30px;
+    transition: all 0.2s ease;
 }
 .limpar-filtro:hover{
     color: #ee368c;
-    text-decoration: underline;
+    background-color: #fff;
 }
 span .info-ret:hover{
     color: #0696BD;

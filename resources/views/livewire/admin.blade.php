@@ -106,7 +106,7 @@
                         <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
                     </div>
 
-                    <div wire:target="qtd, search" wire:loading.remove class="card-body px-0 pb-0 table-responsive yampay-scroll">
+                    <div wire:target="qtd, search" wire:loading.remove class="card-body px-0 pb-0 table-responsive yampay-scroll-lg">
 
                         @if($users->count())
         
@@ -520,7 +520,7 @@
                             </button>
                             <div style="padding: 20px !important; width: 400px !important; max-width: 400px !important; min-width: 400px !important;" class="dropdown-menu text-uppercase" aria-labelledby="drop_details2">                        
                                 <span style="font-size: 13px; font-weight: 600; color: #555;">
-                                Total de mensalidade à vencer: 
+                                Total de mensalidades à vencer: 
                                 <span class="ml-1" style="font-size: 15px; font-weight: 600; color: #725BC2;">
                                     R$ {{$get_total_mensalidades_a_vencer}}
                                 </span>
@@ -557,7 +557,7 @@
                         <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
                     </div>
 
-                    <div wire:target="search_mensalidade" wire:loading.remove class="card-body px-0 pb-0 table-responsive yampay-scroll">
+                    <div wire:target="search_mensalidade" wire:loading.remove class="card-body px-0 pb-0 table-responsive yampay-scroll-lg">
 
                         @if($get_mensalidades->count())
         

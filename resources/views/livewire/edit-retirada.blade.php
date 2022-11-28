@@ -29,7 +29,7 @@
                     <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
                 </div>
 
-                <div wire:target="search_operacao" wire:loading.remove class="card-body px-0 pb-0 table-responsive yampay-scroll">
+                <div wire:target="search_operacao" wire:loading.remove class="card-body px-0 pb-0 table-responsive yampay-scroll-lg">
 
                     @if($user_operation_to_edit)
                     

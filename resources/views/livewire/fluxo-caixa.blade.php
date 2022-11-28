@@ -43,15 +43,60 @@
 
                     @if ($receita and $search != true)
 
-                        <div class="receita-alert d-flex flex-row align-items-center">
-                            <span>Receita: <b>R$ @if ($option == [0]) -@endif{{ $receita_valor }}</b> / Total de operações:
-                                {{ $operations_find }} / Operações na página: {{ $operations->count() }}</span>
-                            <a class="limpar-filtro" wire:click.prevent="geraReceita()" href="#">Limpar filtro</a>
+                        <div class="receita-alert d-flex flex-column align-items-start">
+
                             @if ($option == [1, 0])
-                            <span style="cursor: pointer;" wire:ignore class="ml-auto mt-1" data-toggle="tooltip" data-placement="bottom" title="O total das retiradas não é considerado no fluxo de caixa, portanto a receita aqui calculada não corresponde ao seu total em caixa.">    
-                                <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
-                            </span> 
+
+                            <span>
+                                Total de entradas: 
+                                <b style="color: #00A3A3;">
+                                    R$ {{ $receita_entrada }}
+                                </b>
+                            </span>
+
+                            <span>
+                                Total de saídas: 
+                                <b style="color: #E6274C;"> 
+                                   - R$ {{ $receita_saida }}
+                                </b>
+                            </span>
+
                             @endif
+
+                            <span>
+                                Receita: 
+                                <b>
+                                    @if ($option == [0]) - @endif R$ {{ $receita_valor }}
+                                </b>
+                            </span>
+
+                            <span>
+                                Total de operações: 
+                                <b>
+                                    {{ $operations_find }}
+                                </b>
+                            </span>
+
+                            <span>
+                                Operações na página: 
+                                <b>
+                                    {{ $operations->count() }}
+                                </b>
+                            </span>
+
+                            <div class="d-flex flex-row align-items-center ml-auto">
+
+                                <a class="limpar-filtro" wire:click.prevent="geraReceita()" href="#">
+                                    Remover filtro
+                                </a>
+    
+                                @if ($option == [1, 0])
+                                    <span style="cursor: pointer;" wire:ignore class="ml-2" data-toggle="tooltip" data-placement="bottom" title="O total das retiradas não é considerado no fluxo de caixa, portanto a receita aqui calculada não corresponde ao seu total em caixa.">
+                                        <i class="fa-fw fad fa-info-circle fa-lg info-ret mt-1"></i>
+                                    </span>
+                                @endif
+                            </div>
+
                         </div>
 
                     @endif
