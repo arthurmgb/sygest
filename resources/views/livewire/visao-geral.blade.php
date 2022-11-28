@@ -178,7 +178,7 @@
         
         <div class="row cards-vg">
             @if ($rc_hoje == $rc)
-                <div class="col">
+                <div id="mq-col-1" class="col">
                     <div class="block-vg">
                         <div class="title-block fs-title-block d-flex flex-row align-items-center">
                             Receita&nbsp;
@@ -217,7 +217,7 @@
             @endif
             
             @if ($rc_mes == $rc)
-                <div class="col">
+                <div id="mq-col-2" class="col">
                     <div class="block-vg">
                         <div class="title-block fs-title-block d-flex flex-row align-items-center">
                             Receita&nbsp;
@@ -256,7 +256,7 @@
             @endif
 
             @if ($rc_total == $rc)
-                <div class="col">
+                <div id="mq-col-3" class="col">
                     <div class="block-vg">
 
                         @if ($rendimento)

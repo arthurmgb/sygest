@@ -9,8 +9,8 @@
             <h2 class="f-h2">Minhas senhas</h2>
             <span class="f-span">{{$secrets_ct}} senhas cadastradas</span>
             <div style="user-select: none;" class="ml-auto">
-                <a data-toggle="modal" data-target="#operacao" class="btn btn-new mr-1">+ Nova senha</a>
-                <button wire:click.prevent="lock()" wire:loading.attr="disabled" class="btn btn-block-gerenciador">Bloquear gerenciador <i class="fad fa-lock-alt fa-fw ml-1"></i></button>
+                <a data-toggle="modal" data-target="#operacao" class="btn btn-new mr-1 my-1">+ Nova senha</a>
+                <button wire:click.prevent="lock()" wire:loading.attr="disabled" class="btn btn-block-gerenciador my-1">Bloquear gerenciador <i class="fad fa-lock-alt fa-fw ml-1"></i></button>
             </div>
         </div>
     @endif
