@@ -26,6 +26,10 @@
             top: 40px;
             left: 80px;
         }
+        .draggable-mirror{
+            width: 278.75px !important;
+            box-shadow: none !important;
+        }
     </style>
 @stop
 

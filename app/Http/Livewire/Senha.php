@@ -32,7 +32,8 @@ class Senha extends Component
     ];
 
     public function mount(){
-        $this->locker = 'locked';
+        // $this->locker = 'locked';
+        $this->locker = 'unlocked';
         $this->blur = 'yes';
     }  
 
@@ -222,10 +223,20 @@ class Senha extends Component
 
     }
 
+    public function updatePassOrder($items){
+
+        foreach($items as $item){
+            Secret::find($item['value'])->update(['position' => $item['order']]);
+        }
+
+    }
+
     public function render()
     {
   
-        $secrets = Secret::where('user_id', auth()->user()->id)->latest('id')->get();
+        $secrets = Secret::where('user_id', auth()->user()->id)
+        ->orderBy('position', 'ASC')
+        ->get();
 
         $secrets_ct = Secret::where('user_id', auth()->user()->id)->count();
 

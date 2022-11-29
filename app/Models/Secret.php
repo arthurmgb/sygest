@@ -9,7 +9,7 @@ class Secret extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'descricao', 'login', 'senha'];
+    protected $fillable = ['user_id', 'descricao', 'login', 'senha', 'position'];
 
      //Relação um a muitos
     public function user(){
