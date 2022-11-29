@@ -9,7 +9,7 @@
         @if ($shortcuts->count())
 
             <div class="links-box">
-                <div class="row" wire:sortable="updateLinkOrder">
+                <div class="row" wire:sortable="updateLinkOrder" wire:key="keygen">
                     @foreach ($shortcuts as $shortcut)
 
                         <div class="col-3" wire:sortable.item="{{ $shortcut['id'] }}" wire:key="short-{{ $shortcut['id'] }}">

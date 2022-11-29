@@ -68,7 +68,7 @@
 
         @if (count($tasks))
 
-        <div class="tasks" wire:sortable="updateTaskOrder">
+        <div class="tasks" wire:sortable="updateTaskOrder" wire:key="keygen">
 
             @foreach ($tasks as $index => $task)
             <div style="margin-bottom: 10px !important; padding: 15px !important;" class="card card-tarefa" wire:sortable.item="{{ $task['id'] }}" wire:key="task-{{ $task['id'] }}">

@@ -194,7 +194,7 @@
                 @if ($secrets->count())
 
                 <div class="links-box">
-                    <div class="row" wire:sortable="updatePassOrder">
+                    <div class="row" wire:sortable="updatePassOrder" wire:key="keygen">
                     
                         @foreach ($secrets as $secret)
                             
@@ -216,6 +216,10 @@
                                         
                                         <div class="d-flex flex-row justify-content-end align-items-center mt-3">
 
+                                            <div style="cursor: grab;" wire:sortable.handle data-tooltip="Arraste para mover" data-flow="right" class="div-link mr-auto">
+                                                <i style="cursor: grab !important;" class="fas fa-grip-vertical fa-crud fac-cor"></i>
+                                            </div>
+
                                             <div wire:key="{{'folder-'.$secret->id}}" wire:loading wire:target="openFolder({{$secret->id}})">
                                                 <i style="color: #725BC2 !important;" class="fad fa-spinner-third fa-fw fa-crud fac-edit fa-spin"></i>
                                             </div>
@@ -226,10 +230,6 @@
 
                                             <div wire:key="{{'delete-'.$secret->id}}" wire:loading wire:target="deleteSecret({{$secret->id}})">
                                                 <i style="color: #725BC2 !important;" class="fad fa-spinner-third fa-fw fa-crud fac-edit fa-spin"></i>
-                                            </div>
-
-                                            <div style="cursor: grab;" wire:sortable.handle data-tooltip="Arraste para mover" data-flow="right" class="div-link mr-auto">
-                                                <i style="cursor: grab !important;" class="fas fa-grip-vertical fa-crud fac-cor"></i>
                                             </div>
 
                                             <div wire:click.prevent="openFolder({{$secret->id}})" data-tooltip="Abrir" data-flow="bottom" class="cbe">
