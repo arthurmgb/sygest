@@ -32,8 +32,7 @@ class Senha extends Component
     ];
 
     public function mount(){
-        // $this->locker = 'locked';
-        $this->locker = 'unlocked';
+        $this->locker = 'locked';
         $this->blur = 'yes';
     }  
 
