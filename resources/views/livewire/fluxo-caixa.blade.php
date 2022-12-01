@@ -18,7 +18,7 @@
             <span>Operações de saída</span>
         </a>
         <a wire:click.prevent="geraReceita()" wire:loading.attr="disabled" class="filter-base filter-soma @if ($receita==true) filter-s @endif">
-            <span>Gerar <br> receita</span>
+            <span>Exibir <br>saldo</span>
         </a>
 
         <a data-toggle="modal" data-target="#operacao" class="btn btn-new float-right">+ Nova operação</a>
@@ -64,7 +64,7 @@
                             @endif
 
                             <span>
-                                Receita: 
+                                Saldo: 
                                 <b>
                                     @if ($option == [0]) - @endif R$ {{ $receita_valor }}
                                 </b>
@@ -91,7 +91,7 @@
                                 </a>
     
                                 @if ($option == [1, 0])
-                                    <span style="cursor: pointer;" wire:ignore class="ml-2" data-toggle="tooltip" data-placement="bottom" title="O total das retiradas não é considerado no fluxo de caixa, portanto a receita aqui calculada não corresponde ao seu total em caixa.">
+                                    <span style="cursor: pointer;" wire:ignore class="ml-2" data-toggle="tooltip" data-placement="bottom" title="O total das retiradas não é considerado no fluxo de caixa, portanto o saldo aqui calculado não corresponde ao seu total em caixa.">
                                         <i class="fa-fw fad fa-info-circle fa-lg info-ret mt-1"></i>
                                     </span>
                                 @endif

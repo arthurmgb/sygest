@@ -133,7 +133,7 @@
 
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
                                         <span class="rc-alert-font-2 text-uppercase">
-                                            Entradas no período                                      
+                                            Entradas no período               
                                         </span>
                                         <span style="color: green; font-size: 20px;"><b>R$ {{ $receita_entrada }}</b></span>
                                     </div>
@@ -153,7 +153,7 @@
                                     <hr class="my-2">
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
                                         <span class="rc-alert-font-2 text-uppercase">
-                                            Receita no período 
+                                            Saldo no período
                                         </span>
                                         <span style="color: green; font-size: 22px;"><b>R$ {{ $receita_valor }}</b></span>
                                     </div>
@@ -198,7 +198,7 @@
                                 <div id="subtotal-result" class="period-rel-block mt-2 mb-1">
                                     <span style="color: #725bc2;" class="rc-alert-font">
                                         Conferência dos valores em caixa
-                                        <span style="font-size: 14px;">(opcional)</span>
+                                        <span style="font-size: 13px;">(opcional)</span>
                                     </span>
                                 </div>
 
@@ -278,7 +278,7 @@
                                     <hr class="my-2">
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between text-break">
                                         <span style="white-space: nowrap;" class="rc-alert-font-2 text-uppercase">
-                                            Subtotal
+                                            Total somado
                                         </span>
                                         @if ($relResultado == $caixa_total)                                        
                                             <span style="color: green; font-size: 22px;"><b>R$ {{$relResultado}}</b>
@@ -296,7 +296,7 @@
                                     </div>
                                     @if ($relResultado == $caixa_total) 
                                         <div class="val-block d-flex flex-row align-items-center justify-content-end">
-                                            <span style="color: green; font-size: 14px;">O subtotal coincidiu com o valor total em caixa!</span>
+                                            <span style="color: green; font-size: 14px;">O total somado coincidiu com o valor total em caixa!</span>
                                         </div>
                                     @elseif($relResultado == "0,00")
                                         <div class="val-block d-flex flex-row align-items-center justify-content-end">
@@ -304,7 +304,7 @@
                                         </div>
                                     @else
                                         <div class="val-block d-flex flex-row align-items-center justify-content-end">
-                                            <span style="color: red; font-size: 14px;">O subtotal não coincidiu com o valor total em caixa.</span>
+                                            <span style="color: red; font-size: 14px;">O total somado não coincidiu com o valor total em caixa.</span>
                                         </div>
                                     @endif
                                 </div>
