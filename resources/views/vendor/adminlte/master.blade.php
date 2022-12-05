@@ -41,8 +41,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/my.css?ver=1.2') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/tooltip.css?ver=1.2') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/my.css?ver=') . rand(1,500) }}">
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/tooltip.css?ver=') . rand(1,500) }}">
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif

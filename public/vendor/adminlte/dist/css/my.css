@@ -447,9 +447,16 @@ body{
 .radio{
     display: none;
 }
-.radio:checked + label{
+.radio:checked + .label-green{
     color: #fff !important;
-    background-color: #725bc2;
+    background-color: #00A3A3;
+    font-weight: 700 !important;
+    border: 1px solid transparent !important;
+    transition: .2s;
+}
+.radio:checked + .label-red{
+    color: #fff !important;
+    background-color: #E6274C;
     font-weight: 700 !important;
     border: 1px solid transparent !important;
     transition: .2s;
@@ -470,8 +477,13 @@ body{
     transition: none;
     user-select: none !important;
 }
-.label-op:hover{
-    color: #725bc2 !important;
+.label-green:hover{
+    color: #00A3A3 !important;
+    border: 1px solid #00A3A3;
+}
+.label-red:hover{
+    color: #E6274C !important;
+    border: 1px solid #E6274C;
 }
 .red{
   color: #E50F38 !important;

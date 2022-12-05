@@ -364,11 +364,11 @@
                             <br>
                             <input wire:model="state.tipo" wire:click="changeOperation" value="1" class="radio" type="radio" name="operation"
                                 id="op-entrada">
-                            <label class="label-op" for="op-entrada"><i class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>Entrada</label>
+                            <label class="label-op label-green" for="op-entrada"><i class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>Entrada</label>
 
                             <input wire:model="state.tipo" wire:click="changeOperation" value="0" class="radio" type="radio" name="operation"
                                 id="op-saida">
-                            <label class="label-op" for="op-saida">Saída<i class="fad fa-arrow-from-top fa-fw fa-lg ml-1"></i></label>
+                            <label class="label-op label-red" for="op-saida">Saída<i class="fad fa-arrow-from-top fa-fw fa-lg ml-1"></i></label>
                             @error('state.tipo')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror

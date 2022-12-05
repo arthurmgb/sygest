@@ -323,11 +323,11 @@
                             <br>
                             <input wire:model.defer="categoria.tipo" value="1" class="radio" type="radio"
                                 name="tipo-cat" id="edit-cat-entrada">
-                            <label class="label-op" for="edit-cat-entrada"><i class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>Entrada</label>
+                            <label class="label-op label-green" for="edit-cat-entrada"><i class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>Entrada</label>
 
                             <input wire:model.defer="categoria.tipo" value="0" class="radio" type="radio"
                                 name="tipo-cat" id="edit-cat-saida">
-                            <label class="label-op" for="edit-cat-saida">Saída<i class="fad fa-arrow-from-top fa-fw fa-lg ml-1"></i></label>
+                            <label class="label-op label-red" for="edit-cat-saida">Saída<i class="fad fa-arrow-from-top fa-fw fa-lg ml-1"></i></label>
                             @error('categoria.tipo')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
@@ -337,11 +337,11 @@
                             <br>
                             <input wire:model.defer="categoria.status" value="1" class="radio" type="radio"
                                 name="status-cat" id="edit-status-ativa">
-                            <label class="label-op" for="edit-status-ativa"><i class="fad fa-chevron-circle-up fa-fw fa-lg mr-1"></i>Ativa</label>
+                            <label class="label-op label-green" for="edit-status-ativa"><i class="fad fa-chevron-circle-up fa-fw fa-lg mr-1"></i>Ativa</label>
 
                             <input wire:model.defer="categoria.status" value="0" class="radio" type="radio"
                                 name="status-cat" id="edit-status-inativa">
-                            <label class="label-op" for="edit-status-inativa">Inativa<i class="far fa-chevron-circle-down fa-fw fa-lg ml-1"></i></label>
+                            <label class="label-op label-red" for="edit-status-inativa">Inativa<i class="far fa-chevron-circle-down fa-fw fa-lg ml-1"></i></label>
                             @error('categoria.status')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
