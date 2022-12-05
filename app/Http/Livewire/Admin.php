@@ -455,7 +455,7 @@ class Admin extends Component
 
         //LISTAR PLANOS
 
-        $contracts = Contract::where('user_id', $this->user_id)->get();
+        $contracts = Contract::where('user_id', $this->user_id)->latest('id')->get();
 
         $all_contratos = Contract::all()->count();
         $ativos_contratos = Contract::where('status', 1)->count();

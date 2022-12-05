@@ -17,7 +17,7 @@
                                 <div class="d-flex flex-row align-items-center">
                                     <input type="checkbox" id="avaliacao" wire:click.prevent="avaliacaoContract()" @if($is_test == 'selected') checked @endif>
                                     <label for="avaliacao"></label>
-                                    <label style="margin: 16px 12px;" class="modal-label" for="avaliacao">Plano de avaliação gratuita?</label>  
+                                    <label style="margin: 16px 12px; cursor: pointer; user-select: none;" class="modal-label" for="avaliacao">Plano de avaliação gratuita?</label>
                                 </div>                                                          
                             </div>
                             <div class="form-group">
@@ -37,7 +37,7 @@
                                         <span class="input-group-text">R$</span>
                                     </div>
                                     <input wire:model.defer="state.valor" placeholder="0,00" type="text"
-                                        class="form-control modal-input total-operation" id="valor-contract" autocomplete="off" @if($disable_inputs == 'selected') disabled @endif>
+                                        class="form-control modal-input total-operation" id="valor-contract" autocomplete="off" disabled>
                                 </div>
                                 @error('state.valor')
                                     <span class="wire-error">{{ $message }}</span>
