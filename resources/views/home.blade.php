@@ -31,6 +31,21 @@
         body {
             overflow: hidden;
         }
+        .content-wrapper{
+           
+            background: linear-gradient(0deg, #f3f4f6e8, #f3f4f6e8), url({{asset('vendor/adminlte/dist/img/santa-bg.jpg')}});
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+            
+            background-size: cover;
+            
+        }
+        .content-inicial{
+            background: url({{asset('vendor/adminlte/dist/img/snow.gif')}});
+            background-repeat: repeat;
+        }
     </style>
 @stop
 

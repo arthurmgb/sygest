@@ -11,6 +11,37 @@
 @section('adminlte_css')
     @stack('css')
     @yield('css')
+    <style>
+        .natal-home-hat{
+            position: absolute;
+            width: 188px;
+            height: 156px;
+            top: 0;
+            left: 0;
+            margin-top: -54px;
+            margin-left: -54px;
+            z-index: 999;
+            pointer-events: none;
+            user-select: none;
+        }
+        .natal-bear-hat{
+            position: absolute;
+            transform: rotateY(180deg);
+            top: 0;
+            left: 0;
+            margin-top: -15.4px;
+            margin-left: 61px;
+        }
+        .natal-logo-hat{
+            position: absolute;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            margin-top: -2px;
+            margin-left: 0px;
+            transform: rotate(-10deg);
+        }
+    </style>
 @stop
 
 @section('classes_body', $layoutHelper->makeBodyClasses())

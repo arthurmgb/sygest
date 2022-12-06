@@ -1,5 +1,6 @@
 *{
     font-family: 'Rubik', sans-serif;
+    cursor: url('https://cdn.custom-cursor.com/db/cursor/32/christmas_tree_and_t-rex_cursor.png') , default !important;
 }
 .modal { overflow: auto !important; }
 body{

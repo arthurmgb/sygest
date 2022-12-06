@@ -21,7 +21,8 @@
          class="{{ config('adminlte.logo_img_class', 'brand-image img-circle elevation-3') }}">
     
     {{-- Brand text --}}
-    <span style="font-size: 24px !important;" class="brand-text font-weight-light {{ config('adminlte.classes_brand_text') }}">
+    <span style="font-size: 24px !important; position: relative;" class="brand-text font-weight-light {{ config('adminlte.classes_brand_text') }}">
+        <img class="natal-logo-hat" src="{{asset('vendor/adminlte/dist/img/santa-hat-32.png')}}">
         <span class="text-uppercase" style="color: #352B73; font-weight: 600; letter-spacing: 1px;">Ca<span style="color: #f472b6;">$</span>hiers</span>
     </span>
 
