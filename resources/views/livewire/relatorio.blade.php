@@ -6,10 +6,10 @@
         <div class="card-topo mb-2 d-flex flex-row align-items-center">
             <span class="span-relatorio">Período de</span>
             <input wire:model.defer="data.inicial" id="from" type="date" class="search-relatorio ml-3 mr-3"
-                min="2000-01-01" max="2100-01-01" autocomplete="off">
+                min="2000-01-01" max="2100-01-01" autocomplete="off" wire:keydown.enter="render()">
             <span class="span-relatorio">até</span>
             <input wire:model.defer="data.final" id="to" type="date" class="search-relatorio ml-3 mr-3" min="2000-01-01"
-                max="2100-01-01" autocomplete="off">
+                max="2100-01-01" autocomplete="off" wire:keydown.enter="render()">
             <button wire:click.prevent="render()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn btn-new">
                 <span class="far fa-search fa-fw fa-lg mr-1"></span>Buscar
             </button>
@@ -451,141 +451,156 @@
 
                     </div>
 
-                    <table style="cursor: default;" class="table table-borderless">
-                        <thead class="t-head">
-                            <tr class="t-head-border">
-                                <th>Cód.</th>
-                                <th style="min-width: 200px;">Descrição</th>
-                                <th>Data</th>
-                                <th>Total</th>
-                                <th width="200px">Categoria</th>
-                                <th>Espécie</th>
-                                <th width="100px">
-                                    <div class="d-flex flex-row align-items-center fp-infos">
-                                    FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="top" title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>' style="margin-top: 2px;" class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
-                                    </div>
-                                </th>
-                                <th width="100px">Operador</th>
-                                <th width="200px">Operação</th>
-                            </tr>
-                        </thead>
-                        <tbody class="t-body">
-
-                            @php
-                                $dia_atual = Carbon\Carbon::now();
-                            @endphp
-
-                            @foreach ($operations as $operation)
-
-                                @php
-                                    
-                                    $total_operacao = number_format($operation->total, 2, ',', '.');
-                                    $data_operacao = $operation->created_at->format('d/m/Y H:i');
-                                    
-                                    $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
-                                    $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $operation->created_at);
-                                    
-                                    $diferenca = $date2->diffInDays($date1);
-                                    $tempo = 'dias';
-                                    
-                                    if ($diferenca === 1) {
-                                        $diferenca = 'um';
-                                        $tempo = 'dia';
-                                    }
-                                    
-                                    if ($diferenca === 0) {
-                                        $diferenca = $date2->diffInHours($date1);
-                                        $tempo = 'horas';
-
-                                        if ($diferenca === 1) {
-                                            $diferenca = 'uma';
-                                            $tempo = 'hora';
-                                        }
-                                    
-                                        if ($diferenca === 0) {
-                                            $diferenca = $date2->diffInMinutes($date1);
-                                            $tempo = 'minutos';
-                                    
-                                            if ($diferenca === 1) {
-                                                $diferenca = 'um';
-                                                $tempo = 'minuto';
-                                            }
-                                    
-                                            if ($diferenca === 0) {
-                                                $diferenca = 'poucos';
-                                                $tempo = 'segundos';
-                                            }
-                                        }
-                                    }
-                                    
-                                    if (is_null($operation->category)) {
-                                        $categoria_op = 'Retirada';
-                                    } else {
-                                        $categoria_op = $operation->category->descricao;
-                                    }
-                                    
-                                    if ($operation->especie === 1 ) {
-                                        $especie_op = 'Dinheiro';
-                                    }elseif($operation->especie === 2){
-                                        $especie_op = 'Cheque';
-                                    }elseif($operation->especie === 3) {
-                                        $especie_op = 'Moedas';                                             
-                                    }elseif($operation->especie === 4) {
-                                        $especie_op = 'Outros';
-                                    }
-
-                                @endphp
-
-                                <tr class="tr-hover">
-
-                                    <td class="align-middle">
-                                        <div style="cursor: pointer;" data-tooltip="{{$operation->id}}" data-flow="right" class="div-codigo">
-                                            <i class="fad fa-info-circle fa-fw fa-lg icon-info-cod"></i>
-                                        </div>                                                
-                                    </td>
-                                    <td style="font-size: 15px !important; word-break: break-all" class="align-middle font-desc">{{ $operation->descricao }}</td>
-                                    <td style="font-size: 15px; white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span style="font-size: 13px;" class="g-light">há
-                                            {{ $diferenca }} {{ $tempo }}</span></td>
-                                    <td style="font-size: 15px; white-space: nowrap; font-weight: 500;" class="align-middle">R$ {{ $total_operacao }}</td>
-                                    <td style="word-break: break-all;" class="align-middle"><span style="font-size: 14px;" class="categoria">{{ $categoria_op }}</span></td>
-                                    <td style="font-size: 15px;" class="align-middle">
-                                        <span
-                                            class="especie">{{ $especie_op }}
-                                        </span>
-                                    </td>
-                                    <td style="word-break: break-all;" class="align-middle">
-                                        <span>
-                                            @if (is_null($operation->method_id))
-                                                @if ($operation->especie == 4)
-                                                    <span style="color: #725BC2; font-weight: 500;">Não especificada</span> 
-                                                @else
-                                                    {{$especie_op}}
-                                                @endif
-                                            @else
-                                                {{ $operation->method->descricao }}
-                                            @endif
-                                        </span>
-                                    </td>
-                                    <td style="word-break: break-all;" class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
-                                    @if ($operation->tipo == 1)
-                                        <td class="align-middle"><span style="white-space: nowrap;" class="operacao-entrada">Movimento de
-                                                entrada</span></td>
-                                    @elseif ($operation->tipo == 3)
-                                        <td class="align-middle"><span style="white-space: nowrap;" class="operacao-retirada">Retirada de
-                                                caixa</span></td>
-                                    @else
-                                        <td class="align-middle"><span style="white-space: nowrap;" class="operacao-saida">Movimento de
-                                                saída</span>
-                                        </td>
-                                    @endif
-
+                    <div style="margin-top: 30px;" class="table-responsive yampay-scroll-lg">
+                        <table style="cursor: default;" class="table table-borderless">
+                            <thead class="t-head">
+                                <tr class="t-head-border">
+                                    <th class="cod-imp">Cód.</th>
+                                    <th style="min-width: 160px; max-width: 160px;">Descrição</th>
+                                    <th>Data</th>
+                                    <th>Total</th>
+                                    <th style="min-width: 120px; max-width: 120px;">Categoria</th>
+                                    <th style="min-width: 100px; max-width: 100px;">Espécie</th>
+                                    <th style="min-width: 100px; max-width: 100px;">
+                                        <div class="d-flex flex-row align-items-center fp-infos">
+                                        FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="top" title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>' style="margin-top: 2px;" class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
+                                        </div>
+                                    </th>
+                                    <th style="min-width: 120px; max-width: 120px;">Operador</th>
+                                    <th>Operação</th>
                                 </tr>
-
-                            @endforeach
-
-                        </tbody>
-                    </table>
-
+                            </thead>
+                            <tbody class="t-body">
+    
+                                @php
+                                    $dia_atual = Carbon\Carbon::now();
+                                @endphp
+    
+                                @foreach ($operations as $operation)
+    
+                                    @php
+                                        
+                                        $total_operacao = number_format($operation->total, 2, ',', '.');
+                                        $data_operacao = $operation->created_at->format('d/m/Y H:i');
+                                        
+                                        $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
+                                        $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $operation->created_at);
+                                        
+                                        $diferenca = $date2->diffInDays($date1);
+                                        $tempo = 'dias';
+                                        
+                                        if ($diferenca === 1) {
+                                            $diferenca = 'um';
+                                            $tempo = 'dia';
+                                        }
+                                        
+                                        if ($diferenca === 0) {
+                                            $diferenca = $date2->diffInHours($date1);
+                                            $tempo = 'horas';
+    
+                                            if ($diferenca === 1) {
+                                                $diferenca = 'uma';
+                                                $tempo = 'hora';
+                                            }
+                                        
+                                            if ($diferenca === 0) {
+                                                $diferenca = $date2->diffInMinutes($date1);
+                                                $tempo = 'minutos';
+                                        
+                                                if ($diferenca === 1) {
+                                                    $diferenca = 'um';
+                                                    $tempo = 'minuto';
+                                                }
+                                        
+                                                if ($diferenca === 0) {
+                                                    $diferenca = 'poucos';
+                                                    $tempo = 'segundos';
+                                                }
+                                            }
+                                        }
+                                        
+                                        if (is_null($operation->category)) {
+                                            $categoria_op = 'Retirada';
+                                        } else {
+                                            $categoria_op = $operation->category->descricao;
+                                        }
+                                        
+                                        if ($operation->especie === 1 ) {
+                                            $especie_op = 'Dinheiro';
+                                        }elseif($operation->especie === 2){
+                                            $especie_op = 'Cheque';
+                                        }elseif($operation->especie === 3) {
+                                            $especie_op = 'Moedas';                                             
+                                        }elseif($operation->especie === 4) {
+                                            $especie_op = 'Outros';
+                                        }
+    
+                                    @endphp
+    
+                                    <tr class="tr-hover">
+    
+                                        <td class="align-middle cod-imp">
+                                            <div style="cursor: pointer;" data-tooltip="{{$operation->id}}" data-flow="right" class="div-codigo">
+                                                <i class="fad fa-info-circle fa-fw fa-lg icon-info-cod"></i>
+                                            </div>  
+                                        </td>
+    
+                                        <td style="font-size: 15px !important; word-wrap: break-word" class="align-middle font-desc">{{ $operation->descricao }}</td>
+    
+                                        <td style="font-size: 15px; white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span style="font-size: 13px;" class="g-light">há
+                                                {{ $diferenca }} {{ $tempo }}</span></td>
+    
+                                        <td style="font-size: 15px; white-space: nowrap; font-weight: 600; @if($operation->tipo == 1) color: #00A3A3; @elseif($operation->tipo == 0) color: #E6274C; @else color: #2483ff; @endif" class="align-middle">
+                                            R$ {{ $total_operacao }}
+                                        </td>
+    
+                                        <td style="word-wrap: break-word;" class="align-middle"><span style="font-size: 14px;" class="categoria">{{ $categoria_op }}</span></td>
+    
+                                        <td style="font-size: 15px;" class="align-middle">
+                                            <span
+                                                class="especie">{{ $especie_op }}
+                                            </span>
+                                        </td>
+    
+                                        <td style="word-break: break-all;" class="align-middle">
+                                            <span>
+                                                @if (is_null($operation->method_id))
+                                                    @if ($operation->especie == 4)
+                                                        <span style="color: #725BC2; font-weight: 500;">Não especificada</span> 
+                                                    @else
+                                                        {{$especie_op}}
+                                                    @endif
+                                                @else
+                                                    {{ $operation->method->descricao }}
+                                                @endif
+                                            </span>
+                                        </td>
+    
+                                        <td style="word-wrap: break-word;" class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
+    
+                                        @if ($operation->tipo == 1)
+                                            <td class="align-middle"><span style="white-space: nowrap;" class="operacao-entrada">
+                                               Entrada
+                                            </span></td>
+                                        @elseif ($operation->tipo == 3)
+                                            <td class="align-middle"><span style="white-space: nowrap;" class="operacao-retirada">
+                                                Retirada
+                                            </span></td>
+                                        @else
+                                            <td class="align-middle"><span style="white-space: nowrap;" class="operacao-saida">
+                                               Saída
+                                            </span>
+                                            </td>
+                                        @endif
+    
+                                    </tr>
+    
+                                @endforeach
+    
+                            </tbody>
+                        </table>
+                    </div>
+                    
                 @else
 
                     <div class="d-flex flex-column align-items-center justify-content-center">

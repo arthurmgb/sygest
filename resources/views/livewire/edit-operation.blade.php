@@ -377,7 +377,7 @@
                         <div class="form-group">
                             <label class="modal-label" for="desc-op">Descrição <span class="red">*</span></label>
                             <input wire:model.defer="state.descricao" type="text" class="form-control modal-input"
-                                id="desc-op" autocomplete="off">
+                                id="desc-op" autocomplete="off" wire:keydown.enter="updateOperation()" wire:loading.attr="disabled">
                             @error('state.descricao')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
@@ -389,7 +389,7 @@
                             @if ($categorias)
                             
                                 <select style="font-size: 17px;" wire:model.defer="state.category_id" class="form-control modal-input-cat yampay-scroll"
-                                    id="categoria-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    id="categoria-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' wire:loading.attr="disabled">
                                     <option value="">Selecione uma categoria</option>
 
                                     @foreach ($categorias as $categoria)
@@ -413,7 +413,7 @@
                             @if ($operadores)
 
                                 <select style="font-size: 17px;" wire:model.defer="state.operator_id" class="form-control modal-input-cat yampay-scroll"
-                                    id="operador-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    id="operador-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' wire:loading.attr="disabled">
                                     <option value="">Selecione um operador</option>
 
                                     @foreach ($operadores as $operador)
@@ -434,7 +434,7 @@
                         <div class="form-group">
                             <label class="modal-label" for="especie-op">Espécie  <span class="red">*</span></label>
                                 <select style="font-size: 17px;" wire:model="state.especie" class="form-control modal-input-cat yampay-scroll"
-                                    id="especie-op" onfocus='this.size=6;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    id="especie-op" onfocus='this.size=6;' onblur='this.size=1;' onchange='this.size=1; this.blur();' wire:loading.attr="disabled">
                                     <option value="">Selecione o tipo de espécie</option>
                                     <option value="1">💵 Dinheiro</option>
                                     <option value="2">💲 Cheque</option>
@@ -451,7 +451,7 @@
                                 <label class="modal-label" for="fp-op">Forma de pagamento  <span style="font-size: 12px;">(opcional)</span></label>
                                 
                                     <select style="font-size: 17px;" wire:model.defer="state.method_id" class="form-control modal-input-cat yampay-scroll"
-                                    id="fp-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    id="fp-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' wire:loading.attr="disabled">
                                     <option value="">Não especificada</option>
                                         @foreach ($formas_de_pag as $single_form_pag)
                                             <option value="{{$single_form_pag->id}}">{{$single_form_pag->descricao}}</option>
@@ -473,7 +473,7 @@
                                     <span class="input-group-text">R$</span>
                                 </div>
                                 <input wire:model.defer="state.total" placeholder="0,00" type="text"
-                                    class="form-control modal-input total-operation" id="total-op" autocomplete="off">
+                                    class="form-control modal-input total-operation" id="total-op" autocomplete="off" wire:keydown.enter="updateOperation()" wire:loading.attr="disabled">
                             </div>
                             @error('state.total')
                                 <span class="wire-error">{{ $message }}</span>
@@ -493,13 +493,35 @@
                         Editar
                     </button>
 
-                    <div wire:click="deleteOperation()" wire:loading.class="pe-none" style="user-select: none;" class="mr-auto lixeira d-flex flex-row mx-2 my-2">
-                        <i class="fad fa-trash fa-fw fa-crud fac-del mr-1" aria-hidden="true">
-                        </i>
-                        <span class="lixeira-text">
-                            Excluir operação
-                        </span>
+                    <div class="mr-auto">
+
+                        <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#advancedOperation" aria-expanded="false" aria-controls="advancedOperation">
+                            Opções avançadas
+                        </button>
+
+                        <div class="collapse" id="advancedOperation">
+                            
+                            <div wire:click="deleteOperation()" wire:loading.class="pe-none" style="user-select: none;" class="lixeira d-flex flex-row mx-2 mt-3 mb-2">
+                                <i class="fad fa-trash fa-fw fa-crud fac-del mr-1" aria-hidden="true">
+                                </i>
+                                <span class="lixeira-text">
+                                    Excluir operação
+                                </span>
+                            </div>
+        
+                            <div wire:click="transformIntoRet({{$search_operacao}})" wire:loading.class="pe-none" style="user-select: none;" class="lixeira d-flex flex-row mx-2 mt-2 mb-2">
+                                <i class="fad fa-wallet fa-fw fa-crud fac-rest mr-1" aria-hidden="true">
+        
+                                </i>
+                                <span class="restore-text">
+                                    Converter em retirada
+                                </span>
+                            </div>
+
+                        </div>
+
                     </div>
+                    
 
                 </div>
             </div>

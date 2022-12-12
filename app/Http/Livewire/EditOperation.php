@@ -89,6 +89,22 @@ class EditOperation extends Component
         
     }
 
+    public function transformIntoRet($id){
+
+        Operation::where('id', $id)
+        ->update(
+            [
+                'tipo' => 3,
+                'category_id' => NULL
+            ]
+        );
+
+        $this->dispatchBrowserEvent('close-adm-edit-operation');
+        $this->reset('state');
+        $this->emit('alert', 'Operação convertida em retirada com sucesso!');
+
+    }
+
     public function resetNewOperation()
     {
 

@@ -22,16 +22,22 @@
     
             body * {
                 visibility: hidden;
-                margin: 0px !important;
             }
 
-            .page-header, .card-topo, .card-topo-2, .card-topo-3, .card-topo-4, .calc-button-imp, .btn-cx-hoje{
+            .content-wrapper{
+                margin: 0 !important;
+            }
+
+            .page-header, .card-topo, .card-topo-2, .card-topo-3, .card-topo-4, .calc-button-imp, .btn-cx-hoje, .cod-imp{
                 display: none !important;
+            }
+            
+            .table-responsive{
+                overflow-x: hidden !important;
             }
 
             @page {
-                margin: 0px !important;
-                margin-top: 5px !important;
+                margin: 20px 0px 0px 0px !important;
                 padding: 0px !important;
                 border: 0 !important;
             }
