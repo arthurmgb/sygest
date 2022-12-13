@@ -458,7 +458,7 @@
                                     <th class="cod-imp">Cód.</th>
                                     <th style="min-width: 160px; max-width: 160px;">Descrição</th>
                                     <th>Data</th>
-                                    <th>Total</th>
+                                    <th style="min-width: 130px; max-width: 130px;">Total</th>
                                     <th style="min-width: 120px; max-width: 120px;">Categoria</th>
                                     <th style="min-width: 100px; max-width: 100px;">Espécie</th>
                                     <th style="min-width: 100px; max-width: 100px;">
