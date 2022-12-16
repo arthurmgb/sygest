@@ -22,7 +22,7 @@ class EditRetirada extends Component
         'state.operator_id' => 'required',
         'state.especie' => 'required',
         'state.method_id' => 'numeric',
-
+        'state.created_at' => 'size:19',
     ];
 
     protected $messages = [
@@ -31,7 +31,7 @@ class EditRetirada extends Component
         'state.total.required' => 'O total da retirada é obrigatório.',
         'state.operator_id.required' => 'O operador de caixa é obrigatório.',
         'state.especie.required' => 'A espécie da operação é obrigatória.',
-
+        'state.created_at.size' => 'O formato da data está incorreto.',
     ];
 
     public function updateOperation(){

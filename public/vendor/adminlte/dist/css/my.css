@@ -666,6 +666,14 @@ select > option:checked{
     transform: scale(1.2);
     opacity: 0.7;
 }
+.edit-datetime-picker::-webkit-calendar-picker-indicator{
+    cursor: pointer !important;
+    opacity: 0.6;
+}
+.edit-datetime-picker::-webkit-calendar-picker-indicator:hover{
+    transform: scale(1.2);
+    opacity: 0.7;
+}
 .span-relatorio{
     font-size: 15px;
     color: #333;

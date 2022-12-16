@@ -26,6 +26,7 @@ class EditOperation extends Component
         'state.total' => 'required|max:10',
         'state.especie' => 'required',
         'state.method_id' => 'numeric',
+        'state.created_at' => 'size:19',
 
     ];
 
@@ -37,6 +38,7 @@ class EditOperation extends Component
         'state.operator_id.required' => 'O operador de caixa é obrigatório.',
         'state.total.required' => 'O total da operação é obrigatório.',
         'state.especie.required' => 'A espécie da operação é obrigatória.',
+        'state.created_at.size' => 'O formato da data está incorreto.',
 
     ];
 

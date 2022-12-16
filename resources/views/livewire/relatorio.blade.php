@@ -135,27 +135,27 @@
                                         <span class="rc-alert-font-2 text-uppercase">
                                             Entradas no período               
                                         </span>
-                                        <span style="color: green; font-size: 20px;"><b>R$ {{ $receita_entrada }}</b></span>
+                                        <span style="color: #00A3A3; font-size: 20px;"><b>R$ {{ $receita_entrada }}</b></span>
                                     </div>
 
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             Saídas no período 
                                         </span>
-                                        <span style="color: red; font-size: 20px;"><b>- R$ {{ $rec_only_saida }}</b></span>
+                                        <span style="color: #E6274C; font-size: 20px;"><b>- R$ {{ $rec_only_saida }}</b></span>
                                     </div>
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             Retiradas no período
                                         </span>
-                                        <span style="color: red; font-size: 20px;"><b>- R$ {{ $receita_ret }}</b></span>
+                                        <span style="color: #2483ff; font-size: 20px;"><b>- R$ {{ $receita_ret }}</b></span>
                                     </div>
                                     <hr class="my-2">
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             Saldo no período
                                         </span>
-                                        <span style="color: green; font-size: 22px;"><b>R$ {{ $receita_valor }}</b></span>
+                                        <span style="color: #00A3A3; font-size: 22px;"><b>R$ {{ $receita_valor }}</b></span>
                                     </div>
                                     @if ($data_inicial == $data_final)
                                     @php
@@ -215,7 +215,7 @@
                                         <span class="rc-alert-font-2 text-uppercase">
                                             Total em caixa hoje
                                         </span>
-                                        <span style="color: green; font-size: 22px;"><b>R$ {{ $caixa_total }}</b></span>
+                                        <span style="color: #00A3A3; font-size: 22px;"><b>R$ {{ $caixa_total }}</b></span>
                                     </div>
                                     <hr class="my-2">
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between mb-1">
@@ -281,7 +281,7 @@
                                             Total somado
                                         </span>
                                         @if ($relResultado == $caixa_total)                                        
-                                            <span style="color: green; font-size: 22px;"><b>R$ {{$relResultado}}</b>
+                                            <span style="color: #00A3A3; font-size: 22px;"><b>R$ {{$relResultado}}</b>
                                                 <i class="fad fa-check-circle"></i>
                                             </span>                                         
                                         @elseif($relResultado == "0,00")
@@ -289,14 +289,14 @@
                                                 <i class="fad fa-exclamation-circle"></i>
                                             </span>   
                                         @else
-                                            <span style="color: red; font-size: 22px;"><b>R$ {{$relResultado}}</b>
+                                            <span style="color: #E6274C; font-size: 22px;"><b>R$ {{$relResultado}}</b>
                                                 <i class="fad fa-times-circle"></i>
                                             </span>                                           
                                         @endif
                                     </div>
                                     @if ($relResultado == $caixa_total) 
                                         <div class="val-block d-flex flex-row align-items-center justify-content-end">
-                                            <span style="color: green; font-size: 14px;">O total somado coincidiu com o valor total em caixa!</span>
+                                            <span style="color: #00A3A3; font-size: 14px;">O total somado coincidiu com o valor total em caixa!</span>
                                         </div>
                                     @elseif($relResultado == "0,00")
                                         <div class="val-block d-flex flex-row align-items-center justify-content-end">
@@ -304,7 +304,7 @@
                                         </div>
                                     @else
                                         <div class="val-block d-flex flex-row align-items-center justify-content-end">
-                                            <span style="color: red; font-size: 14px;">O total somado não coincidiu com o valor total em caixa.</span>
+                                            <span style="color: #E6274C; font-size: 14px;">O total somado não coincidiu com o valor total em caixa.</span>
                                         </div>
                                     @endif
                                 </div>

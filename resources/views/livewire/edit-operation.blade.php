@@ -465,7 +465,7 @@
                             </div>
                         @endif
                         
-                        <div class="form-group mb-0">
+                        <div class="form-group">
                             <label class="modal-label" for="total-op">Total da operação <span
                                     class="red">*</span></label>
                             <div class="input-group mb-0">
@@ -480,6 +480,18 @@
                             @enderror
                         </div>
 
+                        <div class="form-group mb-0">
+                            <label class="modal-label" for="created-op">
+                                Data da operação
+                            </label>
+                            <input wire:model.defer="state.created_at" type="datetime-local" step="1" class="form-control modal-input edit-datetime-picker" id="created-op" autocomplete="off" wire:keydown.enter="updateOperation()" wire:loading.attr="disabled">
+                            
+                            @error('state.created_at')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+                        
                     @endif
 
                 </div>

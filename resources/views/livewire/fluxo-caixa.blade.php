@@ -65,7 +65,7 @@
 
                             <span>
                                 Saldo: 
-                                <b>
+                                <b style="@if($option == [0]) color: #E6274C; @elseif($option == [1]) color: #00A3A3; @endif">
                                     @if ($option == [0]) - @endif R$ {{ $receita_valor }}
                                 </b>
                             </span>
