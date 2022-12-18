@@ -439,6 +439,24 @@ class Admin extends Component
 
     }
 
+    public function clearCssCache(){
+        
+        $maintence_data = Maintence::find(1);
+
+        $css_cache_version = $maintence_data->css_cache;
+
+        $css_version_number = floatval($css_cache_version);
+
+        $css_version_number += 1;
+
+        $maintence_data->css_cache = $css_version_number;
+
+        $maintence_data->save();
+
+        $this->emit('alert', 'Cache do CSS limpo com sucesso!');
+
+    }
+
     public function render()
     {
 
@@ -519,6 +537,14 @@ class Admin extends Component
 
         //FIM FORMATAÇÃO
 
+        //CACHE CSS
+        
+        $maintence_data = Maintence::find(1);
+
+        $css_cache_version = $maintence_data->css_cache;
+
+        //CACHE CSS
+
         return view('livewire.admin', compact(
             'users', 
             'users_count', 
@@ -533,6 +559,7 @@ class Admin extends Component
             'get_mensalidades_vencidas',
             'get_total_mensalidades_vencidas',
             'get_total_geral_a_receber',
+            'css_cache_version',
             ))
         ->layout('pages.administrador');
     }

@@ -2,43 +2,71 @@
 
     <div class="page-header d-flex flex-row align-items-center justify-content-between mb-2">
         @if(auth()->user()->is_admin === 1)
+
         <h2 class="f-h2">Área administrativa</h2>
+
         <div class="div-right-admin d-flex flex-row align-items-center">
-            <a href="{{route('register')}}" target="_blank" class="btn btn-new mr-1">+ Novo usuário</a>
-            @if ($estado_manutencao == 0)
-                <button wire:key="manut-active" wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn btn-new mr-1">
-                    Ativar manutenção
-                </button>
-            @elseif($estado_manutencao == 1)
-                <button style="user-select: none;" wire:key="manut-disabled" wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn-maint mr-1">
-                    Desativar manutenção
-                </button>
-            @endif
-            <div class="dropdown" id="dpd-ntf">
 
-                <button style="user-select: none;" type="button" data-toggle="dropdown" aria-expanded="false" class="btn-maint">
-                    Habilitar novidades (global)
-                </button>
+            <a class="btn btn-new" data-toggle="collapse" href="#adminTools" role="button" aria-expanded="false" aria-controls="adminTools">
+                <i class="fad fa-tools fa-fw mr-2"></i>
+                Ferramentas
+            </a>
 
-                <div class="dropdown-menu dropdown-vg-totais">
-                    <span style="user-select: none;">Habilitar?</span>
-                    <div class="d-flex flex-column align-items-center justify-content-center my-1">
+            <div class="collapse ml-2" id="adminTools" wire:ignore.self>
+                <div style="margin-bottom: 0px !important;" class="card card-body">
 
-                        <button wire:key="yes-notif-enable" wire:click.prevent="confirmDropdown()" wire:loading.attr="disabled" class="btn btn-sm btn-primary btn-block">
-                            Sim
+                    <a href="{{route('register')}}" target="_blank" class="btn btn-new mb-2">
+                        + Novo usuário
+                    </a>
+        
+                    @if ($estado_manutencao == 0)
+                        <button wire:key="manut-active" wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn btn-new mb-2">
+                            Ativar manutenção
                         </button>
-
-                        <button wire:key="no-notif-enable" wire:click.prevent="closeDropdown()" wire:loading.attr="disabled" class="btn btn-sm btn-outline-danger btn-block">
-                            Não
+                    @elseif($estado_manutencao == 1)
+                        <button style="user-select: none;" wire:key="manut-disabled" wire:click.prevent="manutencao" wire:loading.attr="disabled" class="btn-maint mb-2">
+                            Desativar manutenção
                         </button>
+                    @endif
 
+                    <button wire:key="css-clear" wire:click.prevent="clearCssCache()" wire:loading.attr="disabled" class="btn btn-new mb-2">
+                        Limpar cache CSS 
+                        <br>
+                        v. {{ $css_cache_version }}
+                    </button>
+        
+                    <div class="dropdown" id="dpd-ntf">
+        
+                        <button style="user-select: none; width: 100%;" type="button" data-toggle="dropdown" aria-expanded="false" class="btn-maint">
+                            Habilitar novidades (global)
+                        </button>
+        
+                        <div class="dropdown-menu dropdown-vg-totais">
+                            <span style="user-select: none;">Habilitar?</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center my-1">
+        
+                                <button wire:key="yes-notif-enable" wire:click.prevent="confirmDropdown()" wire:loading.attr="disabled" class="btn btn-sm btn-primary btn-block">
+                                    Sim
+                                </button>
+        
+                                <button wire:key="no-notif-enable" wire:click.prevent="closeDropdown()" wire:loading.attr="disabled" class="btn btn-sm btn-danger btn-block">
+                                    Não
+                                </button>
+        
+                            </div>
+                        </div>
+        
                     </div>
-                </div>
 
+                </div>
             </div>
+
         </div>
+
         @else
+
         <h2 class="f-h2">Área restrita</h2>
+
         @endif
     </div>
 
@@ -1027,10 +1055,11 @@
                 </div>
         
             </div>
-        @endif
 
-        <div style="user-select: none; padding-bottom: 150px;" class="d-flex flex-row align-items-center justify-content-between">
-        </div>
+            <div style="user-select: none; padding-bottom: 150px;" class="d-flex flex-row align-items-center justify-content-between">
+            </div>
+            
+        @endif
 
     </div>
 
@@ -1684,4 +1713,3 @@
     @endif
 
 </div>
-

@@ -9,5 +9,5 @@ class Maintence extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['estado'];
+    protected $fillable = ['estado', 'css_cache'];
 }

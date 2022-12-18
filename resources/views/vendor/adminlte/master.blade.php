@@ -37,12 +37,20 @@
         {{-- Configured Stylesheets --}}
         @include('adminlte::plugins', ['type' => 'css'])
 
+        <?php
+        
+            $maintence_cache = App\Models\Maintence::find(1);
+
+            $css_version = $maintence_cache->css_cache;
+ 
+        ?>
+
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/my.css?ver=') . rand(1,500) }}">
-        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/tooltip.css?ver=') . rand(1,500) }}">
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/my.css?ver=') . $css_version }}">
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/tooltip.css?ver=') . $css_version }}">
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif

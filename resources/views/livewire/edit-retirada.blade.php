@@ -1,6 +1,6 @@
 <div>
 
-    <div class="div-block-area-5">
+    <div class="div-block-area-5" style="padding-bottom: 100px;">
 
         <div class="admin-area">
 
