@@ -1204,7 +1204,7 @@ color: #fff;
     color: #E6274C;
 }
 .card-tarefa{
-    transition: 0.2s;
+    transition: border-color 0.2s;
 }
 .card-tarefa:hover{
     border-color: #8369DF !important;

@@ -106,7 +106,11 @@
                                     </td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
-                                    <td style="white-space: nowrap;" class="align-middle font-weight-bold text-uppercase">{{ $categoria->tipo }}
+
+                                    <td style="white-space: nowrap;" class="align-middle">
+                                        <span class="@if($categoria->tipo == 'Entrada')operacao-entrada @else operacao-saida @endif">
+                                            {{ $categoria->tipo }}
+                                        </span>
                                     </td>
 
                                     @if ($categoria->status == 1)

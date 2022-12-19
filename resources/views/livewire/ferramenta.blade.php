@@ -75,7 +75,7 @@
                         <input wire:click="reset_copy()" wire:model="c" placeholder="C" min="0" type="number" class="input-op d-inline-block mt-2" autocomplete="off">                     
                         <span class="type-calc-v2 d-inline-block mt-2">Está para</span>
                         <span wire:click="copied(1)" class="result-to-copy" data-clipboard-target="#rd3" @if($copy == 1) data-tooltip="Copiado!" @else data-tooltip="Copiar" @endif data-flow="right">
-                            <input id="rd3" @if($result_rd3 != 'X') value="{{ $result_rd3 }}" @elseif($result_rd3 == 'X') placeholder="X" @endif min="0" type="text" class="input-op input-x d-inline-block mt-2" readonly autocomplete="off">                       
+                            <input id="rd3" @if($result_rd3 != 'X') value="{{ $result_rd3 }}" @elseif($result_rd3 == 'X') placeholder="X" @endif min="0" type="text" class="input-op input-x d-inline-block mt-2" readonly autocomplete="off">
                         </span>                       
                         <div class="mx-1" wire:target="render, a, b, c" wire:loading>
                             <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-lg fa-spin"></i>
