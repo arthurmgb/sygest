@@ -6,7 +6,35 @@
 .modal { overflow: auto !important; }
 body{
     background-color: #F4F6F8 !important;
+    print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+}
+.cashiers-scroll::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.cashiers-scroll::-webkit-scrollbar
+{
+	width: 13px;
+    height: 15px !important;
+	background-color: #F5F5F5;
+}
+.cashiers-scroll::-webkit-scrollbar-thumb
+{
+	background-color: #725BC2;	
+	background-image: -webkit-linear-gradient(45deg,
+	                                          rgba(255, 255, 255, .2) 25%,
+											  transparent 25%,
+											  transparent 50%,
+											  rgba(255, 255, 255, .2) 50%,
+											  rgba(255, 255, 255, .2) 75%,
+											  transparent 75%,
+											  transparent)
+}
+.cashiers-scroll::-webkit-scrollbar-thumb:vertical:hover{
+    background-color: #715bc2d0;
 }
 .main-topic:hover{
     background-color: #F3F4F6 !important;
