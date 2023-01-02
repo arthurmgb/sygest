@@ -11,8 +11,10 @@
 @section('adminlte_css')
     @stack('css')
     @yield('css')
-    <style>
-        .natal-home-hat{
+
+    {{-- <style>
+        /* NATAL STYLES */
+        /* .natal-home-hat{
             position: absolute;
             width: 188px;
             height: 156px;
@@ -40,8 +42,8 @@
             margin-top: -2px;
             margin-left: 0px;
             transform: rotate(-10deg);
-        }
-    </style>
+        } */
+    </style> --}}
 @stop
 
 @section('classes_body', $layoutHelper->makeBodyClasses())

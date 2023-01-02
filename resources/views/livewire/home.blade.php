@@ -1,19 +1,21 @@
 <div>
     <div class="d-flex flex-row justify-content-between">
         <h1 class="home-title text-truncate">Olá, {{ Auth::user()->name }}!</h1>
-        <div style="position: relative;" class="natal-div">
+
+        <div style="position: relative;">
 
             <img style="object-fit: cover; user-select: none; position: relative;" class="img-user img-circle" src="{{ Auth::user()->profile_photo_url }}">
 
-            <img class="natal-home-hat" src="{{asset('vendor/adminlte/dist/img/santa-hat.png')}}">
+            {{-- <img class="natal-home-hat" src="{{asset('vendor/adminlte/dist/img/santa-hat.png')}}"> --}}
             
         </div>
+
     </div>
 
     <div style="margin-top: -30px;" class="d-flex flex-row align-items-center">
 
         <div style="position: relative;" class="img-bear">
-            <img class="natal-bear-hat" src="{{asset('vendor/adminlte/dist/img/santa-hat-32.png')}}">
+            {{-- <img class="natal-bear-hat" src="{{asset('vendor/adminlte/dist/img/santa-hat-32.png')}}"> --}}
             <img style="margin-bottom: -20px; user-select: none;" src="{{asset('vendor/adminlte/dist/img/no-results-300.png')}}">
         </div>
 

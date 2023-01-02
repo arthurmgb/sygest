@@ -27,11 +27,17 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('vendor\adminlte\dist\css\preloader.css') }}">
+    
     <style>
         body {
             overflow: hidden;
         }
-        .content-wrapper{
+    </style>
+
+    {{-- <style>
+        
+        /* NATAL STYLES */
+        /* .content-wrapper{
            
             background: linear-gradient(0deg, #f3f4f6e8, #f3f4f6e8), url({{asset('vendor/adminlte/dist/img/santa-bg.jpg')}});
 
@@ -45,8 +51,9 @@
         .content-inicial{
             background: url({{asset('vendor/adminlte/dist/img/snow.gif')}});
             background-repeat: repeat;
-        }
-    </style>
+        } */
+    </style> --}}
+
 @stop
 
 @section('js')
