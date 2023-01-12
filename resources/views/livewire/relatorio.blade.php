@@ -1,80 +1,122 @@
 <div>
-    <div class="page-header d-flex flex-row align-items-center">
+    <div class="page-header d-flex flex-row align-items-center" style="padding-bottom: 5px !important;">
         <h2 class="f-h2">Relatórios</h2>
     </div>
     <div class="block">
-        <div class="card-topo mb-2 d-flex flex-row align-items-center">
-            <span class="span-relatorio">Período de</span>
-            <input wire:model.defer="data.inicial" id="from" type="date" class="search-relatorio ml-3 mr-3"
-                min="2000-01-01" max="2100-01-01" autocomplete="off" wire:keydown.enter="render()">
-            <span class="span-relatorio">até</span>
-            <input wire:model.defer="data.final" id="to" type="date" class="search-relatorio ml-3 mr-3" min="2000-01-01"
-                max="2100-01-01" autocomplete="off" wire:keydown.enter="render()">
-            <button wire:click.prevent="render()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn btn-new">
-                <span class="far fa-search fa-fw fa-lg mr-1"></span>Buscar
-            </button>
-            @if (isset($operations))
-                <button wire:click.prevent="resetRelatorio()" wire:loading.attr="disabled" wire:loading.class="desativado" class="button-relatorio ml-2">
-                    <span class="fad fa-broom fa-fw fa-lg mr-1"></span>Limpar busca
-                </button>
-                @if($operations->count())
-                    <button wire:click.prevent="printPage()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn-new ml-2">
-                        <span class="fad fa-print fa-fw fa-lg mr-1"></span>Imprimir
+
+        <div class="card-topo mb-4">
+
+            <div style="max-width: 1200px; margin: 0 auto;" class="content-card-topo d-flex flex-row flex-wrap align-items-center justify-content-center">
+                
+                <div class="d-flex flex-row align-items-center flex-fill my-2">
+                    <span class="span-relatorio">Período de</span>
+                    <input wire:model.defer="data.inicial" id="from" type="date" class="search-relatorio mx-3 flex-fill"
+                        min="2000-01-01" max="2100-01-01" autocomplete="off" wire:keydown.enter="render()" style="width: 200px;">
+                </div>
+
+                <div class="d-flex flex-row align-items-center flex-fill my-2">
+                    <span class="span-relatorio">até</span>
+                    <input wire:model.defer="data.final" id="to" type="date" class="search-relatorio mx-3 flex-fill" min="2000-01-01"
+                        max="2100-01-01" autocomplete="off" wire:keydown.enter="render()" style="width: 200px;">
+                </div>
+
+                <div class="d-flex flex-row align-items-center my-2 flex-fill">
+                    
+                    <button wire:click.prevent="render()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn btn-new mr-3 flex-fill text-nowrap">
+                        <span class="far fa-search fa-fw fa-lg mr-1"></span>
+                        Buscar
                     </button>
-                @endif
-            @endif
-        </div>
-        <div class="card-topo-2 mb-3 d-flex flex-row align-items-center">
-            <span class="span-relatorio">Categoria</span>
-            <select wire:model="categoria" style="padding-left: 15px; width: 180px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
-                <option value="">Todas</option>
-                @foreach ($categories as $categorie)
-                    <option value="{{$categorie->id}}">{{$categorie->descricao}}</option>
-                @endforeach
-            </select>
 
-            <span class="span-relatorio ml-4">Operador</span>
-            @if($operators_filter->count())
-                <select wire:model="operador_filter" style="padding-left: 15px; width: 250px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
-                    <option value="">Todos</option>
-                    @foreach ($operators_filter as $single_operator)
-                        <option value="{{$single_operator->id}}">{{$single_operator->nome}}</option>
-                    @endforeach
-                </select>
-            @else
-            <a href="{{route('configuracoes')}}" class="btn btn-new ml-3">+ Novo operador</a>
-            @endif
-            
-        </div>
-        <div class="card-topo-3 mb-3 d-flex flex-row align-items-center">
-            <span class="span-relatorio">Formas de pagamento</span>
-            <select wire:model="forma_pag" style="padding-left: 15px; width: 250px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
-                <option value="">Todas</option>
-                @foreach ($methods as $method)
-                    <option value="{{$method->id}}">{{$method->descricao}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="card-topo-4 mb-3 d-flex flex-row align-items-center">
+                    @if (isset($operations))
 
-            @if (isset($operations) and $operations->count())
-                <span class="span-relatorio">Quem está imprimindo?</span>
-                @if($operators->count())
-                    <select wire:model="operador" style="padding-left: 15px; width: 250px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat ml-3 yampay-scroll" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
-                        <option value="select-op">Selecione um operador</option>
-                        @foreach ($operators as $operator)
-                            <option value="{{$operator->nome}}">{{$operator->nome}}</option>
-                        @endforeach
-                    </select>
-                @else
-                <a href="{{route('configuracoes')}}" class="btn btn-new ml-3">+ Novo operador</a>
-                @endif
-            @endif
-            
+                    <button wire:click.prevent="resetRelatorio()" wire:loading.attr="disabled" wire:loading.class="desativado" class="button-relatorio mr-3 flex-fill text-nowrap">
+                        <span class="fad fa-broom fa-fw fa-lg mr-1"></span>
+                        Limpar busca
+                    </button>
+
+                    @endif
+
+                </div>
+
+                <div class="d-flex flex-row align-items-center flex-fill flex-wrap" style="min-width: 100%;">
+
+                    <div class="d-flex flex-row align-items-center my-2 flex-fill">
+                        <span class="span-relatorio">Categoria</span>
+                        <select wire:model="categoria" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                            <option value="">Todas</option>
+                            @foreach ($categories as $categorie)
+                                <option value="{{$categorie->id}}">{{$categorie->descricao}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+    
+                    <div class="d-flex flex-row align-items-center my-2 flex-fill">
+                        <span class="span-relatorio">Formas de pagamento</span>
+                        <select wire:model="forma_pag" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                            <option value="">Todas</option>
+                            @foreach ($methods as $method)
+                                <option value="{{$method->id}}">{{$method->descricao}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="d-flex flex-row align-items-center flex-fill flex-wrap" style="min-width: 100%;">
+
+                    <div class="d-flex flex-row align-items-center my-2 flex-fill">
+                        <span class="span-relatorio">Operador</span>
+                        @if($operators_filter->count())
+                            <select wire:model="operador_filter" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                <option value="">Todos</option>
+                                @foreach ($operators_filter as $single_operator)
+                                    <option value="{{$single_operator->id}}">{{$single_operator->nome}}</option>
+                                @endforeach
+                            </select>
+                        @else
+                            <a href="{{route('configuracoes')}}" class="btn btn-new flex-fill mx-3">+ Novo operador</a>
+                        @endif
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center my-2 flex-fill">
+                        
+                        <span class="span-relatorio">Quem está imprimindo?</span>
+
+                        @if($operators_filter->count())
+                            <select wire:model="operador" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px; @if (isset($operations) and $operations->count()) @else cursor: not-allowed !important; @endif" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();' @if (!isset($operations)) disabled @endif @if(isset($operations) and $operations->count()) @else disabled @endif>
+                                <option value="select-op">Selecione um operador</option>
+                                @if(isset($operations) and $operations->count())
+                                    @foreach ($operators as $operator)
+                                        <option value="{{$operator->nome}}">{{$operator->nome}}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        @else
+                            <a href="{{route('configuracoes')}}" class="btn btn-new flex-fill mx-3">+ Novo operador</a>
+                        @endif
+                       
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
-        <button wire:click.prevent="caixaHoje()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn btn-new btn-cx-hoje ml-3" type="button">
-            <i class="fal fa-cash-register fa-fw mr-1 fa-lg"></i> Buscar caixa de hoje
-        </button>
+
+        <div class="d-flex flex-row align-items-center justify-content-between">
+            <button wire:click.prevent="caixaHoje()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn btn-new btn-cx-hoje mx-3 text-nowrap" type="button" id="js-cx-hj">
+                <i class="fal fa-cash-register fa-fw mr-1 fa-lg"></i>
+                Buscar caixa de hoje &#91;H&#93;
+            </button>
+    
+            @if(isset($operations) and $operations->count())
+                <button wire:click.prevent="printPage()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn-new btn-cx-hoje mr-3 text-nowrap">
+                    <span class="fad fa-print fa-fw fa-lg mr-1"></span>
+                    Imprimir
+                </button>
+            @endif
+        </div>
+
         <div class="card" id="printable">
 
             <div style="margin-top: 125px; margin-bottom: 125px;" wire:loading
@@ -738,6 +780,7 @@
                 @endif
 
             </div>
+
         </div>
 
         <div style="user-select: none; padding-bottom: 150px;"

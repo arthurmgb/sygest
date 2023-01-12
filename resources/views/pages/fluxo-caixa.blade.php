@@ -36,4 +36,48 @@
             })
         });
     </script>
+    <script>
+        
+        let btnNewOp = document.querySelector('#js-new-op');
+        let modalConfirmOp = document.querySelector('#confirm-operation');
+        
+        var canGo = true,
+        delay = 500;
+        
+        document.addEventListener('keydown', (e) =>{
+
+            if($(modalConfirmOp).is(":visible")){
+                if(e.keyCode == 112){
+                    e.preventDefault();
+                    return;
+                }
+            }
+
+            if(e.keyCode == 112){
+
+                e.preventDefault();
+
+                if (canGo) {
+                    canGo = false;
+                    
+                    
+                    btnNewOp.click();
+
+                    setTimeout(function () {
+                        canGo = true;
+                    }, delay)
+
+                } else {
+                    return;
+                }
+                
+            }
+
+        });
+
+        $('#operacao').on('shown.bs.modal', function (event) {
+           $('#desc-op').focus();
+        });
+
+    </script>
 @stop

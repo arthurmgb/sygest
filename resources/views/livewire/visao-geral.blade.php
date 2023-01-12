@@ -316,7 +316,7 @@
                                 <i class="fa fa-search"></i>
                             </div>
                             <a style="margin-top: -8px" data-toggle="modal" data-target="#operacao"
-                                class="btn btn-new">+ Nova operação</a>
+                                class="btn btn-new" id="js-new-op">+ Nova operação &#91;F1&#93;</a>
                         </div>
 
                         <div style="margin-top: 125px; margin-bottom: 125px;" wire:loading

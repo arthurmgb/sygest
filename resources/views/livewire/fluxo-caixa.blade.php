@@ -21,7 +21,7 @@
             <span>Exibir <br>saldo</span>
         </a>
 
-        <a data-toggle="modal" data-target="#operacao" class="btn btn-new float-right">+ Nova operação</a>
+        <a data-toggle="modal" data-target="#operacao" class="btn btn-new float-right" id="js-new-op">+ Nova operação &#91;F1&#93;</a>
 
     </div>
     <div class="block">

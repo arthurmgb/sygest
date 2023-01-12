@@ -1130,7 +1130,7 @@
                                             @endif
 
                                         <button style="padding: 4px 7px;" class="btn btn-light text-primary text-nowrap" type="button" data-toggle="collapse" data-target="#contract-info{{$contract->id}}" aria-expanded="false" aria-controls="contract-info{{$contract->id}}">
-                                            <i class="fas fa-info-circle fa-fw"></i>
+                                            <i class="fas fa-plus-circle fa-fw"></i>
                                             Detalhes
                                         </button>
 
@@ -1519,7 +1519,7 @@
 
                         <div class="confirmation-msg text-center mb-3">
                             <p class="m-0 mb-3 px-4">
-                                Ao clicar em <span class="msg-bold">Confirmar</span>, a mensalidade será paga para este usuário do sistema.
+                                Ao clicar em <span class="msg-bold">Confirmar</span>, a mensalidade será paga para este usuário da plataforma.
                             </p>                      
                         </div>
 
@@ -1553,7 +1553,7 @@
 
                         <div class="confirmation-msg text-center mb-3">
                             <p class="m-0 mb-3 px-4">
-                                Ao clicar em <span class="msg-bold">Confirmar</span>, a mensalidade será estornada para este usuário do sistema.
+                                Ao clicar em <span class="msg-bold">Confirmar</span>, a mensalidade será estornada para este usuário da plataforma.
                             </p>                      
                         </div>
 

@@ -317,7 +317,7 @@
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
                             Ao clicar em <span class="msg-bold">Confirmar</span>, esta forma de pagamento será
-                            editada no sistema.
+                            editada na plataforma.
                         </p>
                         <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
                             data-dismiss="modal" class="px-4 verify-font">Verificar dados da forma de pagamento</button>
@@ -355,7 +355,7 @@
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
                             Ao clicar em <span class="msg-bold">Confirmar</span>, esta forma de pagamento será
-                            apagada e não poderá mais ser utilizada no sistema.
+                            apagada e não poderá mais ser utilizada na plataforma.
                         </p>
                     </div>
 

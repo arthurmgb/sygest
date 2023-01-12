@@ -89,7 +89,7 @@
                                         @endif
 
                                     <button style="padding: 4px 7px;" class="btn btn-light text-primary text-nowrap" type="button" data-toggle="collapse" data-target="#contract-info{{$contract->id}}" aria-expanded="false" aria-controls="contract-info{{$contract->id}}">
-                                        <i class="fas fa-info-circle fa-fw"></i>
+                                        <i class="fas fa-plus-circle fa-fw"></i>
                                         Detalhes
                                     </button>
 

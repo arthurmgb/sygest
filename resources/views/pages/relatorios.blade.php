@@ -70,4 +70,27 @@
             })
         });
     </script>
+    <script>
+        
+        let btnCaixaHoje = document.querySelector("#js-cx-hj");
+
+        var canGo = true,
+        delay = 500;
+
+        document.addEventListener('keydown', (e) =>{
+            if(e.keyCode == 72){
+                if (canGo) {
+                    canGo = false;
+                    btnCaixaHoje.click();
+                    setTimeout(function () {
+                        canGo = true;
+                    }, delay)
+                }else {
+                    return;
+                }
+                
+            }
+        });
+
+    </script>
 @stop

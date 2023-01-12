@@ -10,7 +10,7 @@
         <div class="add-tasks">
             <div style="margin-bottom: 20px !important; padding: 16px !important; border-bottom-left-radius: 0 !important;" class="card">
                 <div class="d-flex flex-row align-items-center">
-                    <input wire:model.defer="inputTask" wire:keydown.enter="save()" placeholder="Digite sua tarefa..." type="text" class="input-tarefas" autocomplete="off">
+                    <input wire:model.defer="inputTask" wire:keydown.enter="save()" placeholder="Digite sua tarefa..." type="text" class="input-tarefas" autocomplete="off" autofocus>
                     <button wire:loading.class="pe-none" wire:target="save" wire:click.prevent="save()" style="height: 45px;" class="btn btn-new ml-2">
                         <span wire:loading.remove wire:target="save">Adicionar</span>
                         <span wire:loading wire:target="save">

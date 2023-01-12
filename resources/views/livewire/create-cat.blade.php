@@ -79,7 +79,7 @@
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, uma nova categoria de operação será cadastrada no sistema.
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, uma nova categoria de operação será cadastrada na plataforma.
                         </p>
                         <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
                             data-dismiss="modal" class="px-4 verify-font">Verificar dados da categoria</button>

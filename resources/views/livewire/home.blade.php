@@ -48,9 +48,11 @@
                         <span style="font-size: 14px; user-select: none;">Imagem meramente ilustrativa</span>
                         <img style="width: 500px; height: 238px; pointer-events: none; user-drag: none;" class="rounded mx-auto d-block border" src="{{'vendor/adminlte/dist/img/gerenciador-de-senhas.png'}}">
 
-                        <p style="font-size: 18px;" class="m-0 mt-3 px-4">
+                        <p style="font-size: 18px;" class="m-0 mt-3 px-4 mb-4">
                             As informações que você cadastrar estarão sempre <span class="msg-bold">protegidas na Cashiers</span>, no entanto, certifique-se sempre de escolher uma <span class="msg-bold">senha forte para suas contas pessoais</span>. Nossa equipe <span class="msg-bold">nunca solicitará a senha de sua conta na plataforma</span>, guarde-a com segurança para ter acesso a esta ferramenta sempre que precisar consultar uma de suas senhas pessoais!
                         </p>
+
+                        <hr class="my-3">
 
                         <h5 class="modal-confirmation-msg m-0 text-center px-4 mb-3 mt-4">Você no controle de tudo!</h5>
 
@@ -61,9 +63,11 @@
                         <span style="font-size: 14px; user-select: none;">Imagem meramente ilustrativa</span>
                         <img style="width: 431px; height: 304px; pointer-events: none; user-drag: none;" class="rounded mx-auto d-block" src="{{'vendor/adminlte/dist/img/novidade1.png'}}">
 
-                        <p style="font-size: 18px;" class="m-0 mt-3 px-4">
+                        <p style="font-size: 18px;" class="m-0 mt-3 px-4 mb-4">
                             Fique sempre atento às notificações, pois sempre te enviaremos <span class="msg-bold">informações importantes</span> sobre seu plano, mensalidades e comissões. 
                         </p>
+
+                        <hr class="my-3">
 
                         <h5 class="modal-confirmation-msg m-0 text-center px-4 mt-4 mb-3">Confira nosso novo menu!</h5>
 
@@ -72,7 +76,9 @@
                         </p>
 
                         <span style="font-size: 14px; user-select: none;">Imagem meramente ilustrativa</span>
-                        <img style="width: 362px; height: 274px; pointer-events: none; user-drag: none;" class="rounded mx-auto d-block" src="{{'vendor/adminlte/dist/img/novidade2.png'}}">
+                        <img style="width: 362px; height: 274px; pointer-events: none; user-drag: none;" class="rounded mx-auto d-block mb-4" src="{{'vendor/adminlte/dist/img/novidade2.png'}}">
+
+                        <hr class="my-3">
 
                         <h5 class="modal-confirmation-msg m-0 text-center px-4 mt-4 mb-3">Sistema de Comissões!</h5>
 
@@ -81,8 +87,10 @@
                         </p>
 
                         <span style="font-size: 14px; user-select: none;">Imagem meramente ilustrativa</span>
-                        <img style="width: 393px; height: 345px; pointer-events: none; user-drag: none;" class="rounded mx-auto d-block border" src="{{'vendor/adminlte/dist/img/novidade3.png'}}">
+                        <img style="width: 393px; height: 345px; pointer-events: none; user-drag: none;" class="rounded mx-auto d-block border mb-4" src="{{'vendor/adminlte/dist/img/novidade3.png'}}">
                         
+                        <hr class="my-3">
+
                         <p style="font-size: 18px;" class="m-0 mt-4 px-4">
                             Ficou com alguma dúvida ou quer nos dar alguma sugestão de melhoria?<br><span class="msg-bold">Entre em contato</span>!
                         </p>

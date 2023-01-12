@@ -120,7 +120,7 @@
                                     @endif
                                 </div>                                                                         
                             </div>
-                            <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-html="true" data-placement="bottom" title="O operador definido como padrão, ficará pré-selecionado no momento de criar uma nova operação para que você possa agilizar o processo, no entanto, você não poderá alterar o operador durante a criação da operação, caso seja necessário, desabilite o operador padrão para que as opções de escolha sejam liberadas novamente." data-flow="top" class="div-ttp-op-default">
+                            <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-html="true" data-placement="bottom" title="O operador definido como padrão será pré-selecionado quando você criar uma nova operação para agilizar o processo. No entanto, você não poderá alterar o operador durante a criação da operação. Se precisar, desative o operador padrão para ativar novamente as opções de escolha." data-flow="top" class="div-ttp-op-default">
                                 <i class="fad fa-info-circle fa-fw fa-lg fp-info-ico"></i>
                             </div>
                         </div>
@@ -423,7 +423,7 @@
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
                             Ao clicar em <span class="msg-bold">Confirmar</span>, o nome do operador de caixa será
-                            editado no sistema.
+                            editado na plataforma.
                         </p>
                     </div>
 
