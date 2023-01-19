@@ -1869,3 +1869,11 @@ color: #fff;
     padding: 9px 25px;
     border: 1px solid transparent;
 }
+/* ANIMAÇÃO DOS SELECTS */
+select.fadeIn{
+    animation: fadeInDown 0.2s;
+}
+select.fadeOut{
+    animation: fadeInUp 0.2s;
+}
+/* ANIMAÇÃO DOS SELECTS */

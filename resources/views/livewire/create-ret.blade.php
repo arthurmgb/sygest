@@ -37,7 +37,7 @@
                             <a style="padding: 3px 14px;" href="{{ route('configuracoes') }}" target="_blank" class="btn btn-new my-1 float-right">+ Novo</a>
 
                                 <select style="font-size: 17px;" wire:model.defer="state.operador" class="form-control modal-input-cat yampay-scroll"
-                                    id="operador-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' @if($is_operator_default == 'disabled') disabled @endif>
+                                    id="operador-op" onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();" @if($is_operator_default == 'disabled') disabled @endif>
                                     <option value="">Selecione um operador</option>
 
                                     @foreach ($operadores as $operador)
@@ -54,7 +54,7 @@
                         <div class="form-group">
                             <label class="modal-label" for="especie-op">Espécie  <span class="red">*</span></label>
                                 <select style="font-size: 17px;" wire:model="state.especie" class="form-control modal-input-cat yampay-scroll"
-                                    id="especie-op" onfocus='this.size=6;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    id="especie-op" onfocus="this.size=6; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
                                     <option value="">Selecione o tipo de espécie</option>
                                     <option value="1">💵 Dinheiro</option>
                                     <option value="2">💲 Cheque</option>
@@ -71,7 +71,7 @@
                                 <label class="modal-label" for="fp-op">Forma de pagamento  <span style="font-size: 12px;">(opcional)</span></label>
                                 <a style="padding: 3px 14px;" href="{{ route('formas-pagamento') }}" target="_blank" class="btn btn-new my-1 float-right">+ Nova FP</a>
                                     <select style="font-size: 17px;" wire:model.defer="state.fp" class="form-control modal-input-cat yampay-scroll"
-                                    id="fp-op" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    id="fp-op" onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
                                     <option value="">Não especificada</option>
                                         @foreach ($formas_de_pag as $single_form_pag)
                                             <option value="{{$single_form_pag->id}}">{{$single_form_pag->descricao}}</option>

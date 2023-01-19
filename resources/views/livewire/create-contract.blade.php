@@ -54,7 +54,7 @@
                             <div class="form-group mb-0">
                                 <label class="modal-label" for="comissionado">Comissionado <span style="font-size: 12px; color: #555;">(opcional)</span></label>
                                 <div class="div-select-comissionado">
-                                    <select wire:model.defer="state.comissionado" style="font-size: 16px;" id="comissionado" class="form-control modal-input-cat yampay-scroll" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' @if($disable_inputs == 'selected') disabled @endif>
+                                    <select wire:model.defer="state.comissionado" style="font-size: 16px;" id="comissionado" class="form-control modal-input-cat yampay-scroll" onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();" @if($disable_inputs == 'selected') disabled @endif>
                                         <option value="no-comissionado">Selecione um comissionado (Nenhum)</option>
                                         @foreach ($comissionados as $comissionado)
                                         <option value="{{$comissionado->id}}">{{$comissionado->name}}</option>

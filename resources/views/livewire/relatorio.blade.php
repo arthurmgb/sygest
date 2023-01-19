@@ -42,7 +42,7 @@
 
                     <div class="d-flex flex-row align-items-center my-2 flex-fill">
                         <span class="span-relatorio">Categoria</span>
-                        <select wire:model="categoria" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                        <select wire:model="categoria" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
                             <option value="">Todas</option>
                             @foreach ($categories as $categorie)
                                 <option value="{{$categorie->id}}">{{$categorie->descricao}}</option>
@@ -52,7 +52,7 @@
     
                     <div class="d-flex flex-row align-items-center my-2 flex-fill">
                         <span class="span-relatorio">Formas de pagamento</span>
-                        <select wire:model="forma_pag" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                        <select wire:model="forma_pag" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
                             <option value="">Todas</option>
                             @foreach ($methods as $method)
                                 <option value="{{$method->id}}">{{$method->descricao}}</option>
@@ -67,7 +67,7 @@
                     <div class="d-flex flex-row align-items-center my-2 flex-fill">
                         <span class="span-relatorio">Operador</span>
                         @if($operators_filter->count())
-                            <select wire:model="operador_filter" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                            <select wire:model="operador_filter" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
                                 <option value="">Todos</option>
                                 @foreach ($operators_filter as $single_operator)
                                     <option value="{{$single_operator->id}}">{{$single_operator->nome}}</option>
@@ -83,7 +83,7 @@
                         <span class="span-relatorio">Quem está imprimindo?</span>
 
                         @if($operators_filter->count())
-                            <select wire:model="operador" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px; @if (isset($operations) and $operations->count()) @else cursor: not-allowed !important; @endif" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();' @if (!isset($operations)) disabled @endif @if(isset($operations) and $operations->count()) @else disabled @endif>
+                            <select wire:model="operador" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px; @if (isset($operations) and $operations->count()) @else cursor: not-allowed !important; @endif" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();" @if (!isset($operations)) disabled @endif @if(isset($operations) and $operations->count()) @else disabled @endif>
                                 <option value="select-op">Selecione um operador</option>
                                 @if(isset($operations) and $operations->count())
                                     @foreach ($operators as $operator)
