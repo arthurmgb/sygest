@@ -19,11 +19,19 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
         <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
 
+        <?php
+        
+            $maintence_cache = App\Models\Maintence::find(1);
+
+            $css_version = $maintence_cache->css_cache;
+ 
+        ?>
+
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/app.css') . '?ver=' . $css_version }}">
+        <link rel="stylesheet" href="{{ asset('css/auth.css?ver=') . $css_version }}">
         <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
-        <link rel="stylesheet" href="{{asset('vendor/adminlte/dist/css/tooltip.css')}}">
+        <link rel="stylesheet" href="{{asset('vendor/adminlte/dist/css/tooltip.css?ver=') . $css_version }}">
         <style>
             /* TOGGLE PASS VISIBILITY */
 

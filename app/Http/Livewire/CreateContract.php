@@ -36,7 +36,7 @@ class CreateContract extends Component
 
     public function mount(){
         $this->state['comissionado'] = 'no-comissionado';
-        $this->state['valor'] = '150,00';
+        // $this->state['valor'] = '150,00';
         $this->is_test = false;
     }
 
@@ -46,7 +46,7 @@ class CreateContract extends Component
 
             $this->reset('is_test', 'state', 'disable_inputs');
             $this->state['comissionado'] = 'no-comissionado';
-            $this->state['valor'] = '150,00';
+            // $this->state['valor'] = '150,00';
         }
         else{
 
@@ -81,7 +81,7 @@ class CreateContract extends Component
         $this->dispatchBrowserEvent('close-modal-contract');
         $this->reset('state', 'is_test', 'disable_inputs');
         $this->state['comissionado'] = 'no-comissionado';
-        $this->state['valor'] = '150,00';
+        // $this->state['valor'] = '150,00';
 
     }
 
@@ -90,7 +90,7 @@ class CreateContract extends Component
         $this->dispatchBrowserEvent('close-confirm-modal-contract');
         $this->reset('state', 'is_test', 'disable_inputs');
         $this->state['comissionado'] = 'no-comissionado';
-        $this->state['valor'] = '150,00';
+        // $this->state['valor'] = '150,00';
 
     }
 
@@ -201,7 +201,7 @@ class CreateContract extends Component
         $this->dispatchBrowserEvent('close-confirm-modal-contract');
         $this->reset('state', 'is_test', 'disable_inputs');
         $this->state['comissionado'] = 'no-comissionado';
-        $this->state['valor'] = '150,00';
+        // $this->state['valor'] = '150,00';
         $this->dispatchBrowserEvent('fechar-modal-contract');   
         $this->emit('alert', 'Plano cadastrado com sucesso!');
         $this->emitTo('admin', 'render');

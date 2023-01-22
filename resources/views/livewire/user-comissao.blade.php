@@ -149,10 +149,15 @@
                                                 <button class="btn btn-success btn-sm mr-1" disabled>
                                                     <i class="far fa-money-bill-alt fa-fw mr-2"></i>Pago
                                                 </button>
-
-                                                <button wire:click.prevent="openReceipt({{$row_comissao->id}})" wire:target="openReceipt({{$row_comissao->id}})" wire:loading.attr="disabled" data-toggle="modal" data-target="#get-recibo" type="button" class="btn btn-outline-primary btn-sm">
-                                                    <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
-                                                </button>
+                                                @if ($row_comissao->valor == 15.00)
+                                                    <button wire:click.prevent="openReceipt({{$row_comissao->id}})" wire:target="openReceipt({{$row_comissao->id}})" wire:loading.attr="disabled" data-toggle="modal" data-target="#get-recibo" type="button" class="btn btn-outline-primary btn-sm">
+                                                        <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
+                                                    </button>
+                                                @else
+                                                    <button wire:ignore data-toggle="tooltip" data-placement="top" title="Recibo indisponível para comissões recebidas de planos com valor promocional." style="opacity: .65; cursor: not-allowed;" type="button" class="btn btn-primary btn-sm">
+                                                        <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
+                                                    </button>
+                                                @endif      
 
                                             </div>                                                   
                                         </td>                                              

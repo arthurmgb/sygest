@@ -69,8 +69,13 @@
         <!-- CPF/CNPJ -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="documento" value="{{ __('CPF/CNPJ') }}" />
-            <x-jet-input placeholder="" id="documento" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.documento" autocomplete="off" />
+            <x-jet-input placeholder="" id="documento" type="text" class="mt-1 block w-full primezze-input user-disabled-input" wire:model.defer="state.documento" autocomplete="off" disabled />
             <x-jet-input-error for="documento" class="mt-2" />
+            <div class="user-doc-error mt-2">
+                <span>Seu documento está incorreto? 
+                    <a class="user-doc-error-support" href="https://api.whatsapp.com/send?phone=5534998395367&amp;text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!" target="_blank">Entre em contato com o suporte</a>
+                </span>
+            </div>
         </div>
 
         <div class="col-span-6 sm:col-span-4">
@@ -89,7 +94,7 @@
         <!-- Estado -->
         <div class="col-span-2">
             <x-jet-label class="primezze-label" for="estado" value="{{ __('Estado') }}" />
-            <select id="estado" class="mt-1 block modal-input-cat yampay-scroll" wire:model.defer="state.estado" autocomplete="off">
+            <select id="estado" class="mt-1 block modal-input-cat yampay-scroll" wire:model.defer="state.estado" autocomplete="off" size="1">
                 <option value="">Selecione</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>

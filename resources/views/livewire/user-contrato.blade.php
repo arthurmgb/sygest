@@ -267,12 +267,19 @@
 
                                                                     <button class="btn btn-success btn-sm mr-1" disabled>
                                                                         <i class="far fa-money-bill-alt fa-fw mr-2"></i>Pago
-                                                                    </button> 
-
-                                                                    <button wire:click.prevent="openReceipt({{$mensalidade->id}})" wire:target="openReceipt({{$mensalidade->id}})" wire:loading.attr="disabled" data-toggle="modal" data-target="#get-recibo" type="button" class="btn btn-outline-primary btn-sm">
-                                                                        <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
                                                                     </button>
-
+                                                                    @if ($contract->valor == 150.00)
+                                                                                                                                     
+                                                                        <button wire:click.prevent="openReceipt({{$mensalidade->id}})" wire:target="openReceipt({{$mensalidade->id}})" wire:loading.attr="disabled" data-toggle="modal" data-target="#get-recibo" type="button" class="btn btn-outline-primary btn-sm">
+                                                                            <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
+                                                                        </button>
+                                                                    @else
+                                                                       
+                                                                        <button wire:ignore style="opacity: .65; cursor: not-allowed;" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Recibo indisponível para planos com valor promocional.">
+                                                                            <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
+                                                                        </button>
+                                                                                                                         
+                                                                    @endif
                                                                 </div>                                                   
                                                             </td>
                                                         @elseif($contract->is_test == 1)
@@ -616,9 +623,15 @@
                                                     <i class="far fa-money-bill-alt fa-fw mr-2"></i>Pago
                                                 </button> 
 
-                                                <button wire:click.prevent="openReceipt({{$row_mensalidade->id}})" wire:target="openReceipt({{$row_mensalidade->id}})" wire:loading.attr="disabled" data-toggle="modal" data-target="#get-recibo" type="button" class="btn btn-outline-primary btn-sm">
-                                                    <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
-                                                </button>
+                                                @if ($row_mensalidade->contract->valor == 150.00)
+                                                    <button wire:click.prevent="openReceipt({{$row_mensalidade->id}})" wire:target="openReceipt({{$row_mensalidade->id}})" wire:loading.attr="disabled" data-toggle="modal" data-target="#get-recibo" type="button" class="btn btn-outline-primary btn-sm">
+                                                        <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
+                                                    </button>
+                                                @else
+                                                    <button wire:ignore style="opacity: .65; cursor: not-allowed;" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Recibo indisponível para planos com valor promocional.">
+                                                        <i class="far fa-file-invoice-dollar fa-fw mr-1"></i>Recibo
+                                                    </button>
+                                                @endif
 
                                             </div>                                                   
                                         </td>
@@ -864,9 +877,9 @@
 
                     <div class="confirmation-msg text-center">
 
-                        <img style="width: 402px; height: 375px; pointer-events: none; user-drag: none;" class="rounded mx-auto d-block" src="{{'vendor/adminlte/dist/img/pix-150.png'}}">
+                        <img style="width: 401px; height: 483px; pointer-events: none; user-drag: none; user-select: none;" class="rounded mx-auto d-block border" src="{{'vendor/adminlte/dist/img/qr-code-picpay.jpeg'}}">
 
-                        <button onclick="changePix()" id="btn-pix" data-clipboard-text="00020126330014BR.GOV.BCB.PIX0111155332526575204000053039865406150.005802BR5924Arthur de Oliveira Silva6009SAO PAULO61080540900062070503***63049304" style="font-size: 18px;" class="copy-pix-150 my-3 btn btn-new">Copiar código do QR Code <i class="fa-fw fas fa-clone ml-1"></i></button>
+                        <button onclick="changePix()" id="btn-pix" data-clipboard-text="00020126330014br.gov.bcb.pix0111155332526575204000053039865802BR5924ARTHUR DE OLIVEIRA SILVA6009Sao Paulo62070503***63047099" style="font-size: 18px;" class="copy-pix-150 my-3 btn btn-new">Copiar código do QR Code <i class="fa-fw fas fa-clone ml-1"></i></button>
 
                         <ul class="list-group">
                             <li class="list-group-item list-pix">

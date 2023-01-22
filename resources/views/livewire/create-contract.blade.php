@@ -37,7 +37,7 @@
                                         <span class="input-group-text">R$</span>
                                     </div>
                                     <input wire:model.defer="state.valor" placeholder="0,00" type="text"
-                                        class="form-control modal-input total-operation" id="valor-contract" autocomplete="off" disabled>
+                                        class="form-control modal-input total-operation" id="valor-contract" autocomplete="off" @if($disable_inputs == 'selected') disabled @endif>
                                 </div>
                                 @error('state.valor')
                                     <span class="wire-error">{{ $message }}</span>

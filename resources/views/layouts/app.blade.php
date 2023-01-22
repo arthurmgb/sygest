@@ -19,10 +19,18 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
         <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+        <?php
+        
+        $maintence_cache = App\Models\Maintence::find(1);
 
+        $css_version = $maintence_cache->css_cache;
+
+        ?>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="{{ mix('css/app.css') . '?ver=' . $css_version }}">
+        <link rel="stylesheet" href="{{ asset('css/auth.css?ver=') . $css_version }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
         @livewireStyles
 
         <!-- Scripts -->
@@ -75,6 +83,26 @@
             };
 
             $('#celular').mask(behavior, options);
+        </script>
+        <script>
+            let estado_select = document.querySelector('#estado');
+
+            estado_select.addEventListener('focus', () => {
+            estado_select.size = 4; 
+            estado_select.classList.add('fadeIn'); 
+            estado_select.classList.remove('fadeOut');
+            });
+
+            estado_select.addEventListener('blur', () => {
+            estado_select.size = 1; 
+            estado_select.classList.add('fadeOut');
+            estado_select.classList.remove('fadeIn'); 
+            });
+
+            estado_select.addEventListener('change', () => {
+            estado_select.size = 1; 
+            estado_select.blur();
+            });
         </script>
     </body>
 </html>

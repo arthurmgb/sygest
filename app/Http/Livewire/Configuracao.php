@@ -17,6 +17,7 @@ class Configuracao extends Component
     protected $listeners = ['render'];
     public $modal_start;
     public $table_scroll;
+    public $sort_operator_status;
 
     public $rules = [
 
@@ -33,6 +34,7 @@ class Configuracao extends Component
     public function mount(){
         $this->modal_start = auth()->user()->modal_start;
         $this->table_scroll = auth()->user()->table_scroll;
+        $this->sort_operator_status = 0;
     }
 
     public function confirmation()
@@ -184,21 +186,41 @@ class Configuracao extends Component
         $this->table_scroll = $get_table_scroll->table_scroll;
 
     }
+
+    public function toggleOperatorTableStatus(){
+
+        if($this->sort_operator_status == 0){
+            $this->sort_operator_status = 1;
+        }elseif($this->sort_operator_status == 1){
+            $this->sort_operator_status = 0;
+        }
+
+    }
     
     public function render()
     {
 
         $operators = Operator::where('user_id', auth()->user()->id)
-            ->latest('id')
+            ->where('status', $this->sort_operator_status)
+            ->orderBy('nome')
             ->paginate($this->qtd);
 
-        $operators_count = $operators->count();
+        $operators_count = Operator::where('user_id', auth()->user()->id)
+        ->count();
+
+        $operators_active_count = Operator::where('user_id', auth()->user()->id)
+        ->where('status', 0)
+        ->count();
+
+        $operators_inactive_count = Operator::where('user_id', auth()->user()->id)
+        ->where('status', 1)
+        ->count();
 
         $default_operator_name = Operator::where('user_id', auth()->user()->id)
         ->where('is_default', 1)
         ->first();
 
-        return view('livewire.configuracao', compact('operators', 'operators_count', 'default_operator_name'))
+        return view('livewire.configuracao', compact('operators', 'operators_count', 'default_operator_name', 'operators_active_count', 'operators_inactive_count'))
         ->layout('pages.configuracoes');
     }
 }

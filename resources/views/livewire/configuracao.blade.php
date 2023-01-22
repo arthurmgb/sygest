@@ -100,14 +100,14 @@
                                 <span class="period">/ Quantidade: {{$operators_count}}</span>
                             </div>                                               
                         </div>
-                        @if($operators->count())
+                        @if($operators_count > 0)
                             <div class="new-operator ml-auto">
                                 <a data-toggle="modal" data-target="#operacao" class="btn btn-new">+ Novo operador</a>
                             </div> 
                         @endif
                     </div>
 
-                    @if($operators->count())
+                    @if($operators_count > 0)
                         <div class="topo-ico d-flex flex-row align-items-center mb-1">
                             <i style="color: #db2777;" class="fad fa-user-crown fa-fw fa-lg mr-2"></i>                                                                    
                             <div class="card-topo">
@@ -124,14 +124,25 @@
                                 <i class="fad fa-info-circle fa-fw fa-lg fp-info-ico"></i>
                             </div>
                         </div>
+                        <div class="d-flex flex-row align-items-center justify-content-start pt-3">
+                            
+                            <button wire:key="op_toggler_active" wire:click.prevent="toggleOperatorTableStatus()" wire:loading.attr="disabled" class="btn btn-sm mr-0 @if($sort_operator_status == 0) btn-success @else btn-outline-success  @endif" style="border-bottom-right-radius: 0; border-top-right-radius: 0; @if($sort_operator_status == 0) pointer-events: none; @endif">
+                                Ativos ({{$operators_active_count}})
+                            </button>
+
+                            <button wire:key="op_toggler_inactive" wire:click.prevent="toggleOperatorTableStatus()" wire:loading.attr="disabled" class="btn btn-sm mr-2 @if($sort_operator_status == 1) btn-danger @else btn-outline-danger  @endif" style="border-bottom-left-radius: 0; border-top-left-radius: 0; @if($sort_operator_status == 1) pointer-events: none; @endif">
+                                Inativos ({{$operators_inactive_count}})
+                            </button>
+                            
+                        </div>
                     @endif
                 
-                    <div wire:target="qtd" style="margin-top: 125px; margin-bottom: 125px;"
+                    <div wire:target="qtd, toggleOperatorTableStatus" style="margin-top: 125px; margin-bottom: 125px;"
                         wire:loading wire:loading.class="d-flex flex-row align-items-center justify-content-center">
                         <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
                     </div>
 
-                    <div wire:target="qtd" wire:loading.remove class="card-body px-0 pb-0">
+                    <div wire:target="qtd, toggleOperatorTableStatus" wire:loading.remove class="card-body px-0 pb-0 pt-3">
 
                         @if($operators->count())
                             <table style="cursor: default;" class="table table-borderless">
