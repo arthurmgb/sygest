@@ -194,7 +194,7 @@ body{
 .content-inicial{
     max-width: 850px !important;
     margin: auto !important;
-    padding-top: 127px !important;
+    padding: 127px 30px 0px 30px !important;
 }
 .default-link{
     color: #7559da !important;

@@ -48,10 +48,10 @@ class UserContrato extends Component
             $payment_data = Payment::where('id', $this->recibo)->pluck('pagamento')->toArray();
             $get_payment_dia = date('d', strtotime($payment_data['0']));
             $get_payment_mes = $payment_data['0'];
-            $get_payment_mes = strftime('%B', strtotime($get_payment_mes));
+            $get_payment_mes = mb_convert_encoding(strftime('%B', strtotime($get_payment_mes)), 'UTF-8', 'ASCII');
             $get_payment_ano = date('Y', strtotime($payment_data['0']));
 
-            $this->data_info = [$get_payment_dia, $get_payment_mes, $get_payment_ano];  
+            $this->data_info = [$get_payment_dia, $get_payment_mes, $get_payment_ano];
 
         }else{
             $this->emit('error-operator', 'O pagamento foi estornado e este recibo foi excluído.');

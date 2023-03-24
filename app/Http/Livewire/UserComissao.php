@@ -53,7 +53,7 @@ class UserComissao extends Component
         $comission_data = Comission::where('id', $this->recibo)->pluck('pagamento')->toArray();
         $get_comission_dia = date('d', strtotime($comission_data['0']));
         $get_comission_mes = $comission_data['0'];
-        $get_comission_mes = strftime('%B', strtotime($get_comission_mes));
+        $get_comission_mes = mb_convert_encoding(strftime('%B', strtotime($get_comission_mes)), 'UTF-8', 'ASCII');
         $get_comission_ano = date('Y', strtotime($comission_data['0']));
 
         $this->data_info = [$get_comission_dia, $get_comission_mes, $get_comission_ano];
