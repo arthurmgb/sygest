@@ -273,14 +273,14 @@ return [
             'icon' => 'far mr-3 fa-tasks fa-lg fa-fw',
         ],
         [
-            'text' => 'Minhas senhas',
-            'route'  => 'gerenciador-de-senhas',
-            'icon' => 'far mr-3 fa-lock-alt fa-lg fa-fw',
-        ],
-        [
             'text' => 'Meus links',
             'route'  => 'links',
             'icon' => 'far mr-3 fa-link fa-lg fa-fw',
+        ],
+        [
+            'text' => 'Minhas senhas',
+            'route'  => 'gerenciador-de-senhas',
+            'icon' => 'far mr-3 fa-lock-alt fa-lg fa-fw',
         ],
         [
             'text' => 'Ferramentas',
