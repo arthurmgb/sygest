@@ -100,7 +100,7 @@
                         </span> 
                     @else  
                     
-                    <textarea style="resize: vertical; height: 100%;" class="input-task-edit ml-3 yampay-scroll" wire:model.defer="tasks.{{$index}}.descricao" rows="4" autocomplete="off"></textarea>
+                    <textarea onclick="this.style.height=this.scrollHeight+'px'" class="input-task-edit ml-3 yampay-scroll" wire:model.defer="tasks.{{$index}}.descricao" autocomplete="off"></textarea>
 
                     <button wire:loading.class="pe-none" wire:target="updateTask" style="height: 35px;" wire:click.prevent="updateTask({{$index}})" class="btn btn-new ml-2 mr-1">
                         <span wire:loading.remove wire:target="updateTask">

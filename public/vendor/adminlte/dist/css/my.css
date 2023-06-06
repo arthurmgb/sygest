@@ -1278,9 +1278,11 @@ color: #fff;
     border: 1px solid #b3b3b3;
     transition: .2s;
     border-radius: 4px;
-    height: 35px;
     outline: none;
     color: #666;
+    resize: vertical;
+    height: auto;
+    min-height: 100px;
 }
 .input-task-edit:focus{
     border-color: #725bc2 !important;
