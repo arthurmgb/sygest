@@ -110,7 +110,7 @@
             </button>
     
             @if(isset($operations) and $operations->count())
-                <button wire:click.prevent="printPage()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn-new btn-cx-hoje mr-3 text-nowrap">
+                <button wire:click.prevent="printPage()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn-new btn-cx-hoje mr-3 text-nowrap" id="print-rel-button">
                     <span class="fad fa-print fa-fw fa-lg mr-1"></span>
                     Imprimir
                 </button>

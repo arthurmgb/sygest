@@ -93,4 +93,15 @@
         });
 
     </script>
+    <script>
+        document.oncontextmenu = new Function("return false;");
+
+        document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.key === 'p') {
+            event.preventDefault(); 
+            document.querySelector('#print-rel-button').click();
+        }
+    });
+    </script>
+    
 @stop
