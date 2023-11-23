@@ -177,6 +177,13 @@
 
             /* Edit e Delete */
 
+            /* Edit e Delete PRODUTOS*/
+
+            
+
+            /* Edit e Delete PRODUTOS*/
+
+
             /* Rendimento */
             window.addEventListener('close-rendimento', event =>{
                 $('#rendimento').modal('hide');

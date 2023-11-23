@@ -258,6 +258,11 @@ return [
             'icon' => 'far mr-3 fa-file-alt fa-lg fa-fw',
         ],
         [
+            'text' => 'Produtos',
+            'route'  => 'produtos',
+            'icon' => 'far mr-3 fa-shopping-cart fa-lg fa-fw',
+        ],
+        [
             'text' => 'Categorias',
             'route'  => 'categorias',
             'icon' => 'fab mr-3 fa-buffer fa-lg fa-fw',

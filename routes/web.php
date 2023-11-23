@@ -8,6 +8,7 @@ use App\Http\Livewire\FluxoCaixa;
 use App\Http\Livewire\FormaPagamento;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Notificacao;
+use App\Http\Livewire\Produto;
 use App\Http\Livewire\Relatorio;
 use App\Http\Livewire\Retirada;
 use App\Http\Livewire\Senha;
@@ -36,6 +37,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/notificacoes', Notificacao::class)->name('notificacoes');
     Route::get('/formas-pagamento', FormaPagamento::class)->name('formas-pagamento');
     Route::get('/gerenciador-de-senhas', Senha::class)->name('gerenciador-de-senhas');
+    Route::get('/produtos', Produto::class)->name('produtos');
     
 });
 

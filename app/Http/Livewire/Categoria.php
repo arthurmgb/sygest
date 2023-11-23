@@ -54,7 +54,7 @@ class Categoria extends Component
 
     public function edit(Category $categoria)
     {
-        if($categoria->user_id != auth()->user()->id){
+        if ($categoria->user_id != auth()->user()->id) {
             return redirect('404');
         }
 
@@ -72,7 +72,7 @@ class Categoria extends Component
 
     public function prepare(Category $categoria)
     {
-        if($categoria->user_id != auth()->user()->id){
+        if ($categoria->user_id != auth()->user()->id) {
             return redirect('404');
         }
 
@@ -81,7 +81,7 @@ class Categoria extends Component
     }
 
     public function delete()
-    {       
+    {
         $this->categoria->save();
         $this->dispatchBrowserEvent('close-delete-cat-confirmation-modal');
         $this->emit('alert', 'Categoria apagada com sucesso!');
@@ -97,12 +97,12 @@ class Categoria extends Component
 
         $categorias = Category::where('user_id', auth()->user()->id)
             ->where('descricao', 'like', '%' . $this->search . '%')
-            ->whereIn('status', [0,1])
+            ->whereIn('status', [0, 1])
             ->latest('id')
             ->paginate($this->qtd);
 
         $categorias_count = Category::where('user_id', auth()->user()->id)
-            ->whereIn('status', [0,1])
+            ->whereIn('status', [0, 1])
             ->count();
 
         return view('livewire.categoria', compact('categorias', 'categorias_count'))

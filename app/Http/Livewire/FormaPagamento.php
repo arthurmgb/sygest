@@ -52,7 +52,7 @@ class FormaPagamento extends Component
 
     public function edit(Method $method)
     {
-        if($method->user_id != auth()->user()->id){
+        if ($method->user_id != auth()->user()->id) {
             return redirect('404');
         }
 
@@ -69,7 +69,7 @@ class FormaPagamento extends Component
 
     public function prepare(Method $method)
     {
-        if($method->user_id != auth()->user()->id){
+        if ($method->user_id != auth()->user()->id) {
             return redirect('404');
         }
 
@@ -78,7 +78,7 @@ class FormaPagamento extends Component
     }
 
     public function delete()
-    {       
+    {
         $this->method->save();
         $this->dispatchBrowserEvent('close-delete-cat-confirmation-modal');
         $this->emit('alert', 'Forma de pagamento apagada com sucesso!');
@@ -93,16 +93,16 @@ class FormaPagamento extends Component
     {
 
         $formas_de_pagamento = Method::where('user_id', auth()->user()->id)
-        ->where('descricao', 'like', '%' . $this->search . '%')
-        ->whereIn('status', [0,1])
-        ->latest('id')
-        ->paginate($this->qtd);
+            ->where('descricao', 'like', '%' . $this->search . '%')
+            ->whereIn('status', [0, 1])
+            ->latest('id')
+            ->paginate($this->qtd);
 
         $formas_de_pagamento_count = Method::where('user_id', auth()->user()->id)
-            ->whereIn('status', [0,1])
+            ->whereIn('status', [0, 1])
             ->count();
 
         return view('livewire.forma-pagamento', compact('formas_de_pagamento', 'formas_de_pagamento_count'))
-        ->layout('pages.formas-pagamento');
+            ->layout('pages.formas-pagamento');
     }
 }
