@@ -16,12 +16,10 @@ class Produto extends Component
     public $qtd = 10;
     protected $listeners = ['render'];
 
-    // public $rules = [
-
-    //     'categoria.tipo' => 'required',
-    //     'categoria.status' => 'required',
-    //     'categoria.descricao' => 'required|max:100',
-    // ];
+    public $rules = [
+        'produto.status' => 'required',
+        'produto.descricao' => 'required|max:100',
+    ];
 
     // protected $messages = [
 
@@ -52,22 +50,22 @@ class Produto extends Component
     //     $this->dispatchBrowserEvent('show-edit-modal');
     // }
 
-    // public function edit(Product $produto)
+    // public function edit(Category $categoria)
     // {
-    //     if ($produto->user_id != auth()->user()->id) {
+    //     if ($categoria->user_id != auth()->user()->id) {
     //         return redirect('404');
     //     }
 
 
-    //     $this->produto = $produto;
+    //     $this->categoria = $categoria;
     // }
 
     // public function update()
     // {
 
-    //     $this->produto->save();
+    //     $this->categoria->save();
     //     $this->dispatchBrowserEvent('close-edit-confirmation-modal');
-    //     $this->emit('alert', 'Produto editado com sucesso!');
+    //     $this->emit('alert', 'Categoria editada com sucesso!');
     // }
 
     public function prepare(Product $produto)
@@ -77,15 +75,14 @@ class Produto extends Component
         }
 
         $this->produto = $produto;
-        $this->produto['status'] = 3;
+        $this->produto['status'] = 0;
     }
 
     public function delete()
     {
-        dd($this->produto['status']);
         $this->produto->save();
-        // $this->dispatchBrowserEvent('close-delete-cat-confirmation-modal');
-        // $this->emit('alert', 'Produto apagado com sucesso!');
+        $this->dispatchBrowserEvent('close-delete-item-conf');
+        $this->emit('alert', 'Produto apagado com sucesso!');
     }
 
     public function updatingSearch()
@@ -95,7 +92,6 @@ class Produto extends Component
 
     public function render()
     {
-
 
         $produtos = Product::where('user_id', auth()->user()->id)
             ->where('descricao', 'like', '%' . $this->search . '%')

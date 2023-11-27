@@ -177,11 +177,13 @@
 
             /* Edit e Delete */
 
-            /* Edit e Delete PRODUTOS*/
+            /* Edit e Delete ITENS*/
 
-            
+            window.addEventListener('close-delete-item-conf', event =>{
+                $('#delete-this-confirmation').modal('hide');
+            })
 
-            /* Edit e Delete PRODUTOS*/
+            /* Edit e Delete ITENS*/
 
 
             /* Rendimento */
