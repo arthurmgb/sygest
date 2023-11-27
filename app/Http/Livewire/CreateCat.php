@@ -14,58 +14,59 @@ class CreateCat extends Component
 
         'state.tipo' => 'required',
         'state.status' => 'required',
-        'state.descricao' => 'required|max:100',    
+        'state.descricao' => 'required|max:100',
     ];
 
     protected $messages = [
-        
+
         'state.tipo.required' => 'O tipo de categoria é obrigatório.',
         'state.status.required' => 'O status da categoria é obrigatório.',
         'state.descricao.required' => 'A descrição da categoria é obrigatória.',
-        
+
     ];
 
-    public function mount(){
+    public function mount()
+    {
 
         $this->state['tipo'] = '1';
         $this->state['status'] = '1';
-
     }
 
-    public function confirmation(){
+    public function confirmation()
+    {
 
         $this->validate();
         $this->dispatchBrowserEvent('close-modal');
         $this->dispatchBrowserEvent('confirmation-modal');
-
     }
 
-    public function resetNewOperation(){
+    public function resetNewOperation()
+    {
 
         $this->dispatchBrowserEvent('close-modal');
         $this->reset('state');
         $this->state['tipo'] = '1';
         $this->state['status'] = '1';
-
     }
 
-    public function resetOperation(){
+    public function resetOperation()
+    {
 
         $this->dispatchBrowserEvent('close-confirm-modal');
         $this->reset('state');
         $this->state['tipo'] = '1';
         $this->state['status'] = '1';
-
     }
 
-    public function alternate(){
+    public function alternate()
+    {
 
         $this->dispatchBrowserEvent('close-confirm-modal');
         $this->dispatchBrowserEvent('show-modal');
-
     }
 
-    public function save(){
+    public function save()
+    {
 
         Category::create([
 
@@ -80,7 +81,7 @@ class CreateCat extends Component
         $this->reset('state');
         $this->state['tipo'] = '1';
         $this->state['status'] = '1';
-        
+
         $this->emit('alert', 'Categoria cadastrada com sucesso!');
         $this->emitTo('categoria', 'render');
     }

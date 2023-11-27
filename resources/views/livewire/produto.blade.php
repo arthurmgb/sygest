@@ -3,7 +3,7 @@
     <div class="page-header d-flex flex-row align-items-center mb-2">
         <h2 class="f-h2">Produtos</h2>
         <span class="f-span">{{ $prod_count }} produtos cadastrados</span>
-        <a data-toggle="modal" data-target="#operacao" class="btn btn-new ml-auto">+ Novo produto</a>
+        <a data-toggle="modal" data-target="#create-item" class="btn btn-new ml-auto">+ Novo produto</a>
     </div>
 
     <div class="block">
@@ -28,6 +28,8 @@
                         <thead class="t-head">
                             <tr class="t-head-border">                               
                                 <th>Descrição</th>
+                                <th>Preço un.</th>
+                                <th>Qtd. Estoque</th>
                                 <th>Data de cadastro</th>
                                 <th width="200px">Ações</th>
                             </tr>
@@ -42,7 +44,7 @@
 
                                 @php
                                     
-                                    // $total_operacao = number_format($categoria->total, 2, ',', '.');
+                                    $preco = number_format($produto->preco, 2, ',', '.');
                                     $data_operacao = $produto->created_at->format('d/m/Y H:i');
                                     
                                     $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
@@ -92,6 +94,8 @@
                                         <br>
                                         {{ $produto->descricao }}
                                     </td>
+                                    <td style="white-space: nowrap; font-weight: 500;" class="align-middle">R$ {{ $preco }}</td>
+                                    <td style="white-space: nowrap;" class="align-middle">{{ $produto->estoque }}</td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
 

@@ -10,7 +10,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('vendor/adminlte/dist/favicon/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('vendor/adminlte/dist/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="{{ asset('vendor/adminlte/dist/favicon/favicon-32x32.png') }}">
     <link rel="manifest" href="{{ asset('vendor/adminlte/dist/favicon/site.webmanifest') }}">
     <link rel="mask-icon" href="{{ asset('vendor/adminlte/dist/favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
@@ -30,7 +31,7 @@
     @yield('adminlte_css_pre')
 
     {{-- Base Stylesheets --}}
-    @if(!config('adminlte.enabled_laravel_mix'))
+    @if (!config('adminlte.enabled_laravel_mix'))
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 
@@ -39,26 +40,27 @@
 
         <?php
         
-            $maintence_cache = App\Models\Maintence::find(1);
-
-            $css_version = $maintence_cache->css_cache;
- 
+        $maintence_cache = App\Models\Maintence::find(1);
+        
+        $css_version = $maintence_cache->css_cache;
+        
         ?>
 
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/my.css?ver=') . $css_version }}">
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/tooltip.css?ver=') . $css_version }}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
 
     {{-- Livewire Styles --}}
-    @if(config('adminlte.livewire'))
-        @if(app()->version() >= 7)
+    @if (config('adminlte.livewire'))
+        @if (app()->version() >= 7)
             @livewireStyles
         @else
             <livewire:styles />
@@ -69,7 +71,7 @@
     @yield('adminlte_css')
 
     {{-- Favicon --}}
-    @if(config('adminlte.use_ico_only'))
+    @if (config('adminlte.use_ico_only'))
         <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
     @elseif(config('adminlte.use_full_favicon'))
         <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
@@ -85,7 +87,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicons/favicon-16x16.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicons/favicon-96x96.png') }}">
-        <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('favicons/android-icon-192x192.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicons/android-icon-192x192.png') }}">
         <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
@@ -99,7 +101,7 @@
     @yield('body')
 
     {{-- Base Scripts --}}
-    @if(!config('adminlte.enabled_laravel_mix'))
+    @if (!config('adminlte.enabled_laravel_mix'))
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
@@ -111,7 +113,6 @@
         <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
         <script src="{{ asset('vendor/adminlte/dist/js/clipboard.min.js') }}"></script>
         <script>
-
             // Add slideDown animation to Bootstrap dropdown when expanding.
             $('.dropdown').on('show.bs.dropdown', function() {
                 $(this).find('.dropdown-menu').first().stop(true, true).slideDown(150);
@@ -122,33 +123,39 @@
                 $(this).find('.dropdown-menu').first().stop(true, true).slideUp(100);
             });
 
-            $('#total-op').mask('#.##0,00', {reverse: true});
-            $('#total-op2').mask('####0.00', {reverse: true});
-            $('#valor-contract').mask('####0,00', {reverse: true});
+            $('#total-op').mask('#.##0,00', {
+                reverse: true
+            });
+            $('#total-op2').mask('####0.00', {
+                reverse: true
+            });
+            $('#valor-contract').mask('####0,00', {
+                reverse: true
+            });
+            $('#qtd-item').mask('00000');
 
-            $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
+
+            $(function() {
+                $('[data-toggle="tooltip"]').tooltip()
             });
 
-            $(document).on('click', '.dropdown-menu', function (e) {
-            e.stopPropagation();
+            $(document).on('click', '.dropdown-menu', function(e) {
+                e.stopPropagation();
             });
-            
         </script>
         <script>
-
             /* Operações */
 
-            window.addEventListener('show-modal', event =>{
+            window.addEventListener('show-modal', event => {
                 $('#operacao').modal('show');
             })
-            window.addEventListener('close-modal', event =>{
+            window.addEventListener('close-modal', event => {
                 $('#operacao').modal('hide');
             })
-            window.addEventListener('close-confirm-modal', event =>{
+            window.addEventListener('close-confirm-modal', event => {
                 $('#confirm-operation').modal('hide');
             })
-            window.addEventListener('confirmation-modal', event =>{
+            window.addEventListener('confirmation-modal', event => {
                 $('#confirm-operation').modal('show');
             })
 
@@ -156,38 +163,55 @@
 
             /* Edit e Delete */
 
-            window.addEventListener('show-edit-modal', event =>{
+            window.addEventListener('show-edit-modal', event => {
                 $('#editarCat').modal('show');
             })
-            window.addEventListener('close-edit-modal', event =>{
+            window.addEventListener('close-edit-modal', event => {
                 $('#editarCat').modal('hide');
             })
-            window.addEventListener('close-edit-confirmation-modal', event =>{
+            window.addEventListener('close-edit-confirmation-modal', event => {
                 $('#edit-confirmation').modal('hide');
             })
-            window.addEventListener('show-edit-confirmation-modal', event =>{
+            window.addEventListener('show-edit-confirmation-modal', event => {
                 $('#edit-confirmation').modal('show');
             })
-            window.addEventListener('close-delete-cat-confirmation-modal', event =>{
+            window.addEventListener('close-delete-cat-confirmation-modal', event => {
                 $('#delete-cat-confirmation').modal('hide');
             })
-            window.addEventListener('close-delete-all-confirmation-modal', event =>{
+            window.addEventListener('close-delete-all-confirmation-modal', event => {
                 $('#delete-all-confirmation').modal('hide');
             })
 
             /* Edit e Delete */
 
-            /* Edit e Delete ITENS*/
+            /* Create, Edit e Delete ITENS*/
 
-            window.addEventListener('close-delete-item-conf', event =>{
+
+            window.addEventListener('show-item-modal', event => {
+                $('#create-item').modal('show');
+            })
+
+            window.addEventListener('close-item-modal', event => {
+                $('#create-item').modal('hide');
+            })
+
+            window.addEventListener('show-item-confirmation-modal', event => {
+                $('#confirm-item-creation').modal('show');
+            })
+
+            window.addEventListener('close-item-confirmation-modal', event => {
+                $('#confirm-item-creation').modal('hide');
+            })
+
+            window.addEventListener('close-delete-item-conf', event => {
                 $('#delete-this-confirmation').modal('hide');
             })
 
-            /* Edit e Delete ITENS*/
+            /* Create, Edit e Delete ITENS*/
 
 
             /* Rendimento */
-            window.addEventListener('close-rendimento', event =>{
+            window.addEventListener('close-rendimento', event => {
                 $('#rendimento').modal('hide');
             })
             /* Rendimento */
@@ -195,21 +219,21 @@
             /* Planos */
 
             /* Fechar */
-                window.addEventListener('fechar-modal-contract', event =>{
-                    $('#showContracts').modal('hide');
-                })               
+            window.addEventListener('fechar-modal-contract', event => {
+                $('#showContracts').modal('hide');
+            })
             /* Fechar */
 
-            window.addEventListener('show-modal-contract', event =>{
+            window.addEventListener('show-modal-contract', event => {
                 $('#new-contract').modal('show');
             })
-            window.addEventListener('close-modal-contract', event =>{
+            window.addEventListener('close-modal-contract', event => {
                 $('#new-contract').modal('hide');
             })
-            window.addEventListener('close-confirm-modal-contract', event =>{
+            window.addEventListener('close-confirm-modal-contract', event => {
                 $('#confirm-operation-contract').modal('hide');
             })
-            window.addEventListener('confirmation-modal-contract', event =>{
+            window.addEventListener('confirmation-modal-contract', event => {
                 $('#confirm-operation-contract').modal('show');
             })
 
@@ -217,45 +241,45 @@
 
             /* Mensalidades Admin */
 
-            window.addEventListener('show-pay-confirmation', event =>{
+            window.addEventListener('show-pay-confirmation', event => {
                 $('#pay-mensalidade-confirmation').modal('show');
             })
-            window.addEventListener('close-pay-confirmation', event =>{
+            window.addEventListener('close-pay-confirmation', event => {
                 $('#pay-mensalidade-confirmation').modal('hide');
             })
-            window.addEventListener('show-estorno-confirmation', event =>{
+            window.addEventListener('show-estorno-confirmation', event => {
                 $('#estorno-mensalidade-confirmation').modal('show');
             })
-            window.addEventListener('close-estorno-confirmation', event =>{
+            window.addEventListener('close-estorno-confirmation', event => {
                 $('#estorno-mensalidade-confirmation').modal('hide');
             })
-            window.addEventListener('show-vencimento-confirmation', event =>{
+            window.addEventListener('show-vencimento-confirmation', event => {
                 $('#vencimento-mensalidade-confirmation').modal('show');
             })
-            window.addEventListener('close-vencimento-confirmation', event =>{
+            window.addEventListener('close-vencimento-confirmation', event => {
                 $('#vencimento-mensalidade-confirmation').modal('hide');
             })
-            window.addEventListener('show-cancelamento-contrato-confirmation', event =>{
+            window.addEventListener('show-cancelamento-contrato-confirmation', event => {
                 $('#cancelamento-contrato').modal('show');
             })
-            window.addEventListener('close-cancelamento-contrato-confirmation', event =>{
+            window.addEventListener('close-cancelamento-contrato-confirmation', event => {
                 $('#cancelamento-contrato').modal('hide');
             })
-            window.addEventListener('show-exclusao-contrato-confirmation', event =>{
+            window.addEventListener('show-exclusao-contrato-confirmation', event => {
                 $('#exclusao-contrato').modal('show');
             })
-            window.addEventListener('close-exclusao-contrato-confirmation', event =>{
+            window.addEventListener('close-exclusao-contrato-confirmation', event => {
                 $('#exclusao-contrato').modal('hide');
             })
-            
+
             /* Mensalidades Admin */
 
             /*Comissões Admin */
 
-            window.addEventListener('show-comissao-confirmation', event =>{
+            window.addEventListener('show-comissao-confirmation', event => {
                 $('#pay-comissao-confirmation').modal('show');
             })
-            window.addEventListener('close-comissao-confirmation', event =>{
+            window.addEventListener('close-comissao-confirmation', event => {
                 $('#pay-comissao-confirmation').modal('hide');
             })
 
@@ -263,31 +287,31 @@
 
             /*Deletar Usuário */
 
-            window.addEventListener('show-delete-user', event =>{
+            window.addEventListener('show-delete-user', event => {
                 $('#delete-user-confirmation').modal('show');
             })
-            
+
             /*Deletar Usuário */
 
-             /* Senhas Open */
+            /* Senhas Open */
 
-            window.addEventListener('open-secret-folder', event =>{
+            window.addEventListener('open-secret-folder', event => {
                 $('#folder-secret').modal('show');
             })
 
-            window.addEventListener('close-secret-folder', event =>{
+            window.addEventListener('close-secret-folder', event => {
                 $('#folder-secret').modal('hide');
             })
 
-             /* Senhas Open */
+            /* Senhas Open */
 
-             /* Senhas DELETE */
+            /* Senhas DELETE */
 
-            window.addEventListener('delete-secret', event =>{
+            window.addEventListener('delete-secret', event => {
                 $('#delete-secret').modal('show');
             })
 
-            window.addEventListener('close-delete-secret', event =>{
+            window.addEventListener('close-delete-secret', event => {
                 $('#delete-secret').modal('hide');
             })
 
@@ -295,71 +319,72 @@
 
             /* Senhas EDIT */
 
-            window.addEventListener('edit-secret', event =>{
+            window.addEventListener('edit-secret', event => {
                 $('#edit-secret').modal('show');
             })
 
-            window.addEventListener('close-edit-secret', event =>{
+            window.addEventListener('close-edit-secret', event => {
                 $('#edit-secret').modal('hide');
             })
 
-            window.addEventListener('confirm-edit-secret', event =>{
+            window.addEventListener('confirm-edit-secret', event => {
                 $('#confirm-edit-secret').modal('show');
             })
 
-            window.addEventListener('close-confirm-edit-secret', event =>{
+            window.addEventListener('close-confirm-edit-secret', event => {
                 $('#confirm-edit-secret').modal('hide');
             })
 
 
 
             /* Senhas EDIT */
-
         </script>
         <script>
-
             // Relatorios 
-        
-            window.addEventListener('scroll_to_conf', event =>{
-                
+
+            window.addEventListener('scroll_to_conf', event => {
+
                 document.getElementById('subtotal-result').scrollIntoView();
 
             })
 
             // Admin
 
-            window.addEventListener('close-admin-dropdown', event =>{
-                
+            window.addEventListener('close-admin-dropdown', event => {
+
                 $('#dpd-ntf').dropdown('hide');
 
             })
 
-            window.addEventListener('open-adm-edit-operation', event =>{
-                
+            window.addEventListener('open-adm-edit-operation', event => {
+
                 $('#adm-operacao').modal('show');
-                $('#total-op').mask('#.##0,00', {reverse: true});
+                $('#total-op').mask('#.##0,00', {
+                    reverse: true
+                });
 
             })
 
-            window.addEventListener('close-adm-edit-operation', event =>{
-                
+            window.addEventListener('close-adm-edit-operation', event => {
+
                 $('#adm-operacao').modal('hide');
 
             })
 
-            window.addEventListener('open-adm-edit-retirada', event =>{
-                
+            window.addEventListener('open-adm-edit-retirada', event => {
+
                 $('#adm-retirada').modal('show');
-                $('#total-op').mask('#.##0,00', {reverse: true});
+                $('#total-op').mask('#.##0,00', {
+                    reverse: true
+                });
 
             })
 
-            window.addEventListener('close-adm-edit-retirada', event =>{
-                
+            window.addEventListener('close-adm-edit-retirada', event => {
+
                 $('#adm-retirada').modal('hide');
 
             })
-            
         </script>
         <script>
             new ClipboardJS('.result-to-copy');
@@ -380,15 +405,14 @@
             new ClipboardJS('.copy-senha', {
                 container: document.getElementById('folder-secret')
             });
-
         </script>
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
     @endif
 
     {{-- Livewire Script --}}
-    @if(config('adminlte.livewire'))
-        @if(app()->version() >= 7)
+    @if (config('adminlte.livewire'))
+        @if (app()->version() >= 7)
             @livewireScripts
         @else
             <livewire:scripts />
@@ -399,53 +423,53 @@
     @yield('adminlte_js')
 
     <script>
-        Livewire.on('alert', function(message){
+        Livewire.on('alert', function(message) {
             Swal.fire(
-            'Tudo pronto!',
-            message,
-            'success'
+                'Tudo pronto!',
+                message,
+                'success'
             )
         })
-        Livewire.on('alert-error', function(message){
+        Livewire.on('alert-error', function(message) {
             Swal.fire(
-            'Operação recusada!',
-            message,
-            'error'
+                'Operação recusada!',
+                message,
+                'error'
             )
         })
-        Livewire.on('error-operator', function(message){
+        Livewire.on('error-operator', function(message) {
             Swal.fire(
-            'Atenção!',
-            message,
-            'warning'
+                'Atenção!',
+                message,
+                'warning'
             )
         })
-        Livewire.on('error-pagamento', function(message){
+        Livewire.on('error-pagamento', function(message) {
             Swal.fire(
-            'Pagamento recusado!',
-            message,
-            'error'
+                'Pagamento recusado!',
+                message,
+                'error'
             )
         })
-        Livewire.on('alert-locked', function(message){
+        Livewire.on('alert-locked', function(message) {
             Swal.fire(
-            'Acesso negado!',
-            message,
-            'error'
+                'Acesso negado!',
+                message,
+                'error'
             )
         })
-        Livewire.on('alert-unlocked', function(message){
+        Livewire.on('alert-unlocked', function(message) {
             Swal.fire(
-            'Acesso liberado!',
-            message,
-            'success'
+                'Acesso liberado!',
+                message,
+                'success'
             )
         })
-        Livewire.on('alert-blocked', function(message){
+        Livewire.on('alert-blocked', function(message) {
             Swal.fire(
-            'Tudo pronto!',
-            message,
-            'success'
+                'Tudo pronto!',
+                message,
+                'success'
             )
         })
     </script>

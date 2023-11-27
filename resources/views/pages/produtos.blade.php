@@ -13,7 +13,7 @@
 
     </div>
 
-    {{-- @livewire('create-cat') --}}
+    @livewire('create-product')
     
 @stop
 
