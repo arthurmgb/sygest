@@ -132,8 +132,10 @@
             $('#valor-contract').mask('####0,00', {
                 reverse: true
             });
-            $('#qtd-item').mask('00000');
-
+            $('.qtd-item').mask('00000');
+            $('.precos-mask').mask('#.##0,00', {
+                reverse: true
+            });
 
             $(function() {
                 $('[data-toggle="tooltip"]').tooltip()
@@ -205,6 +207,22 @@
 
             window.addEventListener('close-delete-item-conf', event => {
                 $('#delete-this-confirmation').modal('hide');
+            })
+
+            window.addEventListener('show-item-edit-modal', event => {
+                $('#edit-this').modal('show');
+            })
+
+            window.addEventListener('close-item-edit-modal', event => {
+                $('#edit-this').modal('hide');
+            })
+
+            window.addEventListener('show-item-edit-confirmation-modal', event => {
+                $('#edit-this-confirmation').modal('show');
+            })
+
+            window.addEventListener('close-item-edit-confirmation-modal', event => {
+                $('#edit-this-confirmation').modal('hide');
             })
 
             /* Create, Edit e Delete ITENS*/

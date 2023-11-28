@@ -1,11 +1,11 @@
 <div>
     <!-- Modal Operação-->
-    <div class="modal fade" id="create-item" tabindex="-1" aria-labelledby="operacaoLabel" aria-hidden="true"
+    <div class="modal fade" id="create-item" tabindex="-1" aria-labelledby="createItemLabel" aria-hidden="true"
         wire:ignore.self>
         <div class="modal-dialog">
             <div class="modal-content modal-custom">
                 <div class="modal-header">
-                    <h5 class="modal-title px-3 py-3" id="operacaoLabel">Novo produto</h5>
+                    <h5 class="modal-title px-3 py-3" id="createItemLabel">Novo produto</h5>
                     <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
                         <i class="fal fa-times"></i>
                     </button>
@@ -28,7 +28,7 @@
                                     <label class="modal-label" for="qtd-item">Qtd. em estoque <span
                                             class="red">*</span></label>
                                     <input wire:model.defer="state.estoque" type="text"
-                                        class="form-control modal-input" id="qtd-item" placeholder="0-99999"
+                                        class="form-control modal-input qtd-item" id="qtd-item" placeholder="0-99999"
                                         autocomplete="off">
                                     @error('state.estoque')
                                         <span class="wire-error">{{ $message }}</span>

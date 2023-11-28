@@ -9,7 +9,7 @@
     <div class="block">
 
         <div class="card">
-            
+
             <div class="card-topo mb-3">
                 <input wire:model="search" placeholder="buscar produto" class="search-input" autocomplete="off">
                 <i class="fa fa-search"></i>
@@ -26,7 +26,7 @@
 
                     <table style="cursor: default;" class="table table-borderless">
                         <thead class="t-head">
-                            <tr class="t-head-border">                               
+                            <tr class="t-head-border">
                                 <th>Descrição</th>
                                 <th>Preço un.</th>
                                 <th>Qtd. Estoque</th>
@@ -41,23 +41,22 @@
                             @endphp
 
                             @foreach ($produtos as $produto)
-
                                 @php
-                                    
+
                                     $preco = number_format($produto->preco, 2, ',', '.');
                                     $data_operacao = $produto->created_at->format('d/m/Y H:i');
-                                    
+
                                     $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
                                     $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $produto->created_at);
-                                    
+
                                     $diferenca = $date2->diffInDays($date1);
                                     $tempo = 'dias';
-                                    
+
                                     if ($diferenca === 1) {
                                         $diferenca = 'um';
                                         $tempo = 'dia';
                                     }
-                                    
+
                                     if ($diferenca === 0) {
                                         $diferenca = $date2->diffInHours($date1);
                                         $tempo = 'horas';
@@ -66,66 +65,67 @@
                                             $diferenca = 'uma';
                                             $tempo = 'hora';
                                         }
-                                    
+
                                         if ($diferenca === 0) {
                                             $diferenca = $date2->diffInMinutes($date1);
                                             $tempo = 'minutos';
-                                    
+
                                             if ($diferenca === 1) {
                                                 $diferenca = 'um';
                                                 $tempo = 'minuto';
                                             }
-                                    
+
                                             if ($diferenca === 0) {
                                                 $diferenca = 'poucos';
                                                 $tempo = 'segundos';
                                             }
                                         }
                                     }
-                                 
-                                    
+
                                 @endphp
 
                                 <tr class="tr-hover">
                                     <td style="word-break: break-all" class="align-middle font-desc">
                                         <span class="ident-cdg">
-                                            Código: <span style="color: #725BC2; font-weight: 500;">{{$produto->id}}</span>
+                                            Código: <span
+                                                style="color: #725BC2; font-weight: 500;">{{ $produto->id }}</span>
                                         </span>
                                         <br>
                                         {{ $produto->descricao }}
                                     </td>
-                                    <td style="white-space: nowrap; font-weight: 500;" class="align-middle">R$ {{ $preco }}</td>
+                                    <td style="white-space: nowrap; font-weight: 500;" class="align-middle">R$
+                                        {{ $preco }}</td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $produto->estoque }}</td>
-                                    <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
+                                    <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span
+                                            class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
 
                                     <td class="align-middle">
                                         <div class="d-flex flex-row align-items-center">
                                             <div wire:target="edit({{ $produto->id }})" wire:loading.attr="disabled"
                                                 wire:click.prevent="edit({{ $produto->id }})" data-toggle="modal"
-                                                data-target="#editarCat" data-tooltip="Editar" data-flow="left"
+                                                data-target="#edit-this" data-tooltip="Editar" data-flow="left"
                                                 class="cbe">
                                                 <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
                                             </div>
-                                            <div wire:target="prepare({{ $produto->id }})" wire:loading.attr="disabled"
+                                            <div wire:target="prepare({{ $produto->id }})"
+                                                wire:loading.attr="disabled"
                                                 wire:click.prevent="prepare({{ $produto->id }})" data-toggle="modal"
-                                                data-target="#delete-this-confirmation" data-tooltip="Apagar" data-flow="right" class="cba mr-2">
+                                                data-target="#delete-this-confirmation" data-tooltip="Apagar"
+                                                data-flow="right" class="cba mr-2">
                                                 <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-
                             @endforeach
 
                         </tbody>
                     </table>
-
                 @else
-
                     <div class="d-flex flex-column align-items-center justify-content-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211"
-                            height="145">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            width="211" height="145">
                             <style>
                                 <![CDATA[
                                 .B {
@@ -155,7 +155,6 @@
                                 .H {
                                     fill: #d5dadf
                                 }
-
                                 ]]>
                             </style>
                             <g fill="none" fill-rule="evenodd">
@@ -186,7 +185,8 @@
                                             d="M141.144 29.827L89.04 29.01c-3.54-.056-6.93 1.425-9.295 4.06l-2.888 3.216c-.724.806-1.365 1.684-1.912 2.62-1.976 3.378-2.985 5.908-3.04 7.53-.703 20.954-.858 36.17-.467 45.636.178 4.308.765 8.13 1.76 11.47a16.05 16.05 0 0 0 15.38 11.469h59.993a16.05 16.05 0 0 0 16.046-16.046v-49.83c0-6.943-4.466-13.1-11.066-15.254l-12.41-4.05z" />
                                     </g>
                                 </g>
-                                <rect x="70.332" y="28.22" width="81.73" height="81.882" rx="21.767" class="B F" />
+                                <rect x="70.332" y="28.22" width="81.73" height="81.882" rx="21.767"
+                                    class="B F" />
                                 <g class="D E B F">
                                     <rect x="71.03" y="28.917" width="80.334" height="80.487" rx="16.744" />
                                     <g class="C G">
@@ -214,7 +214,8 @@
                                         <path
                                             d="M161.104 130.992c3.01 0 5.462 2.38 5.577 5.362l.003.218h-11.162c.001-3.01 2.382-5.46 5.362-5.576l.22-.004z" />
                                     </g>
-                                    <ellipse fill="#a4afb7" cx="108.789" cy="83.823" rx="5.233" ry="6.977" />
+                                    <ellipse fill="#a4afb7" cx="108.789" cy="83.823" rx="5.233"
+                                        ry="6.977" />
                                     <g class="B">
                                         <path
                                             d="M108.8 81.023c2.9 0 4.255-.993 4.06-1.342-.96-1.73-2.422-2.834-4.06-2.834-1.594 0-3.022 1.046-3.982 2.695-.155.267 1.092 1.48 3.982 1.48z" />
@@ -252,7 +253,7 @@
                         <h3 class="my-4 no-results">Não há produtos a serem exibidos.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                             <h3 class="no-results-create mb-3">Comece criando um</h3>
-                            <a data-toggle="modal" data-target="#operacao" class="ml-2 btn btn-nr">+ Novo produto</a>
+                            <a data-toggle="modal" data-target="#create-item" class="ml-2 btn btn-nr">+ Novo produto</a>
                         </div>
                     </div>
 
@@ -278,7 +279,6 @@
                 <div class="paginacao">
                     {{ $produtos->links() }}
                 </div>
-
             @endif
         </div>
 
@@ -287,12 +287,12 @@
     <!-- MODALS -->
 
     <!-- Modal Editar -->
-    {{-- <div class="modal fade" id="editarCat" tabindex="-1" aria-labelledby="editarCatLabel" aria-hidden="true"
+    <div class="modal fade" id="edit-this" tabindex="-1" aria-labelledby="edit-thisLabel" aria-hidden="true"
         wire:ignore.self>
         <div class="modal-dialog">
             <div class="modal-content modal-custom">
                 <div class="modal-header">
-                    <h5 class="modal-title px-3 py-3" id="editarCatLabel">Editar categoria</h5>
+                    <h5 class="modal-title px-3 py-3" id="editarCatLabel">Editar produto</h5>
                     <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
                         <i class="fal fa-times"></i>
                     </button>
@@ -300,41 +300,45 @@
                 <div class="modal-body py-4 px-4">
 
                     <form wire:submit.prevent="confirmation()">
-                        <div class="form-group mb-1">
-                            <label class="modal-label">Tipo de categoria <span class="red">*</span></label>
-                            <br>
-                            <input wire:model.defer="categoria.tipo" value="1" class="radio" type="radio"
-                                name="tipo-cat" id="edit-cat-entrada">
-                            <label class="label-op label-green" for="edit-cat-entrada"><i class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>Entrada</label>
-
-                            <input wire:model.defer="categoria.tipo" value="0" class="radio" type="radio"
-                                name="tipo-cat" id="edit-cat-saida">
-                            <label class="label-op label-red" for="edit-cat-saida">Saída<i class="fad fa-arrow-from-top fa-fw fa-lg ml-1"></i></label>
-                            @error('categoria.tipo')
+                        <div class="form-group">
+                            <label class="modal-label" for="desc-item-e">Descrição <small>(nome do produto) </small>
+                                <span class="red">*</span></label>
+                            <input wire:model.defer="produto.descricao" type="text"
+                                class="form-control modal-input" id="desc-item-e" autocomplete="off">
+                            @error('produto.descricao')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group mb-1">
-                            <label class="modal-label">Status da categoria <span class="red">*</span></label>
-                            <br>
-                            <input wire:model.defer="categoria.status" value="1" class="radio" type="radio"
-                                name="status-cat" id="edit-status-ativa">
-                            <label class="label-op label-green" for="edit-status-ativa"><i class="fad fa-chevron-circle-up fa-fw fa-lg mr-1"></i>Ativa</label>
-
-                            <input wire:model.defer="categoria.status" value="0" class="radio" type="radio"
-                                name="status-cat" id="edit-status-inativa">
-                            <label class="label-op label-red" for="edit-status-inativa">Inativa<i class="far fa-chevron-circle-down fa-fw fa-lg ml-1"></i></label>
-                            @error('categoria.status')
-                                <span class="wire-error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group mb-0">
-                            <label class="modal-label" for="desc-op">Descrição <span class="red">*</span></label>
-                            <input wire:model.defer="categoria.descricao" type="text" class="form-control modal-input"
-                                id="desc-op" autocomplete="off">
-                            @error('categoria.descricao')
-                                <span class="wire-error">{{ $message }}</span>
-                            @enderror
+                        <div class="form-row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="modal-label" for="qtd-item-e">Qtd. em estoque <span
+                                            class="red">*</span></label>
+                                    <input wire:model.defer="produto.estoque" type="text"
+                                        class="form-control modal-input qtd-item" id="qtd-item-e" placeholder="0-99999"
+                                        autocomplete="off">
+                                    @error('produto.estoque')
+                                        <span class="wire-error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-0">
+                                    <label class="modal-label" for="preco-item-e">Preço unitário <span
+                                            class="red">*</span></label>
+                                    <div class="input-group mb-0">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">R$</span>
+                                        </div>
+                                        <input wire:model.defer="produto.preco" placeholder="0,00" type="text"
+                                            class="form-control modal-input total-operation precos-mask" id="preco-item-e"
+                                            autocomplete="off">
+                                    </div>
+                                    @error('produto.preco')
+                                        <span class="wire-error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                 </div>
                 <div class="modal-footer py-4">
@@ -344,15 +348,15 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <!-- Modal Editar Confirmação -->
-    {{-- <div class="modal fade" data-backdrop="static" data-keyboard="false" id="edit-confirmation" tabindex="-1"
-        aria-labelledby="edit-confirmationLabel" aria-hidden="true" wire:ignore.self>
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="edit-this-confirmation" tabindex="-1"
+        aria-labelledby="edit-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
             <div class="modal-content modal-custom">
                 <div class="modal-header">
-                    <h5 class="modal-title px-3 py-3" id="edit-confirmationLabel">Confirmação de edição</h5>
+                    <h5 class="modal-title px-3 py-3" id="edit-this-confirmationLabel">Confirmação de edição</h5>
                     <button wire:loading.attr="disabled" type="button" class="close px-4" data-dismiss="modal"
                         aria-label="Close" wire:click.prevent="alternate()">
                         <i class="far fa-arrow-left"></i>
@@ -360,16 +364,16 @@
                 </div>
                 <div class="modal-body py-4 px-4">
 
-                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente editar esta
-                        categoria?</h5>
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente editar este
+                        produto?</h5>
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, essa categoria de operação será
-                            editada na plataforma.
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, esse produto será editado na
+                            plataforma.
                         </p>
                         <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
-                            data-dismiss="modal" class="px-4 verify-font">Verificar dados da categoria</button>
+                            data-dismiss="modal" class="px-4 verify-font">Verificar dados do produto</button>
                     </div>
 
                 </div>
@@ -382,17 +386,16 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <!-- Modal Deletar Confirmação -->
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-this-confirmation" tabindex="-1"
-        aria-labelledby="delete-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-this-confirmation"
+        tabindex="-1" aria-labelledby="delete-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
             <div class="modal-content modal-custom">
                 <div class="modal-header">
                     <h5 class="modal-title px-3 py-3" id="delete-cat-confirmationLabel">Confirmação de apagamento</h5>
-                    <button type="button" class="close px-4" data-dismiss="modal"
-                        aria-label="Close">
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
                         <i class="fal fa-times"></i>
                     </button>
                 </div>

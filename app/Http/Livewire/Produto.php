@@ -17,56 +17,61 @@ class Produto extends Component
     protected $listeners = ['render'];
 
     public $rules = [
-        'produto.status' => 'required',
+
         'produto.descricao' => 'required|max:100',
+        'produto.estoque' => 'required|max:5',
+        'produto.preco' => 'required|max:10',
+        'produto.status' => 'required',
     ];
 
-    // protected $messages = [
+    protected $messages = [
 
-    //     'categoria.tipo.required' => 'O tipo de categoria é obrigatório.',
-    //     'categoria.status.required' => 'O status da categoria é obrigatório.',
-    //     'categoria.descricao.required' => 'A descrição da categoria é obrigatória.',
+        'produto.descricao.required' => 'A descrição do produto é obrigatória.',
+        'produto.estoque.required' => 'O estoque do produto é obrigatório.',
+        'produto.preco.required' => 'O preço do produto é obrigatório.',
 
-    // ];
+    ];
 
-    // public function confirmation()
-    // {
-
-    //     $this->validate();
-    //     $this->dispatchBrowserEvent('close-edit-modal');
-    //     $this->dispatchBrowserEvent('show-edit-confirmation-modal');
-    // }
-
-    // public function resetOperation()
-    // {
-
-    //     $this->dispatchBrowserEvent('close-edit-confirmation-modal');
-    // }
-
-    // public function alternate()
-    // {
-
-    //     $this->dispatchBrowserEvent('close-edit-confirmation-modal');
-    //     $this->dispatchBrowserEvent('show-edit-modal');
-    // }
-
-    // public function edit(Category $categoria)
-    // {
-    //     if ($categoria->user_id != auth()->user()->id) {
-    //         return redirect('404');
-    //     }
+    public function edit(Product $produto)
+    {
+        if ($produto->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
 
 
-    //     $this->categoria = $categoria;
-    // }
+        $this->produto = $produto;
+        $this->produto['preco'] = str_replace('.', ',', $this->produto['preco']);
+    }
 
-    // public function update()
-    // {
+    public function confirmation()
+    {
 
-    //     $this->categoria->save();
-    //     $this->dispatchBrowserEvent('close-edit-confirmation-modal');
-    //     $this->emit('alert', 'Categoria editada com sucesso!');
-    // }
+        $this->validate();
+        $this->dispatchBrowserEvent('close-item-edit-modal');
+        $this->dispatchBrowserEvent('show-item-edit-confirmation-modal');
+    }
+
+    public function resetOperation()
+    {
+        $this->dispatchBrowserEvent('close-item-edit-confirmation-modal');
+    }
+
+    public function alternate()
+    {
+        $this->dispatchBrowserEvent('close-item-edit-confirmation-modal');
+        $this->dispatchBrowserEvent('show-item-edit-modal');
+    }
+
+    public function update()
+    {
+        $preco_formatado = str_replace(".", "", $this->produto['preco']);
+        $preco_formatado = str_replace(',', '.', $preco_formatado);
+        $this->produto['preco'] = $preco_formatado;
+
+        $this->produto->save();
+        $this->dispatchBrowserEvent('close-item-edit-confirmation-modal');
+        $this->emit('alert', 'Produto editado com sucesso!');
+    }
 
     public function prepare(Product $produto)
     {

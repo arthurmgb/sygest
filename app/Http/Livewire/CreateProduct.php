@@ -26,13 +26,6 @@ class CreateProduct extends Component
 
     ];
 
-    // public function mount()
-    // {
-
-    //     $this->state['tipo'] = '1';
-    //     $this->state['status'] = '1';
-    // }
-
     public function confirmation()
     {
 
@@ -65,9 +58,12 @@ class CreateProduct extends Component
     public function save()
     {
 
+        $preco_formatado = str_replace(".", "", $this->state['preco']);
+        $preco_formatado = str_replace(',', '.', $preco_formatado);
+
         Product::create([
             'descricao' => $this->state['descricao'],
-            'preco' => $this->state['preco'],
+            'preco' => $preco_formatado,
             'estoque' => $this->state['estoque'],
             'user_id' => auth()->user()->id
 
