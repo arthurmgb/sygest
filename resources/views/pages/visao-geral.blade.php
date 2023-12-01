@@ -14,6 +14,7 @@
     </div>
 
     @livewire('create-op')
+    @livewire('create-venda')
 
 @stop
 
