@@ -1,127 +1,163 @@
 <div>
     <!-- Modal Operação-->
-    <div class="modal fade" id="venda" tabindex="-1" aria-labelledby="vendaLabel" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content modal-custom">
-                <div class="modal-header">
-                    <h5 class="modal-title px-3 py-3" id="vendaLabel">Nova venda</h5>
-                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+    <div class="modal fade modal-pdv" id="venda" tabindex="-1" aria-labelledby="vendaLabel" aria-hidden="true"
+        wire:ignore.self>
+        <div class="modal-dialog modal-xl modal-dialog-pdv">
+            <div class="modal-content modal-custom modal-pdv-content">
+                <div class="modal-header pt-2 pb-1 px-2">
+                    <h5 class="modal-title px-0 py-0" id="vendaLabel">
+                        <i class="far fa-shopping-cart fa-fw mr-3"></i>PDV - Nova venda
+                    </h5>
+                    <button type="button" class="close py-1 m-0" data-dismiss="modal" aria-label="Close">
                         <i class="fal fa-times"></i>
                     </button>
                 </div>
-                <div class="modal-body px-2 py-0">
+                <div class="modal-body px-2 py-0 modal-pdv-body">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4 p-2">
                                 <form>
-                                    <div class="form-group py-3 mb-0">
+                                    <div class="form-group my-2">
                                         <label class="modal-label">
                                             Produtos
                                             <span class="red">*</span>
                                         </label>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <select class="flex-fill" id="prod-select"
-                                                placeholder="Selecione um produto">
-                                                <option value="">Select a state...</option>
-                                                <option value="AL">Alabama</option>
-                                                <option value="AK">Alaska</option>
-                                                <option value="AZ">Arizona</option>
-                                                <option value="AR">Arkansas</option>
-                                                <option value="CA">California</option>
-                                                <option value="CO">Colorado</option>
-                                                <option value="CT">Connecticut</option>
-                                                <option value="DE">Delaware</option>
-                                                <option value="DC">District of Columbia</option>
-                                                <option value="FL">Florida</option>
-                                                <option value="GA">Georgia</option>
-                                                <option value="HI">Hawaii</option>
-                                                <option value="ID">Idaho</option>
-                                                <option value="IL">Illinois</option>
-                                                <option value="IN">Indiana</option>
+                                        <div wire:ignore>
+                                            <style>
+                                                .select2-container{
+                                                    display: block;
+                                                }
+                                            </style>
+                                            <select id="prod-select" placeholder="Selecione um produto">
+                                                <option value="">Selecione um produto</option>
+                                                @foreach ($produtos as $produto)
+                                                    <option value="{{ $produto->id }}">{{ $produto->descricao }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
-                                        <label class="modal-label">
-                                            Quantidade
-                                            <span class="red">*</span>
-                                        </label>
-                                        <input type="number" class="form-control modal-input" autocomplete="off">
-                                        <button class="btn btn-new btn-block">Adicionar</button>
                                     </div>
+                                    <div class="form-group mb-3">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label class="modal-label">
+                                                    Em estoque
+                                                    <span class="red">*</span>
+                                                </label>
+                                                <input wire:model="estoqueAtual" readonly type="number"
+                                                    class="form-control modal-input" autocomplete="off">
+                                            </div>
+                                            <div class="col">
+                                                <label class="modal-label">
+                                                    Quantidade
+                                                    <span class="red">*</span>
+                                                </label>
+                                                <input type="number" class="form-control modal-input"
+                                                    autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-new btn-block">Adicionar</button>
+                                    <hr>
                             </div>
-                            <div class="col-6 border">
+                            <div class="col-8 border-left p-2">
                                 <div class="produtos-adicionados">
-                                    <div class="form-group mb-1">
-                                        <label class="modal-label">
-                                            Produtos adicionados
-                                        </label>
-                                    </div>
+                                    <table class="table table-striped table-sm table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Produto</th>
+                                                <th scope="col">Preço un.</th>
+                                                <th scope="col">Quantidade</th>
+                                                <th scope="col">Subtotal</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Camiseta</td>
+                                                <td>R$ 80,00</td>
+                                                <td>x2</td>
+                                                <td>R$ 160,00</td>
+                                                <td>
+                                                    <i class="fad fa-trash-alt fa-fw text-danger fa-lg"></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <hr>
-                                <div class="form-group mb-1">
-                                    <label class="modal-label">
-                                        Total da venda
-                                    </label>
-                                    <div class="input-group mb-0">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">R$</span>
-                                        </div>
-                                        <input readonly placeholder="0,00" type="text"
-                                            class="form-control modal-input total-operation" autocomplete="off">
+                                <div class="row">
+                                    <div class="col-7">
+
                                     </div>
-                                </div>
-                                <div class="form-group mb-1">
-                                    <label class="modal-label">
-                                        Valor pago
-                                    </label>
-                                    <div class="input-group mb-0">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">R$</span>
+                                    <div class="col-5">
+                                        <div class="form-group mb-1">
+                                            <label class="modal-label">
+                                                Total da venda
+                                            </label>
+                                            <div class="input-group mb-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">R$</span>
+                                                </div>
+                                                <input readonly placeholder="0,00" type="text"
+                                                    class="form-control modal-input total-operation" autocomplete="off">
+                                            </div>
                                         </div>
-                                        <input placeholder="0,00" type="text"
-                                            class="form-control modal-input total-operation" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="form-group mb-1">
-                                    <label class="modal-label">
-                                        Troco
-                                    </label>
-                                    <div class="input-group mb-0">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">R$</span>
+                                        <div class="form-group mb-1">
+                                            <label class="modal-label">
+                                                Valor pago
+                                            </label>
+                                            <div class="input-group mb-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">R$</span>
+                                                </div>
+                                                <input placeholder="0,00" type="text"
+                                                    class="form-control modal-input total-operation" autocomplete="off">
+                                            </div>
                                         </div>
-                                        <input readonly placeholder="0,00" type="text"
-                                            class="form-control modal-input total-operation" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="form-group mb-1">
-                                    <label class="modal-label">
-                                        Desconto
-                                    </label>
-                                    <div class="input-group mb-0">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">R$</span>
+                                        <div class="form-group mb-1">
+                                            <label class="modal-label">
+                                                Troco
+                                            </label>
+                                            <div class="input-group mb-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">R$</span>
+                                                </div>
+                                                <input readonly placeholder="0,00" type="text"
+                                                    class="form-control modal-input total-operation" autocomplete="off">
+                                            </div>
                                         </div>
-                                        <input placeholder="0,00" type="text"
-                                            class="form-control modal-input total-operation" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="form-group mb-1">
-                                    <label class="modal-label">
-                                        Subtotal
-                                    </label>
-                                    <div class="input-group mb-0">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">R$</span>
+                                        <div class="form-group mb-1">
+                                            <label class="modal-label">
+                                                Desconto
+                                            </label>
+                                            <div class="input-group mb-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">R$</span>
+                                                </div>
+                                                <input placeholder="0,00" type="text"
+                                                    class="form-control modal-input total-operation" autocomplete="off">
+                                            </div>
                                         </div>
-                                        <input readonly placeholder="0,00" type="text"
-                                            class="form-control modal-input total-operation" autocomplete="off">
+                                        <div class="form-group mb-1">
+                                            <label class="modal-label">
+                                                Subtotal
+                                            </label>
+                                            <div class="input-group mb-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">R$</span>
+                                                </div>
+                                                <input readonly placeholder="0,00" type="text"
+                                                    class="form-control modal-input total-operation" autocomplete="off">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer py-4">
+                <div class="modal-footer py-1">
                     <button wire:loading.attr="disabled" type="button" class="btn btn-cancel"
                         wire:click.prevent="resetNewOperation()" data-dismiss="modal">Cancelar</button>
                     <button wire:loading.attr="disabled" wire:target="confirmation" type="submit"
@@ -133,7 +169,7 @@
     </div>
 
     <!-- Modal Confirmação-->
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="confirm-operation" tabindex="-1"
+    {{-- <div class="modal fade" data-backdrop="static" data-keyboard="false" id="confirm-operation" tabindex="-1"
         aria-labelledby="confirm-operationLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
             <div class="modal-content modal-custom">
@@ -170,5 +206,16 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
+
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        // $('#prod-select').select2();
+        $('#prod-select').on('change', function(e) {
+            var data = $('#prod-select').select2("val");
+            @this.set('foo', data);
+        });
+    });
+</script>
