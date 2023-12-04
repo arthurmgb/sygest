@@ -1882,7 +1882,7 @@ select.fadeOut {
 
 /* PDV */
 
-.modal-pdv{
+.modal-pdv {
     padding: 0 !important;
 }
 .modal .modal-dialog-pdv {
@@ -1900,4 +1900,83 @@ select.fadeOut {
     overflow-y: auto;
 }
 
+.select2-container {
+    display: block !important;
+    max-width: 100% !important;
+}
+.select2-container .select2-selection--single {
+    height: auto !important;
+    max-width: 100% !important;
+}
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow {
+    height: 100% !important;
+    right: 7px !important;
+}
+.pdv-header {
+    background-color: #008b8b;
+    color: #fff;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom: 4px solid rgba(0, 222, 222, 0.407);
+}
+.btn-new-pdv {
+    color: #fff !important;
+    background-color: #00a3a3;
+    font-weight: 700;
+    padding: 9px 25px;
+    font-size: 13px;
+    line-height: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: none;
+}
+.btn-new-pdv:hover {
+    background-color: #00a3a3d8;
+}
+.btn-new-pdv-nr {
+    color: #fff !important;
+    background-color: #00a3a3;
+    font-weight: 700;
+    padding: 12px 28px;
+    font-size: 16px;
+    line-height: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: none;
+}
+.btn-new-pdv-nr:hover {
+    background-color: #00a3a3d8;
+}
+.produtos-adicionados {
+    overflow-y: auto;
+    margin-top: -10px;
+}
+.produtos-adicionados thead th {
+    user-select: none;
+    background-color: #fff;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+}
+.pdv-caixa-livre {
+    background-color: #008b8b;
+    border-radius: 4px;
+    user-select: none;
+}
+.table-pdv-produtos td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.select2-container--default .select2-results > .select2-results__options {
+    max-height: 320px !important;
+}
 /* PDV */

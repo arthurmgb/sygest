@@ -337,14 +337,15 @@
                                     autocomplete="off">
                                 <i class="fa fa-search"></i>
                             </div>
-                            <div>
-                                <a style="margin-top: -8px" data-toggle="modal" data-target="#operacao"
-                                    class="btn btn-new" id="js-new-op">
-                                    + Nova operação &#91;F1&#93;
+                            <div style="margin-top: -12px" class="d-flex align-items-center flex-wrap">
+                                <a data-toggle="modal" data-target="#operacao" class="btn btn-new m-1"
+                                    id="js-new-op">
+                                    + Nova operação &#91; F1 &#93;
                                 </a>
-                                <a style="margin-top: -8px" data-toggle="modal" data-target="#venda"
-                                    class="btn btn-new" id="js-new-venda">
-                                    + Nova venda
+                                <a data-toggle="modal" data-target="#venda"
+                                    class="btn btn-new-pdv mt-1 mb-1 ml-1 mr-0" id="js-new-venda">
+
+                                    <i class="fal fa-cart-plus fa-fw fa-lg mr-2"></i> Nova venda &#91; F2 &#93;
                                 </a>
                             </div>
                         </div>
@@ -652,6 +653,10 @@
                                         <h3 class="no-results-create mb-3">Comece criando uma</h3>
                                         <a data-toggle="modal" data-target="#operacao" class="ml-2 btn btn-nr">+ Nova
                                             operação</a>
+                                        <h3 class="no-results-create my-3">ou uma</h3>
+                                        <a data-toggle="modal" data-target="#venda" class="btn btn-new-pdv-nr ml-2">
+                                            <i class="fal fa-cart-plus fa-fw mr-2"></i> Nova venda
+                                        </a>
                                     </div>
                                 </div>
 

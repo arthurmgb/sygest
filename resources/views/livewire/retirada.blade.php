@@ -2,7 +2,7 @@
     <div class="page-header d-flex flex-row align-items-center mb-2">
         <h2 class="f-h2">Retiradas</h2>
         <span class="f-span">{{ $retiradas_count }} operações</span>
-        <a data-toggle="modal" data-target="#operacao" class="btn btn-new ml-auto" id="js-new-ret">+ Nova retirada &#91;F1&#93;</a>
+        <a data-toggle="modal" data-target="#operacao" class="btn btn-new ml-auto" id="js-new-ret">+ Nova retirada &#91; F1 &#93;</a>
     </div>
     <div class="block">
         <div class="card">

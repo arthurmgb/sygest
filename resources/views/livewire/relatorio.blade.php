@@ -106,7 +106,7 @@
         <div class="d-flex flex-row align-items-center justify-content-between">
             <button wire:click.prevent="caixaHoje()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn btn-new btn-cx-hoje mx-3 text-nowrap" type="button" id="js-cx-hj">
                 <i class="fal fa-cash-register fa-fw mr-1 fa-lg"></i>
-                Buscar caixa de hoje &#91;H&#93;
+                Buscar caixa de hoje &#91; H &#93;
             </button>
     
             @if(isset($operations) and $operations->count())

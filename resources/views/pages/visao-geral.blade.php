@@ -83,6 +83,7 @@
     </script>
     <script>
         let btnNewOp = document.querySelector('#js-new-op');
+        let btnNewVenda = document.querySelector('#js-new-venda');
         let modalConfirmOp = document.querySelector('#confirm-operation');
 
         var canGo = true,
@@ -117,10 +118,36 @@
 
             }
 
+            if (e.keyCode == 113) {
+
+                e.preventDefault();
+
+                if (canGo) {
+                    canGo = false;
+
+
+                    btnNewVenda.click();
+
+                    setTimeout(function() {
+                        canGo = true;
+                    }, delay)
+
+                } else {
+                    return;
+                }
+
+            }
+
         });
 
         $('#operacao').on('shown.bs.modal', function(event) {
             $('#desc-op').focus();
+        });
+        $('#venda').on('show.bs.modal', function(event) {
+            $('body').css('overflow', 'hidden');
+        });
+        $('#venda').on('hide.bs.modal', function(event) {
+            $('body').css('overflow', 'auto');
         });
     </script>
 @stop
