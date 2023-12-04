@@ -1958,6 +1958,7 @@ select.fadeOut {
 .produtos-adicionados {
     overflow-y: auto;
     margin-top: -10px;
+    min-height: 280px;
 }
 .produtos-adicionados thead th {
     user-select: none;

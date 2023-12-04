@@ -17,7 +17,7 @@
                     <div class="container-fluid h-100">
                         <div class="row h-100">
                             <div class="col-4 p-2 h-100">
-                                <form class="h-100">
+                                <form wire:submit.prevent class="h-100">
                                     <div
                                         class="pdv-flex d-flex flex-column align-items-center justify-content-between h-100">
                                         <div class="pdv-left w-100">
@@ -50,8 +50,8 @@
                                                             Em estoque
                                                         </label>
                                                         <input wire:keydown.enter.prevent="addProduct"
-                                                            wire:model.defer="estoqueAtual" readonly type="number"
-                                                            class="form-control modal-input" autocomplete="off"
+                                                            wire:model.defer="estoqueAtual" disabled type="number"
+                                                            class="form-control modal-input font-weight-bold" autocomplete="off"
                                                             wire:loading.attr="disabled">
                                                     </div>
                                                     <div class="col">
@@ -86,7 +86,8 @@
                                         </div>
                                     </div>
                             </div>
-                            <div class="col-8 border-left py-2 px-0 d-flex flex-column justify-content-between mh-100">
+                            <div style="overflow-y: auto;"
+                                class="col-8 border-left py-2 px-0 d-flex flex-column justify-content-between mh-100">
                                 <div class="produtos-adicionados flex-fill">
                                     <table
                                         class="table table-striped table-sm table-hover text-center table-pdv-produtos">
@@ -126,7 +127,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="row border-top pt-3 px-2 ml-0">
+                                <div class="row border-top pt-3 px-2 ml-0 mw-100">
                                     <div class="col-6 border-right h-100">
                                         <div class="form-group mb-2">
                                             <label class="modal-label">
@@ -139,9 +140,6 @@
                                                     <option value="">
                                                         Selecione uma forma de pag.
                                                     </option>
-                                                    <option value="1">💵 Dinheiro</option>
-                                                    <option value="2">💲 Cheque</option>
-                                                    <option value="3">💰 Moedas</option>
                                                     @foreach ($fps as $fp)
                                                         <option value="{{ $fp->id }}">
                                                             {{ $fp->descricao }}
@@ -162,8 +160,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input id="pdv-fp-val" wire:model.defer="valorDaFp"
-                                                    placeholder="0,00" type="text"
+                                                <input id="pdv-fp-val" wire:keydown.enter.prevent="addFp"
+                                                    wire:model.defer="valorDaFp" placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
                                                     autocomplete="off"
                                                     @if (empty($selectedFp)) disabled @endif>
@@ -174,6 +172,23 @@
                                         </div>
                                         <button wire:click.prevent="addFp" wire:loading.attr="disabled"
                                             type="button" class="btn btn-new btn-block">Adicionar</button>
+                                        <hr>
+                                        <ul class="list-group">
+                                            @foreach ($fpsAdicionadas as $fpItem)
+                                                <li wire:key="{{ $loop->index }}" style="overflow-wrap: anywhere;"
+                                                    class="list-group-item d-flex justify-content-between align-items-center border">
+                                                    <b>{{ $fpItem['descricao'] }}</b>
+                                                    <div class="div-right-fp d-flex align-items-center">
+                                                        <span style="font-size: 14px" class="badge badge-success">
+                                                            R$ {{ $fpItem['valor'] }}
+                                                        </span>
+                                                        <i title="Remover" style="cursor: pointer;"
+                                                            wire:click="removeFp({{ $loop->index }})"
+                                                            class="fad fa-trash-alt fa-fw text-danger fa-lg ml-1"></i>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group mb-1">
@@ -184,8 +199,9 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input wire:model="totalVenda" readonly placeholder="0,00"
-                                                    type="text" class="form-control modal-input total-operation"
+                                                <input wire:keydown.enter.prevent wire:model="totalVenda" readonly
+                                                    placeholder="0,00" type="text"
+                                                    class="form-control modal-input total-operation"
                                                     autocomplete="off">
                                             </div>
                                         </div>
@@ -198,10 +214,14 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input wire:model="valorPago" placeholder="0,00" type="text"
+                                                <input wire:keydown.enter.prevent wire:model="valorPago"
+                                                    placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
                                                     autocomplete="off">
                                             </div>
+                                            @error('valorPago')
+                                                <span class="wire-error">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group mb-1">
                                             @php
@@ -219,7 +239,8 @@
                                                         style="@if ($check_troco < 0) border-color: red; @endif"
                                                         class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input wire:model="troco" readonly placeholder="0,00" type="text"
+                                                <input wire:keydown.enter.prevent wire:model="troco" readonly
+                                                    placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation"
                                                     autocomplete="off"
                                                     style="@if ($check_troco < 0) border-color: red; @endif">
@@ -234,7 +255,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input wire:model="desconto" placeholder="0,00" type="text"
+                                                <input wire:keydown.enter.prevent wire:model="desconto"
+                                                    placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
                                                     autocomplete="off">
                                             </div>
@@ -255,7 +277,7 @@
                                                         style="font-size: 22px; @if ($check_stv < 0) border-color: red; @endif"
                                                         class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input
+                                                <input wire:keydown.enter.prevent
                                                     style="font-size: 35px; @if ($check_stv < 0) border-color: red; @endif"
                                                     wire:model="subtotalVenda" readonly placeholder="0,00"
                                                     type="text"
@@ -272,7 +294,8 @@
                 <div class="modal-footer py-1">
                     <button wire:loading.attr="disabled" type="button" class="btn btn-cancel"
                         data-dismiss="modal">Cancelar</button>
-                    <button wire:loading.attr="disabled" type="submit" class="btn btn-send">Finalizar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="finalizarVenda" type="button"
+                        class="btn btn-send">Finalizar</button>
                     </form>
                 </div>
             </div>

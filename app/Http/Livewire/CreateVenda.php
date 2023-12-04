@@ -18,6 +18,7 @@ class CreateVenda extends Component
     public $estoqueAtual;
     public $quantidadeAdicionada;
     public $produtosAdicionados = [];
+    public $fpsAdicionadas = [];
     public $totalVenda;
     public $valorPago;
     public $troco;
@@ -29,8 +30,9 @@ class CreateVenda extends Component
 
         'quantidadeAdicionada' => 'required|numeric|min:1',
         'selectedProduct' => 'required',
-        'valorDaFp' => 'required|numeric|min:1',
+        'valorDaFp' => 'required|numeric|min:0.01',
         'selectedFp' => 'required',
+        'valorPago' => 'required',
 
     ];
 
@@ -42,6 +44,7 @@ class CreateVenda extends Component
         'valorDaFp.required' => 'Campo obrigatório.',
         'valorDaFp.min' => 'O valor dever ser maior que 0.',
         'selectedFp.required' => 'Campo obrigatório.',
+        'valorPago.required' => 'Campo obrigatório.',
 
     ];
 
@@ -106,17 +109,33 @@ class CreateVenda extends Component
             'selectedFp' => $this->rules['selectedFp'],
         ]);
 
-        $this->valorDaFp = str_replace(".", "", $this->valorDaFp);
+        if (!empty($this->valorDaFp)) {
+            $this->valorDaFp = str_replace(".", "", $this->valorDaFp);
 
-        $this->valorDaFp = str_replace(',', '.', $this->valorDaFp);
+            $this->valorDaFp = str_replace(',', '.', $this->valorDaFp);
 
-        $this->valorDaFp = floatval($this->valorDaFp);
+            $this->valorDaFp = floatval($this->valorDaFp);
 
-        $this->validate([
-            'valorDaFp' => $this->rules['valorDaFp'],
-        ]);
+            $this->validate([
+                'valorDaFp' => $this->rules['valorDaFp'],
+            ]);
 
-        $this->valorDaFp = number_format($this->valorDaFp, 2, ',', '.');
+            $this->valorDaFp = number_format($this->valorDaFp, 2, ',', '.');
+
+            $forma_pag = Method::find($this->selectedFp);
+
+            $this->fpsAdicionadas[] = [
+                'descricao' => $forma_pag->descricao,
+                'valor' => $this->valorDaFp,
+            ];
+
+            $this->reset('valorDaFp');
+            $this->emit('resetSelectFp');
+        } else {
+            $this->validate([
+                'valorDaFp' => $this->rules['valorDaFp'],
+            ]);
+        }
     }
 
     public function removeProduct($index)
@@ -126,6 +145,15 @@ class CreateVenda extends Component
         }
 
         $this->produtosAdicionados = array_values($this->produtosAdicionados);
+    }
+
+    public function removeFp($index)
+    {
+        if (isset($this->fpsAdicionadas[$index])) {
+            unset($this->fpsAdicionadas[$index]);
+        }
+
+        $this->fpsAdicionadas = array_values($this->fpsAdicionadas);
     }
 
     public function calcularTotalVenda()
@@ -161,6 +189,26 @@ class CreateVenda extends Component
         }
 
         return null;
+    }
+
+    public function finalizarVenda()
+    {
+        $this->validate([
+            'valorPago' => $this->rules['valorPago'],
+        ]);
+
+        dd('VENDA FINALIZADA SENDO IMPLEMENTADA.');
+
+        //VERIFICAR SE HÁ PRODUTOS ADICIONADOS
+
+        //VERIFICAR SE HÁ FP(S) ADICIONADA(S)
+
+        //VERIFICAR SE O VALOR DA FP OU DAS FPS BATEM COM O SUBTOTAL...
+
+        //...SE MENOR PEDE PARA ADICIONAR MAIS FP, SE MAIOR, PEDE PARA REMOVER UMA OU MAIS FPS
+
+        
+
     }
 
     public function render()

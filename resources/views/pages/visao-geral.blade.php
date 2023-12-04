@@ -85,6 +85,7 @@
         let btnNewOp = document.querySelector('#js-new-op');
         let btnNewVenda = document.querySelector('#js-new-venda');
         let modalConfirmOp = document.querySelector('#confirm-operation');
+        let modalPdv = document.querySelector('#venda');
 
         var canGo = true,
             delay = 500;
@@ -116,6 +117,13 @@
                     return;
                 }
 
+            }
+
+            if ($(modalPdv).is(":visible")) {
+                if (e.keyCode == 113) {
+                    e.preventDefault();
+                    return;
+                }
             }
 
             if (e.keyCode == 113) {
