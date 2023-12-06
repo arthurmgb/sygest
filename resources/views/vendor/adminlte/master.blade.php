@@ -147,6 +147,13 @@
             });
         </script>
         <script>
+            /* ACC OPERATOR */
+            window.addEventListener('unlock-acc-operator', event => {
+                $('#modalCheckAuth').modal('hide');
+            })
+
+            /* ACC OPERATOR */
+
             /* Operações */
 
             window.addEventListener('show-modal', event => {
