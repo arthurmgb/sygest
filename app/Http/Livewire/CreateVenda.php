@@ -25,6 +25,7 @@ class CreateVenda extends Component
     public $desconto;
     public $subtotalVenda;
     public $valorDaFp;
+    public $tempErrorStyle = false;
 
     public $rules = [
 
@@ -63,9 +64,25 @@ class CreateVenda extends Component
 
     public function updatedselectedProduct()
     {
+
+        $produtosEncontrados = [];
+
+        foreach ($this->produtosAdicionados as $prod) {
+            if ($prod['id'] == intval($this->selectedProduct)) {
+                $produtosEncontrados[] = intval($prod['quantidade']);
+            }
+        }
+
+        $qtdAdicionada = array_sum($produtosEncontrados);
+
         if (!is_null($this->selectedProduct) and !empty($this->selectedProduct)) {
             $produto = Product::find($this->selectedProduct);
-            $this->estoqueAtual = $produto->estoque;
+            $this->estoqueAtual = $produto->estoque - $qtdAdicionada;
+            if ($this->estoqueAtual == 0) {
+                $this->tempErrorStyle = true;
+            } else {
+                $this->tempErrorStyle = false;
+            }
         } else {
             $this->reset('estoqueAtual');
         }
@@ -87,18 +104,25 @@ class CreateVenda extends Component
         if (!is_null($this->selectedProduct) and !empty($this->selectedProduct)) {
             $produto = Product::find($this->selectedProduct);
 
-            $subtotal = $produto->preco * $this->quantidadeAdicionada;
 
-            $this->produtosAdicionados[] = [
-                'id' => $produto->id,
-                'descricao' => $produto->descricao,
-                'preco' => $produto->preco,
-                'quantidade' => $this->quantidadeAdicionada,
-                'subtotal' => $subtotal,
-            ];
+            $qtd_adicionada = intval($this->quantidadeAdicionada);
 
-            $this->reset(['estoqueAtual', 'quantidadeAdicionada']);
-            $this->emit('resetSelect');
+            if ($this->estoqueAtual >= $qtd_adicionada) {
+                $subtotal = $produto->preco * $this->quantidadeAdicionada;
+
+                $this->produtosAdicionados[] = [
+                    'id' => $produto->id,
+                    'descricao' => $produto->descricao,
+                    'preco' => $produto->preco,
+                    'quantidade' => $this->quantidadeAdicionada,
+                    'subtotal' => $subtotal,
+                ];
+
+                $this->emit('resetSelect');
+                $this->reset(['estoqueAtual', 'quantidadeAdicionada']);
+            } else {
+                $this->addError('quantidadeAdicionada', 'Quantidade excede o estoque disponível.');
+            }
         }
     }
 
@@ -125,6 +149,7 @@ class CreateVenda extends Component
             $forma_pag = Method::find($this->selectedFp);
 
             $this->fpsAdicionadas[] = [
+                'id' => $forma_pag->id,
                 'descricao' => $forma_pag->descricao,
                 'valor' => $this->valorDaFp,
             ];
@@ -145,6 +170,9 @@ class CreateVenda extends Component
         }
 
         $this->produtosAdicionados = array_values($this->produtosAdicionados);
+
+        $this->reset(['estoqueAtual', 'quantidadeAdicionada', 'tempErrorStyle']);
+        $this->emit('resetSelect');
     }
 
     public function removeFp($index)
@@ -197,18 +225,90 @@ class CreateVenda extends Component
             'valorPago' => $this->rules['valorPago'],
         ]);
 
-        dd('VENDA FINALIZADA SENDO IMPLEMENTADA.');
-
         //VERIFICAR SE HÁ PRODUTOS ADICIONADOS
 
+        if (count($this->produtosAdicionados) === 0) {
+            $this->addError('produtosAdicionados', 'Adicione pelo menos um produto à venda.');
+            return;
+        }
+
         //VERIFICAR SE HÁ FP(S) ADICIONADA(S)
+
+        if (count($this->fpsAdicionadas) === 0) {
+            $this->addError('fpsAdicionadas', 'Adicione pelo menos uma forma de pagamento à venda.');
+            return;
+        }
+
+        //VERIFICAR TROCO NEGATIVO
+
+        $formatted_troco = str_replace(".", "", $this->troco);
+        $formatted_troco = str_replace(',', '.', $formatted_troco);
+        $formatted_troco = floatval($formatted_troco);
+
+        if ($formatted_troco < 0) {
+            $this->addError('troco', 'O troco não pode ser negativo.');
+            return;
+        }
+
+        //VERIFICAR SUBTOTAL NEGATIVO
+
+        $formatted_subtotal = str_replace(".", "", $this->subtotalVenda);
+        $formatted_subtotal = str_replace(',', '.', $formatted_subtotal);
+        $formatted_subtotal = floatval($formatted_subtotal);
+
+        if ($formatted_subtotal < 0) {
+            $this->addError('subtotal', 'O subtotal não pode ser negativo.');
+            return;
+        }
+        if ($formatted_subtotal == 0) {
+            $this->addError('subtotal', 'O subtotal não pode ser zero.');
+            return;
+        }
 
         //VERIFICAR SE O VALOR DA FP OU DAS FPS BATEM COM O SUBTOTAL...
 
         //...SE MENOR PEDE PARA ADICIONAR MAIS FP, SE MAIOR, PEDE PARA REMOVER UMA OU MAIS FPS
 
-        
+        $totalFormasPagamento = 0;
+        foreach ($this->fpsAdicionadas as $formaPagamento) {
 
+            $formatted_formaPag = str_replace(".", "", $formaPagamento['valor']);
+            $formatted_formaPag = str_replace(',', '.', $formatted_formaPag);
+            $formatted_formaPag = floatval($formatted_formaPag);
+
+            $totalFormasPagamento += $formatted_formaPag;
+        }
+
+        if ($totalFormasPagamento < $formatted_subtotal) {
+
+            $faltando = $formatted_subtotal - $totalFormasPagamento;
+            $faltando = number_format($faltando, 2, ',', '.');
+
+            $this->addError('fpsAdicionadas', 'Adicione mais formas de pagamento para completar o pagamento. Faltando: R$ ' . $faltando);
+            return;
+        } elseif ($totalFormasPagamento > $formatted_subtotal) {
+
+            $excedendo = $totalFormasPagamento - $formatted_subtotal;
+            $excedendo = number_format($excedendo, 2, ',', '.');
+
+            $this->addError('fpsAdicionadas', 'Remova uma ou mais formas de pagamento para corresponder ao subtotal da venda. Excedendo: R$ ' . $excedendo);
+            return;
+        }
+
+        //CONCLUINDO A VENDA
+
+        $this->reset(['estoqueAtual', 'quantidadeAdicionada']);
+        $this->emit('resetSelect');
+
+        // Abata o estoque no banco de dados
+        foreach ($this->produtosAdicionados as $produtoVendido) {
+
+            $produtoModel = Product::find($produtoVendido['id']);
+            $produtoModel->estoque -= intval($produtoVendido['quantidade']);
+            $produtoModel->save();
+        }
+
+        $this->reset('produtosAdicionados');
     }
 
     public function render()

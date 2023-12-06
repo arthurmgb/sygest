@@ -49,10 +49,10 @@
                                                         <label class="modal-label">
                                                             Em estoque
                                                         </label>
-                                                        <input wire:keydown.enter.prevent="addProduct"
+                                                        <input style="@if($tempErrorStyle) border-color: red; background-color: rgba(245, 39, 39, 0.27);  @endif" wire:keydown.enter.prevent="addProduct"
                                                             wire:model.defer="estoqueAtual" disabled type="number"
-                                                            class="form-control modal-input font-weight-bold" autocomplete="off"
-                                                            wire:loading.attr="disabled">
+                                                            class="form-control modal-input font-weight-bold"
+                                                            autocomplete="off" wire:loading.attr="disabled">
                                                     </div>
                                                     <div class="col">
                                                         <label class="modal-label">
@@ -76,13 +76,13 @@
                                             <hr>
                                         </div>
                                         <div class="pdv-left w-100">
-                                            @empty($produtosAdicionados)
+                                            @if (empty($produtosAdicionados) and empty($fpsAdicionadas))
                                                 <div class="pdv-caixa-livre">
                                                     <h1 class="text-uppercase text-center text-white p-3 mb-0">
                                                         Caixa livre
                                                     </h1>
                                                 </div>
-                                            @endempty
+                                            @endif
                                         </div>
                                     </div>
                             </div>
@@ -175,7 +175,8 @@
                                         <hr>
                                         <ul class="list-group">
                                             @foreach ($fpsAdicionadas as $fpItem)
-                                                <li wire:key="{{ $loop->index }}" style="overflow-wrap: anywhere;"
+                                                <li wire:key="{{ 'fp' . $loop->index }}"
+                                                    style="overflow-wrap: anywhere;"
                                                     class="list-group-item d-flex justify-content-between align-items-center border">
                                                     <b>{{ $fpItem['descricao'] }}</b>
                                                     <div class="div-right-fp d-flex align-items-center">
@@ -199,7 +200,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input wire:keydown.enter.prevent wire:model="totalVenda" readonly
+                                                <input wire:keydown.enter.prevent wire:model="totalVenda" disabled
                                                     placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation"
                                                     autocomplete="off">
@@ -214,7 +215,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input wire:keydown.enter.prevent wire:model="valorPago"
+                                                <input wire:keydown.enter.prevent="finalizarVenda" wire:model="valorPago"
                                                     placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
                                                     autocomplete="off">
@@ -239,7 +240,7 @@
                                                         style="@if ($check_troco < 0) border-color: red; @endif"
                                                         class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input wire:keydown.enter.prevent wire:model="troco" readonly
+                                                <input wire:keydown.enter.prevent wire:model="troco" disabled
                                                     placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation"
                                                     autocomplete="off"
@@ -255,7 +256,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input wire:keydown.enter.prevent wire:model="desconto"
+                                                <input wire:keydown.enter.prevent="finalizarVenda" wire:model="desconto"
                                                     placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
                                                     autocomplete="off">
@@ -279,7 +280,7 @@
                                                 </div>
                                                 <input wire:keydown.enter.prevent
                                                     style="font-size: 35px; @if ($check_stv < 0) border-color: red; @endif"
-                                                    wire:model="subtotalVenda" readonly placeholder="0,00"
+                                                    wire:model="subtotalVenda" disabled placeholder="0,00"
                                                     type="text"
                                                     class="form-control modal-input total-operation form-control-lg"
                                                     autocomplete="off">
@@ -291,8 +292,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer py-1">
-                    <button wire:loading.attr="disabled" type="button" class="btn btn-cancel"
+                <div style="flex-wrap: nowrap;" class="modal-footer py-1">
+                    @error('produtosAdicionados')
+                        <span class="wire-error">{{ $message }}</span>
+                    @enderror
+                    @error('fpsAdicionadas')
+                        <span class="wire-error">{{ $message }}</span>
+                    @enderror
+                    @error('troco')
+                        <span class="wire-error">{{ $message }}</span>
+                    @enderror
+                    @error('subtotal')
+                        <span class="wire-error">{{ $message }}</span>
+                    @enderror
+                    <button wire:loading.attr="disabled" type="button" class="btn btn-cancel ml-4"
                         data-dismiss="modal">Cancelar</button>
                     <button wire:loading.attr="disabled" wire:click.prevent="finalizarVenda" type="button"
                         class="btn btn-send">Finalizar</button>
