@@ -14,12 +14,37 @@ class CheckAuth extends Component
     public $showInput =  false;
     public $foundOperator;
 
+    public $rules = [
+
+        'operatorPass' => 'required',
+    ];
+
+    protected $messages = [
+
+        'operatorPass.required' => 'Campo obrigatório.',
+    ];
+
     public function mount()
     {
         $this->account_operators = Operator::where('user_id', auth()->user()->id)
             ->where('status', 0)
             ->orderBy('nome', 'ASC')
             ->get();
+    }
+
+    public function generateAdminOperator()
+    {
+        Operator::create([
+
+            'nome' => auth()->user()->name,
+            'senha' => 123,
+            'is_admin' => 1,
+            'user_id' => auth()->user()->id
+
+        ]);
+
+        $this->mount();
+
     }
 
     public function updatedSelectedOperator()
@@ -33,17 +58,23 @@ class CheckAuth extends Component
 
         $this->foundOperator = Operator::find($this->selectedOperator);
 
+        if ($this->foundOperator->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
         $this->showInput = true;
-
-        // $this->dispatchBrowserEvent('unlock-acc-operator');
-
-        // session(['operador_selecionado' => $operador_encontrado]);
-
-        // session()->forget('operador_selecionado');
     }
 
-    public function verifyCredentials(){
-        dd($this->foundOperator);
+    public function verifyCredentials()
+    {
+        $this->validate();
+
+        if ($this->foundOperator->senha === $this->operatorPass) {
+            session(['operador_selecionado' => $this->foundOperator]);
+            $this->dispatchBrowserEvent('unlock-acc-operator');
+        } else {
+            $this->addError('operatorPass', 'Senha incorreta.');
+        }
     }
 
     public function render()

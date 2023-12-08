@@ -37,7 +37,8 @@ class CreateOp extends Component
 
     ];
 
-    public function refreshOp(){
+    public function refreshOp()
+    {
         $this->emit('refreshComponent');
     }
 
@@ -54,58 +55,57 @@ class CreateOp extends Component
         $this->state['tipo'] = '1';
         $this->state['fp'] = "";
 
-        if(isset($this->state['operador']) and !empty($this->state['operador'])){
-            
-            $check_operator_active = Operator::where('user_id', auth()->user()->id)
-            ->where('id', $this->state['operador'])
-            ->first();
+        if (isset($this->state['operador']) and !empty($this->state['operador'])) {
 
-            if($check_operator_active->status == 1){
+            $check_operator_active = Operator::where('user_id', auth()->user()->id)
+                ->where('id', $this->state['operador'])
+                ->first();
+
+            if ($check_operator_active->status == 1) {
                 $this->state['operador'] = "";
             }
-
         }
 
-        $get_default_operator = Operator::where('user_id', auth()->user()->id)
-        ->where('is_default', 1)
-        ->where('status', 0)
-        ->first();
-        
-        if(!is_null($get_default_operator)){
+        // $get_default_operator = Operator::where('user_id', auth()->user()->id)
+        //     ->where('is_default', 1)
+        //     ->where('status', 0)
+        //     ->first();
+
+        $get_default_operator = session()->get('operador_selecionado');
+
+        if (!is_null($get_default_operator)) {
             $this->state['operador'] = $get_default_operator->id;
             $this->is_operator_default = 'disabled';
-        }else{
+        } else {
             $this->is_operator_default = 'active';
         }
-
     }
 
-    public function dehydrate(){
+    public function dehydrate()
+    {
 
-        if(isset($this->state['operador']) and !empty($this->state['operador'])){
-            
+        if (isset($this->state['operador']) and !empty($this->state['operador'])) {
+
             $check_operator_active = Operator::where('user_id', auth()->user()->id)
-            ->where('id', $this->state['operador'])
-            ->first();
+                ->where('id', $this->state['operador'])
+                ->first();
 
-            if($check_operator_active->status == 1){
+            if ($check_operator_active->status == 1) {
                 $this->state['operador'] = "";
             }
-
         }
 
         $get_default_operator = Operator::where('user_id', auth()->user()->id)
-        ->where('is_default', 1)
-        ->where('status', 0)
-        ->first();
-        
-        if(!is_null($get_default_operator)){
+            ->where('is_default', 1)
+            ->where('status', 0)
+            ->first();
+
+        if (!is_null($get_default_operator)) {
             $this->state['operador'] = $get_default_operator->id;
             $this->is_operator_default = 'disabled';
-        }else{
+        } else {
             $this->is_operator_default = 'active';
         }
-        
     }
 
     public function confirmation()
@@ -153,11 +153,11 @@ class CreateOp extends Component
         $total_formatado = str_replace(".", "", $this->state['total']);
         $total_formatado = str_replace(',', '.', $total_formatado);
 
-        if(empty($this->state['fp'])){
+        if (empty($this->state['fp'])) {
             $this->state['fp'] = null;
         }
 
-        if($total_formatado > 0){
+        if ($total_formatado > 0) {
 
             Operation::create([
 
@@ -165,13 +165,13 @@ class CreateOp extends Component
                 'descricao' => $this->state['descricao'],
                 'category_id' => $this->state['categoria'],
                 'operator_id' => $this->state['operador'],
-                'especie'=> $this->state['especie'],
+                'especie' => $this->state['especie'],
                 'method_id' => $this->state['fp'],
                 'total' => $total_formatado,
                 'user_id' => auth()->user()->id
-    
+
             ]);
-    
+
             $this->dispatchBrowserEvent('close-confirm-modal');
             $this->reset('state');
             $this->state['tipo'] = '1';
@@ -179,16 +179,13 @@ class CreateOp extends Component
             $this->state['operador'] = "";
             $this->state['especie'] = "";
             $this->state['fp'] = "";
-    
+
             $this->emit('alert', 'Operação realizada com sucesso!');
             $this->emitTo('fluxo-caixa', 'render');
             $this->emitTo('visao-geral', 'render');
-
-        }else{
+        } else {
             $this->emit('alert-error', 'O total da operação deve ser maior do que zero.');
         }
-
-        
     }
 
     public function render()
@@ -199,18 +196,18 @@ class CreateOp extends Component
             ->where('tipo', $this->state['tipo'])
             ->orderBy('descricao', 'asc')
             ->get();
-        
+
         $operadores = Operator::where('user_id', auth()->user()->id)
-        ->where('status', 0)
-        ->orderBy('nome', 'asc')
-        ->get();
+            ->where('status', 0)
+            ->orderBy('nome', 'asc')
+            ->get();
 
         $formas_de_pag = Method::where('user_id', auth()->user()->id)
-        ->where('status', 1)
-        ->orderBy('descricao', 'asc')
-        ->get();
+            ->where('status', 1)
+            ->orderBy('descricao', 'asc')
+            ->get();
 
-        if(isset($this->state['especie']) and $this->state['especie'] != 4){
+        if (isset($this->state['especie']) and $this->state['especie'] != 4) {
             $this->state['fp'] = "";
         }
 

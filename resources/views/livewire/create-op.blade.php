@@ -26,13 +26,15 @@
                         <div class="form-group mb-1">
                             <label class="modal-label">Tipo de operação <span class="red">*</span></label>
                             <br>
-                            <input wire:model="state.tipo" wire:click="changeOperation" value="1" class="radio" type="radio" name="operation"
-                                id="op-entrada">
-                            <label class="label-op label-green" for="op-entrada"><i class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>Entrada</label>
+                            <input wire:model="state.tipo" wire:click="changeOperation" value="1" class="radio"
+                                type="radio" name="operation" id="op-entrada">
+                            <label class="label-op label-green" for="op-entrada"><i
+                                    class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>Entrada</label>
 
-                            <input wire:model="state.tipo" wire:click="changeOperation" value="0" class="radio" type="radio" name="operation"
-                                id="op-saida">
-                            <label class="label-op label-red" for="op-saida">Saída<i class="fad fa-arrow-from-top fa-fw fa-lg ml-1"></i></label>
+                            <input wire:model="state.tipo" wire:click="changeOperation" value="0" class="radio"
+                                type="radio" name="operation" id="op-saida">
+                            <label class="label-op label-red" for="op-saida">Saída<i
+                                    class="fad fa-arrow-from-top fa-fw fa-lg ml-1"></i></label>
                             @error('state.tipo')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
@@ -46,12 +48,17 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label class="modal-label" for="categoria-op">Categoria <span class="red">*</span></label>
+                            <label class="modal-label" for="categoria-op">Categoria <span
+                                    class="red">*</span></label>
                             @if ($categorias->count())
-                            <a style="padding: 3px 14px;" href="{{ route('categorias') }}" target="_blank" class="btn btn-new my-1 float-right">+ Nova</a>
+                                <a style="padding: 3px 14px;" href="{{ route('categorias') }}" target="_blank"
+                                    class="btn btn-new my-1 float-right">+ Nova</a>
 
-                                <select style="font-size: 17px;" wire:model.defer="state.categoria" class="form-control modal-input-cat yampay-scroll"
-                                    id="categoria-op" onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
+                                <select style="font-size: 17px;" wire:model.defer="state.categoria"
+                                    class="form-control modal-input-cat yampay-scroll" id="categoria-op"
+                                    onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                    onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                    onchange="this.size=1; this.blur();">
                                     <option value="">Selecione uma categoria</option>
 
                                     @foreach ($categorias as $categoria)
@@ -59,7 +66,8 @@
                                     @endforeach
                                 </select>
                             @else
-                            <a href="{{ route('categorias') }}" target="_blank" class="btn btn-new btn-block">+ Nova categoria</a>
+                                <a href="{{ route('categorias') }}" target="_blank" class="btn btn-new btn-block">+ Nova
+                                    categoria</a>
                             @endif
                             @error('state.categoria')
                                 <span class="wire-error">{{ $message }}</span>
@@ -68,55 +76,71 @@
                         <div class="form-group">
                             <label class="modal-label" for="operador-op">Operador <span class="red">*</span></label>
                             @if ($operadores->count())
-                            <a style="padding: 3px 14px;" href="{{ route('configuracoes') }}" target="_blank" class="btn btn-new my-1 float-right">+ Novo</a>
+                                <a style="padding: 3px 14px;" href="{{ route('configuracoes') }}" target="_blank"
+                                    class="btn btn-new my-1 float-right">+ Novo</a>
 
-                                <select style="font-size: 17px;" wire:model.defer="state.operador" class="form-control modal-input-cat yampay-scroll"
-                                    id="operador-op" onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();" @if($is_operator_default == 'disabled') disabled @endif>
+                                <select style="font-size: 17px;" wire:model.defer="state.operador"
+                                    class="form-control modal-input-cat yampay-scroll" id="operador-op"
+                                    onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                    onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                    onchange="this.size=1; this.blur();"
+                                    @if ($is_operator_default == 'disabled') disabled @endif>
                                     <option value="">Selecione um operador</option>
 
                                     @foreach ($operadores as $operador)
-                                        <option value="{{ $operador->id }}">@if($operador->is_default == 1) 🟣 @endif{{ $operador->nome }} @if($operador->is_default == 1) (Padrão)@endif</option>
+                                        <option value="{{ $operador->id }}">🟣 {{ $operador->nome }}</option>
                                     @endforeach
                                 </select>
                             @else
-                            <a href="{{ route('configuracoes') }}" target="_blank" class="btn btn-new btn-block">+ Novo operador</a>
+                                <a href="{{ route('configuracoes') }}" target="_blank" class="btn btn-new btn-block">+
+                                    Novo operador</a>
                             @endif
                             @error('state.operador')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label class="modal-label" for="especie-op">Espécie  <span class="red">*</span></label>
-                                <select style="font-size: 17px;" wire:model="state.especie" class="form-control modal-input-cat yampay-scroll"
-                                    id="especie-op" onfocus="this.size=6; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
-                                    <option value="">Selecione o tipo de espécie</option>
-                                    <option value="1">💵 Dinheiro</option>
-                                    <option value="2">💲 Cheque</option>
-                                    <option value="3">💰 Moedas</option>
-                                    <option style="margin-bottom: 0px !important;" value="4">💳 Outros (+ Mais opções)</option>
-                                </select>
+                            <label class="modal-label" for="especie-op">Espécie <span class="red">*</span></label>
+                            <select style="font-size: 17px;" wire:model="state.especie"
+                                class="form-control modal-input-cat yampay-scroll" id="especie-op"
+                                onfocus="this.size=6; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                onchange="this.size=1; this.blur();">
+                                <option value="">Selecione o tipo de espécie</option>
+                                <option value="1">💵 Dinheiro</option>
+                                <option value="2">💲 Cheque</option>
+                                <option value="3">💰 Moedas</option>
+                                <option style="margin-bottom: 0px !important;" value="4">💳 Outros (+ Mais
+                                    opções)</option>
+                            </select>
                             @error('state.especie')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
-                        
+
                         @if (isset($state['especie']) and $state['especie'] == 4)
                             <div class="form-group">
-                                <label class="modal-label" for="fp-op">Forma de pagamento  <span style="font-size: 12px;">(opcional)</span></label>
-                                <a style="padding: 3px 14px;" href="{{ route('formas-pagamento') }}" target="_blank" class="btn btn-new my-1 float-right">+ Nova FP</a>
-                                    <select style="font-size: 17px;" wire:model.defer="state.fp" class="form-control modal-input-cat yampay-scroll"
-                                    id="fp-op" onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
+                                <label class="modal-label" for="fp-op">Forma de pagamento <span
+                                        style="font-size: 12px;">(opcional)</span></label>
+                                <a style="padding: 3px 14px;" href="{{ route('formas-pagamento') }}" target="_blank"
+                                    class="btn btn-new my-1 float-right">+ Nova FP</a>
+                                <select style="font-size: 17px;" wire:model.defer="state.fp"
+                                    class="form-control modal-input-cat yampay-scroll" id="fp-op"
+                                    onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                    onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                    onchange="this.size=1; this.blur();">
                                     <option value="">Não especificada</option>
-                                        @foreach ($formas_de_pag as $single_form_pag)
-                                            <option value="{{$single_form_pag->id}}">{{$single_form_pag->descricao}}</option>
-                                        @endforeach
-                                    </select>
+                                    @foreach ($formas_de_pag as $single_form_pag)
+                                        <option value="{{ $single_form_pag->id }}">{{ $single_form_pag->descricao }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 @error('state.fp')
                                     <span class="wire-error">{{ $message }}</span>
                                 @enderror
                             </div>
                         @endif
-                        
+
                         <div class="form-group mb-0">
                             <label class="modal-label" for="total-op">Total da operação <span
                                     class="red">*</span></label>
@@ -125,7 +149,8 @@
                                     <span class="input-group-text">R$</span>
                                 </div>
                                 <input wire:model.defer="state.total" placeholder="0,00" type="text"
-                                    class="form-control modal-input total-operation" id="total-op" autocomplete="off">
+                                    class="form-control modal-input total-operation" id="total-op"
+                                    autocomplete="off">
                             </div>
                             @error('state.total')
                                 <span class="wire-error">{{ $message }}</span>
@@ -136,7 +161,8 @@
                 <div class="modal-footer py-4">
                     <button wire:loading.attr="disabled" type="button" class="btn btn-cancel"
                         wire:click.prevent="resetNewOperation()" data-dismiss="modal">Cancelar</button>
-                    <button wire:loading.attr="disabled" wire:target="confirmation" type="submit" class="btn btn-send">Adicionar</button>
+                    <button wire:loading.attr="disabled" wire:target="confirmation" type="submit"
+                        class="btn btn-send">Adicionar</button>
                     </form>
                 </div>
             </div>
@@ -162,7 +188,8 @@
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, uma nova operação será realizada e não
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, uma nova operação será realizada e
+                            não
                             poderá mais ser excluída da plataforma.
                             Para excluir uma operação, entre em contato com nosso suporte.
                         </p>

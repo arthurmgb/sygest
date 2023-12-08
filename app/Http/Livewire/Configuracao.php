@@ -22,12 +22,14 @@ class Configuracao extends Component
     public $rules = [
 
         'operador.nome' => 'required|max:100',
+        'operador.senha' => 'required|max:100',
 
     ];
 
     protected $messages = [
 
         'operador.nome.required' => 'O nome do operador é obrigatório.',
+        'operador.senha.required' => 'A senha do operador é obrigatória.',
 
     ];
 

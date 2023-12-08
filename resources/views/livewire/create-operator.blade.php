@@ -13,11 +13,19 @@
                 <div class="modal-body py-4 px-4">
 
                     <form wire:submit.prevent="confirmation()">
-                        <div class="form-group mb-0">
+                        <div class="form-group">
                             <label class="modal-label" for="desc-op">Nome completo <span class="red">*</span></label>
                             <input wire:model.defer="state.nome" type="text" class="form-control modal-input"
                                 id="desc-op" autocomplete="off"> 
                             @error('state.nome')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="modal-label" for="pass-operator">Senha <span class="red">*</span></label>
+                            <input wire:model.defer="state.senha" type="text" class="form-control modal-input"
+                                id="pass-operator" autocomplete="off"> 
+                            @error('state.senha')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>

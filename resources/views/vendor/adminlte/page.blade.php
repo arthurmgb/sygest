@@ -608,7 +608,7 @@
         //]]>
     </script>
 
-    @if (!is_null($get_operator_auth))
+    @if (is_null($get_operator_auth))
         <script>
             $(document).ready(function() {
                 $("#modalCheckAuth").modal('show');
