@@ -10,6 +10,9 @@ class CheckAuth extends Component
 
     public $account_operators;
     public $selectedOperator;
+    public $operatorPass;
+    public $showInput =  false;
+    public $foundOperator;
 
     public function mount()
     {
@@ -21,14 +24,26 @@ class CheckAuth extends Component
 
     public function updatedSelectedOperator()
     {
+        $this->reset('operatorPass');
 
-        $operador_encontrado = Operator::find($this->selectedOperator);
+        if (empty($this->selectedOperator)) {
+            $this->showInput = false;
+            return;
+        }
 
-        $this->dispatchBrowserEvent('unlock-acc-operator');
+        $this->foundOperator = Operator::find($this->selectedOperator);
 
-        session(['operador_selecionado' => $operador_encontrado]);
+        $this->showInput = true;
+
+        // $this->dispatchBrowserEvent('unlock-acc-operator');
+
+        // session(['operador_selecionado' => $operador_encontrado]);
 
         // session()->forget('operador_selecionado');
+    }
+
+    public function verifyCredentials(){
+        dd($this->foundOperator);
     }
 
     public function render()

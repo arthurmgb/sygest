@@ -261,13 +261,6 @@
                     <div class="content">
                         <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                             @yield('content')
-
-                            <?php
-
-                                echo $get_operator_auth->nome;
-
-
-                            ?>
                         </div>
                     </div>
 
@@ -622,5 +615,17 @@
             });
         </script>
     @endif
+
+    <script>
+        $('#modalCheckAuth').on('show.bs.modal', function(event) {
+            setTimeout(function() {
+                $('body').css('overflow', 'hidden');
+            }, 100);
+        });
+
+        $('#modalCheckAuth').on('hide.bs.modal', function(event) {
+            $('body').css('overflow', 'auto');
+        });
+    </script>
 
 @stop

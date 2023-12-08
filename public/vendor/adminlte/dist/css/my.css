@@ -1981,3 +1981,26 @@ select.fadeOut {
     max-height: 320px !important;
 }
 /* PDV */
+
+/* CHECK AUTH */
+
+.modal-check-auth {
+    padding: 0 !important;
+    user-select: none !important;
+}
+.modal .modal-dialog-check-auth {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+}
+.modal .modal-content-check-auth {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+}
+.modal .modal-body-check-auth {
+    overflow-y: auto;
+}
+
+/* CHECK AUTH */
