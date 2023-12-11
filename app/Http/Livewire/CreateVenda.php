@@ -3,16 +3,18 @@
 namespace App\Http\Livewire;
 
 use App\Models\Method;
+use App\Models\Operation;
+use App\Models\Operator;
 use App\Models\Product;
 use Livewire\Component;
-
-use function PHPUnit\Framework\isNull;
 
 class CreateVenda extends Component
 {
 
+    protected $listeners = ['render', 'mount'];
     public $produtos;
     public $fps;
+    public $operador;
     public $selectedProduct = '';
     public $selectedFp = '';
     public $estoqueAtual;
@@ -60,6 +62,12 @@ class CreateVenda extends Component
             ->where('status', 1)
             ->orderBy('descricao', 'ASC')
             ->get();
+
+        if (session()->get('operador_selecionado')) {
+            $this->operador = Operator::find(session()->get('operador_selecionado')->id);
+        } else {
+            $this->operador = "";
+        }
     }
 
     public function updatedselectedProduct()
@@ -309,11 +317,41 @@ class CreateVenda extends Component
         }
 
         $this->reset('produtosAdicionados');
+
+
+        //SALVANDO VENDA NO BANCO
+
+        Operation::create([
+
+            'tipo' => 1,
+            'descricao' => 'VENDA',
+            'is_venda' => 1,
+            'operator_id' => $this->operador->id,
+            'especie' => 4,
+            'total' => $formatted_subtotal,
+            'user_id' => auth()->user()->id
+
+        ]);
+
+        $this->emit('alert', 'Venda realizada com sucesso!');
+        $this->emitTo('visao-geral', 'render');
+
+        $this->reset('selectedProduct');
+        $this->reset('selectedFp');
+        $this->reset('estoqueAtual');
+        $this->reset('quantidadeAdicionada');
+        $this->reset('fpsAdicionadas');
+        $this->reset('totalVenda');
+        $this->reset('valorPago');
+        $this->reset('troco');
+        $this->reset('desconto');
+        $this->reset('subtotalVenda');
+        $this->reset('valorDaFp');
+        $this->reset('tempErrorStyle');
     }
 
     public function render()
     {
-
 
         $this->totalVenda = $this->calcularTotalVenda();
 
@@ -341,7 +379,6 @@ class CreateVenda extends Component
 
 
         $this->totalVenda = number_format($this->calcularTotalVenda(), 2, ',', '.');
-
 
         return view('livewire.create-venda');
     }

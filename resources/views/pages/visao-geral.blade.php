@@ -84,6 +84,7 @@
     <script>
         let btnNewOp = document.querySelector('#js-new-op');
         let btnNewVenda = document.querySelector('#js-new-venda');
+        let modalCadOperation = document.querySelector('#operacao');
         let modalConfirmOp = document.querySelector('#confirm-operation');
         let modalPdv = document.querySelector('#venda');
 
@@ -93,6 +94,13 @@
         document.addEventListener('keydown', (e) => {
 
             if ($(modalConfirmOp).is(":visible")) {
+                if (e.keyCode == 112) {
+                    e.preventDefault();
+                    return;
+                }
+            }
+
+            if ($(modalPdv).is(":visible")) {
                 if (e.keyCode == 112) {
                     e.preventDefault();
                     return;
@@ -120,6 +128,13 @@
             }
 
             if ($(modalPdv).is(":visible")) {
+                if (e.keyCode == 113) {
+                    e.preventDefault();
+                    return;
+                }
+            }
+
+            if ($(modalCadOperation).is(":visible")) {
                 if (e.keyCode == 113) {
                     e.preventDefault();
                     return;

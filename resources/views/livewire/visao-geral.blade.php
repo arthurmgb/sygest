@@ -437,10 +437,14 @@
                                                     }
                                                 }
 
-                                                if (is_null($operation->category)) {
-                                                    $categoria_op = 'Retirada';
-                                                } else {
-                                                    $categoria_op = $operation->category->descricao;
+                                                if ($operation->is_venda === 1) {
+                                                    $categoria_op = 'Venda';
+                                                } elseif ($operation->is_venda === 0) {
+                                                    if (is_null($operation->category)) {
+                                                        $categoria_op = 'Retirada';
+                                                    } else {
+                                                        $categoria_op = $operation->category->descricao;
+                                                    }
                                                 }
 
                                                 if ($operation->especie === 1) {
@@ -482,11 +486,17 @@
                                                 <td style="word-wrap: break-word;" class="align-middle">
                                                     <span>
                                                         @if (is_null($operation->method_id))
-                                                            @if ($operation->especie == 4)
-                                                                <span style="color: #725BC2; font-weight: 500;">Não
-                                                                    especificada</span>
+                                                            @if ($operation->is_venda === 1)
+                                                                <span style="color: #725BC2; font-weight: 500;">
+                                                                    Em detalhes
+                                                                </span>
                                                             @else
-                                                                {{ $especie_op }}
+                                                                @if ($operation->especie == 4)
+                                                                    <span style="color: #725BC2; font-weight: 500;">Não
+                                                                        especificada</span>
+                                                                @else
+                                                                    {{ $especie_op }}
+                                                                @endif
                                                             @endif
                                                         @else
                                                             {{ $operation->method->descricao }}
@@ -497,16 +507,13 @@
                                                     {{ $operation->operator->nome ?? auth()->user()->name }}</td>
                                                 @if ($operation->tipo == 1)
                                                     <td class="align-middle"><span style="white-space: nowrap;"
-                                                            class="operacao-entrada">Movimento de
-                                                            entrada</span></td>
+                                                            class="operacao-entrada">Entrada</span></td>
                                                 @elseif ($operation->tipo == 3)
                                                     <td class="align-middle"><span style="white-space: nowrap;"
-                                                            class="operacao-retirada">Retirada de
-                                                            caixa</span></td>
+                                                            class="operacao-retirada">Retirada</span></td>
                                                 @else
                                                     <td class="align-middle"><span style="white-space: nowrap;"
-                                                            class="operacao-saida">Movimento de
-                                                            saída</span>
+                                                            class="operacao-saida">Saída</span>
                                                     </td>
                                                 @endif
 

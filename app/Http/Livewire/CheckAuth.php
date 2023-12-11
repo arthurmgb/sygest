@@ -80,6 +80,7 @@ class CheckAuth extends Component
 
         $this->emitTo('create-op', 'render');
         $this->emitTo('create-ret', 'render');
+        $this->emitTo('create-venda', 'mount');
         
     }
 

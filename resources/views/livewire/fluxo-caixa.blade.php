@@ -6,22 +6,24 @@
     <div class="page-filters">
 
         <a wire:click.prevent="changeOption([1,0])" wire:loading.attr="disabled"
-            class="filter-base filter-ops @if ($option==[1, 0]) filter-10 @endif">
+            class="filter-base filter-ops @if ($option == [1, 0]) filter-10 @endif">
             <span>Todas as operações</span>
         </a>
         <a wire:click.prevent="changeOption([1])" wire:loading.attr="disabled"
-            class="filter-base filter-entrada @if ($option==[1]) filter-1 @endif">
+            class="filter-base filter-entrada @if ($option == [1]) filter-1 @endif">
             <span>Operações de entrada</span>
         </a>
         <a wire:click.prevent="changeOption([0])" wire:loading.attr="disabled"
-            class="filter-base filter-saida @if ($option==[0]) filter-0 @endif">
+            class="filter-base filter-saida @if ($option == [0]) filter-0 @endif">
             <span>Operações de saída</span>
         </a>
-        <a wire:click.prevent="geraReceita()" wire:loading.attr="disabled" class="filter-base filter-soma @if ($receita==true) filter-s @endif">
+        <a wire:click.prevent="geraReceita()" wire:loading.attr="disabled"
+            class="filter-base filter-soma @if ($receita == true) filter-s @endif">
             <span>Exibir <br>saldo</span>
         </a>
 
-        <a data-toggle="modal" data-target="#operacao" class="btn btn-new float-right" id="js-new-op">+ Nova operação &#91; F1 &#93;</a>
+        <a data-toggle="modal" data-target="#operacao" class="btn btn-new float-right" id="js-new-op">+ Nova operação
+            &#91; F1 &#93;</a>
 
     </div>
     <div class="block">
@@ -37,7 +39,8 @@
                 <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
             </div>
 
-            <div wire:loading.remove class="card-body px-0 pb-0 pt-1 @if ($receita) pt-1 @endif @if(auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif">
+            <div wire:loading.remove
+                class="card-body px-0 pb-0 pt-1 @if ($receita) pt-1 @endif @if (auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif">
 
                 @if ($operations->count())
 
@@ -46,39 +49,40 @@
                         <div class="receita-alert d-flex flex-column align-items-start">
 
                             @if ($option == [1, 0])
+                                <span>
+                                    Total de entradas:
+                                    <b style="color: #00A3A3;">
+                                        R$ {{ $receita_entrada }}
+                                    </b>
+                                </span>
 
-                            <span>
-                                Total de entradas: 
-                                <b style="color: #00A3A3;">
-                                    R$ {{ $receita_entrada }}
-                                </b>
-                            </span>
-
-                            <span>
-                                Total de saídas: 
-                                <b style="color: #E6274C;"> 
-                                   - R$ {{ $receita_saida }}
-                                </b>
-                            </span>
-
+                                <span>
+                                    Total de saídas:
+                                    <b style="color: #E6274C;">
+                                        - R$ {{ $receita_saida }}
+                                    </b>
+                                </span>
                             @endif
 
                             <span>
-                                Saldo: 
-                                <b style="@if($option == [0]) color: #E6274C; @elseif($option == [1]) color: #00A3A3; @endif">
-                                    @if ($option == [0]) - @endif R$ {{ $receita_valor }}
+                                Saldo:
+                                <b
+                                    style="@if ($option == [0]) color: #E6274C; @elseif($option == [1]) color: #00A3A3; @endif">
+                                    @if ($option == [0])
+                                        -
+                                    @endif R$ {{ $receita_valor }}
                                 </b>
                             </span>
 
                             <span>
-                                Total de operações: 
+                                Total de operações:
                                 <b>
                                     {{ $operations_find }}
                                 </b>
                             </span>
 
                             <span>
-                                Operações na página: 
+                                Operações na página:
                                 <b>
                                     {{ $operations->count() }}
                                 </b>
@@ -89,9 +93,11 @@
                                 <a class="limpar-filtro" wire:click.prevent="geraReceita()" href="#">
                                     Remover filtro
                                 </a>
-    
+
                                 @if ($option == [1, 0])
-                                    <span style="cursor: pointer;" wire:ignore class="ml-2" data-toggle="tooltip" data-placement="bottom" title="O total das retiradas não é considerado no fluxo de caixa, portanto o saldo aqui calculado não corresponde ao seu total em caixa.">
+                                    <span style="cursor: pointer;" wire:ignore class="ml-2" data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="O total das retiradas não é considerado no fluxo de caixa, portanto o saldo aqui calculado não corresponde ao seu total em caixa.">
                                         <i class="fa-fw fad fa-info-circle fa-lg info-ret mt-1"></i>
                                     </span>
                                 @endif
@@ -102,10 +108,10 @@
                     @endif
 
                     <div class="div-opt-table my-2">
-                        <a class="home-link my-0" href="{{route('configuracoes')}}">
+                        <a class="home-link my-0" href="{{ route('configuracoes') }}">
                             <i class="fal fa-cog mr-1"></i>Configurações
                         </a>
-                    </div> 
+                    </div>
 
                     <table style="cursor: default;" class="table table-borderless mb-2">
                         <thead class="t-head">
@@ -118,7 +124,10 @@
                                 <th>Espécie</th>
                                 <th width="100px">
                                     <div class="d-flex flex-row align-items-center fp-infos">
-                                    FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="top" title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>' style="margin-top: 2px;" class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
+                                        FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="top"
+                                            title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>'
+                                            style="margin-top: 2px;"
+                                            class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
                                     </div>
                                 </th>
                                 <th width="100px">Operador</th>
@@ -132,23 +141,22 @@
                             @endphp
 
                             @foreach ($operations as $operation)
-
                                 @php
-                                    
+
                                     $total_operacao = number_format($operation->total, 2, ',', '.');
                                     $data_operacao = $operation->created_at->format('d/m/Y H:i');
-                                    
+
                                     $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
                                     $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $operation->created_at);
-                                    
+
                                     $diferenca = $date2->diffInDays($date1);
                                     $tempo = 'dias';
-                                    
+
                                     if ($diferenca === 1) {
                                         $diferenca = 'um';
                                         $tempo = 'dia';
                                     }
-                                    
+
                                     if ($diferenca === 0) {
                                         $diferenca = $date2->diffInHours($date1);
                                         $tempo = 'horas';
@@ -157,16 +165,16 @@
                                             $diferenca = 'uma';
                                             $tempo = 'hora';
                                         }
-                                    
+
                                         if ($diferenca === 0) {
                                             $diferenca = $date2->diffInMinutes($date1);
                                             $tempo = 'minutos';
-                                    
+
                                             if ($diferenca === 1) {
                                                 $diferenca = 'um';
                                                 $tempo = 'minuto';
                                             }
-                                    
+
                                             if ($diferenca === 0) {
                                                 $diferenca = 'poucos';
                                                 $tempo = 'segundos';
@@ -174,70 +182,91 @@
                                         }
                                     }
 
-                                    if ($operation->especie === 1 ) {
+                                    if ($operation->is_venda === 1) {
+                                        $categoria_op = 'Venda';
+                                    } elseif ($operation->is_venda === 0) {
+                                        if (is_null($operation->category)) {
+                                            $categoria_op = 'Retirada';
+                                        } else {
+                                            $categoria_op = $operation->category->descricao;
+                                        }
+                                    }
+
+                                    if ($operation->especie === 1) {
                                         $especie_op = 'Dinheiro';
-                                    }elseif($operation->especie === 2){
+                                    } elseif ($operation->especie === 2) {
                                         $especie_op = 'Cheque';
-                                    }elseif($operation->especie === 3) {
-                                        $especie_op = 'Moedas';                                             
-                                    }elseif($operation->especie === 4) {
+                                    } elseif ($operation->especie === 3) {
+                                        $especie_op = 'Moedas';
+                                    } elseif ($operation->especie === 4) {
                                         $especie_op = 'Outros';
                                     }
-                                    
+
                                 @endphp
 
                                 <tr class="tr-hover">
 
                                     <td class="align-middle">
-                                        <div style="cursor: pointer;" data-tooltip="{{$operation->id}}" data-flow="right" class="div-codigo">
+                                        <div style="cursor: pointer;" data-tooltip="{{ $operation->id }}"
+                                            data-flow="right" class="div-codigo">
                                             <i class="fad fa-info-circle fa-fw fa-lg icon-info-cod"></i>
-                                        </div>                                                
+                                        </div>
                                     </td>
-                                    <td style="@if(auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif" class="align-middle font-desc">{{ $operation->descricao }}</td>
-                                    <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span class="g-light">há
+                                    <td style="@if (auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif"
+                                        class="align-middle font-desc">{{ $operation->descricao }}</td>
+                                    <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span
+                                            class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
-                                    <td style="white-space: nowrap; font-weight: 500;" class="align-middle">R$ {{ $total_operacao }}</td>
-                                    <td style="@if(auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif" class="align-middle">
-                                        <span class="categoria">{{ $operation->category->descricao }}</span></td>
+                                    <td style="white-space: nowrap; font-weight: 500;" class="align-middle">R$
+                                        {{ $total_operacao }}</td>
+                                    <td style="@if (auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif"
+                                        class="align-middle">
+                                        <span class="categoria">{{ $categoria_op }}</span>
+                                    </td>
                                     <td class="align-middle">
-                                        <span
-                                            class="especie">{{ $especie_op }}
+                                        <span class="especie">{{ $especie_op }}
                                         </span>
                                     </td>
                                     <td style="word-wrap: break-word;" class="align-middle">
                                         <span>
                                             @if (is_null($operation->method_id))
-                                                @if ($operation->especie == 4)
-                                                    <span style="color: #725BC2; font-weight: 500;">Não especificada</span> 
+                                                @if ($operation->is_venda === 1)
+                                                    <span style="color: #725BC2; font-weight: 500;">
+                                                        Em detalhes
+                                                    </span>
                                                 @else
-                                                    {{$especie_op}}
+                                                    @if ($operation->especie == 4)
+                                                        <span style="color: #725BC2; font-weight: 500;">Não
+                                                            especificada</span>
+                                                    @else
+                                                        {{ $especie_op }}
+                                                    @endif
                                                 @endif
                                             @else
                                                 {{ $operation->method->descricao }}
                                             @endif
                                         </span>
                                     </td>
-                                    <td style="word-wrap: break-word;" class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
+                                    <td style="word-wrap: break-word;" class="align-middle">
+                                        {{ $operation->operator->nome ?? auth()->user()->name }}</td>
                                     @if ($operation->tipo == 1)
-                                        <td class="align-middle"><span style="white-space: nowrap;" class="operacao-entrada">Movimento de
-                                                entrada</span></td>
+                                        <td class="align-middle"><span style="white-space: nowrap;"
+                                                class="operacao-entrada">Entrada</span></td>
                                     @else
-                                        <td class="align-middle"><span style="white-space: nowrap;" class="operacao-saida">Movimento de saída</span>
+                                        <td class="align-middle"><span style="white-space: nowrap;"
+                                                class="operacao-saida">Saída</span>
                                         </td>
                                     @endif
 
                                 </tr>
-
                             @endforeach
 
                         </tbody>
                     </table>
-
                 @else
-
                     <div class="d-flex flex-column align-items-center justify-content-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211"
-                            height="145">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            width="211" height="145">
                             <style>
                                 <![CDATA[
                                 .B {
@@ -267,7 +296,6 @@
                                 .H {
                                     fill: #d5dadf
                                 }
-
                                 ]]>
                             </style>
                             <g fill="none" fill-rule="evenodd">
@@ -298,7 +326,8 @@
                                             d="M141.144 29.827L89.04 29.01c-3.54-.056-6.93 1.425-9.295 4.06l-2.888 3.216c-.724.806-1.365 1.684-1.912 2.62-1.976 3.378-2.985 5.908-3.04 7.53-.703 20.954-.858 36.17-.467 45.636.178 4.308.765 8.13 1.76 11.47a16.05 16.05 0 0 0 15.38 11.469h59.993a16.05 16.05 0 0 0 16.046-16.046v-49.83c0-6.943-4.466-13.1-11.066-15.254l-12.41-4.05z" />
                                     </g>
                                 </g>
-                                <rect x="70.332" y="28.22" width="81.73" height="81.882" rx="21.767" class="B F" />
+                                <rect x="70.332" y="28.22" width="81.73" height="81.882" rx="21.767"
+                                    class="B F" />
                                 <g class="D E B F">
                                     <rect x="71.03" y="28.917" width="80.334" height="80.487" rx="16.744" />
                                     <g class="C G">
@@ -326,7 +355,8 @@
                                         <path
                                             d="M161.104 130.992c3.01 0 5.462 2.38 5.577 5.362l.003.218h-11.162c.001-3.01 2.382-5.46 5.362-5.576l.22-.004z" />
                                     </g>
-                                    <ellipse fill="#a4afb7" cx="108.789" cy="83.823" rx="5.233" ry="6.977" />
+                                    <ellipse fill="#a4afb7" cx="108.789" cy="83.823" rx="5.233"
+                                        ry="6.977" />
                                     <g class="B">
                                         <path
                                             d="M108.8 81.023c2.9 0 4.255-.993 4.06-1.342-.96-1.73-2.422-2.834-4.06-2.834-1.594 0-3.022 1.046-3.982 2.695-.155.267 1.092 1.48 3.982 1.48z" />
@@ -364,19 +394,23 @@
                         <h3 class="my-4 no-results">Não há operações a serem exibidas.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                             <h3 class="no-results-create mb-3">Comece criando uma</h3>
-                            <a data-toggle="modal" data-target="#operacao" class="ml-2 btn btn-nr">+ Nova operação</a>
+                            <a data-toggle="modal" data-target="#operacao" class="ml-2 btn btn-nr">+ Nova
+                                operação</a>
                         </div>
                     </div>
 
                 @endif
             </div>
-            @if(auth()->user()->table_scroll == 1)
-            <div wire:ignore style="width: fit-content; cursor: pointer; user-select: none;" class="tip-scroll mt-3" data-toggle="tooltip" data-html="true" data-placement="right" title="Pressione <b>SHIFT</b> + <b>Scroll do Mouse</b> em cima da tabela para visualizar todo o conteúdo. Ou se preferir, segure e arraste a barra de rolagem.">
-                <span class="info-total-cx">
-                    <i class="fa-fw fad fa-info-circle fa-lg info-ret" aria-hidden="true"></i>
-                </span>
-                <span style="font-size: 15px !important; color: #666; text-transform: uppercase; font-weight: 600;">Dica</span>
-            </div>
+            @if (auth()->user()->table_scroll == 1)
+                <div wire:ignore style="width: fit-content; cursor: pointer; user-select: none;"
+                    class="tip-scroll mt-3" data-toggle="tooltip" data-html="true" data-placement="right"
+                    title="Pressione <b>SHIFT</b> + <b>Scroll do Mouse</b> em cima da tabela para visualizar todo o conteúdo. Ou se preferir, segure e arraste a barra de rolagem.">
+                    <span class="info-total-cx">
+                        <i class="fa-fw fad fa-info-circle fa-lg info-ret" aria-hidden="true"></i>
+                    </span>
+                    <span
+                        style="font-size: 15px !important; color: #666; text-transform: uppercase; font-weight: 600;">Dica</span>
+                </div>
             @endif
         </div>
 
@@ -397,7 +431,6 @@
                 <div class="paginacao">
                     {{ $operations->links() }}
                 </div>
-
             @endif
         </div>
 

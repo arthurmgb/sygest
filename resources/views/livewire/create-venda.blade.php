@@ -6,7 +6,9 @@
             <div class="modal-content modal-custom modal-pdv-content">
                 <div class="modal-header pt-2 pb-1 px-2 pdv-header">
                     <h5 class="modal-title px-0 py-0" id="vendaLabel">
-                        <i class="far fa-shopping-cart fa-fw mr-3"></i>PDV - Nova venda
+                        <i class="far fa-shopping-cart fa-fw mr-3"></i>PDV - Nova venda |
+                        {{ $operador->nome ?? null }}
+
                     </h5>
                     <button style="color: #fff; opacity: 1;" type="button" class="close py-1 m-0" data-dismiss="modal"
                         aria-label="Close">
@@ -49,7 +51,9 @@
                                                         <label class="modal-label">
                                                             Em estoque
                                                         </label>
-                                                        <input style="@if($tempErrorStyle) border-color: red; background-color: rgba(245, 39, 39, 0.27);  @endif" wire:keydown.enter.prevent="addProduct"
+                                                        <input
+                                                            style="@if ($tempErrorStyle) border-color: red; background-color: rgba(245, 39, 39, 0.27); @endif"
+                                                            wire:keydown.enter.prevent="addProduct"
                                                             wire:model.defer="estoqueAtual" disabled type="number"
                                                             class="form-control modal-input font-weight-bold"
                                                             autocomplete="off" wire:loading.attr="disabled">
@@ -215,8 +219,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input wire:keydown.enter.prevent="finalizarVenda" wire:model="valorPago"
-                                                    placeholder="0,00" type="text"
+                                                <input wire:keydown.enter.prevent="finalizarVenda"
+                                                    wire:model="valorPago" placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
                                                     autocomplete="off">
                                             </div>
@@ -256,8 +260,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><b>R$</b></span>
                                                 </div>
-                                                <input wire:keydown.enter.prevent="finalizarVenda" wire:model="desconto"
-                                                    placeholder="0,00" type="text"
+                                                <input wire:keydown.enter.prevent="finalizarVenda"
+                                                    wire:model="desconto" placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
                                                     autocomplete="off">
                                             </div>

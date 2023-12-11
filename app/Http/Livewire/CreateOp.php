@@ -77,8 +77,6 @@ class CreateOp extends Component
 
     public function dehydrate()
     {
-        $this->state['tipo'] = '1';
-        $this->state['fp'] = "";
 
         if (isset($this->state['operador']) and !empty($this->state['operador'])) {
 

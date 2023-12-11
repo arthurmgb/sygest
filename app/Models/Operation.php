@@ -10,24 +10,28 @@ class Operation extends Model
 {
     use HasFactory;
 
-    protected function serializeDate(DateTimeInterface $date) {
+    protected function serializeDate(DateTimeInterface $date)
+    {
         return $date->format('Y-m-d H:i:s');
     }
 
-    protected $fillable = ['descricao', 'total', 'tipo', 'category_id', 'operator_id', 'especie', 'method_id', 'user_id', 'created_at'];
+    protected $fillable = ['descricao', 'total', 'tipo', 'category_id', 'operator_id', 'especie', 'method_id', 'is_venda', 'user_id', 'created_at'];
 
     //Relação um a muitos
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    public function operator(){
+    public function operator()
+    {
         return $this->belongsTo(Operator::class);
     }
-    public function method(){
+    public function method()
+    {
         return $this->belongsTo(Method::class);
     }
-
 }
