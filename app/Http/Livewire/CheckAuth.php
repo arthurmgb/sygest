@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Operator;
+use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 
 class CheckAuth extends Component
@@ -71,15 +72,21 @@ class CheckAuth extends Component
 
         if ($this->foundOperator->senha === $this->operatorPass) {
             session(['operador_selecionado' => $this->foundOperator]);
+            
             $this->dispatchBrowserEvent('unlock-acc-operator');
         } else {
             $this->addError('operatorPass', 'Senha incorreta.');
         }
+
+        $this->emitTo('create-op', 'render');
+        $this->emitTo('create-ret', 'render');
+        
     }
 
     public function render()
     {
-
+        
+        
         return view('livewire.check-auth');
     }
 }

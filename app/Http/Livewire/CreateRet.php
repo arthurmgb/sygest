@@ -10,9 +10,8 @@ use Livewire\Component;
 class CreateRet extends Component
 {
 
-    protected $listeners = ['refreshComponent' => '$refresh'];
+    protected $listeners = ['refreshComponent' => '$refresh', 'render'];
     public $state = [];
-    public $is_operator_default;
 
     public $rules = [
 
@@ -32,7 +31,8 @@ class CreateRet extends Component
 
     ];
 
-    public function refreshOp(){
+    public function refreshOp()
+    {
         $this->emit('refreshComponent');
     }
 
@@ -42,58 +42,47 @@ class CreateRet extends Component
         $this->state['tipo'] = '3';
         $this->state['fp'] = "";
 
-        if(isset($this->state['operador']) and !empty($this->state['operador'])){
-            
-            $check_operator_active = Operator::where('user_id', auth()->user()->id)
-            ->where('id', $this->state['operador'])
-            ->first();
+        if (isset($this->state['operador']) and !empty($this->state['operador'])) {
 
-            if($check_operator_active->status == 1){
+            $check_operator_active = Operator::where('user_id', auth()->user()->id)
+                ->where('id', $this->state['operador'])
+                ->first();
+
+            if ($check_operator_active->status == 1) {
                 $this->state['operador'] = "";
             }
-
         }
 
-        $get_default_operator = Operator::where('user_id', auth()->user()->id)
-        ->where('is_default', 1)
-        ->where('status', 0)
-        ->first();
-        
-        if(!is_null($get_default_operator)){
+        $get_default_operator = session()->get('operador_selecionado');
+
+        if (!is_null($get_default_operator)) {
             $this->state['operador'] = $get_default_operator->id;
-            $this->is_operator_default = 'disabled';
-        }else{
-            $this->is_operator_default = 'active';
+        } else {
+            $this->state['operador'] = "";
         }
-
     }
 
-    public function dehydrate(){
+    public function dehydrate()
+    {
 
-        if(isset($this->state['operador']) and !empty($this->state['operador'])){
-            
+        if (isset($this->state['operador']) and !empty($this->state['operador'])) {
+
             $check_operator_active = Operator::where('user_id', auth()->user()->id)
-            ->where('id', $this->state['operador'])
-            ->first();
+                ->where('id', $this->state['operador'])
+                ->first();
 
-            if($check_operator_active->status == 1){
+            if ($check_operator_active->status == 1) {
                 $this->state['operador'] = "";
             }
-
         }
 
-        $get_default_operator = Operator::where('user_id', auth()->user()->id)
-        ->where('is_default', 1)
-        ->where('status', 0)
-        ->first();
-        
-        if(!is_null($get_default_operator)){
+        $get_default_operator = session()->get('operador_selecionado');
+
+        if (!is_null($get_default_operator)) {
             $this->state['operador'] = $get_default_operator->id;
-            $this->is_operator_default = 'disabled';
-        }else{
-            $this->is_operator_default = 'active';
+        } else {
+            $this->state['operador'] = "";
         }
-        
     }
 
     public function confirmation()
@@ -150,13 +139,13 @@ class CreateRet extends Component
         $total_formatado = str_replace(".", "", $this->state['total']);
         $total_formatado = str_replace(',', '.', $total_formatado);
 
-        if($total_formatado == 0){
+        if ($total_formatado == 0) {
             $this->emit('alert-error', 'O total da operação deve ser maior do que zero.');
-        }else{
+        } else {
 
             if ($total_formatado <= $receita_valor) {
 
-                if(empty($this->state['fp'])){
+                if (empty($this->state['fp'])) {
                     $this->state['fp'] = null;
                 }
 
@@ -182,7 +171,6 @@ class CreateRet extends Component
 
                 $this->emit('alert', 'Retirada de caixa realizada com sucesso!');
                 $this->emitTo('retirada', 'render');
-
             } else {
 
                 $this->dispatchBrowserEvent('close-confirm-modal');
@@ -194,9 +182,7 @@ class CreateRet extends Component
 
                 $this->emit('alert-error', 'Você não possui saldo suficiente para realizar uma retirada de caixa.');
                 $this->emitTo('retirada', 'render');
-
             }
-
         }
 
         //Fim verificação
@@ -206,17 +192,21 @@ class CreateRet extends Component
     public function render()
     {
 
-        $operadores = Operator::where('user_id', auth()->user()->id)
-        ->where('status', 0)
-        ->orderBy('nome', 'asc')
-        ->get();
+        if (session()->get('operador_selecionado')) {
+            $operadores = Operator::where('user_id', auth()->user()->id)
+                ->where('id', session()->get('operador_selecionado')->id)
+                ->orderBy('nome', 'asc')
+                ->get();
+        } else {
+            $operadores = [];
+        }
 
         $formas_de_pag = Method::where('user_id', auth()->user()->id)
-        ->where('status', 1)
-        ->orderBy('descricao', 'asc')
-        ->get();
+            ->where('status', 1)
+            ->orderBy('descricao', 'asc')
+            ->get();
 
-        if(isset($this->state['especie']) and $this->state['especie'] != 4){
+        if (isset($this->state['especie']) and $this->state['especie'] != 4) {
             $this->state['fp'] = "";
         }
 

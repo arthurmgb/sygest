@@ -75,26 +75,19 @@
                         </div>
                         <div class="form-group">
                             <label class="modal-label" for="operador-op">Operador <span class="red">*</span></label>
-                            @if ($operadores->count())
-                                <a style="padding: 3px 14px;" href="{{ route('configuracoes') }}" target="_blank"
-                                    class="btn btn-new my-1 float-right">+ Novo</a>
 
-                                <select style="font-size: 17px;" wire:model.defer="state.operador"
-                                    class="form-control modal-input-cat yampay-scroll" id="operador-op"
-                                    onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
-                                    onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
-                                    onchange="this.size=1; this.blur();"
-                                    @if ($is_operator_default == 'disabled') disabled @endif>
-                                    <option value="">Selecione um operador</option>
+                            <select style="font-size: 17px;" wire:model.defer="state.operador"
+                                class="form-control modal-input-cat yampay-scroll" id="operador-op"
+                                onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                onchange="this.size=1; this.blur();" disabled>
+                                <option value="">Selecione um operador</option>
 
-                                    @foreach ($operadores as $operador)
-                                        <option value="{{ $operador->id }}">🟣 {{ $operador->nome }}</option>
-                                    @endforeach
-                                </select>
-                            @else
-                                <a href="{{ route('configuracoes') }}" target="_blank" class="btn btn-new btn-block">+
-                                    Novo operador</a>
-                            @endif
+                                @foreach ($operadores as $operador)
+                                    <option value="{{ $operador->id }}">🟣 {{ $operador->nome }}</option>
+                                @endforeach
+                            </select>
+
                             @error('state.operador')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror

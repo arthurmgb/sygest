@@ -9,7 +9,7 @@ class Operator extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'user_id', 'is_default', 'status', 'senha', 'is_admin'];
+    protected $fillable = ['nome', 'user_id', 'status', 'senha', 'is_admin'];
 
     //Relação um a muitos
     public function operations(){

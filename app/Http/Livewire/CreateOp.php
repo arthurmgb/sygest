@@ -11,9 +11,9 @@ use Livewire\Component;
 class CreateOp extends Component
 {
 
-    protected $listeners = ['refreshComponent' => '$refresh'];
+    protected $listeners = ['refreshComponent' => '$refresh', 'render'];
     public $state = [];
-    public $is_operator_default;
+
 
     public $rules = [
 
@@ -66,23 +66,19 @@ class CreateOp extends Component
             }
         }
 
-        // $get_default_operator = Operator::where('user_id', auth()->user()->id)
-        //     ->where('is_default', 1)
-        //     ->where('status', 0)
-        //     ->first();
-
         $get_default_operator = session()->get('operador_selecionado');
 
         if (!is_null($get_default_operator)) {
             $this->state['operador'] = $get_default_operator->id;
-            $this->is_operator_default = 'disabled';
         } else {
-            $this->is_operator_default = 'active';
+            $this->state['operador'] = "";
         }
     }
 
     public function dehydrate()
     {
+        $this->state['tipo'] = '1';
+        $this->state['fp'] = "";
 
         if (isset($this->state['operador']) and !empty($this->state['operador'])) {
 
@@ -95,16 +91,12 @@ class CreateOp extends Component
             }
         }
 
-        $get_default_operator = Operator::where('user_id', auth()->user()->id)
-            ->where('is_default', 1)
-            ->where('status', 0)
-            ->first();
+        $get_default_operator = session()->get('operador_selecionado');
 
         if (!is_null($get_default_operator)) {
             $this->state['operador'] = $get_default_operator->id;
-            $this->is_operator_default = 'disabled';
         } else {
-            $this->is_operator_default = 'active';
+            $this->state['operador'] = "";
         }
     }
 
@@ -190,17 +182,20 @@ class CreateOp extends Component
 
     public function render()
     {
-
         $categorias = Category::where('user_id', auth()->user()->id)
             ->where('status', 1)
             ->where('tipo', $this->state['tipo'])
             ->orderBy('descricao', 'asc')
             ->get();
 
-        $operadores = Operator::where('user_id', auth()->user()->id)
-            ->where('status', 0)
-            ->orderBy('nome', 'asc')
-            ->get();
+        if (session()->get('operador_selecionado')) {
+            $operadores = Operator::where('user_id', auth()->user()->id)
+                ->where('id', session()->get('operador_selecionado')->id)
+                ->orderBy('nome', 'asc')
+                ->get();
+        } else {
+            $operadores = [];
+        }
 
         $formas_de_pag = Method::where('user_id', auth()->user()->id)
             ->where('status', 1)

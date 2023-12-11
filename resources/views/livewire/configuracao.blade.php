@@ -126,26 +126,6 @@
                 </div>
 
                 @if ($operators_count > 0)
-                    <div class="topo-ico d-flex flex-row align-items-center mb-1">
-                        <i style="color: #db2777;" class="fad fa-user-crown fa-fw fa-lg mr-2"></i>
-                        <div class="card-topo">
-                            <div style="margin-bottom: 0 !important;" class="title-block f-calc">
-                                Operador padrão:
-                                @if (is_null($default_operator_name))
-                                    <span class="period mr-1">Nenhum</span>
-                                @else
-                                    <span style="color: #725BC2 !important;"
-                                        class="period mr-1">{{ $default_operator_name->nome }}</span>
-                                @endif
-                            </div>
-                        </div>
-                        <div wire:ignore style="cursor: pointer;" data-toggle="tooltip" data-html="true"
-                            data-placement="bottom"
-                            title="O operador definido como padrão será pré-selecionado quando você criar uma nova operação para agilizar o processo. No entanto, você não poderá alterar o operador durante a criação da operação. Se precisar, desative o operador padrão para ativar novamente as opções de escolha."
-                            data-flow="top" class="div-ttp-op-default">
-                            <i class="fad fa-info-circle fa-fw fa-lg fp-info-ico"></i>
-                        </div>
-                    </div>
                     <div class="d-flex flex-row align-items-center justify-content-start pt-3">
 
                         <button wire:key="op_toggler_active" wire:click.prevent="toggleOperatorTableStatus()"
@@ -215,33 +195,13 @@
                                                         data-tooltip="Editar" data-flow="left" class="cbe">
                                                         <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
                                                     </div>
-                                                    {{-- PADRÃO --}}
-                                                    @if ($operator->is_default == 0)
-                                                        <div wire:target="toggleDefault({{ $operator->id }})"
-                                                            wire:loading.attr="disabled"
-                                                            wire:click.prevent="toggleDefault({{ $operator->id }})"
-                                                            data-tooltip="Definir como padrão" data-flow="right"
-                                                            class="cbe">
-                                                            <i style="color: #6b7280 !important;"
-                                                                class="fad fa-toggle-off fa-fw fa-crud fac-edit"></i>
-                                                        </div>
-                                                    @elseif($operator->is_default == 1)
-                                                        <div wire:target="toggleDefault({{ $operator->id }})"
-                                                            wire:loading.attr="disabled"
-                                                            wire:click.prevent="toggleDefault({{ $operator->id }})"
-                                                            data-tooltip="Remover como padrão" data-flow="right"
-                                                            class="cbe">
-                                                            <i style="color: #22c55e !important;"
-                                                                class="fad fa-toggle-on fa-fw fa-crud fac-edit"></i>
-                                                        </div>
-                                                    @endif
                                                 @endif
                                                 {{-- STATUS --}}
                                                 @if ($operator->status == 0)
                                                     <div wire:target="toggleStatus({{ $operator->id }})"
                                                         wire:loading.attr="disabled"
                                                         wire:click.prevent="toggleStatus({{ $operator->id }})"
-                                                        data-tooltip="Desativar operador" data-flow="right"
+                                                        data-tooltip="Desativar operador" data-flow="left"
                                                         class="cbe">
                                                         <i style="color: #E6274C !important;"
                                                             class="fad fa-user-slash fa-fw fa-crud fac-edit mr-0"></i>
@@ -250,7 +210,7 @@
                                                     <div wire:target="toggleStatus({{ $operator->id }})"
                                                         wire:loading.attr="disabled"
                                                         wire:click.prevent="toggleStatus({{ $operator->id }})"
-                                                        data-tooltip="Reativar operador" data-flow="right"
+                                                        data-tooltip="Reativar operador" data-flow="left"
                                                         class="cbe">
                                                         <i style="color: #22c55e !important;"
                                                             class="fad fa-user-check fa-fw fa-crud fac-edit ml-1 mr-0"></i>
