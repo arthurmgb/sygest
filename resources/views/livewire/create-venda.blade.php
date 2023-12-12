@@ -1,5 +1,5 @@
 <div>
-    <!-- Modal Operação-->
+    {{-- PDV --}}
     <div class="modal modal-pdv" id="venda" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="vendaLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-xl modal-dialog-pdv">
@@ -10,7 +10,7 @@
                         {{ $operador->nome ?? null }}
 
                     </h5>
-                    <button style="color: #fff; opacity: 1;" type="button" class="close py-1 m-0" data-dismiss="modal"
+                    <button style="color: #fff; opacity: 1;" type="button" class="close pt-1 pb-0 m-0" data-dismiss="modal"
                         aria-label="Close">
                         <i class="fal fa-times"></i>
                     </button>
@@ -309,8 +309,8 @@
                     @error('subtotal')
                         <span class="wire-error">{{ $message }}</span>
                     @enderror
-                    <button wire:loading.attr="disabled" type="button" class="btn btn-cancel ml-4"
-                        data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="callCancelarVenda" type="button"
+                        class="btn btn-cancel ml-4">Cancelar</button>
                     <button wire:loading.attr="disabled" wire:click.prevent="finalizarVenda" type="button"
                         class="btn btn-send">Finalizar</button>
                     </form>
@@ -318,7 +318,37 @@
             </div>
         </div>
     </div>
+    {{-- CANCELAR VENDA --}}
+    <div class="modal" data-backdrop="static" data-keyboard="false" id="cancelar-venda" tabindex="-1"
+        aria-labelledby="cancelar-vendaLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="cancelar-vendaLabel">Confirmação</h5>
+                </div>
+                <div class="modal-body py-4 px-4">
 
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">
+                        Deseja realmente cancelar a venda?
+                    </h5>
+
+                    <div class="confirmation-msg text-center mb-3">
+                        <p class="m-0 mb-3 px-4">
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, a venda será cancelada e você perderá
+                            todo o progresso!
+                        </p>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="cancelarVenda" type="button"
+                        class="btn btn-send">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

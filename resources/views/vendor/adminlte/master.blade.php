@@ -169,6 +169,13 @@
                 $('#confirm-operation').modal('show');
             })
 
+            window.addEventListener('show-cancelar-venda', event => {
+                $('#cancelar-venda').modal('show');
+            })
+            window.addEventListener('hide-cancelar-venda', event => {
+                $('#cancelar-venda').modal('hide');
+            })
+
             /* Operações */
 
             /* Edit e Delete */

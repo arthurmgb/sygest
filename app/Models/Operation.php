@@ -15,7 +15,7 @@ class Operation extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    protected $fillable = ['descricao', 'total', 'tipo', 'category_id', 'operator_id', 'especie', 'method_id', 'is_venda', 'user_id', 'created_at'];
+    protected $fillable = ['descricao', 'total', 'tipo', 'category_id', 'operator_id', 'especie', 'method_id', 'is_venda', 'total_venda', 'valor_pago', 'troco', 'desconto', 'user_id', 'created_at'];
 
     //Relação um a muitos
     public function user()

@@ -4,8 +4,11 @@ namespace App\Http\Livewire;
 
 use App\Models\Method;
 use App\Models\Operation;
+use App\Models\Operation_Method;
+use App\Models\Operation_Product;
 use App\Models\Operator;
 use App\Models\Product;
+use Illuminate\Support\MessageBag;
 use Livewire\Component;
 
 class CreateVenda extends Component
@@ -316,12 +319,29 @@ class CreateVenda extends Component
             $produtoModel->save();
         }
 
-        $this->reset('produtosAdicionados');
-
-
         //SALVANDO VENDA NO BANCO
 
-        Operation::create([
+        //FORMATANDO VALORES
+
+        $formattedTotalVenda = str_replace(".", "", $this->totalVenda);
+        $formattedTotalVenda = str_replace(',', '.', $formattedTotalVenda);
+        $formattedTotalVenda = floatval($formattedTotalVenda);
+
+        $formattedValorPago = str_replace(".", "", $this->valorPago);
+        $formattedValorPago = str_replace(',', '.', $formattedValorPago);
+        $formattedValorPago = floatval($formattedValorPago);
+
+        $formattedTroco = str_replace(".", "", $this->troco);
+        $formattedTroco = str_replace(',', '.', $formattedTroco);
+        $formattedTroco = floatval($formattedTroco);
+
+        $formattedDesconto = str_replace(".", "", $this->desconto);
+        $formattedDesconto = str_replace(',', '.', $formattedDesconto);
+        $formattedDesconto = floatval($formattedDesconto);
+
+        //FIM FORMATANDO VALORES
+
+        $novaVenda = Operation::create([
 
             'tipo' => 1,
             'descricao' => 'VENDA',
@@ -329,13 +349,46 @@ class CreateVenda extends Component
             'operator_id' => $this->operador->id,
             'especie' => 4,
             'total' => $formatted_subtotal,
+            'total_venda' => $formattedTotalVenda,
+            'valor_pago' => $formattedValorPago,
+            'troco' => $formattedTroco,
+            'desconto' => $formattedDesconto,
             'user_id' => auth()->user()->id
 
         ]);
 
+        //SALVANDO PRODUTOS DA VENDA NA TABELA OPERATION_PRODUCTS
+
+        foreach ($this->produtosAdicionados as $produtoVendido) {
+            Operation_Product::create([
+                'operation_id' => $novaVenda->id,
+                'nome_produto' => $produtoVendido['descricao'],
+                'preco_unitario' => $produtoVendido['preco'],
+                'quantidade_vendida' => $produtoVendido['quantidade'],
+                'subtotal_vendido' => $produtoVendido['subtotal'],
+            ]);
+        }
+
+        //SALVANDO FP'S DA VENDA NA TABELA OPERATION_METHODS
+
+        foreach ($this->fpsAdicionadas as $fpDaVenda) {
+
+            $fpDaVenda['valor'] = str_replace(".", "", $fpDaVenda['valor']);
+            $fpDaVenda['valor'] = str_replace(',', '.', $fpDaVenda['valor']);
+            $fpDaVenda['valor'] = floatval($fpDaVenda['valor']);
+
+            Operation_Method::create([
+                'operation_id' => $novaVenda->id,
+                'nome_fp' => $fpDaVenda['descricao'],
+                'valor_pago' => $fpDaVenda['valor'],
+            ]);
+        }
+
+
         $this->emit('alert', 'Venda realizada com sucesso!');
         $this->emitTo('visao-geral', 'render');
 
+        $this->reset('produtosAdicionados');
         $this->reset('selectedProduct');
         $this->reset('selectedFp');
         $this->reset('estoqueAtual');
@@ -348,6 +401,35 @@ class CreateVenda extends Component
         $this->reset('subtotalVenda');
         $this->reset('valorDaFp');
         $this->reset('tempErrorStyle');
+    }
+
+    public function callCancelarVenda()
+    {
+        $this->dispatchBrowserEvent('show-cancelar-venda');
+    }
+
+    public function cancelarVenda()
+    {
+        $this->reset('produtosAdicionados');
+        $this->reset('selectedProduct');
+        $this->reset('selectedFp');
+        $this->reset('estoqueAtual');
+        $this->reset('quantidadeAdicionada');
+        $this->reset('fpsAdicionadas');
+        $this->reset('totalVenda');
+        $this->reset('valorPago');
+        $this->reset('troco');
+        $this->reset('desconto');
+        $this->reset('subtotalVenda');
+        $this->reset('valorDaFp');
+        $this->reset('tempErrorStyle');
+        $this->emit('resetSelect');
+        $this->emit('resetSelectFp');
+
+        $this->resetErrorBag();
+
+        $this->emit('alert', 'Venda cancelada com sucesso!');
+        $this->dispatchBrowserEvent('hide-cancelar-venda');
     }
 
     public function render()
