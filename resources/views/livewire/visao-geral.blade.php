@@ -387,6 +387,7 @@
                                             </th>
                                             <th width="100px">Operador</th>
                                             <th width="200px">Operação</th>
+                                            <th>Detalhes</th>
                                         </tr>
                                     </thead>
                                     <tbody class="t-body">
@@ -492,8 +493,10 @@
                                                                 </span>
                                                             @else
                                                                 @if ($operation->especie == 4)
-                                                                    <span style="color: #725BC2; font-weight: 500;">Não
-                                                                        especificada</span>
+                                                                    <span style="color: #725BC2; font-weight: 500;">
+                                                                        Não
+                                                                        especificada
+                                                                    </span>
                                                                 @else
                                                                     {{ $especie_op }}
                                                                 @endif
@@ -516,7 +519,49 @@
                                                             class="operacao-saida">Saída</span>
                                                     </td>
                                                 @endif
-
+                                                <td class="align-middle text-center">
+                                                    @if ($operation->is_venda === 1)
+                                                        <div style="cursor: pointer;" data-toggle="collapse"
+                                                            data-target="#fold-{{ $operation->id }}"
+                                                            aria-expanded="false" aria-controls="collapseExample">
+                                                            <i
+                                                                class="fad fa-plus-circle fa-fw fa-2x icon-info-cod"></i>
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr wire:ignore.self class="collapse bg-light"
+                                                id="fold-{{ $operation->id }}">
+                                                <td class="p-4" colspan="10">
+                                                    <h6 class="mb-3">Detalhes da venda</h6>
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item">
+                                                            <b>Total da venda</b>
+                                                            <br>
+                                                            R$ 90,00
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Valor pago</b>
+                                                            <br>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Troco</b>
+                                                            <br>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Desconto</b>
+                                                            <br>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <b>Subtotal</b>
+                                                            <br>
+                                                        </li>
+                                                    </ul>
+                                                    <h6 class="my-3">Produtos vendidos</h6>
+                                                    @foreach ($operation->products as $item_product)
+                                                    @endforeach
+                                                    <h6 class="mb-3">Formas de pagamento</h6>
+                                                </td>
                                             </tr>
                                         @endforeach
 

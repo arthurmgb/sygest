@@ -34,4 +34,8 @@ class Operation extends Model
     {
         return $this->belongsTo(Method::class);
     }
+    public function products()
+    {
+        return $this->hasMany(Operation_Product::class);
+    }
 }
