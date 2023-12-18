@@ -2004,3 +2004,30 @@ select.fadeOut {
 }
 
 /* CHECK AUTH */
+.mini-table {
+    text-align: center;
+}
+.mini-table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.mini-table thead th {
+    user-select: none;
+    background-color: #fff;
+}
+.toggleCollapseIcon[aria-expanded="true"] .fa-plus-circle {
+    display: none;
+}
+.toggleCollapseIcon[aria-expanded="false"] .fa-minus-circle {
+    display: none;
+}
+.js-scrollable-table {
+    user-select: none !important;
+}
+.js-scrollable-table table {
+    cursor: grab !important;
+}
+.js-scrollable-table table:active {
+    cursor: grabbing !important;
+}

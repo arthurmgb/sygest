@@ -357,7 +357,8 @@
                         </div>
 
                         <div wire:loading.remove
-                            class="card-body px-0 pb-0 pt-1 @if (auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif">
+                            class="card-body px-0 pb-0 pt-1 js-scrollable-table @if (auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif"
+                            onmousedown="startDragging(event)">
 
                             @if ($operations->count())
 
@@ -521,11 +522,14 @@
                                                 @endif
                                                 <td class="align-middle text-center">
                                                     @if ($operation->is_venda === 1)
-                                                        <div style="cursor: pointer;" data-toggle="collapse"
+                                                        <div class="toggleCollapseIcon" style="cursor: pointer;"
+                                                            data-toggle="collapse"
                                                             data-target="#fold-{{ $operation->id }}"
                                                             aria-expanded="false" aria-controls="collapseExample">
                                                             <i
                                                                 class="fad fa-plus-circle fa-fw fa-2x icon-info-cod"></i>
+                                                            <i
+                                                                class="fad fa-minus-circle fa-fw fa-2x icon-info-cod"></i>
                                                         </div>
                                                     @endif
                                                 </td>
@@ -538,29 +542,98 @@
                                                         <li class="list-group-item">
                                                             <b>Total da venda</b>
                                                             <br>
-                                                            R$ 90,00
+                                                            {{ 'R$ ' . number_format($operation->total_venda, 2, ',', '.') }}
                                                         </li>
                                                         <li class="list-group-item">
                                                             <b>Valor pago</b>
                                                             <br>
+                                                            {{ 'R$ ' . number_format($operation->valor_pago, 2, ',', '.') }}
                                                         </li>
                                                         <li class="list-group-item">
                                                             <b>Troco</b>
                                                             <br>
+                                                            {{ 'R$ ' . number_format($operation->troco, 2, ',', '.') }}
                                                         </li>
                                                         <li class="list-group-item">
                                                             <b>Desconto</b>
                                                             <br>
+                                                            {{ 'R$ ' . number_format($operation->desconto, 2, ',', '.') }}
                                                         </li>
                                                         <li class="list-group-item">
-                                                            <b>Subtotal</b>
+                                                            <b style="font-size: 14px;">SUBTOTAL</b>
                                                             <br>
+                                                            <span style="font-size: 14px;"
+                                                                class="text-success font-weight-bold">{{ 'R$ ' . $total_operacao }}</span>
                                                         </li>
                                                     </ul>
                                                     <h6 class="my-3">Produtos vendidos</h6>
-                                                    @foreach ($operation->products as $item_product)
-                                                    @endforeach
+                                                    <table
+                                                        class="table table-striped table-hover table-sm mini-table border mb-3">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col" width="20" class="px-3">
+                                                                </th>
+                                                                <th scope="col">Produto</th>
+                                                                <th scope="col">Preço un.</th>
+                                                                <th scope="col">Quantidade</th>
+                                                                <th scope="col">Subtotal</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="mini-table-body">
+                                                            @foreach ($operation->products as $item_product)
+                                                                <tr>
+                                                                    <td>
+                                                                        {{ $loop->index += 1 }}
+                                                                    </td>
+                                                                    <td style="max-width: 200px;">
+                                                                        {{ $item_product->nome_produto }}
+                                                                    </td>
+                                                                    <td class="font-weight-bold">
+                                                                        R$
+                                                                        {{ number_format($item_product->preco_unitario, 2, ',', '.') }}
+                                                                    </td>
+                                                                    <td>
+                                                                        &#215;{{ $item_product->quantidade_vendida }}
+                                                                    </td>
+                                                                    <td class="font-weight-bold text-success">
+                                                                        R$
+                                                                        {{ number_format($item_product->subtotal_vendido, 2, ',', '.') }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+
                                                     <h6 class="mb-3">Formas de pagamento</h6>
+
+                                                    <table
+                                                        class="table table-striped table-hover table-sm mini-table border mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col" width="20" class="px-3">
+                                                                </th>
+                                                                <th scope="col">Forma de pagamento</th>
+                                                                <th scope="col">Valor pago</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="mini-table-body">
+                                                            @foreach ($operation->operationMethods as $item_method)
+                                                                <tr>
+                                                                    <td>
+                                                                        {{ $loop->index += 1 }}
+                                                                    </td>
+                                                                    <td style="max-width: 200px;">
+                                                                        {{ $item_method->nome_fp }}
+                                                                    </td>
+                                                                    <td class="font-weight-bold">
+                                                                        R$
+                                                                        {{ number_format($item_method->valor_pago, 2, ',', '.') }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -719,7 +792,7 @@
                             <div wire:ignore style="width: fit-content; cursor: pointer; user-select: none;"
                                 class="tip-scroll mt-3" data-toggle="tooltip" data-html="true"
                                 data-placement="right"
-                                title="Pressione <b>SHIFT</b> + <b>Scroll do Mouse</b> em cima da tabela para visualizar todo o conteúdo. Ou se preferir, segure e arraste a barra de rolagem.">
+                                title="Clique e arraste o mouse em cima da tabela para visualizar todo o conteúdo. Ou se preferir, pressione <b>SHIFT</b> + <b>Scroll do Mouse</b>.">
                                 <span class="info-total-cx">
                                     <i class="fa-fw fad fa-info-circle fa-lg info-ret" aria-hidden="true"></i>
                                 </span>

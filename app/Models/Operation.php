@@ -38,4 +38,7 @@ class Operation extends Model
     {
         return $this->hasMany(Operation_Product::class);
     }
+    public function operationMethods(){
+        return $this->hasMany(Operation_Method::class);
+    }
 }
