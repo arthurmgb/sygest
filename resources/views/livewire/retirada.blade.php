@@ -18,7 +18,8 @@
             </div>
 
             <div wire:loading.remove
-                class="card-body px-0 pb-0 pt-1 @if (auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif">
+                class="card-body px-0 pb-0 pt-1 js-scrollable-table @if (auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif"
+                onmousedown="startDragging(event)">
 
                 @if ($retiradas->count())
 
@@ -144,7 +145,7 @@
                                     <td style="word-wrap: break-word;" class="align-middle">
                                         {{ $retirada->operator->nome ?? auth()->user()->name }}</td>
                                     <td class="align-middle"><span style="white-space: nowrap;"
-                                            class="operacao-retirada">Retirada de caixa</span>
+                                            class="operacao-retirada">Retirada</span>
                                     </td>
 
                                 </tr>

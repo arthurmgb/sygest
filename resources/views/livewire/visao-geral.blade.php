@@ -1,176 +1,186 @@
 <div>
+    @php
+        $get_operator_auth_vg = session('operador_selecionado');
+    @endphp
     <div class="page-header d-flex flex-row align-items-center justify-content-between">
         <h2 style="white-space: nowrap;" class="f-h2">Visão geral</h2>
 
-        @if ($totais == 0)
-            <div class="div-right-vg d-flex flex-row">
-                <div class="div-label-totais d-flex flex-row align-items-center ml-4">
-                    <span wire:click.prevent="ocultarTotais()" class="mr-2 info-total-cx" data-flow="bottom"
-                        data-tooltip="Ocultar totais" id="tt-show">
-                        <i class="fa-fw fad fa-eye fa-lg"></i>
-                    </span>
-                    <span class="mr-2 info-total-cx" data-flow="bottom" data-tooltip="Capital por espécie / GERAL"
-                        id="tt-info">
-                        <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
-                    </span>
-                    <span class="totais-label-style">Totais: </span>
-                </div>
-                <div class="div-coins d-flex flex-wrap flex-row align-items-end">
-
-                    <div class="dropdown">
-
-                        <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1"
-                            data-flow="bottom" data-tooltip="Dinheiro">
-                            <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                                <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
-                            </span>
-                            <span class="coin-valor">
-                                R$ {{ $coin_dinheiro }}
-                            </span>
-                        </div>
-
-                        <div class="dropdown-menu dropdown-vg-totais">
-
-                            <div class="d-flex flex-column">
-                                <span>
-                                    Entrou:
-                                    <span style="color: green; white-space: nowrap;">
-                                        R$ {{ $coin_dinheiro_entrada }}
-                                    </span>
-                                </span>
-                                <span>
-                                    Saiu:
-                                    <span style="color: red; white-space: nowrap;">
-                                        R$ {{ $coin_dinheiro_saida }}
-                                    </span>
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="dropdown">
-
-                        <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1"
-                            data-flow="bottom" data-tooltip="Cheques">
-                            <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                                <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
-                            </span>
-                            <span class="coin-valor">
-                                R$ {{ $coin_cheque }}
-                            </span>
-                        </div>
-
-                        <div class="dropdown-menu dropdown-vg-totais">
-
-                            <div class="d-flex flex-column">
-                                <span>
-                                    Entrou:
-                                    <span style="color: green; white-space: nowrap;">
-                                        R$ {{ $coin_cheque_entrada }}
-                                    </span>
-                                </span>
-                                <span>
-                                    Saiu:
-                                    <span style="color: red; white-space: nowrap;">
-                                        R$ {{ $coin_cheque_saida }}
-                                    </span>
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="dropdown">
-
-                        <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1"
-                            data-flow="bottom" data-tooltip="Moedas">
-                            <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                                <i style="color: #e6c300;" class="fad fa-coins"></i>
-                            </span>
-                            <span class="coin-valor">
-                                R$ {{ $coin_moeda }}
-                            </span>
-                        </div>
-
-                        <div class="dropdown-menu dropdown-vg-totais">
-
-                            <div class="d-flex flex-column">
-                                <span>
-                                    Entrou:
-                                    <span style="color: green; white-space: nowrap;">
-                                        R$ {{ $coin_moeda_entrada }}
-                                    </span>
-                                </span>
-                                <span>
-                                    Saiu:
-                                    <span style="color: red; white-space: nowrap;">
-                                        R$ {{ $coin_moeda_saida }}
-                                    </span>
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="dropdown">
-
-                        <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1"
-                            data-flow="bottom" data-tooltip="Outros">
-                            <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                                <i style="color: #10B981;" class="fas fa-cash-register"></i>
-                            </span>
-                            <span class="coin-valor">
-                                R$ {{ $coin_outros }}
-                            </span>
-                        </div>
-
-                        <div class="dropdown-menu dropdown-vg-totais">
-
-                            <div class="d-flex flex-column">
-                                <span>
-                                    Entrou:
-                                    <span style="color: green; white-space: nowrap;">
-                                        R$ {{ $coin_outros_entrada }}
-                                    </span>
-                                </span>
-                                <span>
-                                    Saiu:
-                                    <span style="color: red; white-space: nowrap;">
-                                        R$ {{ $coin_outros_saida }}
-                                    </span>
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div onclick="window.location = '{{ route('retiradas') }}';" style="margin-right: 0;"
-                        class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Retiradas">
-                        <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
-                            <i style="color: #E6274C;" class="fad fa-wallet"></i>
-                        </span>
-                        <span style="color: #E6274C;" class="coin-valor">
-                            - R$ {{ $coin_retiradas }}
-                        </span>
-                    </div>
-
-                </div>
-            </div>
-        @elseif($totais == 1)
-            <div class="div-view-tt">
-                <span wire:click.prevent="ocultarTotais()" class="mr-1 info-total-cx" data-tooltip="Exibir totais"
-                    data-flow="bottom">
-                    <i class="fa-fw fad fa-eye fa-lg"></i>
-                </span>
-                <span wire:click.prevent="ocultarTotais()" class="text-show-boxes">Exibir totais</span>
-            </div>
+        @if ($get_operator_auth_vg->is_admin == 0)
+            <small>Algumas das funcionalidades foram desativadas pelo gerente.</small>
         @endif
 
+        @if ($get_operator_auth_vg->is_admin == 1)
+
+            @if ($totais == 0)
+                <div class="div-right-vg d-flex flex-row">
+                    <div class="div-label-totais d-flex flex-row align-items-center ml-4">
+                        <span wire:click.prevent="ocultarTotais()" class="mr-2 info-total-cx" data-flow="bottom"
+                            data-tooltip="Ocultar totais" id="tt-show">
+                            <i class="fa-fw fad fa-eye fa-lg"></i>
+                        </span>
+                        <span class="mr-2 info-total-cx" data-flow="bottom" data-tooltip="Capital por espécie / GERAL"
+                            id="tt-info">
+                            <i class="fa-fw fad fa-info-circle fa-lg info-ret"></i>
+                        </span>
+                        <span class="totais-label-style">Totais: </span>
+                    </div>
+                    <div class="div-coins d-flex flex-wrap flex-row align-items-end">
+
+                        <div class="dropdown">
+
+                            <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1"
+                                data-flow="bottom" data-tooltip="Dinheiro">
+                                <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                    <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
+                                </span>
+                                <span class="coin-valor">
+                                    R$ {{ $coin_dinheiro }}
+                                </span>
+                            </div>
+
+                            <div class="dropdown-menu dropdown-vg-totais">
+
+                                <div class="d-flex flex-column">
+                                    <span>
+                                        Entrou:
+                                        <span style="color: green; white-space: nowrap;">
+                                            R$ {{ $coin_dinheiro_entrada }}
+                                        </span>
+                                    </span>
+                                    <span>
+                                        Saiu:
+                                        <span style="color: red; white-space: nowrap;">
+                                            R$ {{ $coin_dinheiro_saida }}
+                                        </span>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="dropdown">
+
+                            <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1"
+                                data-flow="bottom" data-tooltip="Cheques">
+                                <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                    <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
+                                </span>
+                                <span class="coin-valor">
+                                    R$ {{ $coin_cheque }}
+                                </span>
+                            </div>
+
+                            <div class="dropdown-menu dropdown-vg-totais">
+
+                                <div class="d-flex flex-column">
+                                    <span>
+                                        Entrou:
+                                        <span style="color: green; white-space: nowrap;">
+                                            R$ {{ $coin_cheque_entrada }}
+                                        </span>
+                                    </span>
+                                    <span>
+                                        Saiu:
+                                        <span style="color: red; white-space: nowrap;">
+                                            R$ {{ $coin_cheque_saida }}
+                                        </span>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="dropdown">
+
+                            <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1"
+                                data-flow="bottom" data-tooltip="Moedas">
+                                <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                    <i style="color: #e6c300;" class="fad fa-coins"></i>
+                                </span>
+                                <span class="coin-valor">
+                                    R$ {{ $coin_moeda }}
+                                </span>
+                            </div>
+
+                            <div class="dropdown-menu dropdown-vg-totais">
+
+                                <div class="d-flex flex-column">
+                                    <span>
+                                        Entrou:
+                                        <span style="color: green; white-space: nowrap;">
+                                            R$ {{ $coin_moeda_entrada }}
+                                        </span>
+                                    </span>
+                                    <span>
+                                        Saiu:
+                                        <span style="color: red; white-space: nowrap;">
+                                            R$ {{ $coin_moeda_saida }}
+                                        </span>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="dropdown">
+
+                            <div data-toggle="dropdown" aria-expanded="false" class="div-coin-box-light my-1"
+                                data-flow="bottom" data-tooltip="Outros">
+                                <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                    <i style="color: #10B981;" class="fas fa-cash-register"></i>
+                                </span>
+                                <span class="coin-valor">
+                                    R$ {{ $coin_outros }}
+                                </span>
+                            </div>
+
+                            <div class="dropdown-menu dropdown-vg-totais">
+
+                                <div class="d-flex flex-column">
+                                    <span>
+                                        Entrou:
+                                        <span style="color: green; white-space: nowrap;">
+                                            R$ {{ $coin_outros_entrada }}
+                                        </span>
+                                    </span>
+                                    <span>
+                                        Saiu:
+                                        <span style="color: red; white-space: nowrap;">
+                                            R$ {{ $coin_outros_saida }}
+                                        </span>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div onclick="window.location = '{{ route('retiradas') }}';" style="margin-right: 0;"
+                            class="div-coin-box-light my-1" data-flow="bottom" data-tooltip="Retiradas">
+                            <span style="border-bottom-left-radius: 6px;" class="emoji-coin ec-totais">
+                                <i style="color: #E6274C;" class="fad fa-wallet"></i>
+                            </span>
+                            <span style="color: #E6274C;" class="coin-valor">
+                                - R$ {{ $coin_retiradas }}
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            @elseif($totais == 1)
+                <div class="div-view-tt">
+                    <span wire:click.prevent="ocultarTotais()" class="mr-1 info-total-cx" data-tooltip="Exibir totais"
+                        data-flow="bottom">
+                        <i class="fa-fw fad fa-eye fa-lg"></i>
+                    </span>
+                    <span wire:click.prevent="ocultarTotais()" class="text-show-boxes">Exibir totais</span>
+                </div>
+            @endif
+
+        @endif
     </div>
     <div class="vg">
 
@@ -184,144 +194,160 @@
                 </div>
             </div>
         @endif
-
-        <div class="row cards-vg">
-            @if ($rc_hoje == $rc)
-                <div id="mq-col-1" class="col">
-                    <div class="block-vg">
-                        <div class="title-block fs-title-block d-flex flex-row align-items-center">
-                            Saldo&nbsp;
-                            <span class="period">/ Hoje</span>
-                            <div class="div-details ml-auto">
-                                <span data-target="#detalhesHoje" data-toggle="modal" class="details-font">+
-                                    Detalhes</span>
-                            </div>
-                        </div>
-                        <div class="value-block mt-3">
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Entradas</span>
-                                <span class="value-real">R$ {{ $entradas_hoje }}</span>
-                            </div>
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Saídas</span>
-                                <span class="value-real">- R$ {{ $saidas_hoje }}</span>
-                            </div>
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Retiradas</span>
-                                <span class="value-real">- R$ {{ $retiradas_hoje }}</span>
-                            </div>
-                            <hr class="my-2">
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Total</span>
-                                <span style="font-weight: 500;" class="value-real">R$ {{ $total_hoje }}</span>
-                            </div>
-                            <div
-                                class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
-                                <span>{{ $op_hoje }} operações <span class="bold-span"> realizadas</span></span>
-                                <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult"
-                                    wire:click.prevent="ocultarBox(1)">
-                                    <i class="fad fa-eye fa-lg"></i>
+        @if ($get_operator_auth_vg->is_admin == 1)
+            <div class="row cards-vg">
+                @if ($rc_hoje == $rc)
+                    <div id="mq-col-1" class="col">
+                        <div class="block-vg">
+                            <div class="title-block fs-title-block d-flex flex-row align-items-center">
+                                Saldo&nbsp;
+                                <span class="period">/ Hoje</span>
+                                <div class="div-details ml-auto">
+                                    <span data-target="#detalhesHoje" data-toggle="modal" class="details-font">+
+                                        Detalhes</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if ($rc_mes == $rc)
-                <div id="mq-col-2" class="col">
-                    <div class="block-vg">
-                        <div class="title-block fs-title-block d-flex flex-row align-items-center">
-                            Saldo&nbsp;
-                            <span class="period">/ No mês</span>
-                            <div class="div-details ml-auto">
-                                <span data-target="#detalhesMes" data-toggle="modal" class="details-font">+
-                                    Detalhes</span>
-                            </div>
-                        </div>
-                        <div class="value-block mt-3">
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Entradas</span>
-                                <span class="value-real">R$ {{ $entradas_mes }}</span>
-                            </div>
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Saídas</span>
-                                <span class="value-real">- R$ {{ $saidas_mes }}</span>
-                            </div>
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Retiradas</span>
-                                <span class="value-real">- R$ {{ $retiradas_mes }}</span>
-                            </div>
-                            <hr class="my-2">
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Total</span>
-                                <span style="font-weight: 500;" class="value-real">R$ {{ $total_mes }}</span>
-                            </div>
-                            <div
-                                class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
-                                <span>{{ $op_mes }} operações <span class="bold-span"> realizadas</span></span>
-                                <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult"
-                                    wire:click.prevent="ocultarBox(2)">
-                                    <i class="fad fa-eye fa-lg"></i>
+                            <div class="value-block mt-3">
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Entradas</span>
+                                    <span class="value-real">R$ {{ $entradas_hoje }}</span>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if ($rc_total == $rc)
-                <div id="mq-col-3" class="col">
-                    <div class="block-vg">
-
-                        @if ($rendimento)
-                            @php $rend_flut = number_format($rendimento, 2, ",", ".");@endphp
-                            <div style="user-select: none;" class="rend-flut">+ R$ {{ $rend_flut }}</div>
-                        @endif
-
-                        <div class="title-block fs-title-block">
-                            Balanço
-                            <span class="period">/ Geral</span>
-                            <a style="user-select: none;" data-toggle="modal" data-target="#rendimento"
-                                class="float-right rendimento">+ Rendimento</a>
-                        </div>
-                        <div class="value-block mt-3">
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Entradas</span>
-                                <span class="value-real">R$ {{ $entradas_total }}</span>
-                            </div>
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Saídas</span>
-                                <span class="value-real">- R$ {{ $saidas_total }}</span>
-                            </div>
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Retiradas</span>
-                                <span class="value-real">- R$ {{ $retiradas_total }}</span>
-                            </div>
-                            <hr class="my-2">
-                            <div class="operation-block d-flex flex-row justify-content-between align-items-center">
-                                <span class="type-operation">Total <br> em caixa @if ($rendimento)
-                                        <br>c/ rend.
-                                    @endif
-                                </span>
-                                <span style="font-weight: 600; color: #01984E;" class="value-real">R$
-                                    {{ $valor_real }}</span>
-                            </div>
-                            <div
-                                class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
-                                <span>{{ $op_total }} operações <span class="bold-span"> realizadas</span></span>
-                                <div class="div-left-oc d-flex flex-row align-items-center">
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Saídas</span>
+                                    <span class="value-real">- R$ {{ $saidas_hoje }}</span>
+                                </div>
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Retiradas</span>
+                                    <span class="value-real">- R$ {{ $retiradas_hoje }}</span>
+                                </div>
+                                <hr class="my-2">
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Total</span>
+                                    <span style="font-weight: 500;" class="value-real">R$ {{ $total_hoje }}</span>
+                                </div>
+                                <div
+                                    class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
+                                    <span>{{ $op_hoje }} operações <span class="bold-span">
+                                            realizadas</span></span>
                                     <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult"
-                                        wire:click.prevent="ocultarBox(3)">
+                                        wire:click.prevent="ocultarBox(1)">
                                         <i class="fad fa-eye fa-lg"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endif
-        </div>
+                @endif
+
+                @if ($rc_mes == $rc)
+                    <div id="mq-col-2" class="col">
+                        <div class="block-vg">
+                            <div class="title-block fs-title-block d-flex flex-row align-items-center">
+                                Saldo&nbsp;
+                                <span class="period">/ No mês</span>
+                                <div class="div-details ml-auto">
+                                    <span data-target="#detalhesMes" data-toggle="modal" class="details-font">+
+                                        Detalhes</span>
+                                </div>
+                            </div>
+                            <div class="value-block mt-3">
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Entradas</span>
+                                    <span class="value-real">R$ {{ $entradas_mes }}</span>
+                                </div>
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Saídas</span>
+                                    <span class="value-real">- R$ {{ $saidas_mes }}</span>
+                                </div>
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Retiradas</span>
+                                    <span class="value-real">- R$ {{ $retiradas_mes }}</span>
+                                </div>
+                                <hr class="my-2">
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Total</span>
+                                    <span style="font-weight: 500;" class="value-real">R$ {{ $total_mes }}</span>
+                                </div>
+                                <div
+                                    class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
+                                    <span>{{ $op_mes }} operações <span class="bold-span">
+                                            realizadas</span></span>
+                                    <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult"
+                                        wire:click.prevent="ocultarBox(2)">
+                                        <i class="fad fa-eye fa-lg"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                @if ($rc_total == $rc)
+                    <div id="mq-col-3" class="col">
+                        <div class="block-vg">
+
+                            @if ($rendimento)
+                                @php $rend_flut = number_format($rendimento, 2, ",", ".");@endphp
+                                <div style="user-select: none;" class="rend-flut">+ R$ {{ $rend_flut }}</div>
+                            @endif
+
+                            <div class="title-block fs-title-block">
+                                Balanço
+                                <span class="period">/ Geral</span>
+                                <a style="user-select: none;" data-toggle="modal" data-target="#rendimento"
+                                    class="float-right rendimento">+ Rendimento</a>
+                            </div>
+                            <div class="value-block mt-3">
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Entradas</span>
+                                    <span class="value-real">R$ {{ $entradas_total }}</span>
+                                </div>
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Saídas</span>
+                                    <span class="value-real">- R$ {{ $saidas_total }}</span>
+                                </div>
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Retiradas</span>
+                                    <span class="value-real">- R$ {{ $retiradas_total }}</span>
+                                </div>
+                                <hr class="my-2">
+                                <div
+                                    class="operation-block d-flex flex-row justify-content-between align-items-center">
+                                    <span class="type-operation">Total <br> em caixa @if ($rendimento)
+                                            <br>c/ rend.
+                                        @endif
+                                    </span>
+                                    <span style="font-weight: 600; color: #01984E;" class="value-real">R$
+                                        {{ $valor_real }}</span>
+                                </div>
+                                <div
+                                    class="total-operations-done mt-2 d-flex flex-row justify-content-between align-items-center">
+                                    <span>{{ $op_total }} operações <span class="bold-span">
+                                            realizadas</span></span>
+                                    <div class="div-left-oc d-flex flex-row align-items-center">
+                                        <div data-tooltip="Ocultar" data-flow="bottom" class="div-ocult"
+                                            wire:click.prevent="ocultarBox(3)">
+                                            <i class="fad fa-eye fa-lg"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="block">

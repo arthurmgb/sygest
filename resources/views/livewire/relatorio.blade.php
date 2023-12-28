@@ -6,34 +6,37 @@
 
         <div class="card-topo mb-4">
 
-            <div style="max-width: 1200px; margin: 0 auto;" class="content-card-topo d-flex flex-row flex-wrap align-items-center justify-content-center">
-                
+            <div style="max-width: 1200px; margin: 0 auto;"
+                class="content-card-topo d-flex flex-row flex-wrap align-items-center justify-content-center">
+
                 <div class="d-flex flex-row align-items-center flex-fill my-2">
                     <span class="span-relatorio">Período de</span>
-                    <input wire:model.defer="data.inicial" id="from" type="date" class="search-relatorio mx-3 flex-fill"
-                        min="2000-01-01" max="2100-01-01" autocomplete="off" wire:keydown.enter="render()" style="width: 200px;">
+                    <input wire:model.defer="data.inicial" id="from" type="date"
+                        class="search-relatorio mx-3 flex-fill" min="2000-01-01" max="2100-01-01" autocomplete="off"
+                        wire:keydown.enter="render()" style="width: 200px;">
                 </div>
 
                 <div class="d-flex flex-row align-items-center flex-fill my-2">
                     <span class="span-relatorio">até</span>
-                    <input wire:model.defer="data.final" id="to" type="date" class="search-relatorio mx-3 flex-fill" min="2000-01-01"
-                        max="2100-01-01" autocomplete="off" wire:keydown.enter="render()" style="width: 200px;">
+                    <input wire:model.defer="data.final" id="to" type="date"
+                        class="search-relatorio mx-3 flex-fill" min="2000-01-01" max="2100-01-01" autocomplete="off"
+                        wire:keydown.enter="render()" style="width: 200px;">
                 </div>
 
                 <div class="d-flex flex-row align-items-center my-2 flex-fill">
-                    
-                    <button wire:click.prevent="render()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn btn-new mr-3 flex-fill text-nowrap">
+
+                    <button wire:click.prevent="render()" wire:loading.attr="disabled" wire:loading.class="desativado"
+                        class="btn btn-new mr-3 flex-fill text-nowrap">
                         <span class="far fa-search fa-fw fa-lg mr-1"></span>
                         Buscar
                     </button>
 
                     @if (isset($operations))
-
-                    <button wire:click.prevent="resetRelatorio()" wire:loading.attr="disabled" wire:loading.class="desativado" class="button-relatorio mr-3 flex-fill text-nowrap">
-                        <span class="fad fa-broom fa-fw fa-lg mr-1"></span>
-                        Limpar busca
-                    </button>
-
+                        <button wire:click.prevent="resetRelatorio()" wire:loading.attr="disabled"
+                            wire:loading.class="desativado" class="button-relatorio mr-3 flex-fill text-nowrap">
+                            <span class="fad fa-broom fa-fw fa-lg mr-1"></span>
+                            Limpar busca
+                        </button>
                     @endif
 
                 </div>
@@ -42,59 +45,54 @@
 
                     <div class="d-flex flex-row align-items-center my-2 flex-fill">
                         <span class="span-relatorio">Categoria</span>
-                        <select wire:model="categoria" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
+                        <select wire:model="categoria"
+                            style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;"
+                            class="form-control modal-input-cat mx-3 yampay-scroll flex-fill"
+                            onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                            onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                            onchange="this.size=1; this.blur();">
                             <option value="">Todas</option>
+                            <option value="retiradas">⤵️ RETIRADAS</option>
+                            <option value="vendas">🛒 VENDAS</option>
                             @foreach ($categories as $categorie)
-                                <option value="{{$categorie->id}}">{{$categorie->descricao}}</option>
+                                <option value="{{ $categorie->id }}">{{ $categorie->descricao }}</option>
                             @endforeach
                         </select>
                     </div>
-    
-                    <div class="d-flex flex-row align-items-center my-2 flex-fill">
+
+                    {{-- <div class="d-flex flex-row align-items-center my-2 flex-fill">
                         <span class="span-relatorio">Formas de pagamento</span>
-                        <select wire:model="forma_pag" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
+                        <select wire:model="forma_pag"
+                            style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;"
+                            class="form-control modal-input-cat mx-3 yampay-scroll flex-fill"
+                            onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                            onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                            onchange="this.size=1; this.blur();">
                             <option value="">Todas</option>
                             @foreach ($methods as $method)
-                                <option value="{{$method->id}}">{{$method->descricao}}</option>
+                                <option value="{{ $method->id }}">{{ $method->descricao }}</option>
                             @endforeach
                         </select>
-                    </div>
-
-                </div>
-
-                <div class="d-flex flex-row align-items-center flex-fill flex-wrap" style="min-width: 100%;">
+                    </div> --}}
 
                     <div class="d-flex flex-row align-items-center my-2 flex-fill">
                         <span class="span-relatorio">Operador</span>
-                        @if($operators_filter->count())
-                            <select wire:model="operador_filter" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();">
+                        @if ($operators_filter->count())
+                            <select wire:model="operador_filter"
+                                style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px;"
+                                class="form-control modal-input-cat mx-3 yampay-scroll flex-fill"
+                                onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                onchange="this.size=1; this.blur();">
                                 <option value="">Todos</option>
                                 @foreach ($operators_filter as $single_operator)
-                                    <option value="{{$single_operator->id}}">{{$single_operator->nome}}</option>
+                                    <option value="{{ $single_operator->id }}">{{ $single_operator->nome }}</option>
                                 @endforeach
                             </select>
                         @else
-                            <a href="{{route('configuracoes')}}" class="btn btn-new flex-fill mx-3">+ Novo operador</a>
+                            <a href="{{ route('configuracoes') }}" class="btn btn-new flex-fill mx-3">+ Novo
+                                operador</a>
                         @endif
-                    </div>
-
-                    <div class="d-flex flex-row align-items-center my-2 flex-fill">
-                        
-                        <span class="span-relatorio">Quem está imprimindo?</span>
-
-                        @if($operators_filter->count())
-                            <select wire:model="operador" style="padding-left: 15px; width: 200px; font-weight: 500; font-size: 14px; @if (isset($operations) and $operations->count()) @else cursor: not-allowed !important; @endif" class="form-control modal-input-cat mx-3 yampay-scroll flex-fill" onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');" onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');" onchange="this.size=1; this.blur();" @if (!isset($operations)) disabled @endif @if(isset($operations) and $operations->count()) @else disabled @endif>
-                                <option value="select-op">Selecione um operador</option>
-                                @if(isset($operations) and $operations->count())
-                                    @foreach ($operators as $operator)
-                                        <option value="{{$operator->nome}}">{{$operator->nome}}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        @else
-                            <a href="{{route('configuracoes')}}" class="btn btn-new flex-fill mx-3">+ Novo operador</a>
-                        @endif
-                       
                     </div>
 
                 </div>
@@ -104,13 +102,15 @@
         </div>
 
         <div class="d-flex flex-row align-items-center justify-content-between">
-            <button wire:click.prevent="caixaHoje()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn btn-new btn-cx-hoje mx-3 text-nowrap" type="button" id="js-cx-hj">
+            <button wire:click.prevent="caixaHoje()" wire:loading.attr="disabled" wire:loading.class="desativado"
+                class="btn btn-new btn-cx-hoje mx-3 text-nowrap" type="button" id="js-cx-hj">
                 <i class="fal fa-cash-register fa-fw mr-1 fa-lg"></i>
                 Buscar caixa de hoje &#91; H &#93;
             </button>
-    
-            @if(isset($operations) and $operations->count())
-                <button wire:click.prevent="printPage()" wire:loading.attr="disabled" wire:loading.class="desativado" class="btn-new btn-cx-hoje mr-3 text-nowrap" id="print-rel-button">
+
+            @if (isset($operations) and $operations->count())
+                <button wire:click.prevent="printPage()" wire:loading.attr="disabled" wire:loading.class="desativado"
+                    class="btn-new btn-cx-hoje mr-3 text-nowrap" id="print-rel-button">
                     <span class="fad fa-print fa-fw fa-lg mr-1"></span>
                     Imprimir
                 </button>
@@ -128,8 +128,8 @@
 
                 @if (isset($operations) and $operations->count())
                     @php
-                     $data_inicial = \Carbon\Carbon::parse($data['inicial'])->format('d/m/Y');
-                     $data_final = \Carbon\Carbon::parse($data['final'])->format('d/m/Y');
+                        $data_inicial = \Carbon\Carbon::parse($data['inicial'])->format('d/m/Y');
+                        $data_final = \Carbon\Carbon::parse($data['final'])->format('d/m/Y');
                     @endphp
 
                     <div class="receita-alert">
@@ -142,98 +142,117 @@
                                     <span style="color: #725bc2;" class="rc-alert-font">
 
                                         @if ($data_inicial == $data_final)
-                                        Período selecionado: <b><span style="color: #444;">{{$data_inicial}}</span></b>
+                                            Período selecionado: <b><span
+                                                    style="color: #444;">{{ $data_inicial }}</span></b>
                                         @else
-                                        Período selecionado: <b><span style="color: #444;">{{$data_inicial}} &nbsp;até&nbsp; {{$data_final}}</span></b>
+                                            Período selecionado: <b><span style="color: #444;">{{ $data_inicial }}
+                                                    &nbsp;até&nbsp; {{ $data_final }}</span></b>
                                         @endif
-                                        
+
                                     </span><br>
                                     <span style="color: #725bc2;" class="rc-alert-font">
                                         @if (is_null($categoria) or empty($categoria))
-                                        Categoria selecionada: <b><span style="color: #444;">Todas</span></b>
+                                            Categoria selecionada: <b><span style="color: #444;">Todas</span></b>
                                         @else
-                                        Categoria selecionada: <b><span style="color: #444;">{{$nome_categoria}}</span></b>
+                                            Categoria selecionada: <b><span
+                                                    style="color: #444;">{{ $nome_categoria }}</span></b>
                                         @endif
                                     </span><br>
                                     <span style="color: #725bc2;" class="rc-alert-font">
                                         @if (is_null($operador_filter) or empty($operador_filter))
-                                        Operador selecionado: <b><span style="color: #444;">Todos</span></b>
+                                            Operador selecionado: <b><span style="color: #444;">Todos</span></b>
                                         @else
-                                        Operador selecionado: <b><span style="color: #444;">{{$nome_operador}}</span></b>
+                                            Operador selecionado: <b><span
+                                                    style="color: #444;">{{ $nome_operador }}</span></b>
                                         @endif
                                     </span><br>
-                                    <span style="color: #725bc2;" class="rc-alert-font">
+                                    {{-- <span style="color: #725bc2;" class="rc-alert-font">
                                         @if (is_null($forma_pag) or empty($forma_pag))
-                                        Forma de pagamento selecionada: <b><span style="color: #444;">Todas</span></b>
+                                            Forma de pagamento selecionada: <b><span
+                                                    style="color: #444;">Todas</span></b>
                                         @else
-                                        Forma de pagamento selecionada: <b><span style="color: #444;">{{$nome_fp}}</span></b>
+                                            Forma de pagamento selecionada: <b><span
+                                                    style="color: #444;">{{ $nome_fp }}</span></b>
                                         @endif
-                                    </span>
-                                </div>                               
-                                                                                             
+                                    </span> --}}
+                                </div>
+
                                 <div class="div-block-infos p-2">
 
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
                                         <span class="rc-alert-font-2 text-uppercase">
-                                            Entradas no período               
+                                            Entradas no período
                                         </span>
-                                        <span style="color: #00A3A3; font-size: 20px;"><b>R$ {{ $receita_entrada }}</b></span>
+                                        <span style="color: #00A3A3; font-size: 20px;"><b>R$
+                                                {{ $receita_entrada }}</b></span>
                                     </div>
 
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
                                         <span class="rc-alert-font-2 text-uppercase">
-                                            Saídas no período 
+                                            Saídas no período
                                         </span>
-                                        <span style="color: #E6274C; font-size: 20px;"><b>- R$ {{ $rec_only_saida }}</b></span>
+                                        <span style="color: #E6274C; font-size: 20px;"><b>- R$
+                                                {{ $rec_only_saida }}</b></span>
                                     </div>
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             Retiradas no período
                                         </span>
-                                        <span style="color: #2483ff; font-size: 20px;"><b>- R$ {{ $receita_ret }}</b></span>
+                                        <span style="color: #2483ff; font-size: 20px;"><b>- R$
+                                                {{ $receita_ret }}</b></span>
                                     </div>
                                     <hr class="my-2">
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             Saldo no período
                                         </span>
-                                        <span style="color: #00A3A3; font-size: 22px;"><b>R$ {{ $receita_valor }}</b></span>
+                                        <span style="color: #00A3A3; font-size: 22px;"><b>R$
+                                                {{ $receita_valor }}</b></span>
                                     </div>
                                     @if ($data_inicial == $data_final)
-                                    @php
-                                        $todays_date = date('d/m/Y');                                      
-                                    @endphp
+                                        @php
+                                            $todays_date = date('d/m/Y');
+                                        @endphp
                                         <hr class="my-2">
-                                        <div class="val-block d-flex flex-row align-items-center justify-content-between">
+                                        <div
+                                            class="val-block d-flex flex-row align-items-center justify-content-between">
                                             @if ($data_inicial == $todays_date)
-                                            <span class="rc-alert-font-2 text-uppercase">
-                                                Caixa de <span style="color: #444;">{{$data_inicial}}</span> fechará às <span style="color: #444;">00:00</span> em 
-                                            </span>
+                                                <span class="rc-alert-font-2 text-uppercase">
+                                                    Caixa de <span style="color: #444;">{{ $data_inicial }}</span>
+                                                    fechará às <span style="color: #444;">00:00</span> em
+                                                </span>
                                             @else
-                                            <span class="rc-alert-font-2 text-uppercase">
-                                                Caixa de <span style="color: #444;">{{$data_inicial}}</span> fechado em 
-                                            </span>
+                                                <span class="rc-alert-font-2 text-uppercase">
+                                                    Caixa de <span style="color: #444;">{{ $data_inicial }}</span>
+                                                    fechado em
+                                                </span>
                                             @endif
-                                            
-                                            <span style="color: #725BC2; font-size: 22px;"><b>R$ {{ $caixa_fechado_no_dia }}</b></span>
+
+                                            <span style="color: #725BC2; font-size: 22px;"><b>R$
+                                                    {{ $caixa_fechado_no_dia }}</b></span>
                                         </div>
                                     @elseif($data_inicial != $data_final)
                                         <hr class="my-2">
-                                        <div class="val-block d-flex flex-row align-items-center justify-content-between">
+                                        <div
+                                            class="val-block d-flex flex-row align-items-center justify-content-between">
                                             <span class="rc-alert-font-2 text-uppercase">
-                                                Do dia                                     
-                                                <span style="color: #444;">{{$data_inicial}}</span> 
+                                                Do dia
+                                                <span style="color: #444;">{{ $data_inicial }}</span>
                                                 <br>
                                                 até o dia
-                                                <span style="color: #444;">{{$data_final}}</span> você teve em caixa
+                                                <span style="color: #444;">{{ $data_final }}</span> você teve em
+                                                caixa
                                             </span>
-                                            <span style="color: #725BC2; font-size: 22px;"><b>R$ {{ $caixa_fechado_no_dia }}</b></span>
+                                            <span style="color: #725BC2; font-size: 22px;"><b>R$
+                                                    {{ $caixa_fechado_no_dia }}</b></span>
                                         </div>
-                                    @endif                         
-                                    <div class="val-block d-flex flex-row align-items-center justify-content-between mt-1">
+                                    @endif
+                                    <div
+                                        class="val-block d-flex flex-row align-items-center justify-content-between mt-1">
                                         <span class="rc-alert-font">
-                                            <span style="color: #8369DF;"><b> {{ $operations_count }}</b></span> operações realizadas 
-                                        </span>                                    
+                                            <span style="color: #8369DF;"><b> {{ $operations_count }}</b></span>
+                                            operações realizadas
+                                        </span>
                                     </div>
                                 </div>
 
@@ -247,20 +266,30 @@
                                 <div class="div-block-infos p-2 mb-2">
 
                                     <script>
-                                        $('#total-rel-1').mask('####0,00', {reverse: true});
-                                        $('#total-rel-2').mask('####0,00', {reverse: true});
-                                        $('#total-rel-3').mask('####0,00', {reverse: true});
-                                        $('#total-rel-4').mask('####0,00', {reverse: true});
+                                        $('#total-rel-1').mask('####0,00', {
+                                            reverse: true
+                                        });
+                                        $('#total-rel-2').mask('####0,00', {
+                                            reverse: true
+                                        });
+                                        $('#total-rel-3').mask('####0,00', {
+                                            reverse: true
+                                        });
+                                        $('#total-rel-4').mask('####0,00', {
+                                            reverse: true
+                                        });
                                     </script>
 
                                     <div class="val-block d-flex flex-row align-items-center justify-content-between">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             Total em caixa hoje
                                         </span>
-                                        <span style="color: #00A3A3; font-size: 22px;"><b>R$ {{ $caixa_total }}</b></span>
+                                        <span style="color: #00A3A3; font-size: 22px;"><b>R$
+                                                {{ $caixa_total }}</b></span>
                                     </div>
                                     <hr class="my-2">
-                                    <div class="val-block d-flex flex-row align-items-center justify-content-between mb-1">
+                                    <div
+                                        class="val-block d-flex flex-row align-items-center justify-content-between mb-1">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             <i style="color: #01984E;" class="fad fa-money-bill-alt fa-fw"></i>
                                             Dinheiro em caixa hoje
@@ -269,11 +298,14 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">R$</span>
                                             </div>
-                                            <input style="font-size: 18px;" wire:model.defer="relDinheiro" placeholder="0,00" type="text"
-                                                class="form-control modal-input total-operation" id="total-rel-1" autocomplete="off">
+                                            <input style="font-size: 18px;" wire:model.defer="relDinheiro"
+                                                placeholder="0,00" type="text"
+                                                class="form-control modal-input total-operation" id="total-rel-1"
+                                                autocomplete="off">
                                         </div>
                                     </div>
-                                    <div class="val-block d-flex flex-row align-items-center justify-content-between mb-1">
+                                    <div
+                                        class="val-block d-flex flex-row align-items-center justify-content-between mb-1">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             <i style="color: #458DE3;" class="fad fa-money-check-edit-alt fa-fw"></i>
                                             Cheques em caixa hoje
@@ -282,11 +314,14 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">R$</span>
                                             </div>
-                                            <input style="font-size: 18px;" wire:model.defer="relCheques" placeholder="0,00" type="text"
-                                                class="form-control modal-input total-operation" id="total-rel-2" autocomplete="off">
+                                            <input style="font-size: 18px;" wire:model.defer="relCheques"
+                                                placeholder="0,00" type="text"
+                                                class="form-control modal-input total-operation" id="total-rel-2"
+                                                autocomplete="off">
                                         </div>
                                     </div>
-                                    <div class="val-block d-flex flex-row align-items-center justify-content-between mb-1">
+                                    <div
+                                        class="val-block d-flex flex-row align-items-center justify-content-between mb-1">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             <i style="color: #e6c300;" class="fad fa-coins fa-fw"></i>
                                             Moedas em caixa hoje
@@ -295,11 +330,14 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">R$</span>
                                             </div>
-                                            <input style="font-size: 18px;" wire:model.defer="relMoedas" placeholder="0,00" type="text"
-                                                class="form-control modal-input total-operation" id="total-rel-3" autocomplete="off">
+                                            <input style="font-size: 18px;" wire:model.defer="relMoedas"
+                                                placeholder="0,00" type="text"
+                                                class="form-control modal-input total-operation" id="total-rel-3"
+                                                autocomplete="off">
                                         </div>
-                                    </div>                                
-                                    <div class="val-block d-flex flex-row align-items-center justify-content-between mb-1">
+                                    </div>
+                                    <div
+                                        class="val-block d-flex flex-row align-items-center justify-content-between mb-1">
                                         <span class="rc-alert-font-2 text-uppercase">
                                             <i style="color: #10B981;" class="fas fa-cash-register fa-fw"></i>
                                             Outros em caixa hoje
@@ -308,45 +346,56 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">R$</span>
                                             </div>
-                                            <input style="font-size: 18px;" wire:model.defer="relGaveta" placeholder="0,00" type="text"
-                                                class="form-control modal-input total-operation" id="total-rel-4" autocomplete="off">
+                                            <input style="font-size: 18px;" wire:model.defer="relGaveta"
+                                                placeholder="0,00" type="text"
+                                                class="form-control modal-input total-operation" id="total-rel-4"
+                                                autocomplete="off">
                                         </div>
                                     </div>
-                                    <div class="calc-button-imp val-block d-flex flex-row align-items-center justify-content-end">
-                                        <button style="width: 200px;" wire:click.prevent="conferencia()" class="btn-new">
+                                    <div
+                                        class="calc-button-imp val-block d-flex flex-row align-items-center justify-content-end">
+                                        <button style="width: 200px;" wire:click.prevent="conferencia()"
+                                            class="btn-new">
                                             <i class="fad fa-calculator fa-fw fa-lg mr-1"></i>Calcular
                                         </button>
                                     </div>
                                     <hr class="my-2">
-                                    <div class="val-block d-flex flex-row align-items-center justify-content-between text-break">
+                                    <div
+                                        class="val-block d-flex flex-row align-items-center justify-content-between text-break">
                                         <span style="white-space: nowrap;" class="rc-alert-font-2 text-uppercase">
                                             Total somado
                                         </span>
-                                        @if ($relResultado == $caixa_total)                                        
-                                            <span style="color: #00A3A3; font-size: 22px;"><b>R$ {{$relResultado}}</b>
+                                        @if ($relResultado == $caixa_total)
+                                            <span style="color: #00A3A3; font-size: 22px;"><b>R$
+                                                    {{ $relResultado }}</b>
                                                 <i class="fad fa-check-circle"></i>
-                                            </span>                                         
-                                        @elseif($relResultado == "0,00")
-                                            <span style="color: #ee368c; font-size: 22px;"><b>R$ {{$relResultado}}</b>
+                                            </span>
+                                        @elseif($relResultado == '0,00')
+                                            <span style="color: #ee368c; font-size: 22px;"><b>R$
+                                                    {{ $relResultado }}</b>
                                                 <i class="fad fa-exclamation-circle"></i>
-                                            </span>   
+                                            </span>
                                         @else
-                                            <span style="color: #E6274C; font-size: 22px;"><b>R$ {{$relResultado}}</b>
+                                            <span style="color: #E6274C; font-size: 22px;"><b>R$
+                                                    {{ $relResultado }}</b>
                                                 <i class="fad fa-times-circle"></i>
-                                            </span>                                           
+                                            </span>
                                         @endif
                                     </div>
-                                    @if ($relResultado == $caixa_total) 
+                                    @if ($relResultado == $caixa_total)
                                         <div class="val-block d-flex flex-row align-items-center justify-content-end">
-                                            <span style="color: #00A3A3; font-size: 14px;">O total somado coincidiu com o valor total em caixa!</span>
+                                            <span style="color: #00A3A3; font-size: 14px;">O total somado coincidiu com
+                                                o valor total em caixa!</span>
                                         </div>
-                                    @elseif($relResultado == "0,00")
+                                    @elseif($relResultado == '0,00')
                                         <div class="val-block d-flex flex-row align-items-center justify-content-end">
-                                            <span style="color: #ee368c; font-size: 14px;">A conferência dos valores em caixa não foi realizada.</span>
+                                            <span style="color: #ee368c; font-size: 14px;">A conferência dos valores em
+                                                caixa não foi realizada.</span>
                                         </div>
                                     @else
                                         <div class="val-block d-flex flex-row align-items-center justify-content-end">
-                                            <span style="color: #E6274C; font-size: 14px;">O total somado não coincidiu com o valor total em caixa.</span>
+                                            <span style="color: #E6274C; font-size: 14px;">O total somado não coincidiu
+                                                com o valor total em caixa.</span>
                                         </div>
                                     @endif
                                 </div>
@@ -362,83 +411,98 @@
                                 <div style="user-select: none;" class="div-coins mb-0 mt-2">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Dinheiro">                                
+                                            <div class="div-coin-box cb-modal" data-flow="bottom"
+                                                data-tooltip="Dinheiro">
                                                 <span class="emoji-coin ec-rel">
                                                     <i style="color: #01984E;" class="fad fa-money-bill-alt"></i>
                                                     <span class="ml-1">Dinheiro</span>
                                                 </span>
                                                 <span class="coin-valor">
-                                                    R$ {{$coin_dinheiro_rel}}
+                                                    R$ {{ $coin_dinheiro_rel }}
                                                 </span>
                                             </div>
-                                            <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_dinheiro_entrada_rel}}</span>
+                                            <span class="d-block small-detail">Entrou: <span style="color: green;">R$
+                                                    {{ $coin_dinheiro_entrada_rel }}</span>
                                             </span>
-                                            <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_dinheiro_saida_rel}}</span>
+                                            <span class="d-block small-detail small-detail-bottom">Saiu: <span
+                                                    style="color: red;">R$ {{ $coin_dinheiro_saida_rel }}</span>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-12">
-                                            <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Cheques">
+                                            <div class="div-coin-box cb-modal" data-flow="bottom"
+                                                data-tooltip="Cheques">
                                                 <span class="emoji-coin ec-rel">
-                                                    <i style="color: #458DE3;" class="fad fa-money-check-edit-alt"></i>
+                                                    <i style="color: #458DE3;"
+                                                        class="fad fa-money-check-edit-alt"></i>
                                                     <span class="ml-1">Cheques</span>
                                                 </span>
                                                 <span class="coin-valor">
-                                                    R$ {{$coin_cheque_rel}}
+                                                    R$ {{ $coin_cheque_rel }}
                                                 </span>
                                             </div>
-                                            <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_cheque_entrada_rel}}</span>
+                                            <span class="d-block small-detail">Entrou: <span style="color: green;">R$
+                                                    {{ $coin_cheque_entrada_rel }}</span>
                                             </span>
-                                            <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_cheque_saida_rel}}</span>
+                                            <span class="d-block small-detail small-detail-bottom">Saiu: <span
+                                                    style="color: red;">R$ {{ $coin_cheque_saida_rel }}</span>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-12">
-                                            <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Moedas">
+                                            <div class="div-coin-box cb-modal" data-flow="bottom"
+                                                data-tooltip="Moedas">
                                                 <span class="emoji-coin ec-rel">
                                                     <i style="color: #e6c300;" class="fad fa-coins"></i>
                                                     <span class="ml-1">Moedas</span>
                                                 </span>
                                                 <span class="coin-valor">
-                                                    R$ {{$coin_moeda_rel}}
+                                                    R$ {{ $coin_moeda_rel }}
                                                 </span>
                                             </div>
-                                            <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_moeda_entrada_rel}}</span>
+                                            <span class="d-block small-detail">Entrou: <span style="color: green;">R$
+                                                    {{ $coin_moeda_entrada_rel }}</span>
                                             </span>
-                                            <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_moeda_saida_rel}}</span>
+                                            <span class="d-block small-detail small-detail-bottom">Saiu: <span
+                                                    style="color: red;">R$ {{ $coin_moeda_saida_rel }}</span>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-12">
-                                            <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Outros">
+                                            <div class="div-coin-box cb-modal" data-flow="bottom"
+                                                data-tooltip="Outros">
                                                 <span class="emoji-coin ec-rel">
                                                     <i style="color: #10B981;" class="fas fa-cash-register"></i>
                                                     <span class="ml-1">Outros</span>
                                                 </span>
                                                 <span class="coin-valor">
-                                                    R$ {{$coin_outros_rel}}
+                                                    R$ {{ $coin_outros_rel }}
                                                 </span>
                                             </div>
-                                            <span class="d-block small-detail">Entrou: <span style="color: green;">R$ {{$coin_outros_entrada_rel}}</span>
+                                            <span class="d-block small-detail">Entrou: <span style="color: green;">R$
+                                                    {{ $coin_outros_entrada_rel }}</span>
                                             </span>
-                                            <span class="d-block small-detail small-detail-bottom">Saiu: <span style="color: red;">R$ {{$coin_outros_saida_rel}}</span>
+                                            <span class="d-block small-detail small-detail-bottom">Saiu: <span
+                                                    style="color: red;">R$ {{ $coin_outros_saida_rel }}</span>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-12">
-                                            <div class="div-coin-box cb-modal" data-flow="bottom" data-tooltip="Retiradas" style="border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;">
-                                                <span class="emoji-coin ec-rel">                                               
+                                            <div class="div-coin-box cb-modal" data-flow="bottom"
+                                                data-tooltip="Retiradas"
+                                                style="border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;">
+                                                <span class="emoji-coin ec-rel">
                                                     <i style="color: #E6274C;" class="fad fa-wallet"></i>
                                                     <span class="ml-1">Retiradas</span>
                                                 </span>
                                                 <span style="color: #E6274C;" class="coin-valor">
-                                                   - R$ {{$receita_ret}}
+                                                    - R$ {{ $receita_ret }}
                                                 </span>
-                                            </div>            
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
@@ -446,42 +510,44 @@
                                             <div class="div-block-autorized p-2">
                                                 <span class="rc-alert-font">
 
-                                                    <i style="color: green;" class="fas fa-user-check mr-1"></i> Operador autorizado do caixa deste período: 
+                                                    <i style="color: green;" class="fas fa-user-check mr-1"></i>
+                                                    Operador autorizado do caixa deste período:
                                                     <br>
-                                                    @if($operators->count())
-                
-                                                    <span style="color: #444; font-size: 17px;">
-                                                        <b>
-                                                            @if($operador == 'select-op')Selecione um operador de caixa autorizado para poder imprimir o relatório
-                                                            <br>
-                                                            <span style="color: red; font-size: 16px;">
-                                                                <i class="fad fa-times-circle mr-1"></i>
-                                                                Não válido para impressão.
-                                                            </span>
-                                                            @else 
-                                                            {{$operador}} 
-                                                            <br>
-                                                            <span style="color: green; font-size: 16px;">
-                                                                <i class="fad fa-check-circle mr-1"></i>
-                                                                Válido para impressão.
-                                                            </span>
-                                                            @endif
-                                                        </b>
-                                                    </span>
-                
+                                                    @if ($operators->count())
+
+                                                        <span style="color: #444; font-size: 17px;">
+                                                            <b>
+                                                                @if ($operador == 'select-op')
+                                                                    Selecione um operador de caixa autorizado para poder
+                                                                    imprimir o relatório
+                                                                    <br>
+                                                                    <span style="color: red; font-size: 16px;">
+                                                                        <i class="fad fa-times-circle mr-1"></i>
+                                                                        Não válido para impressão.
+                                                                    </span>
+                                                                @else
+                                                                    {{ $operador }}
+                                                                    <br>
+                                                                    <span style="color: green; font-size: 16px;">
+                                                                        <i class="fad fa-check-circle mr-1"></i>
+                                                                        Válido para impressão.
+                                                                    </span>
+                                                                @endif
+                                                            </b>
+                                                        </span>
                                                     @else
-                
-                                                    <span style="color: #444; font-size: 17px;">
-                                                        <b>Cadastre um operador de caixa autorizado para poder imprimir o relatório</b>
-                                                    </span>
-                                                    <br>
-                                                    <span style="color: red; font-size: 16px;">
-                                                        <i class="fad fa-times-circle mr-1"></i>
-                                                        Não válido para impressão.
-                                                    </span>
+                                                        <span style="color: #444; font-size: 17px;">
+                                                            <b>Cadastre um operador de caixa autorizado para poder
+                                                                imprimir o relatório</b>
+                                                        </span>
+                                                        <br>
+                                                        <span style="color: red; font-size: 16px;">
+                                                            <i class="fad fa-times-circle mr-1"></i>
+                                                            Não válido para impressão.
+                                                        </span>
 
                                                     @endif
-                                                    
+
                                                 </span>
                                             </div>
                                         </div>
@@ -505,7 +571,11 @@
                                     <th style="min-width: 100px; max-width: 100px;">Espécie</th>
                                     <th style="min-width: 100px; max-width: 100px;">
                                         <div class="d-flex flex-row align-items-center fp-infos">
-                                        FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="top" title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>' style="margin-top: 2px;" class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
+                                            FP <i wire:ignore data-toggle="tooltip" data-html="true"
+                                                data-placement="top"
+                                                title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>'
+                                                style="margin-top: 2px;"
+                                                class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
                                         </div>
                                     </th>
                                     <th style="min-width: 120px; max-width: 120px;">Operador</th>
@@ -513,141 +583,162 @@
                                 </tr>
                             </thead>
                             <tbody class="t-body">
-    
+
                                 @php
                                     $dia_atual = Carbon\Carbon::now();
                                 @endphp
-    
+
                                 @foreach ($operations as $operation)
-    
                                     @php
-                                        
+
                                         $total_operacao = number_format($operation->total, 2, ',', '.');
                                         $data_operacao = $operation->created_at->format('d/m/Y H:i');
-                                        
+
                                         $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
                                         $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $operation->created_at);
-                                        
+
                                         $diferenca = $date2->diffInDays($date1);
                                         $tempo = 'dias';
-                                        
+
                                         if ($diferenca === 1) {
                                             $diferenca = 'um';
                                             $tempo = 'dia';
                                         }
-                                        
+
                                         if ($diferenca === 0) {
                                             $diferenca = $date2->diffInHours($date1);
                                             $tempo = 'horas';
-    
+
                                             if ($diferenca === 1) {
                                                 $diferenca = 'uma';
                                                 $tempo = 'hora';
                                             }
-                                        
+
                                             if ($diferenca === 0) {
                                                 $diferenca = $date2->diffInMinutes($date1);
                                                 $tempo = 'minutos';
-                                        
+
                                                 if ($diferenca === 1) {
                                                     $diferenca = 'um';
                                                     $tempo = 'minuto';
                                                 }
-                                        
+
                                                 if ($diferenca === 0) {
                                                     $diferenca = 'poucos';
                                                     $tempo = 'segundos';
                                                 }
                                             }
                                         }
-                                        
-                                        if (is_null($operation->category)) {
-                                            $categoria_op = 'Retirada';
-                                        } else {
-                                            $categoria_op = $operation->category->descricao;
+
+                                        if ($operation->is_venda === 1) {
+                                            $categoria_op = 'Venda';
+                                        } elseif ($operation->is_venda === 0) {
+                                            if (is_null($operation->category)) {
+                                                $categoria_op = 'Retirada';
+                                            } else {
+                                                $categoria_op = $operation->category->descricao;
+                                            }
                                         }
-                                        
-                                        if ($operation->especie === 1 ) {
+
+                                        if ($operation->especie === 1) {
                                             $especie_op = 'Dinheiro';
-                                        }elseif($operation->especie === 2){
+                                        } elseif ($operation->especie === 2) {
                                             $especie_op = 'Cheque';
-                                        }elseif($operation->especie === 3) {
-                                            $especie_op = 'Moedas';                                             
-                                        }elseif($operation->especie === 4) {
+                                        } elseif ($operation->especie === 3) {
+                                            $especie_op = 'Moedas';
+                                        } elseif ($operation->especie === 4) {
                                             $especie_op = 'Outros';
                                         }
-    
+
                                     @endphp
-    
+
                                     <tr class="tr-hover">
-    
+
                                         <td class="align-middle cod-imp">
-                                            <div style="cursor: pointer;" data-tooltip="{{$operation->id}}" data-flow="right" class="div-codigo">
+                                            <div style="cursor: pointer;" data-tooltip="{{ $operation->id }}"
+                                                data-flow="right" class="div-codigo">
                                                 <i class="fad fa-info-circle fa-fw fa-lg icon-info-cod"></i>
-                                            </div>  
+                                            </div>
                                         </td>
-    
-                                        <td style="font-size: 15px !important; word-wrap: break-word" class="align-middle font-desc">{{ $operation->descricao }}</td>
-    
-                                        <td style="font-size: 15px; white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span style="font-size: 13px;" class="g-light">há
+
+                                        <td style="font-size: 15px !important; word-wrap: break-word"
+                                            class="align-middle font-desc">{{ $operation->descricao }}</td>
+
+                                        <td style="font-size: 15px; white-space: nowrap;" class="align-middle">
+                                            {{ $data_operacao }}<br><span style="font-size: 13px;" class="g-light">há
                                                 {{ $diferenca }} {{ $tempo }}</span></td>
-    
-                                        <td style="font-size: 15px; white-space: nowrap; font-weight: 600; @if($operation->tipo == 1) color: #00A3A3; @elseif($operation->tipo == 0) color: #E6274C; @else color: #2483ff; @endif" class="align-middle">
+
+                                        <td style="font-size: 15px; white-space: nowrap; font-weight: 600; @if ($operation->tipo == 1) color: #00A3A3; @elseif($operation->tipo == 0) color: #E6274C; @else color: #2483ff; @endif"
+                                            class="align-middle">
                                             R$ {{ $total_operacao }}
                                         </td>
-    
-                                        <td style="word-wrap: break-word;" class="align-middle"><span style="font-size: 14px;" class="categoria">{{ $categoria_op }}</span></td>
-    
+
+                                        <td style="word-wrap: break-word;" class="align-middle"><span
+                                                style="font-size: 14px;" class="categoria">{{ $categoria_op }}</span>
+                                        </td>
+
                                         <td style="font-size: 15px;" class="align-middle">
-                                            <span
-                                                class="especie">{{ $especie_op }}
+                                            <span class="especie">{{ $especie_op }}
                                             </span>
                                         </td>
-    
+
                                         <td style="word-break: break-all;" class="align-middle">
                                             <span>
                                                 @if (is_null($operation->method_id))
-                                                    @if ($operation->especie == 4)
-                                                        <span style="color: #725BC2; font-weight: 500;">Não especificada</span> 
+                                                    @if ($operation->is_venda === 1)
+                                                        <span style="color: #725BC2; font-weight: 500;">
+                                                            @foreach ($operation->operationMethods as $item_method)
+                                                                {{ $item_method->nome_fp }}
+                                                                <br>
+                                                            @endforeach
+                                                        </span>
                                                     @else
-                                                        {{$especie_op}}
+                                                        @if ($operation->especie == 4)
+                                                            <span style="color: #725BC2; font-weight: 500;">
+                                                                Não
+                                                                especificada
+                                                            </span>
+                                                        @else
+                                                            {{ $especie_op }}
+                                                        @endif
                                                     @endif
                                                 @else
                                                     {{ $operation->method->descricao }}
                                                 @endif
                                             </span>
                                         </td>
-    
-                                        <td style="word-wrap: break-word;" class="align-middle">{{ $operation->operator->nome ?? auth()->user()->name}}</td>
-    
+
+                                        <td style="word-wrap: break-word;" class="align-middle">
+                                            {{ $operation->operator->nome ?? auth()->user()->name }}</td>
+
                                         @if ($operation->tipo == 1)
-                                            <td class="align-middle"><span style="white-space: nowrap;" class="operacao-entrada">
-                                               Entrada
-                                            </span></td>
+                                            <td class="align-middle"><span style="white-space: nowrap;"
+                                                    class="operacao-entrada">
+                                                    Entrada
+                                                </span></td>
                                         @elseif ($operation->tipo == 3)
-                                            <td class="align-middle"><span style="white-space: nowrap;" class="operacao-retirada">
-                                                Retirada
-                                            </span></td>
+                                            <td class="align-middle"><span style="white-space: nowrap;"
+                                                    class="operacao-retirada">
+                                                    Retirada
+                                                </span></td>
                                         @else
-                                            <td class="align-middle"><span style="white-space: nowrap;" class="operacao-saida">
-                                               Saída
-                                            </span>
+                                            <td class="align-middle"><span style="white-space: nowrap;"
+                                                    class="operacao-saida">
+                                                    Saída
+                                                </span>
                                             </td>
                                         @endif
-    
+
                                     </tr>
-    
                                 @endforeach
-    
+
                             </tbody>
                         </table>
                     </div>
-                    
                 @else
-
                     <div class="d-flex flex-column align-items-center justify-content-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211"
-                            height="145">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            width="211" height="145">
                             <style>
                                 <![CDATA[
                                 .B {
@@ -677,7 +768,6 @@
                                 .H {
                                     fill: #d5dadf
                                 }
-
                                 ]]>
                             </style>
                             <g fill="none" fill-rule="evenodd">
@@ -708,7 +798,8 @@
                                             d="M141.144 29.827L89.04 29.01c-3.54-.056-6.93 1.425-9.295 4.06l-2.888 3.216c-.724.806-1.365 1.684-1.912 2.62-1.976 3.378-2.985 5.908-3.04 7.53-.703 20.954-.858 36.17-.467 45.636.178 4.308.765 8.13 1.76 11.47a16.05 16.05 0 0 0 15.38 11.469h59.993a16.05 16.05 0 0 0 16.046-16.046v-49.83c0-6.943-4.466-13.1-11.066-15.254l-12.41-4.05z" />
                                     </g>
                                 </g>
-                                <rect x="70.332" y="28.22" width="81.73" height="81.882" rx="21.767" class="B F" />
+                                <rect x="70.332" y="28.22" width="81.73" height="81.882" rx="21.767"
+                                    class="B F" />
                                 <g class="D E B F">
                                     <rect x="71.03" y="28.917" width="80.334" height="80.487" rx="16.744" />
                                     <g class="C G">
@@ -736,7 +827,8 @@
                                         <path
                                             d="M161.104 130.992c3.01 0 5.462 2.38 5.577 5.362l.003.218h-11.162c.001-3.01 2.382-5.46 5.362-5.576l.22-.004z" />
                                     </g>
-                                    <ellipse fill="#a4afb7" cx="108.789" cy="83.823" rx="5.233" ry="6.977" />
+                                    <ellipse fill="#a4afb7" cx="108.789" cy="83.823" rx="5.233"
+                                        ry="6.977" />
                                     <g class="B">
                                         <path
                                             d="M108.8 81.023c2.9 0 4.255-.993 4.06-1.342-.96-1.73-2.422-2.834-4.06-2.834-1.594 0-3.022 1.046-3.982 2.695-.155.267 1.092 1.48 3.982 1.48z" />
@@ -773,7 +865,8 @@
                         </svg>
                         <h3 class="my-4 no-results">Não há operações para este filtro.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
-                            <h3 class="no-results-create mb-3 text-center">Faça uma busca para filtrar as operações</h3>
+                            <h3 class="no-results-create mb-3 text-center">Faça uma busca para filtrar as operações
+                            </h3>
                         </div>
                     </div>
 

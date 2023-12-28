@@ -31,6 +31,20 @@ class CheckAuth extends Component
             ->where('status', 0)
             ->orderBy('nome', 'ASC')
             ->get();
+
+        $get_operator_online =  session('operador_selecionado');
+
+        $rotaAtual = Route::currentRouteName();
+
+        $rotasPermitidas = ['home', 'geral', 'retiradas'];
+
+        if (!is_null($get_operator_online)) {
+            if ($get_operator_online->is_admin !== 1) {
+                if (!in_array($rotaAtual, $rotasPermitidas)) {
+                    abort(403, 'Acesso não autorizado. Por favor, entre em contato com o gerente.');
+                }
+            }
+        }
     }
 
     public function generateAdminOperator()
@@ -45,7 +59,6 @@ class CheckAuth extends Component
         ]);
 
         $this->mount();
-
     }
 
     public function updatedSelectedOperator()
@@ -72,7 +85,7 @@ class CheckAuth extends Component
 
         if ($this->foundOperator->senha === $this->operatorPass) {
             session(['operador_selecionado' => $this->foundOperator]);
-            
+
             $this->dispatchBrowserEvent('unlock-acc-operator');
         } else {
             $this->addError('operatorPass', 'Senha incorreta.');
@@ -81,13 +94,11 @@ class CheckAuth extends Component
         $this->emitTo('create-op', 'render');
         $this->emitTo('create-ret', 'render');
         $this->emitTo('create-venda', 'mount');
-        
     }
 
     public function render()
     {
-        
-        
+
         return view('livewire.check-auth');
     }
 }
