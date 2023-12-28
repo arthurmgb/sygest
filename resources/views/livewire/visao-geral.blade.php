@@ -5,11 +5,11 @@
     <div class="page-header d-flex flex-row align-items-center justify-content-between">
         <h2 style="white-space: nowrap;" class="f-h2">Visão geral</h2>
 
-        @if ($get_operator_auth_vg->is_admin == 0)
+        @if (isset($get_operator_auth_vg) && $get_operator_auth_vg->is_admin == 0)
             <small>Algumas das funcionalidades foram desativadas pelo gerente.</small>
         @endif
 
-        @if ($get_operator_auth_vg->is_admin == 1)
+        @if (isset($get_operator_auth_vg) && $get_operator_auth_vg->is_admin == 1)
 
             @if ($totais == 0)
                 <div class="div-right-vg d-flex flex-row">
@@ -194,7 +194,7 @@
                 </div>
             </div>
         @endif
-        @if ($get_operator_auth_vg->is_admin == 1)
+        @if (isset($get_operator_auth_vg) && $get_operator_auth_vg->is_admin == 1)
             <div class="row cards-vg">
                 @if ($rc_hoje == $rc)
                     <div id="mq-col-1" class="col">
