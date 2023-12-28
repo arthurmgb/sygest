@@ -1,6 +1,6 @@
 <div>
     <div class="d-flex flex-row justify-content-between">
-        <h1 class="home-title text-truncate">Olá, {{ Auth::user()->name }}!</h1>
+        <h1 class="home-title text-truncate">Olá, {{ $operador_logado }}!</h1>
 
         <div style="position: relative;">
 

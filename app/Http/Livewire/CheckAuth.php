@@ -38,6 +38,10 @@ class CheckAuth extends Component
 
         $rotasPermitidas = ['home', 'geral', 'retiradas'];
 
+        if (is_null($get_operator_online) && !in_array($rotaAtual, $rotasPermitidas)) {
+            abort(403, 'Erro. Tentativa de acesso inválida.');
+        }
+
         if (!is_null($get_operator_online)) {
             if ($get_operator_online->is_admin !== 1) {
                 if (!in_array($rotaAtual, $rotasPermitidas)) {
@@ -94,6 +98,7 @@ class CheckAuth extends Component
         $this->emitTo('create-op', 'render');
         $this->emitTo('create-ret', 'render');
         $this->emitTo('create-venda', 'mount');
+        $this->emitTo('home', 'mount');
     }
 
     public function render()

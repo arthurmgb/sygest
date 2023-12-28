@@ -8,13 +8,20 @@ use Livewire\Component;
 
 class Home extends Component
 {
-    
-    public function doNotShowAgain($id){
-        
+    protected $listeners = ['mount'];
+    public $operador_logado;
+
+    public function doNotShowAgain($id)
+    {
+
         $find_user = User::find($id);
         $find_user->modal_start = 0;
         $find_user->save();
-        
+    }
+
+    public function mount()
+    {
+        $this->operador_logado = session('operador_selecionado')->nome ?? '';
     }
 
     public function render()
@@ -33,12 +40,12 @@ class Home extends Component
 
         $diferenca = $date2->diffInDays($date1);
         $tempo = 'dias';
-        
+
         if ($diferenca === 1) {
             $diferenca = 'um';
             $tempo = 'dia';
         }
-        
+
         if ($diferenca === 0) {
             $diferenca = $date2->diffInHours($date1);
             $tempo = 'horas';
@@ -47,16 +54,16 @@ class Home extends Component
                 $diferenca = 'uma';
                 $tempo = 'hora';
             }
-        
+
             if ($diferenca === 0) {
                 $diferenca = $date2->diffInMinutes($date1);
                 $tempo = 'minutos';
-        
+
                 if ($diferenca === 1) {
                     $diferenca = 'um';
                     $tempo = 'minuto';
                 }
-        
+
                 if ($diferenca === 0) {
                     $diferenca = 'poucos';
                     $tempo = 'segundos';
