@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        
+
         <div class="primezze-header">
             <x-slot name="logo">
                 <x-jet-authentication-card-logo />
@@ -33,7 +33,8 @@
                         type="password" name="password" required autocomplete="off" />
                     <div class="guest-toggle-pass ml-3">
                         <div class="btn-toggle-pass-visib" data-tooltip="Exibir" data-flow="top">
-                            <i id="toggler-pass" style="font-family: 'Font Awesome 5 Pro' !important;" class="fad fa-eye fa-fw fa-lg"></i>
+                            <i id="toggler-pass" style="font-family: 'Font Awesome 5 Pro' !important;"
+                                class="fad fa-eye fa-fw fa-lg"></i>
                         </div>
                     </div>
                 </div>
@@ -54,11 +55,13 @@
         </form>
 
         <div class="flex items-center justify-center mt-4 ">
-            <span style="color: #444;">Ainda não tem uma conta? </span>         
+            <span style="color: #444;">Ainda não tem uma conta? </span>
         </div>
 
         <div class="flex items-center justify-center mt-1">
-            <a class="create-account" href="https://cashiers.com.br/#cashiers-plans" target="_blank">Criar minha conta</a>
+            <a class="create-account"
+                href="https://api.whatsapp.com/send?phone=553499169195&text=Ol%C3%A1!%20Tenho%20interesse%20em%20criar%20uma%20conta%20na%20{{ config('app.name') }}!"
+                target="_blank">Criar minha conta</a>
         </div>
 
     </x-jet-authentication-card>

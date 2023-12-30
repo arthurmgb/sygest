@@ -67,7 +67,7 @@
                                             data-target="#collapse{{ $contract->id }}" aria-expanded="false"
                                             aria-controls="collapse{{ $contract->id }}">
                                             <i class="fad fa-chevron-down fa-fw mr-1"></i>
-                                            Plataforma Cashiers
+                                            Plataforma {{ config('app.name') }}
                                             @if ($contract->is_test == 1)
                                                 [<span style="color: #08af45;">PERÍODO DE AVALIAÇÃO GRATUITA: <span
                                                         style="color: #a855f7;">1 MÊS</span></span>]
@@ -897,15 +897,6 @@
                                 </button>
                             </div>
 
-                            {{-- <div class="col-12">
-                                <a href="https://seguro.cashiers.com.br/r/NAAMX2PKRO" target="_blank"
-                                    style="font-size: 18px;" class="mt-2 mb-4 btn btn-new py-2">
-                                    <img class="mr-1" style="width: 32px; heigth: 32px;"
-                                        src="{{ asset('vendor/adminlte/dist/img/cashier-logo.png') }}">
-                                    Checkout Cashiers
-                                </a>
-                            </div> --}}
-
                         </div>
 
                         <span style="font-size: 14px;"><span class="text-bold">Observação: </span>pode demorar alguns
@@ -1008,10 +999,10 @@
                                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link pill-botao active mr-1" id="pill-nubank-tab"
-                                            data-toggle="pill" data-target="#pill-nubank" type="button"
-                                            role="tab" aria-controls="pill-nubank"
-                                            aria-selected="true">Banco</button>
+                                        <button class="nav-link pill-botao active mr-1" id="pill-caixa-tab"
+                                            data-toggle="pill" data-target="#pill-caixa" type="button"
+                                            role="tab" aria-controls="pill-caixa"
+                                            aria-selected="true">CAIXA</button>
                                     </li>
                                     {{-- <li class="nav-item" role="presentation">
                                         <button class="nav-link pill-botao" id="pill-picpay-tab" data-toggle="pill"
@@ -1022,8 +1013,8 @@
 
                                 <div class="tab-content" id="pills-tabContent">
 
-                                    <div class="tab-pane fade show active" id="pill-nubank" role="tabpanel"
-                                        aria-labelledby="pill-nubank-tab">
+                                    <div class="tab-pane fade show active" id="pill-caixa" role="tabpanel"
+                                        aria-labelledby="pill-caixa-tab">
                                         <div class="data-bank-col col-12 blur-dados" wire:ignore>
                                             <ul class="list-group list-group-horizontal">
                                                 <li class="list-group-item text-left list-bank flex-fill">
@@ -1047,8 +1038,13 @@
                                                     <i style="color: #725BC2;"
                                                         class="fad fa-university fa-fw mr-2 fa-lg"></i>Banco
                                                 </li>
-                                                <li class="list-group-item text-right list-bank-info flex-fill"><span
-                                                        class="text-bold">000</span> · Nome do banco</li>
+                                                <li style="font-size: 15px;"
+                                                    class="list-group-item text-right list-bank-info flex-fill">
+                                                    <span class="text-bold">
+                                                        104
+                                                    </span>
+                                                    · Caixa Econômica Federal
+                                                </li>
                                             </ul>
                                             <ul class="list-group list-group-horizontal">
                                                 <li class="list-group-item text-left list-bank flex-fill">
@@ -1073,7 +1069,7 @@
                                                         class="fad fa-shield-check fa-fw mr-2 fa-lg"></i>Tipo de conta
                                                 </li>
                                                 <li class="list-group-item text-right list-bank-info flex-fill">
-                                                    Conta ...
+                                                    Conta Poupança
                                                 </li>
                                             </ul>
                                         </div>
@@ -1177,9 +1173,9 @@
 
                     <div class="confirmation-msg">
 
-                        <div class="div-title-recibo d-flex flex-row align-items-center mb-4">
-                            <img style="width: 64px; height: 64px; -webkit-user-drag: none !important; user-select: none;"
-                                src="{{ asset('vendor/adminlte/dist/img/cashier-logo.png') }}">
+                        <div class="div-title-recibo d-flex flex-row align-items-center mb-0">
+                            <img style="width: 64px; height: 70.5px; -webkit-user-drag: none !important; user-select: none;"
+                                src="{{ asset('vendor/adminlte/dist/img/sygest-logo.png') }}">
                             <div class="mx-auto">
                                 <h5 style="font-size: 24px; color: #725BC2;" class="mb-0">Recibo de Prestação de
                                     Serviço</h5>
@@ -1187,7 +1183,7 @@
                         </div>
 
                         @if (isset($recibo_info))
-                            <div class="row mb-5">
+                            <div class="row mb-4">
 
                                 <div class="col d-flex flex-column align-items-center">
                                     <div class="div-number-mensalidade ml-auto">
@@ -1210,7 +1206,7 @@
                                     <span style="font-weight: 600;">{{ $recibo_info['0']['documento'] }}</span>, a
                                     importância de <span style="font-weight: 600;">cento e cinquenta reais</span>
                                     referente à <span style="font-weight: 600;">Mensalidade da Plataforma de
-                                        Gerenciamento Financeiro - Cashiers</span>.
+                                        Gerenciamento Financeiro - {{ config('app.name') }}</span>.
                                 </span>
                             </div>
 

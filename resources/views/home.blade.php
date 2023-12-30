@@ -15,19 +15,19 @@
         <div class="help-div">
             <h3 class="home-subtitle">Tem alguma dúvida?</h3>
             <a class="home-link"
-                href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!"
+                href="https://api.whatsapp.com/send?phone={{ config('app.wpp') }}&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20{{ config('app.name') }}!"
                 target="_blank"><i class="fas fa-external-link-alt mr10"></i>Entre em contato com o suporte</a>
         </div>
     </div>
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('vendor\adminlte\dist\css\preloader.css') }}">
-    
+
     <style>
         body {
             overflow: hidden;
@@ -58,15 +58,15 @@
 
 @section('js')
     <script src="{{ asset('js/newfont.js') }}"></script>
-    @if(auth()->user()->modal_start === 1)
+    @if (auth()->user()->modal_start === 1)
         <script>
-            $(document).ready(function(){
+            $(document).ready(function() {
                 $("#modalHome").modal('show');
             });
         </script>
     @endif
     <script>
-        function changePix(){
+        function changePix() {
             var btn = document.getElementById("btn-pix");
             btn.innerHTML = 'Copiado!';
             setTimeout(() => {

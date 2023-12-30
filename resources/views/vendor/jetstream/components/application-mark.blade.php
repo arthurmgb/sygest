@@ -1,1 +1,1 @@
-<img style="width: 50px; height: 50px;" src="{{asset('vendor/adminlte/dist/img/cashier-logo.png')}}">
+<img style="width: 35.5px; height: 40.5px;" src="{{asset('vendor/adminlte/dist/img/sygest-logo.png')}}">

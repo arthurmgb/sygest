@@ -14,9 +14,9 @@ return [
     |
     */
 
-    'title' => 'Cashiers',
+    'title' => env('APP_NAME'),
     'title_prefix' => '',
-    'title_postfix' => '· Cashiers',
+    'title_postfix' => '· ' . env('APP_NAME'),
 
     /*
     |--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => '',
-    'logo_img' => 'vendor/adminlte/dist/img/cashier-logo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/sygest-logo.png',
     'logo_img_class' => 'brand-image',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',

@@ -50,6 +50,20 @@
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
+        {{-- sygest font --}}
+        <style>
+            @font-face {
+                font-family: 'Norwester';
+                src: url('{{ asset('vendor/adminlte/dist/norwester.otf') }}');
+            }
+
+            .norwester-font {
+                font-family: 'Norwester', sans-serif !important;
+                font-smooth: never !important;
+                text-rendering: optimizeLegibility !important;
+            }
+        </style>
+        {{-- sygest font --}}
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/my.css?ver=') . $css_version }}">
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/tooltip.css?ver=') . $css_version }}">

@@ -10,12 +10,10 @@
     <x-slot name="form">
         <!-- Profile Photo -->
         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-            <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
+            <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
-                <input type="file" class="hidden"
-                            wire:model="photo"
-                            x-ref="photo"
-                            x-on:change="
+                <input type="file" class="hidden" wire:model="photo" x-ref="photo"
+                    x-on:change="
                                     photoName = $refs.photo.files[0].name;
                                     const reader = new FileReader();
                                     reader.onload = (e) => {
@@ -28,22 +26,26 @@
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
-                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
+                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}"
+                        class="rounded-full h-20 w-20 object-cover">
                 </div>
 
                 <!-- New Profile Photo Preview -->
                 <div class="mt-2" x-show="photoPreview">
                     <span class="block rounded-full w-20 h-20"
-                          x-bind:style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'">
+                        x-bind:style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' +
+                        photoPreview + '\');'">
                     </span>
                 </div>
 
-                <x-jet-secondary-button class="mt-2 mr-2 primezze-btn" type="button" x-on:click.prevent="$refs.photo.click()">
+                <x-jet-secondary-button class="mt-2 mr-2 primezze-btn" type="button"
+                    x-on:click.prevent="$refs.photo.click()">
                     {{ __('Selecionar foto') }}
                 </x-jet-secondary-button>
 
                 @if ($this->user->profile_photo_path)
-                    <x-jet-secondary-button type="button" class="mt-2 primezze-btn2 primezze-b" wire:click="deleteProfilePhoto">
+                    <x-jet-secondary-button type="button" class="mt-2 primezze-btn2 primezze-b"
+                        wire:click="deleteProfilePhoto">
                         {{ __('Remover foto') }}
                     </x-jet-secondary-button>
                 @endif
@@ -55,46 +57,55 @@
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="name" value="{{ __('Nome/Empresa') }}" />
-            <x-jet-input id="name" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.name" autocomplete="off" />
+            <x-jet-input id="name" type="text" class="mt-1 block w-full primezze-input"
+                wire:model.defer="state.name" autocomplete="off" />
             <x-jet-input-error for="name" class="mt-2" />
         </div>
 
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="email" value="{{ __('E-mail') }}" />
-            <x-jet-input id="email" type="email" class="mt-1 block w-full primezze-input" wire:model.defer="state.email" autocomplete="off" />
+            <x-jet-input id="email" type="email" class="mt-1 block w-full primezze-input"
+                wire:model.defer="state.email" autocomplete="off" />
             <x-jet-input-error for="email" class="mt-2" />
         </div>
 
         <!-- CPF/CNPJ -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="documento" value="{{ __('CPF/CNPJ') }}" />
-            <x-jet-input placeholder="" id="documento" type="text" class="mt-1 block w-full primezze-input user-disabled-input" wire:model.defer="state.documento" autocomplete="off" disabled />
+            <x-jet-input placeholder="" id="documento" type="text"
+                class="mt-1 block w-full primezze-input user-disabled-input" wire:model.defer="state.documento"
+                autocomplete="off" disabled />
             <x-jet-input-error for="documento" class="mt-2" />
             <div class="user-doc-error mt-2">
-                <span>Seu documento está incorreto? 
-                    <a class="user-doc-error-support" href="https://api.whatsapp.com/send?phone=5534998395367&amp;text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!" target="_blank">Entre em contato com o suporte</a>
+                <span>Seu documento está incorreto?
+                    <a class="user-doc-error-support"
+                        href="https://api.whatsapp.com/send?phone={{ config('app.wpp') }}&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20{{ config('app.name') }}!"
+                        target="_blank">Entre em contato com o suporte</a>
                 </span>
             </div>
         </div>
 
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="celular" value="{{ __('Celular') }}" />
-            <x-jet-input placeholder="(00) 00000-0000" id="celular" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.celular" autocomplete="off" />
+            <x-jet-input placeholder="(00) 00000-0000" id="celular" type="text"
+                class="mt-1 block w-full primezze-input" wire:model.defer="state.celular" autocomplete="off" />
             <x-jet-input-error for="celular" class="mt-2" />
         </div>
 
         <!-- Cidade -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="cidade" value="{{ __('Cidade') }}" />
-            <x-jet-input placeholder="" id="cidade" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.cidade" autocomplete="off" />
+            <x-jet-input placeholder="" id="cidade" type="text" class="mt-1 block w-full primezze-input"
+                wire:model.defer="state.cidade" autocomplete="off" />
             <x-jet-input-error for="cidade" class="mt-2" />
         </div>
 
         <!-- Estado -->
         <div class="col-span-2">
             <x-jet-label class="primezze-label" for="estado" value="{{ __('Estado') }}" />
-            <select id="estado" class="mt-1 block modal-input-cat yampay-scroll" wire:model.defer="state.estado" autocomplete="off" size="1">
+            <select id="estado" class="mt-1 block modal-input-cat yampay-scroll" wire:model.defer="state.estado"
+                autocomplete="off" size="1">
                 <option value="">Selecione</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -130,14 +141,16 @@
         <!-- Chave PIX -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="pix" value="{{ __('Chave PIX') }}" />
-            <x-jet-input placeholder="CPF, e-mail ou celular" id="pix" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.chave_pix" autocomplete="off" />
+            <x-jet-input placeholder="CPF, e-mail ou celular" id="pix" type="text"
+                class="mt-1 block w-full primezze-input" wire:model.defer="state.chave_pix" autocomplete="off" />
             <x-jet-input-error for="pix" class="mt-2" />
         </div>
 
         <!-- Banco -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="banco" value="{{ __('Banco/Instituição') }}" />
-            <x-jet-input placeholder="" id="banco" type="text" class="mt-1 block w-full primezze-input" wire:model.defer="state.banco" autocomplete="off" />
+            <x-jet-input placeholder="" id="banco" type="text" class="mt-1 block w-full primezze-input"
+                wire:model.defer="state.banco" autocomplete="off" />
             <x-jet-input-error for="banco" class="mt-2" />
         </div>
 

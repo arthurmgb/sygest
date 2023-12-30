@@ -192,7 +192,7 @@
                     retornaremos.</h3>
                 <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                     <h3 style="font-size: 25px;" class="no-results-create mb-3">Tem dúvidas?</h3>
-                    <a href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!"
+                    <a href="https://api.whatsapp.com/send?phone={{ config('app.wpp') }}&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20{{ config('app.name') }}!"
                         target="_blank" class="btn btn-nr"><i class="fad fa-user-headset fa-fw fa-lg mr-2"></i>Fale
                         conosco</a>
 
@@ -222,8 +222,8 @@
 
                 <div id="preloader">
                     <div class="inner">
-                        <img style="width: 64px; height: 64px; margin-bottom: 20px; margin-left: 10px;"
-                            src="{{ asset('vendor/adminlte/dist/img/cashier-logo.png') }}">
+                        <img style="width: 64px; height: 70.5px; margin-bottom: 20px; margin-left: 10px;"
+                            src="{{ asset('vendor/adminlte/dist/img/sygest-logo.png') }}">
                         <div class="bolas">
                             <div></div>
                             <div></div>
@@ -407,7 +407,7 @@
                     <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                         <h3 style="font-size: 23px;" class="no-results-create mb-3 text-center">Entre em contato para
                             regularizar sua situação.</h3>
-                        <a href="https://api.whatsapp.com/send?phone=5534998395367&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20Cashiers!"
+                        <a href="https://api.whatsapp.com/send?phone={{ config('app.wpp') }}&text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20Plataforma%20{{ config('app.name') }}!"
                             target="_blank" class="btn btn-nr"><i class="fad fa-user-headset fa-fw fa-lg mr-2"></i>Fale
                             conosco</a>
 
@@ -558,17 +558,18 @@
                 </svg>
 
                 <h3 style="font-size: 20px;" class="my-4 no-results text-center">
-                    O aplicativo da Cashiers já está disponível.
+                    O aplicativo da {{ config('app.name') }} está em desenvolvimento, logo você poderá acessar sua conta
+                    através do celular.
                 </h3>
 
-                <h3 style="font-size: 25px;" class="no-results-create mb-3">
+                {{-- <h3 style="font-size: 25px;" class="no-results-create mb-3">
                     Faça o download agora!
-                </h3>
+                </h3> --}}
 
-                <a href="https://cashiers.com.br/#cashiers-app" target="_blank" class="btn btn-nr">
+                {{-- <a href="#" target="_blank" class="btn btn-nr">
                     <i class="fab fa-android fa-fw fa-lg mr-2"></i>
                     Baixar aplicativo
-                </a>
+                </a> --}}
 
                 @php($logout_url = View::getSection('logout_url') ?? config('adminlte.logout_url', 'logout'))
 

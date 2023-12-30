@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'wpp' => env('APP_WPP'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
