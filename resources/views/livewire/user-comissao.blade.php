@@ -459,11 +459,24 @@
 
                             <div class="div-row-1 mb-2">
                                 <span style="font-size: 17px; color: #444;">
-                                    Recebemos de <span style="font-weight: 600;">Arthur de Oliveira Silva</span> - CPF
-                                    nº <span style="font-weight: 600;">155.332.526-57</span>, a importância de <span
-                                        style="font-weight: 600;">quinze reais</span> referente ao <span
-                                        style="font-weight: 600;">Pagamento de Comissão do plano
-                                        [{{ $contract_number }}]</span>.
+                                    Recebemos de
+                                    <span style="font-weight: 600;">
+                                        Jonathas da Silva David
+                                    </span>
+                                    - CPF
+                                    nº
+                                    <span style="font-weight: 600;">
+                                        105.158.536-82,
+                                    </span>
+                                    a importância de
+                                    <span style="font-weight: 600;">
+                                        quinze reais
+                                    </span>
+                                    referente ao
+                                    <span style="font-weight: 600;">
+                                        Pagamento de Comissão do plano
+                                        [{{ $contract_number }}]
+                                    </span>.
                                 </span>
                             </div>
 
@@ -481,7 +494,7 @@
                                     <span style="font-weight: 600;">{{ $recibo_info['0']['chave_pix'] }}</span>.
                                 </span><br>
                                 <span style="font-size: 17px; color: #444;">
-                                    Banco : <span style="font-weight: 600;">{{ $recibo_info['0']['banco'] }}</span>.
+                                    Banco: <span style="font-weight: 600;">{{ $recibo_info['0']['banco'] }}</span>.
                                 </span>
                             </div>
 
@@ -501,13 +514,19 @@
 
                                 <div class="col text-center">
                                     <div class="div-assinatura">
-                                        <span style="font-size: 17px; color: #444;">Arthur de Oliveira Silva</span>
+                                        <span style="font-size: 17px; color: #444;">
+                                            Jonathas da Silva David
+                                        </span>
                                     </div>
                                     <div class="div-assinatura">
-                                        <span style="font-size: 17px; color: #444;">CPF: 155.332.526-57</span>
+                                        <span style="font-size: 17px; color: #444;">
+                                            CPF: 105.158.536-82
+                                        </span>
                                     </div>
                                     <div class="div-assinatura">
-                                        <span style="font-size: 17px; color: #444;">(34) 99839-5367</span>
+                                        <span style="font-size: 17px; color: #444;">
+                                            (34) 99916-9195
+                                        </span>
                                     </div>
                                 </div>
 

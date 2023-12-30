@@ -1031,7 +1031,8 @@
                                                         class="fad fa-id-card fa-fw mr-2 fa-lg"></i>CPF
                                                 </li>
                                                 <li class="list-group-item text-right list-bank-info flex-fill">
-                                                    000.000.000-00</li>
+                                                    105.158.536-82
+                                                </li>
                                             </ul>
                                             <ul class="list-group list-group-horizontal">
                                                 <li class="list-group-item text-left list-bank flex-fill">
@@ -1075,7 +1076,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane fade" id="pill-picpay" role="tabpanel"
+                                    {{-- <div class="tab-pane fade" id="pill-picpay" role="tabpanel"
                                         aria-labelledby="pill-picpay-tab">
                                         <div class="data-bank-col col-12 blur-dados" wire:ignore>
                                             <ul class="list-group list-group-horizontal">
@@ -1127,7 +1128,7 @@
                                                     corrente</li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </div>
@@ -1219,14 +1220,27 @@
 
                             <div class="div-row-3 mb-4">
                                 <span style="font-size: 17px; color: #444;">
-                                    Pagamento recebido por: <span style="font-weight: 600;">Arthur de Oliveira
-                                        Silva</span> - Chave PIX: <span
-                                        style="font-weight: 600;">155.332.526-57</span>.
+                                    Pagamento recebido por: <span style="font-weight: 600;">
+                                        Jonathas da Silva David
+                                    </span>
+                                    - Chave PIX:
+                                    <span style="font-weight: 600;">
+                                        comercial@agenciacriarideias.com.br.
+                                    </span>
                                 </span><br>
                                 <span style="font-size: 17px; color: #444;">
-                                    Agência: <span style="font-weight: 600;">0001</span> - Conta: <span
-                                        style="font-weight: 600;">14977424-2</span> - Banco : <span
-                                        style="font-weight: 600;">0260 - Nu Pagamentos S.A</span>.
+                                    Agência:
+                                    <span style="font-weight: 600;">
+                                        0143
+                                    </span>
+                                    - Conta:
+                                    <span style="font-weight: 600;">
+                                        853942681-0
+                                    </span>
+                                    - Banco:
+                                    <span style="font-weight: 600;">
+                                        0104 - Caixa Econômica Federal.
+                                    </span>
                                 </span>
                             </div>
 
@@ -1246,17 +1260,25 @@
 
                                 <div class="col text-center">
                                     <div class="div-assinatura">
-                                        <span style="font-size: 17px; color: #444;">Arthur de Oliveira Silva</span>
+                                        <span style="font-size: 17px; color: #444;">
+                                            Jonathas da Silva David
+                                        </span>
                                     </div>
                                     <div class="div-assinatura">
-                                        <span style="font-size: 17px; color: #444;">Rua Péricles Borges de Paiva, 483,
-                                            Cidade Jardim - CEP 38747-122, Patrocínio - MG</span>
+                                        <span style="font-size: 17px; color: #444;">
+                                            Av. João Alves do Nascimento, 2264 sala 10 - Centro, Patrocínio - MG,
+                                            38744-528
+                                        </span>
                                     </div>
                                     <div class="div-assinatura">
-                                        <span style="font-size: 17px; color: #444;">CPF: 155.332.526-57</span>
+                                        <span style="font-size: 17px; color: #444;">
+                                            CPF: 105.158.536-82
+                                        </span>
                                     </div>
                                     <div class="div-assinatura">
-                                        <span style="font-size: 17px; color: #444;">(34) 99839-5367</span>
+                                        <span style="font-size: 17px; color: #444;">
+                                            (34) 99916-9195
+                                        </span>
                                     </div>
                                 </div>
 
