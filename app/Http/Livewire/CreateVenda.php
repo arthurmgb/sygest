@@ -217,12 +217,11 @@ class CreateVenda extends Component
         $calc_valorPago = floatval($calc_valorPago);
 
         if (!is_null($calc_valorPago)) {
-            $total_venda_formatado = str_replace(".", "", $totalVenda);
-            $total_venda_formatado = str_replace(',', '.', $total_venda_formatado);
 
-            $total_venda_formatado = floatval($total_venda_formatado);
+            $total_venda_formatado = $totalVenda;
 
             if (is_numeric($total_venda_formatado)) {
+                // dd($total_venda_formatado);
                 return $calc_valorPago - $total_venda_formatado;
             }
         }
