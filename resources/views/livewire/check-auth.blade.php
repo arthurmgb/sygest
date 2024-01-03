@@ -18,7 +18,8 @@
 
                     @if (count($account_operators))
                         <select wire:target="verifyCredentials, updatedSelectedOperator" wire:loading.attr="disabled"
-                            wire:model="selectedOperator" style="font-size: 20px; height: auto; width: 450px;"
+                            wire:model="selectedOperator"
+                            style="font-size: 20px; height: auto; width: 450px; max-width: 100%;"
                             class="form-control modal-input-cat yampay-scroll mb-3" id="operator-check-auth"
                             onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                             onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
@@ -39,19 +40,19 @@
                                 wire:target="verifyCredentials, updatedSelectedOperator" wire:loading.attr="disabled"
                                 wire:model="operatorPass"
                                 style="font-size: 20px; height: 44px; width: 450px; -webkit-text-security: disc;
-                        text-security: disc;"
+                        text-security: disc; max-width: 100%;"
                                 type="text" class="form-control modal-input" autocomplete="off"
                                 placeholder="Digite sua senha...">
                             @error('operatorPass')
                                 <span class="wire-error pt-2">{{ $message }}</span>
                             @enderror
                             <button wire:click.prevent="verifyCredentials"
-                                style="font-size: 20px; width: 450px; height: 44px;" wire:loading.attr="disabled"
+                                style="font-size: 20px; width: 450px; height: 44px; max-width: 100%;" wire:loading.attr="disabled"
                                 type="button" class="btn btn-new mt-3">Acessar</button>
                         @endif
                     @else
                         <button wire:click.prevent="generateAdminOperator"
-                            style="font-size: 20px; width: 450px; height: 44px;" wire:loading.attr="disabled"
+                            style="font-size: 20px; width: 450px; height: 44px; max-width: 100%;" wire:loading.attr="disabled"
                             type="button" class="btn btn-new"><i class="fad fa-user-shield fa-fw mr-2"></i>Gerar
                             operador Gerente</button>
                     @endif
