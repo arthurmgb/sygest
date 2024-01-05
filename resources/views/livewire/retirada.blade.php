@@ -39,7 +39,7 @@
                                 <th>Espécie</th>
                                 <th width="100px">
                                     <div class="d-flex flex-row align-items-center fp-infos">
-                                        FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="top"
+                                        FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="left"
                                             title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>'
                                             style="margin-top: 2px;"
                                             class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
