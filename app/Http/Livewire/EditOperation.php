@@ -158,6 +158,7 @@ class EditOperation extends Component
 
         $user_operation_to_edit = Operation::where('id', $this->search_operacao)
                                 ->where('tipo', '!=', 3)
+                                ->where('is_venda', 0)
                                 ->first();
 
         return view('livewire.edit-operation', compact('user_operation_to_edit'));
