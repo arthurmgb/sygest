@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['descricao', 'preco', 'estoque', 'status', 'user_id'];
+    protected $fillable = ['descricao', 'preco', 'estoque', 'estoque_minimo', 'status', 'user_id'];
 
     //Relação um a muitos
     public function operations()

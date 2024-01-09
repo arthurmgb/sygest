@@ -53,6 +53,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="modal-label" for="qtd-item">Estoque mínimo <small>(opcional)</small></label>
+                            <input wire:model.defer="state.estoque_min" type="text"
+                                class="form-control modal-input qtd-item" id="qtd-min-item" placeholder="0-99999"
+                                autocomplete="off">
+                            @error('state.estoque_min')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+                        </div>
                 </div>
                 <div class="modal-footer py-4">
                     <button wire:loading.attr="disabled" type="button" class="btn btn-cancel"

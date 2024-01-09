@@ -20,6 +20,7 @@ class Produto extends Component
 
         'produto.descricao' => 'required|max:100',
         'produto.estoque' => 'required|max:5',
+        'produto.estoque_minimo' => 'max:5',
         'produto.preco' => 'required|max:10',
         'produto.status' => 'required',
     ];
@@ -67,6 +68,8 @@ class Produto extends Component
         $preco_formatado = str_replace(".", "", $this->produto['preco']);
         $preco_formatado = str_replace(',', '.', $preco_formatado);
         $this->produto['preco'] = $preco_formatado;
+
+        empty($this->produto['estoque_minimo']) ? $this->produto['estoque_minimo'] = NULL : $this->produto['estoque_minimo'] = $this->produto['estoque_minimo'];
 
         $this->produto->save();
         $this->dispatchBrowserEvent('close-item-edit-confirmation-modal');

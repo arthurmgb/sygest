@@ -30,6 +30,7 @@
                                 <th>Descrição</th>
                                 <th>Preço un.</th>
                                 <th>Qtd. Estoque</th>
+                                <th>Estoque min.</th>
                                 <th>Data de cadastro</th>
                                 <th width="200px">Ações</th>
                             </tr>
@@ -84,7 +85,8 @@
 
                                 @endphp
 
-                                <tr class="tr-hover">
+                                <tr style="@if (!is_null($produto->estoque_minimo) && $produto->estoque < $produto->estoque_minimo) background-color: #fee2e2 !important; @endif"
+                                    class="tr-hover">
                                     <td style="word-break: break-all" class="align-middle font-desc">
                                         <span class="ident-cdg">
                                             Código: <span
@@ -96,6 +98,9 @@
                                     <td style="white-space: nowrap; font-weight: 500;" class="align-middle">R$
                                         {{ $preco }}</td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $produto->estoque }}</td>
+                                    <td style="white-space: nowrap;" class="align-middle">
+                                        {{ $produto->estoque_minimo ?? 'Não definido' }}
+                                    </td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span
                                             class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
@@ -117,13 +122,25 @@
                                             </div>
                                         </div>
                                     </td>
+
                                 </tr>
+
+                                @if (!is_null($produto->estoque_minimo) && $produto->estoque < $produto->estoque_minimo)
+                                    <tr>
+                                        <td style="user-select: none" class="text-danger p-1" colspan="6">
+                                            Seu estoque de "{{ $produto->descricao }}" está baixo de acordo com o estoque
+                                            mínimo.
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
 
                         </tbody>
                     </table>
                 @else
-                    <div class="d-flex flex-column align-items-center justify-content-center">
+                    <div
+                        class="d-flex
+                                    flex-column align-items-center justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             width="211" height="145">
                             <style>
@@ -253,7 +270,8 @@
                         <h3 class="my-4 no-results">Não há produtos a serem exibidos.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                             <h3 class="no-results-create mb-3">Comece criando um</h3>
-                            <a data-toggle="modal" data-target="#create-item" class="ml-2 btn btn-nr">+ Novo produto</a>
+                            <a data-toggle="modal" data-target="#create-item" class="ml-2 btn btn-nr">+ Novo
+                                produto</a>
                         </div>
                     </div>
 
@@ -315,8 +333,8 @@
                                     <label class="modal-label" for="qtd-item-e">Qtd. em estoque <span
                                             class="red">*</span></label>
                                     <input wire:model.defer="produto.estoque" type="text"
-                                        class="form-control modal-input qtd-item" id="qtd-item-e" placeholder="0-99999"
-                                        autocomplete="off">
+                                        class="form-control modal-input qtd-item" id="qtd-item-e"
+                                        placeholder="0-99999" autocomplete="off">
                                     @error('produto.estoque')
                                         <span class="wire-error">{{ $message }}</span>
                                     @enderror
@@ -331,14 +349,23 @@
                                             <span class="input-group-text">R$</span>
                                         </div>
                                         <input wire:model.defer="produto.preco" placeholder="0,00" type="text"
-                                            class="form-control modal-input total-operation precos-mask" id="preco-item-e"
-                                            autocomplete="off">
+                                            class="form-control modal-input total-operation precos-mask"
+                                            id="preco-item-e" autocomplete="off">
                                     </div>
                                     @error('produto.preco')
                                         <span class="wire-error">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="modal-label" for="qtd-item">Estoque mínimo <small>(opcional)</small></label>
+                            <input wire:model.defer="produto.estoque_minimo" type="text"
+                                class="form-control modal-input qtd-item" id="qtd-min-item-e" placeholder="0-99999"
+                                autocomplete="off">
+                            @error('produto.estoque_minimo')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
                         </div>
                 </div>
                 <div class="modal-footer py-4">

@@ -14,6 +14,7 @@ class CreateProduct extends Component
 
         'state.descricao' => 'required|max:100',
         'state.estoque' => 'required|max:5',
+        'state.estoque_min' => 'max:5',
         'state.preco' => 'required|max:10',
 
     ];
@@ -65,6 +66,7 @@ class CreateProduct extends Component
             'descricao' => $this->state['descricao'],
             'preco' => $preco_formatado,
             'estoque' => $this->state['estoque'],
+            'estoque_minimo' => $this->state['estoque_min'] ?? null,
             'user_id' => auth()->user()->id
 
         ]);
