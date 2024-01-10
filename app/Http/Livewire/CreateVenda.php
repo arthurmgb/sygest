@@ -21,6 +21,8 @@ class CreateVenda extends Component
     public $selectedProduct = '';
     public $selectedFp = '';
     public $estoqueAtual;
+    public $estoqueMinimo;
+    public $estoqueAtualDb;
     public $quantidadeAdicionada;
     public $produtosAdicionados = [];
     public $fpsAdicionadas = [];
@@ -89,13 +91,16 @@ class CreateVenda extends Component
         if (!is_null($this->selectedProduct) and !empty($this->selectedProduct)) {
             $produto = Product::find($this->selectedProduct);
             $this->estoqueAtual = $produto->estoque - $qtdAdicionada;
+            $this->estoqueAtualDb = $produto->estoque;
             if ($this->estoqueAtual == 0) {
                 $this->tempErrorStyle = true;
             } else {
                 $this->tempErrorStyle = false;
             }
+            $this->estoqueMinimo = $produto->estoque_minimo;
         } else {
             $this->reset('estoqueAtual');
+            $this->tempErrorStyle = false;
         }
     }
 
@@ -422,6 +427,8 @@ class CreateVenda extends Component
         $this->reset('subtotalVenda');
         $this->reset('valorDaFp');
         $this->reset('tempErrorStyle');
+        $this->reset('estoqueMinimo');
+        $this->reset('estoqueAtualDb');
         $this->emit('resetSelect');
         $this->emit('resetSelectFp');
 

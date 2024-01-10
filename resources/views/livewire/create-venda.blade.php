@@ -10,8 +10,8 @@
                         {{ $operador->nome ?? null }}
 
                     </h5>
-                    <button style="color: #fff; opacity: 1;" type="button" class="close pt-1 pb-0 m-0" data-dismiss="modal"
-                        aria-label="Close">
+                    <button style="color: #fff; opacity: 1;" type="button" class="close pt-1 pb-0 m-0"
+                        data-dismiss="modal" aria-label="Close">
                         <i class="fal fa-times"></i>
                     </button>
                 </div>
@@ -57,6 +57,22 @@
                                                             wire:model.defer="estoqueAtual" disabled type="number"
                                                             class="form-control modal-input font-weight-bold"
                                                             autocomplete="off" wire:loading.attr="disabled">
+                                                        @if ($selectedProduct)
+                                                            <small style="font-weight: bold">
+                                                                mínimo:
+                                                                <span>
+                                                                    {{ $estoqueMinimo ?? 'Não definido' }}
+                                                                </span>
+                                                            </small>
+                                                            <br>
+                                                            @if ($estoqueAtualDb < $estoqueMinimo)
+                                                                <span class="wire-error">
+                                                                    <b>Atenção:</b> O estoque deste produto está abaixo
+                                                                    do
+                                                                    estoque mínimo definido.
+                                                                </span>
+                                                            @endif
+                                                        @endif
                                                     </div>
                                                     <div class="col">
                                                         <label class="modal-label">
