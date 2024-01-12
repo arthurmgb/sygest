@@ -365,6 +365,57 @@
             </div>
         </div>
     </div>
+    {{-- AUTENTICAÇÃO PDV --}}
+    <div class="modal" data-backdrop="static" data-keyboard="false" id="autenticacao-pdv" tabindex="-1"
+        aria-labelledby="autenticacao-pdvLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="autenticacao-pdvLabel">Autenticação</h5>
+                </div>
+                <div class="modal-body p-2">
+
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">
+                        Senha do Gerente
+                    </h5>
+
+                    <div class="confirmation-msg text-center mb-3">
+                        <p class="m-0 mb-3 px-4">
+                            <b>Motivo:</b> Ao realizar o lançamento deste produto na venda, o estoque ficará negativo.
+                            Por
+                            favor, solicite a
+                            permissão do gerente da conta.
+                        </p>
+                        <div class="d-flex flex-row align-items-center justify-content-center">
+                            <select wire:target="" wire:loading.attr="disabled" wire:model=""
+                                style="font-size: 20px; height: auto; width: 100%; max-width: 350px ;"
+                                class="form-control modal-input-cat yampay-scroll mb-3" id="gerente-auth"
+                                onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                onchange="this.size=1; this.blur();">
+                                <option value="">Selecione um gerente</option>
+
+                                {{-- @foreach ($account_operators as $account_operator)
+                                <option value="{{ $account_operator->id }}">
+
+                                    {{ $account_operator->nome }}
+
+                                </option>
+                            @endforeach --}}
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="" type="button"
+                        class="btn btn-send">Liberar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

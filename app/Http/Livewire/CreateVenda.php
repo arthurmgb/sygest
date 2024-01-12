@@ -33,6 +33,7 @@ class CreateVenda extends Component
     public $subtotalVenda;
     public $valorDaFp;
     public $tempErrorStyle = false;
+    public $gerentes;
 
     public $rules = [
 
@@ -67,6 +68,14 @@ class CreateVenda extends Component
             ->where('status', 1)
             ->orderBy('descricao', 'ASC')
             ->get();
+
+        $this->gerentes = Operator::where('user_id', auth()->user()->id)
+            ->where('status', 0)
+            ->orderBy('nome', 'ASC')
+            ->get();
+
+
+        // dd($this->gerentes);
 
         if (session()->get('operador_selecionado')) {
             $this->operador = Operator::find(session()->get('operador_selecionado')->id);
@@ -123,27 +132,44 @@ class CreateVenda extends Component
 
             $qtd_adicionada = intval($this->quantidadeAdicionada);
 
-            // CORRIGIR NULL
 
-            if ($this->estoqueAtual - $qtd_adicionada >= $produto->estoque_minimo) {
-                $subtotal = $produto->preco * $this->quantidadeAdicionada;
+            if (is_null($produto->estoque_minimo)) {
+                if ($this->estoqueAtual >= $qtd_adicionada) {
+                    $subtotal = $produto->preco * $this->quantidadeAdicionada;
 
-                $this->produtosAdicionados[] = [
-                    'id' => $produto->id,
-                    'descricao' => $produto->descricao,
-                    'preco' => $produto->preco,
-                    'quantidade' => $this->quantidadeAdicionada,
-                    'subtotal' => $subtotal,
-                ];
+                    $this->produtosAdicionados[] = [
+                        'id' => $produto->id,
+                        'descricao' => $produto->descricao,
+                        'preco' => $produto->preco,
+                        'quantidade' => $this->quantidadeAdicionada,
+                        'subtotal' => $subtotal,
+                    ];
 
-                $this->emit('resetSelect');
-                $this->reset(['estoqueAtual', 'quantidadeAdicionada']);
-            } elseif ($this->estoqueAtual - $qtd_adicionada < $produto->estoque_minimo) {
-                //ESTOQUE MENOR QUE ESTOQUE MÍNIMO - AUTENTICAÇÃO
-                dd('AUT');
+                    $this->emit('resetSelect');
+                    $this->reset(['estoqueAtual', 'quantidadeAdicionada']);
+                } else {
+                    $this->dispatchBrowserEvent('show-pdv-auth');
+                }
             } else {
-                //NEGATIVO - AUTENTICAÇÃO
-                $this->addError('quantidadeAdicionada', 'Quantidade excede o estoque disponível.');
+
+                if ($this->estoqueAtual - $qtd_adicionada >= $produto->estoque_minimo) {
+                    $subtotal = $produto->preco * $this->quantidadeAdicionada;
+
+                    $this->produtosAdicionados[] = [
+                        'id' => $produto->id,
+                        'descricao' => $produto->descricao,
+                        'preco' => $produto->preco,
+                        'quantidade' => $this->quantidadeAdicionada,
+                        'subtotal' => $subtotal,
+                    ];
+
+                    $this->emit('resetSelect');
+                    $this->reset(['estoqueAtual', 'quantidadeAdicionada']);
+                } elseif ($this->estoqueAtual - $qtd_adicionada < $produto->estoque_minimo) {
+                    dd('Estoque menor que estoque mínimo - autenticar');
+                } else {
+                    dd('Estoque ficará negativo - autenticação');
+                }
             }
         }
         // -----------------------------------------------

@@ -190,6 +190,13 @@
                 $('#cancelar-venda').modal('hide');
             })
 
+            window.addEventListener('show-pdv-auth', event => {
+                $('#autenticacao-pdv').modal('show');
+            })
+            window.addEventListener('hide-pdv-auth', event => {
+                $('#autenticacao-pdv').modal('hide');
+            })
+
             /* Operações */
 
             /* Edit e Delete */

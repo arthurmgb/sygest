@@ -259,8 +259,20 @@ return [
         ],
         [
             'text' => 'Produtos',
-            'route'  => 'produtos',
             'icon' => 'far mr-3 fa-shopping-cart fa-lg fa-fw',
+            'submenu' => [
+                [
+                    'text' => 'Listar',
+                    'icon' => 'far mr-3 fa-list fa-lg fa-fw',
+                    'route'  => 'produtos',
+                ],
+                [
+                    'text' => 'Grupos',
+                    'icon' => 'far mr-3 fa-layer-plus fa-lg fa-fw',
+                    'route'  => 'product-groups',
+                ],
+            ]
+
         ],
         [
             'text' => 'Categorias',
