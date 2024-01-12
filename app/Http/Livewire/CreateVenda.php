@@ -92,7 +92,7 @@ class CreateVenda extends Component
             $produto = Product::find($this->selectedProduct);
             $this->estoqueAtual = $produto->estoque - $qtdAdicionada;
             $this->estoqueAtualDb = $produto->estoque;
-            if ($this->estoqueAtual == 0) {
+            if ($this->estoqueAtual <= 0) {
                 $this->tempErrorStyle = true;
             } else {
                 $this->tempErrorStyle = false;
@@ -118,12 +118,14 @@ class CreateVenda extends Component
 
 
         if (!is_null($this->selectedProduct) and !empty($this->selectedProduct)) {
-            $produto = Product::find($this->selectedProduct);
 
+            $produto = Product::find($this->selectedProduct);
 
             $qtd_adicionada = intval($this->quantidadeAdicionada);
 
-            if ($this->estoqueAtual >= $qtd_adicionada) {
+            // CORRIGIR NULL
+
+            if ($this->estoqueAtual - $qtd_adicionada >= $produto->estoque_minimo) {
                 $subtotal = $produto->preco * $this->quantidadeAdicionada;
 
                 $this->produtosAdicionados[] = [
@@ -136,10 +138,38 @@ class CreateVenda extends Component
 
                 $this->emit('resetSelect');
                 $this->reset(['estoqueAtual', 'quantidadeAdicionada']);
+            } elseif ($this->estoqueAtual - $qtd_adicionada < $produto->estoque_minimo) {
+                //ESTOQUE MENOR QUE ESTOQUE MÍNIMO - AUTENTICAÇÃO
+                dd('AUT');
             } else {
+                //NEGATIVO - AUTENTICAÇÃO
                 $this->addError('quantidadeAdicionada', 'Quantidade excede o estoque disponível.');
             }
         }
+        // -----------------------------------------------
+        // if (!is_null($this->selectedProduct) and !empty($this->selectedProduct)) {
+        //     $produto = Product::find($this->selectedProduct);
+
+
+        //     $qtd_adicionada = intval($this->quantidadeAdicionada);
+
+        //     if ($this->estoqueAtual >= $qtd_adicionada) {
+        //         $subtotal = $produto->preco * $this->quantidadeAdicionada;
+
+        //         $this->produtosAdicionados[] = [
+        //             'id' => $produto->id,
+        //             'descricao' => $produto->descricao,
+        //             'preco' => $produto->preco,
+        //             'quantidade' => $this->quantidadeAdicionada,
+        //             'subtotal' => $subtotal,
+        //         ];
+
+        //         $this->emit('resetSelect');
+        //         $this->reset(['estoqueAtual', 'quantidadeAdicionada']);
+        //     } else {
+        //         $this->addError('quantidadeAdicionada', 'Quantidade excede o estoque disponível.');
+        //     }
+        // }
     }
 
     public function addFp()
@@ -447,8 +477,11 @@ class CreateVenda extends Component
         $desconto = str_replace(',', '.', $desconto);
         $desconto = floatval($desconto);
 
+        $val_pg = str_replace(".", "", $this->valorPago);
+        $val_pg = str_replace(',', '.', $val_pg);
+        $val_pg = floatval($val_pg);
 
-        if (!is_null($this->totalVenda) and floatval($this->totalVenda) > 0 and floatval($this->valorPago) > 0) {
+        if (!is_null($this->totalVenda) and floatval($this->totalVenda) > 0 and $val_pg > 0) {
             $this->troco = $this->calcularTrocoSeExistir($this->totalVenda);
             $this->troco = $this->troco + $desconto;
             $this->troco = number_format($this->troco, 2, ',', '.');
@@ -457,7 +490,7 @@ class CreateVenda extends Component
         }
 
 
-        if (floatval($this->valorPago > 0)) {
+        if ($val_pg > 0) {
 
             $this->subtotalVenda = $this->totalVenda - $desconto;
             $this->subtotalVenda = number_format($this->subtotalVenda, 2, ',', '.');
