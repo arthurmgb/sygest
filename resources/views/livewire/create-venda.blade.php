@@ -238,7 +238,8 @@
                                                 <input wire:keydown.enter.prevent="finalizarVenda"
                                                     wire:model="valorPago" placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
-                                                    autocomplete="off">
+                                                    autocomplete="off"
+                                                    @if (empty($produtosAdicionados)) disabled @endif>
                                             </div>
                                             @error('valorPago')
                                                 <span class="wire-error">{{ $message }}</span>
@@ -279,7 +280,8 @@
                                                 <input wire:keydown.enter.prevent="finalizarVenda"
                                                     wire:model="desconto" placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
-                                                    autocomplete="off">
+                                                    autocomplete="off"
+                                                    @if (!$valorPago) disabled @endif>
                                             </div>
                                         </div>
                                         <div class="form-group mb-1">
@@ -381,10 +383,7 @@
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            <b>Motivo:</b> Ao realizar o lançamento deste produto na venda, o estoque ficará negativo.
-                            Por
-                            favor, solicite a
-                            permissão de um gerente da conta.
+                            <b>Motivo:</b> {{ $motivoBloqueio }}
                         </p>
                         <div class="d-flex flex-column align-items-center justify-content-center px-5">
                             <select wire:target="verifyCredentials" wire:loading.attr="disabled"
