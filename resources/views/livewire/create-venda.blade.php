@@ -384,32 +384,47 @@
                             <b>Motivo:</b> Ao realizar o lançamento deste produto na venda, o estoque ficará negativo.
                             Por
                             favor, solicite a
-                            permissão do gerente da conta.
+                            permissão de um gerente da conta.
                         </p>
-                        <div class="d-flex flex-row align-items-center justify-content-center">
-                            <select wire:target="" wire:loading.attr="disabled" wire:model=""
-                                style="font-size: 20px; height: auto; width: 100%; max-width: 350px ;"
-                                class="form-control modal-input-cat yampay-scroll mb-3" id="gerente-auth"
+                        <div class="d-flex flex-column align-items-center justify-content-center px-5">
+                            <select wire:target="verifyCredentials" wire:loading.attr="disabled"
+                                wire:model="selectedGerente" style="font-size: 18px; height: auto; width: 100%;"
+                                class="form-control modal-input-cat yampay-scroll" id="gerente-auth"
                                 onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                                 onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
                                 onchange="this.size=1; this.blur();">
                                 <option value="">Selecione um gerente</option>
 
-                                {{-- @foreach ($account_operators as $account_operator)
-                                <option value="{{ $account_operator->id }}">
+                                @foreach ($gerentes as $account_gerente)
+                                    <option value="{{ $account_gerente->id }}">
 
-                                    {{ $account_operator->nome }}
+                                        {{ $account_gerente->nome }}
 
-                                </option>
-                            @endforeach --}}
+                                    </option>
+                                @endforeach
                             </select>
+                            @error('selectedGerente')
+                                <span class="wire-error pt-2">{{ $message }}</span>
+                            @enderror
+                            <input autofocus wire:keydown.enter="verifyCredentials" wire:target="verifyCredentials"
+                                wire:loading.attr="disabled" wire:model.defer="gerentePass"
+                                style="font-size: 18px; height: 44px; width: 100%; -webkit-text-security: disc;
+                        text-security: disc;"
+                                type="text" class="form-control modal-input mt-3" autocomplete="off"
+                                placeholder="Digite a senha">
+                            @error('gerentePass')
+                                <span class="wire-error pt-2">{{ $message }}</span>
+                            @enderror
+                            @error('gerenteCredentials')
+                                <span class="wire-error pt-2">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                 </div>
                 <div class="modal-footer py-4">
                     <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
-                    <button wire:loading.attr="disabled" wire:click.prevent="" type="button"
+                    <button wire:loading.attr="disabled" wire:click.prevent="verifyCredentials" type="button"
                         class="btn btn-send">Liberar</button>
                     </form>
                 </div>

@@ -34,6 +34,10 @@ class CreateVenda extends Component
     public $valorDaFp;
     public $tempErrorStyle = false;
     public $gerentes;
+    public $selectedGerente;
+    public $foundGerente;
+    public $gerentePass;
+    public $liberarVenda = false;
 
     public $rules = [
 
@@ -42,6 +46,8 @@ class CreateVenda extends Component
         'valorDaFp' => 'required|numeric|min:0.01',
         'selectedFp' => 'required',
         'valorPago' => 'required',
+        'selectedGerente' => 'required',
+        'gerentePass' => 'required',
 
     ];
 
@@ -54,6 +60,8 @@ class CreateVenda extends Component
         'valorDaFp.min' => 'O valor dever ser maior que 0.',
         'selectedFp.required' => 'Campo obrigatório.',
         'valorPago.required' => 'Campo obrigatório.',
+        'selectedGerente.required' => 'Campo obrigatório.',
+        'gerentePass.required' => 'Campo obrigatório.',
 
     ];
 
@@ -71,11 +79,9 @@ class CreateVenda extends Component
 
         $this->gerentes = Operator::where('user_id', auth()->user()->id)
             ->where('status', 0)
+            ->where('is_admin', 1)
             ->orderBy('nome', 'ASC')
             ->get();
-
-
-        // dd($this->gerentes);
 
         if (session()->get('operador_selecionado')) {
             $this->operador = Operator::find(session()->get('operador_selecionado')->id);
@@ -117,6 +123,28 @@ class CreateVenda extends Component
     {
     }
 
+    public function verifyCredentials()
+    {
+
+        $this->validate([
+            'selectedGerente' => $this->rules['selectedGerente'],
+            'gerentePass' => $this->rules['gerentePass'],
+        ]);
+
+        $this->foundGerente = Operator::find($this->selectedGerente);
+
+        if ($this->foundGerente->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
+        if ($this->foundGerente->senha === $this->gerentePass) {
+            $this->liberarVenda = true;
+            $this->dispatchBrowserEvent('hide-pdv-auth');
+        } else {
+            $this->addError('gerenteCredentials', 'Senha incorreta.');
+        }
+    }
+
     public function addProduct()
     {
 
@@ -134,7 +162,7 @@ class CreateVenda extends Component
 
 
             if (is_null($produto->estoque_minimo)) {
-                if ($this->estoqueAtual >= $qtd_adicionada) {
+                if ($this->estoqueAtual >= $qtd_adicionada || $this->liberarVenda === true) {
                     $subtotal = $produto->preco * $this->quantidadeAdicionada;
 
                     $this->produtosAdicionados[] = [
@@ -172,6 +200,9 @@ class CreateVenda extends Component
                 }
             }
         }
+
+        $this->reset('liberarVenda');
+
         // -----------------------------------------------
         // if (!is_null($this->selectedProduct) and !empty($this->selectedProduct)) {
         //     $produto = Product::find($this->selectedProduct);
