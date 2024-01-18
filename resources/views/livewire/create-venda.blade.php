@@ -285,6 +285,22 @@
                                             </div>
                                         </div>
                                         <div class="form-group mb-1">
+                                            <label class="modal-label">
+                                                Adicional
+                                                <small>(opcional)</small>
+                                            </label>
+                                            <div class="input-group mb-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><b>R$</b></span>
+                                                </div>
+                                                <input wire:keydown.enter.prevent="finalizarVenda"
+                                                    wire:model="adicional" placeholder="0,00" type="text"
+                                                    class="form-control modal-input total-operation precos-mask"
+                                                    autocomplete="off"
+                                                    @if (!$valorPago) disabled @endif>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-1">
                                             @php
                                                 $check_stv = $subtotalVenda;
                                                 $check_stv = str_replace('.', '', $check_stv);

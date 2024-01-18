@@ -30,6 +30,7 @@ class CreateVenda extends Component
     public $valorPago;
     public $troco;
     public $desconto;
+    public $adicional;
     public $subtotalVenda;
     public $valorDaFp;
     public $tempErrorStyle = false;
@@ -413,6 +414,10 @@ class CreateVenda extends Component
         $formattedDesconto = str_replace(',', '.', $formattedDesconto);
         $formattedDesconto = floatval($formattedDesconto);
 
+        $formattedAdicional = str_replace(".", "", $this->adicional);
+        $formattedAdicional = str_replace(',', '.', $formattedAdicional);
+        $formattedAdicional = floatval($formattedAdicional);
+
         //FIM FORMATANDO VALORES
 
         $novaVenda = Operation::create([
@@ -427,6 +432,7 @@ class CreateVenda extends Component
             'valor_pago' => $formattedValorPago,
             'troco' => $formattedTroco,
             'desconto' => $formattedDesconto,
+            'adicional' => $formattedAdicional,
             'user_id' => auth()->user()->id
 
         ]);
@@ -472,6 +478,7 @@ class CreateVenda extends Component
         $this->reset('valorPago');
         $this->reset('troco');
         $this->reset('desconto');
+        $this->reset('adicional');
         $this->reset('subtotalVenda');
         $this->reset('valorDaFp');
         $this->reset('tempErrorStyle');
@@ -494,6 +501,7 @@ class CreateVenda extends Component
         $this->reset('valorPago');
         $this->reset('troco');
         $this->reset('desconto');
+        $this->reset('adicional');
         $this->reset('subtotalVenda');
         $this->reset('valorDaFp');
         $this->reset('tempErrorStyle');
@@ -517,6 +525,10 @@ class CreateVenda extends Component
         $desconto = str_replace(',', '.', $desconto);
         $desconto = floatval($desconto);
 
+        $adicional = str_replace(".", "", $this->adicional);
+        $adicional = str_replace(',', '.', $adicional);
+        $adicional = floatval($adicional);
+
         $val_pg = str_replace(".", "", $this->valorPago);
         $val_pg = str_replace(',', '.', $val_pg);
         $val_pg = floatval($val_pg);
@@ -529,9 +541,8 @@ class CreateVenda extends Component
             $this->reset('troco', 'desconto');
         }
 
-
         if ($val_pg > 0) {
-            $this->subtotalVenda = $this->totalVenda - $desconto;
+            $this->subtotalVenda = $this->totalVenda - $desconto + $adicional;
             $this->subtotalVenda = number_format($this->subtotalVenda, 2, ',', '.');
         } else {
             $this->reset('subtotalVenda');

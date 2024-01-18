@@ -586,6 +586,11 @@
                                                             {{ 'R$ ' . number_format($operation->desconto, 2, ',', '.') }}
                                                         </li>
                                                         <li class="list-group-item">
+                                                            <b>Adicional</b>
+                                                            <br>
+                                                            {{ 'R$ ' . number_format($operation->adicional, 2, ',', '.') }}
+                                                        </li>
+                                                        <li class="list-group-item">
                                                             <b style="font-size: 14px;">SUBTOTAL</b>
                                                             <br>
                                                             <span style="font-size: 14px;"
