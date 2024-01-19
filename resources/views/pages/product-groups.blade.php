@@ -13,6 +13,8 @@
 
     </div>
 
+    @livewire('create-product-group')
+
 @stop
 
 @section('css')

@@ -82,11 +82,11 @@
 
                                 <tr class="tr-hover">
                                     <td style="word-break: break-all" class="align-middle font-desc">
-                                        {{-- <span class="ident-cdg">
-                                            Código: <span
-                                                style="color: #725BC2; font-weight: 500;"></span>
+                                        <span class="ident-cdg">
+                                            Código:
+                                            <span style="color: #725BC2; font-weight: 500;">{{ $group->id }}</span>
                                         </span>
-                                        <br> --}}
+                                        <br>
                                         {{ $group->descricao }}
                                     </td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_cadastro }}<br><span
@@ -100,8 +100,8 @@
                                                 class="cbe">
                                                 <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
                                             </div>
-                                            <div wire:target="prepare({{ $group->id }})" wire:loading.attr="disabled"
-                                                wire:click.prevent="prepare({{ $group->id }})" data-toggle="modal"
+                                            <div wire:target="prepareToDelete({{ $group->id }})" wire:loading.attr="disabled"
+                                                wire:click.prevent="prepareToDelete({{ $group->id }})" data-toggle="modal"
                                                 data-target="#delete-this-confirmation" data-tooltip="Apagar"
                                                 data-flow="right" class="cba mr-2">
                                                 <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
@@ -278,4 +278,41 @@
         </div>
 
     </div>
+
+    {{-- MODALS --}}
+
+    <!-- Modal Deletar Confirmação -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-this-confirmation"
+        tabindex="-1" aria-labelledby="delete-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="delete-cat-confirmationLabel">Confirmação de apagamento</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-4 px-4">
+
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente apagar este
+                        grupo?</h5>
+
+                    <div class="confirmation-msg text-center mb-3">
+                        <p class="m-0 mb-3 px-4">
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, este grupo de produto será
+                            apagado e não poderá mais ser utilizado na plataforma.
+                        </p>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="delete()" type="button"
+                        class="btn btn-send">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

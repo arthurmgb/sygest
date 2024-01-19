@@ -12,4 +12,9 @@ class Product_Group extends Model
     protected $fillable = ['user_id', 'descricao', 'status'];
 
     protected $table = 'product_groups';
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }
