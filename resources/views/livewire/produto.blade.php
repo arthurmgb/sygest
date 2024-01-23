@@ -31,6 +31,7 @@
                                 <th>Preço un.</th>
                                 <th>Qtd. Estoque</th>
                                 <th>Estoque min.</th>
+                                <th>Grupo</th>
                                 <th>Data de cadastro</th>
                                 <th width="200px">Ações</th>
                             </tr>
@@ -101,6 +102,10 @@
                                     <td style="white-space: nowrap;" class="align-middle">
                                         {{ $produto->estoque_minimo ?? 'Não definido' }}
                                     </td>
+                                    <td style="white-space: nowrap;" class="align-middle">
+                                        {{ $produto->group->descricao ?? 'Não definido' }} 
+                                        {{-- AQUI --}}
+                                    </td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span
                                             class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
@@ -128,7 +133,8 @@
                                 @if (!is_null($produto->estoque_minimo) && $produto->estoque < $produto->estoque_minimo)
                                     <tr>
                                         <td style="user-select: none" class="text-danger p-1" colspan="6">
-                                            Seu estoque de "{{ $produto->descricao }}" está baixo de acordo com o estoque
+                                            Seu estoque de "{{ $produto->descricao }}" está baixo de acordo com o
+                                            estoque
                                             mínimo.
                                         </td>
                                     </tr>

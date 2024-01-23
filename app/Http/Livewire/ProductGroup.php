@@ -29,6 +29,42 @@ class ProductGroup extends Component
 
     ];
 
+    public function edit(Product_Group $product_group)
+    {
+        // Verificando se o dado pertence ao usuário logado
+        if ($product_group->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+        // ---
+
+        $this->product_group = $product_group;
+    }
+
+    public function confirmUpdate()
+    {
+        $this->validate();
+        $this->dispatchBrowserEvent('close-item-edit-modal');
+        $this->dispatchBrowserEvent('show-item-edit-confirmation-modal');
+    }
+
+    public function resetUpdate()
+    {
+        $this->dispatchBrowserEvent('close-item-edit-confirmation-modal');
+    }
+
+    public function alternate()
+    {
+        $this->dispatchBrowserEvent('close-item-edit-confirmation-modal');
+        $this->dispatchBrowserEvent('show-item-edit-modal');
+    }
+
+    public function update()
+    {
+        $this->product_group->save();
+        $this->dispatchBrowserEvent('close-item-edit-confirmation-modal');
+        $this->emit('alert', 'Grupo editado com sucesso!');
+    }
+
     public function prepareToDelete(Product_Group $product_group)
     {
 

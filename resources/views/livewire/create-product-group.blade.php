@@ -1,5 +1,5 @@
 <div>
-    <!-- Modal Operação-->
+    <!-- Modal Cadastro -->
     <div class="modal fade" id="create-item" tabindex="-1" aria-labelledby="createItemLabel" aria-hidden="true"
         wire:ignore.self>
         <div class="modal-dialog">

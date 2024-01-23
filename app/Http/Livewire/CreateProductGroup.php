@@ -23,7 +23,6 @@ class CreateProductGroup extends Component
 
     public function confirmation()
     {
-
         $this->validate();
         $this->dispatchBrowserEvent('close-item-modal');
         $this->dispatchBrowserEvent('show-item-confirmation-modal');
@@ -31,21 +30,18 @@ class CreateProductGroup extends Component
 
     public function resetData()
     {
-
         $this->dispatchBrowserEvent('close-item-modal');
         $this->reset('state');
     }
 
     public function resetDataOnConfirm()
     {
-
         $this->dispatchBrowserEvent('close-item-confirmation-modal');
         $this->reset('state');
     }
 
     public function alternate()
     {
-
         $this->dispatchBrowserEvent('close-item-confirmation-modal');
         $this->dispatchBrowserEvent('show-item-modal');
     }

@@ -100,10 +100,11 @@
                                                 class="cbe">
                                                 <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
                                             </div>
-                                            <div wire:target="prepareToDelete({{ $group->id }})" wire:loading.attr="disabled"
-                                                wire:click.prevent="prepareToDelete({{ $group->id }})" data-toggle="modal"
-                                                data-target="#delete-this-confirmation" data-tooltip="Apagar"
-                                                data-flow="right" class="cba mr-2">
+                                            <div wire:target="prepareToDelete({{ $group->id }})"
+                                                wire:loading.attr="disabled"
+                                                wire:click.prevent="prepareToDelete({{ $group->id }})"
+                                                data-toggle="modal" data-target="#delete-this-confirmation"
+                                                data-tooltip="Apagar" data-flow="right" class="cba mr-2">
                                                 <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
                                             </div>
                                         </div>
@@ -280,6 +281,77 @@
     </div>
 
     {{-- MODALS --}}
+
+    <!-- Modal Editar -->
+    <div class="modal fade" id="edit-this" tabindex="-1" aria-labelledby="edit-thisLabel" aria-hidden="true"
+        wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="editarCatLabel">Editar grupo</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-4 px-4">
+
+                    <form wire:submit.prevent="confirmUpdate()">
+                        <div class="form-group">
+                            <label class="modal-label" for="desc-item-e">Descrição <small>(nome do grupo) </small>
+                                <span class="red">*</span></label>
+                            <input wire:model.defer="product_group.descricao" type="text"
+                                class="form-control modal-input" id="desc-item-e" autocomplete="off">
+                            @error('product_group.descricao')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                </div>
+                <div class="modal-footer py-4">
+                    <button data-dismiss="modal" type="button" class="btn btn-cancel">Cancelar</button>
+                    <button wire:loading.attr="disabled" type="submit" class="btn btn-send">Editar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Confirmação -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="edit-this-confirmation" tabindex="-1"
+        aria-labelledby="edit-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="edit-this-confirmationLabel">Confirmação de edição</h5>
+                    <button wire:loading.attr="disabled" type="button" class="close px-4" data-dismiss="modal"
+                        aria-label="Close" wire:click.prevent="alternate()">
+                        <i class="far fa-arrow-left"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-4 px-4">
+
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente editar este
+                        grupo?</h5>
+
+                    <div class="confirmation-msg text-center mb-3">
+                        <p class="m-0 mb-3 px-4">
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, este grupo de produto será editado na
+                            plataforma.
+                        </p>
+                        <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
+                            data-dismiss="modal" class="px-4 verify-font">Verificar dados do produto</button>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4">
+                    <button wire:loading.attr="disabled" wire:click.prevent="resetUpdate()" type="button"
+                        class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="update()" type="button"
+                        class="btn btn-send">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Deletar Confirmação -->
     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-this-confirmation"
