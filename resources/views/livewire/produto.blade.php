@@ -103,8 +103,7 @@
                                         {{ $produto->estoque_minimo ?? 'Não definido' }}
                                     </td>
                                     <td style="white-space: nowrap;" class="align-middle">
-                                        {{ $produto->group->descricao ?? 'Não definido' }} 
-                                        {{-- AQUI --}}
+                                        {{ $produto->productGroup->descricao ?? 'Não definido' }}
                                     </td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span
                                             class="g-light">há

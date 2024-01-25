@@ -4,11 +4,15 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Models\Product_Group;
 
 class CreateProduct extends Component
 {
 
     public $state = [];
+
+    public $product_groups;
+    public $selectedGroup = '';
 
     public $rules = [
 
@@ -26,6 +30,19 @@ class CreateProduct extends Component
         'state.preco.required' => 'O preço do produto é obrigatório.',
 
     ];
+
+    public function mount()
+    {
+        $this->product_groups = Product_Group::where('user_id', auth()->user()->id)
+            ->where('status', 1)
+            ->orderBy('descricao', 'ASC')
+            ->get();
+    }
+
+    public function updatedSelectedGroup()
+    {
+        
+    }
 
     public function confirmation()
     {
@@ -58,6 +75,7 @@ class CreateProduct extends Component
 
     public function save()
     {
+        // ak
 
         $preco_formatado = str_replace(".", "", $this->state['preco']);
         $preco_formatado = str_replace(',', '.', $preco_formatado);
@@ -67,7 +85,8 @@ class CreateProduct extends Component
             'preco' => $preco_formatado,
             'estoque' => $this->state['estoque'],
             'estoque_minimo' => $this->state['estoque_min'] ?? null,
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'product_group_id' => $this->selectedGroup, 
 
         ]);
 

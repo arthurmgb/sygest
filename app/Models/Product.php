@@ -18,7 +18,7 @@ class Product extends Model
         return $this->hasMany(Operation::class);
     }
 
-    public function group()
+    public function productGroup()
     {
         return $this->belongsTo(Product_Group::class);
     }

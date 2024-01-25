@@ -473,6 +473,11 @@
                     dropdownParent: $('#venda')
                 });
             });
+            $(document).ready(function() {
+                $('#group-select').select2({
+                    dropdownParent: $('#create-item')
+                });
+            });
         </script>
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>

@@ -1980,6 +1980,9 @@ select.fadeOut {
 .select2-container--default .select2-results > .select2-results__options {
     max-height: 320px !important;
 }
+.select2-selection__rendered{
+    padding-top: 3px;
+}
 /* PDV */
 
 /* CHECK AUTH */

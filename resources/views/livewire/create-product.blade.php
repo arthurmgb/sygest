@@ -22,6 +22,23 @@
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label class="modal-label" for="group-select">
+                                Grupo do produto <small>(opcional) </small>
+                            </label>
+                            <div wire:ignore>
+                                <select wire:loading.attr="disabled" id="group-select" placeholder="Selecione um grupo">
+                                    <option value="">Não definido</option>
+                                    @foreach ($product_groups as $product_group)
+                                        <option value="{{ $product_group->id }}">
+                                            {{ $product_group->descricao }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+
                         <div class="form-row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -111,3 +128,16 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#group-select').on('change', function(e) {
+            var data = $('#group-select').select2("val");
+            @this.set('selectedGroup', data);
+        });
+
+        Livewire.on('resetSelect', function() {
+            $('#group-select').val('').trigger('change');
+        });
+    });
+</script>
