@@ -17,6 +17,8 @@ class Retirada extends Component
 
     public $qtd = 10;
 
+    public $operationData;
+
     protected $listeners = ['render'];
 
     public function updatingSearch()
@@ -24,18 +26,45 @@ class Retirada extends Component
         $this->resetPage();
     }
 
+    public function prepareToDelete(Operation $operation)
+    {
+
+        // Verificando se o dado pertence ao usuário logado
+        if ($operation->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+        // ---
+
+        $this->operationData = $operation;
+    }
+
+    public function delete()
+    {
+        $get_operator_online =  session('operador_selecionado');
+
+        if ($get_operator_online->is_admin !== 1) {
+            $this->emit('denied', 'Apenas o gerente desta conta pode apagar retiradas. Por favor, entre em contato com o gerente.');
+            $this->dispatchBrowserEvent('close-delete-item-conf');
+            return;
+        }
+
+        $this->operationData->delete();
+        $this->dispatchBrowserEvent('close-delete-item-conf');
+        $this->emit('alert', 'Retirada apagada com sucesso!');
+    }
+
     public function render()
     {
 
         $retiradas = Operation::where('user_id', auth()->user()->id)
-        ->where('descricao', 'like', '%' . $this->search . '%')
-        ->whereIn('tipo', [3])
-        ->latest('id')
-        ->paginate($this->qtd);
+            ->where('descricao', 'like', '%' . $this->search . '%')
+            ->whereIn('tipo', [3])
+            ->latest('id')
+            ->paginate($this->qtd);
 
         $retiradas_count = Operation::where('user_id', auth()->user()->id)
-                                    ->whereIn('tipo', [3])
-                                    ->count();
+            ->whereIn('tipo', [3])
+            ->count();
 
 
         return view('livewire.retirada', compact('retiradas', 'retiradas_count'))

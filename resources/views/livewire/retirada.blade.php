@@ -47,6 +47,7 @@
                                 </th>
                                 <th width="100px">Operador</th>
                                 <th width="200px">Operação</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody class="t-body">
@@ -147,7 +148,15 @@
                                     <td class="align-middle"><span style="white-space: nowrap;"
                                             class="operacao-retirada">Retirada</span>
                                     </td>
-
+                                    <td class="align-middle">
+                                        <div wire:target="prepareToDelete({{ $retirada->id }})"
+                                            wire:loading.attr="disabled"
+                                            wire:click.prevent="prepareToDelete({{ $retirada->id }})"
+                                            data-toggle="modal" data-target="#delete-this-confirmation"
+                                            data-tooltip="Apagar" data-flow="left" class="cba mr-2">
+                                            <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
 
@@ -325,5 +334,41 @@
             @endif
         </div>
 
+    </div>
+    <!-- Modal Deletar Confirmação -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-this-confirmation"
+        tabindex="-1" aria-labelledby="delete-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="delete-cat-confirmationLabel">Confirmação de apagamento</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-4 px-4">
+
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente apagar esta retirada?
+                    </h5>
+
+                    <div class="confirmation-msg text-center mb-3">
+                        <p class="m-0 mb-3 px-4">
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, esta retirada será
+                            apagada completamente.
+                            <br>
+                            <span class="msg-bold text-uppercase text-danger">Atenção:</span> Esta ação é irreversível
+                            e a retirada <b>NÃO</b> poderá ser recuperada!
+                        </p>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="delete()" type="button"
+                        class="btn btn-send">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

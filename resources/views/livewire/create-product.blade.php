@@ -136,7 +136,7 @@
             @this.set('selectedGroup', data);
         });
 
-        Livewire.on('resetSelect', function() {
+        Livewire.on('resetSelectGroup', function() {
             $('#group-select').val('').trigger('change');
         });
     });

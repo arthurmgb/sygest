@@ -20,6 +20,8 @@ class FluxoCaixa extends Component
 
     public $qtd = 10;
 
+    public $operationData;
+
     protected $listeners = ['render'];
 
     public function changeOption($id)
@@ -46,6 +48,33 @@ class FluxoCaixa extends Component
         }
     }
 
+    public function prepareToDelete(Operation $operation)
+    {
+
+        // Verificando se o dado pertence ao usuário logado
+        if ($operation->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+        // ---
+
+        $this->operationData = $operation;
+    }
+
+    public function delete()
+    {
+        $get_operator_online =  session('operador_selecionado');
+
+        if ($get_operator_online->is_admin !== 1) {
+            $this->emit('denied', 'Apenas o gerente desta conta pode apagar operações. Por favor, entre em contato com o gerente.');
+            $this->dispatchBrowserEvent('close-delete-item-conf');
+            return;
+        }
+
+        $this->operationData->delete();
+        $this->dispatchBrowserEvent('close-delete-item-conf');
+        $this->emit('alert', 'Operação apagada com sucesso!');
+    }
+
     public function render()
     {
 
@@ -58,14 +87,14 @@ class FluxoCaixa extends Component
         $operations_count = Operation::where('user_id', auth()->user()->id)
             ->where('tipo', '!=', 3)
             ->count();
-        
+
         $operations_find = Operation::where('user_id', auth()->user()->id)
-        ->whereIn('tipo', $this->option)
-        ->count();
+            ->whereIn('tipo', $this->option)
+            ->count();
 
         if ($this->receita == true) {
 
-            if($this->option == [1,0]){
+            if ($this->option == [1, 0]) {
 
                 $receita_entrada = Operation::where('user_id', auth()->user()->id)
                     ->whereIn('tipo', [1])
@@ -76,32 +105,29 @@ class FluxoCaixa extends Component
                     ->sum('total');
 
                 $receita_valor = $receita_entrada - $receita_saida;
-
-            }elseif($this->option == [1]){
+            } elseif ($this->option == [1]) {
 
                 $receita_entrada = Operation::where('user_id', auth()->user()->id)
-                ->whereIn('tipo', [1])
-                ->sum('total');
+                    ->whereIn('tipo', [1])
+                    ->sum('total');
 
                 $receita_valor = $receita_entrada;
 
                 $receita_saida = 0;
-
-            }elseif($this->option == [0]){
+            } elseif ($this->option == [0]) {
 
                 $receita_saida = Operation::where('user_id', auth()->user()->id)
-                ->whereIn('tipo', [0])
-                ->sum('total');
+                    ->whereIn('tipo', [0])
+                    ->sum('total');
 
                 $receita_valor = $receita_saida;
 
                 $receita_entrada = 0;
-
             }
 
-            $receita_valor = number_format($receita_valor,2,",",".");
-            $receita_entrada = number_format($receita_entrada,2,",",".");
-            $receita_saida = number_format($receita_saida,2,",",".");
+            $receita_valor = number_format($receita_valor, 2, ",", ".");
+            $receita_entrada = number_format($receita_entrada, 2, ",", ".");
+            $receita_saida = number_format($receita_saida, 2, ",", ".");
 
             return view('livewire.fluxo-caixa', compact('operations', 'operations_count', 'receita_valor', 'operations_find', 'receita_entrada', 'receita_saida'))
                 ->layout('pages.fluxo-caixa');

@@ -332,6 +332,23 @@
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label class="modal-label" for="group-select-edit">
+                                Grupo do produto <small>(opcional) </small>
+                            </label>
+                            <div wire:ignore>
+                                <select wire:loading.attr="disabled" id="group-select-edit"
+                                    placeholder="Selecione um grupo">
+                                    <option value="">Não definido</option>
+                                    @foreach ($product_groups as $product_group)
+                                        <option value="{{ $product_group->id }}">
+                                            {{ $product_group->descricao }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -455,3 +472,21 @@
     </div>
 
 </div>
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#group-select-edit').on('change', function(e) {
+            var data = $('#group-select-edit').select2("val");
+            @this.set('selectedGroup', data);
+        });
+
+        Livewire.on('resetSelectGroup', function() {
+            $('#group-select-edit').val('').trigger('change');
+        });
+
+        Livewire.on('populateGroup', function(data) {
+            var groupId = data.group_id;
+            $('#group-select-edit').val(groupId).trigger('change');
+        });
+    });
+</script>

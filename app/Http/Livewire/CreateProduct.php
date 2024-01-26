@@ -41,7 +41,6 @@ class CreateProduct extends Component
 
     public function updatedSelectedGroup()
     {
-        
     }
 
     public function confirmation()
@@ -57,6 +56,8 @@ class CreateProduct extends Component
 
         $this->dispatchBrowserEvent('close-item-modal');
         $this->reset('state');
+        $this->reset('selectedGroup');
+        $this->emit('resetSelectGroup');
     }
 
     public function resetOperation()
@@ -64,6 +65,8 @@ class CreateProduct extends Component
 
         $this->dispatchBrowserEvent('close-item-confirmation-modal');
         $this->reset('state');
+        $this->reset('selectedGroup');
+        $this->emit('resetSelectGroup');
     }
 
     public function alternate()
@@ -75,7 +78,15 @@ class CreateProduct extends Component
 
     public function save()
     {
-        // ak
+        $get_product_group_to_check = Product_Group::find($this->selectedGroup);
+
+        if ($get_product_group_to_check != null && $get_product_group_to_check->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
+        if (empty($this->selectedGroup)) {
+            $this->selectedGroup = null;
+        }
 
         $preco_formatado = str_replace(".", "", $this->state['preco']);
         $preco_formatado = str_replace(',', '.', $preco_formatado);
@@ -86,12 +97,14 @@ class CreateProduct extends Component
             'estoque' => $this->state['estoque'],
             'estoque_minimo' => $this->state['estoque_min'] ?? null,
             'user_id' => auth()->user()->id,
-            'product_group_id' => $this->selectedGroup, 
+            'product_group_id' => $this->selectedGroup,
 
         ]);
 
         $this->dispatchBrowserEvent('close-item-confirmation-modal');
         $this->reset('state');
+        $this->reset('selectedGroup');
+        $this->emit('resetSelectGroup');
 
         $this->emit('alert', 'Produto cadastrado com sucesso!');
         $this->emitTo('produto', 'render');
