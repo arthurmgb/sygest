@@ -22,6 +22,23 @@
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label class="modal-label" for="group-select">
+                                Grupo do produto <small>(opcional) </small>
+                            </label>
+                            <div wire:ignore>
+                                <select wire:loading.attr="disabled" id="group-select" placeholder="Selecione um grupo">
+                                    <option value="">Não definido</option>
+                                    @foreach ($product_groups as $product_group)
+                                        <option value="{{ $product_group->id }}">
+                                            {{ $product_group->descricao }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+
                         <div class="form-row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -52,6 +69,15 @@
                                     @enderror
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="modal-label" for="qtd-item">Estoque mínimo <small>(opcional)</small></label>
+                            <input wire:model.defer="state.estoque_min" type="text"
+                                class="form-control modal-input qtd-item" id="qtd-min-item" placeholder="0-99999"
+                                autocomplete="off">
+                            @error('state.estoque_min')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
                         </div>
                 </div>
                 <div class="modal-footer py-4">
@@ -84,7 +110,7 @@
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
                             Ao clicar em <span class="msg-bold">Confirmar</span>, um novo produto será
-                            cadastrada na plataforma.
+                            cadastrado na plataforma.
                         </p>
                         <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
                             data-dismiss="modal" class="px-4 verify-font">Verificar dados do produto</button>
@@ -102,3 +128,16 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#group-select').on('change', function(e) {
+            var data = $('#group-select').select2("val");
+            @this.set('selectedGroup', data);
+        });
+
+        Livewire.on('resetSelectGroup', function() {
+            $('#group-select').val('').trigger('change');
+        });
+    });
+</script>

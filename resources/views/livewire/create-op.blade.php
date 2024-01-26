@@ -181,10 +181,7 @@
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, uma nova operação será realizada e
-                            não
-                            poderá mais ser excluída da plataforma.
-                            Para excluir uma operação, entre em contato com nosso suporte.
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, uma nova operação será cadastrada.
                         </p>
                         <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
                             data-dismiss="modal" class="px-4 verify-font">Verificar dados da operação</button>

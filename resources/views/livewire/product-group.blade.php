@@ -1,53 +1,34 @@
 <div>
     <div class="page-header d-flex flex-row align-items-center mb-2">
-        <h2 class="f-h2">Retiradas</h2>
-        <span class="f-span">{{ $retiradas_count }} operações</span>
-        <a data-toggle="modal" data-target="#operacao" class="btn btn-new ml-auto" id="js-new-ret">+ Nova retirada &#91; F1
-            &#93;</a>
+        <h2 class="f-h2">Grupos</h2>
+        <span class="f-span">{{ $groups_count }} grupos cadastrados</span>
+        <a data-toggle="modal" data-target="#create-item" class="btn btn-new ml-auto">+ Novo grupo</a>
     </div>
+
     <div class="block">
+
         <div class="card">
+
             <div class="card-topo mb-3">
-                <input wire:model="search" placeholder="buscar operação" class="search-input" autocomplete="off">
+                <input wire:model="search" placeholder="buscar grupo" class="search-input" autocomplete="off">
                 <i class="fa fa-search"></i>
             </div>
 
-            <div style="margin-top: 125px; margin-bottom: 125px;" wire:loading
-                wire:loading.class="d-flex flex-row align-items-center justify-content-center">
+            <div wire:target="render, search, qtd, updatingSearch" style="margin-top: 125px; margin-bottom: 125px;"
+                wire:loading wire:loading.class="d-flex flex-row align-items-center justify-content-center">
                 <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
             </div>
 
-            <div wire:loading.remove
-                class="card-body px-0 pb-0 pt-1 js-scrollable-table @if (auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif"
-                onmousedown="startDragging(event)">
+            <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove class="card-body px-0 pb-0">
 
-                @if ($retiradas->count())
+                @if ($groups->count())
 
-                    <div class="div-opt-table mb-2">
-                        <a class="home-link my-0" href="{{ route('configuracoes') }}">
-                            <i class="fal fa-cog mr-1"></i>Configurações
-                        </a>
-                    </div>
-
-                    <table style="cursor: default;" class="table table-borderless mb-2">
+                    <table style="cursor: default;" class="table table-borderless">
                         <thead class="t-head">
                             <tr class="t-head-border">
-                                <th>Cód.</th>
-                                <th style="min-width: 220px;">Descrição</th>
-                                <th>Data</th>
-                                <th>Total</th>
-                                <th>Espécie</th>
-                                <th width="100px">
-                                    <div class="d-flex flex-row align-items-center fp-infos">
-                                        FP <i wire:ignore data-toggle="tooltip" data-html="true" data-placement="left"
-                                            title='<b><em>Forma de pagamento</em></b> <br> Se selecionado o tipo de <b>Espécie</b> como <b>Outros</b>, você pode definir uma forma de pagamento no cadastro da operação.</span>'
-                                            style="margin-top: 2px;"
-                                            class="fad fa-info-circle fa-fw ml-1 fa-lg fp-info-ico"></i>
-                                    </div>
-                                </th>
-                                <th width="100px">Operador</th>
-                                <th width="200px">Operação</th>
-                                <th></th>
+                                <th>Descrição</th>
+                                <th>Data de cadastro</th>
+                                <th width="200px">Ações</th>
                             </tr>
                         </thead>
                         <tbody class="t-body">
@@ -56,14 +37,13 @@
                                 $dia_atual = Carbon\Carbon::now();
                             @endphp
 
-                            @foreach ($retiradas as $retirada)
+                            @foreach ($groups as $group)
                                 @php
 
-                                    $total_operacao = number_format($retirada->total, 2, ',', '.');
-                                    $data_operacao = $retirada->created_at->format('d/m/Y H:i');
+                                    $data_cadastro = $group->created_at->format('d/m/Y H:i');
 
                                     $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
-                                    $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $retirada->created_at);
+                                    $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $group->created_at);
 
                                     $diferenca = $date2->diffInDays($date1);
                                     $tempo = 'dias';
@@ -98,72 +78,47 @@
                                         }
                                     }
 
-                                    if ($retirada->especie === 1) {
-                                        $especie_op = 'Dinheiro';
-                                    } elseif ($retirada->especie === 2) {
-                                        $especie_op = 'Cheque';
-                                    } elseif ($retirada->especie === 3) {
-                                        $especie_op = 'Moedas';
-                                    } elseif ($retirada->especie === 4) {
-                                        $especie_op = 'Outros';
-                                    }
-
                                 @endphp
 
                                 <tr class="tr-hover">
-
-                                    <td class="align-middle">
-                                        <div style="cursor: pointer;" data-tooltip="{{ $retirada->id }}"
-                                            data-flow="right" class="div-codigo">
-                                            <i class="fad fa-info-circle fa-fw fa-lg icon-info-cod"></i>
-                                        </div>
+                                    <td style="word-break: break-all" class="align-middle font-desc">
+                                        <span class="ident-cdg">
+                                            Código:
+                                            <span style="color: #725BC2; font-weight: 500;">{{ $group->id }}</span>
+                                        </span>
+                                        <br>
+                                        {{ $group->descricao }}
                                     </td>
-                                    <td style="@if (auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif"
-                                        class="align-middle font-desc">{{ $retirada->descricao }}</td>
-                                    <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span
+                                    <td style="white-space: nowrap;" class="align-middle">{{ $data_cadastro }}<br><span
                                             class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
-                                    <td style="white-space: nowrap; font-weight: 500;" class="align-middle">R$
-                                        {{ $total_operacao }}</td>
                                     <td class="align-middle">
-                                        <span class="especie">{{ $especie_op }}
-                                        </span>
-                                    </td>
-                                    <td style="word-wrap: break-word;" class="align-middle">
-                                        <span>
-                                            @if (is_null($retirada->method_id))
-                                                @if ($retirada->especie == 4)
-                                                    <span style="color: #725BC2; font-weight: 500;">Não
-                                                        especificada</span>
-                                                @else
-                                                    {{ $especie_op }}
-                                                @endif
-                                            @else
-                                                {{ $retirada->method->descricao }}
-                                            @endif
-                                        </span>
-                                    </td>
-                                    <td style="word-wrap: break-word;" class="align-middle">
-                                        {{ $retirada->operator->nome ?? auth()->user()->name }}</td>
-                                    <td class="align-middle"><span style="white-space: nowrap;"
-                                            class="operacao-retirada">Retirada</span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div wire:target="prepareToDelete({{ $retirada->id }})"
-                                            wire:loading.attr="disabled"
-                                            wire:click.prevent="prepareToDelete({{ $retirada->id }})"
-                                            data-toggle="modal" data-target="#delete-this-confirmation"
-                                            data-tooltip="Apagar" data-flow="left" class="cba mr-2">
-                                            <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div wire:target="edit({{ $group->id }})" wire:loading.attr="disabled"
+                                                wire:click.prevent="edit({{ $group->id }})" data-toggle="modal"
+                                                data-target="#edit-this" data-tooltip="Editar" data-flow="left"
+                                                class="cbe">
+                                                <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
+                                            </div>
+                                            <div wire:target="prepareToDelete({{ $group->id }})"
+                                                wire:loading.attr="disabled"
+                                                wire:click.prevent="prepareToDelete({{ $group->id }})"
+                                                data-toggle="modal" data-target="#delete-this-confirmation"
+                                                data-tooltip="Apagar" data-flow="right" class="cba mr-2">
+                                                <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
+                                            </div>
                                         </div>
                                     </td>
+
                                 </tr>
                             @endforeach
 
                         </tbody>
                     </table>
                 @else
-                    <div class="d-flex flex-column align-items-center justify-content-center">
+                    <div
+                        class="d-flex
+                                    flex-column align-items-center justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             width="211" height="145">
                             <style>
@@ -290,28 +245,17 @@
                                     d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                             </defs>
                         </svg>
-                        <h3 class="my-4 no-results">Não há retiradas a serem exibidas.</h3>
+                        <h3 class="my-4 no-results">Não há grupos a serem exibidos.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
-                            <h3 class="no-results-create mb-3">Comece fazendo uma</h3>
-                            <a data-toggle="modal" data-target="#operacao" class="ml-2 btn btn-nr">+ Nova
-                                retirada</a>
+                            <h3 class="no-results-create mb-3">Comece criando um</h3>
+                            <a data-toggle="modal" data-target="#create-item" class="ml-2 btn btn-nr">+ Novo
+                                grupo</a>
                         </div>
                     </div>
 
                 @endif
 
             </div>
-            @if (auth()->user()->table_scroll == 1)
-                <div wire:ignore style="width: fit-content; cursor: pointer; user-select: none;"
-                    class="tip-scroll mt-3" data-toggle="tooltip" data-html="true" data-placement="right"
-                    title="Clique e arraste o mouse em cima da tabela para visualizar todo o conteúdo. Ou se preferir, pressione <b>SHIFT</b> + <b>Scroll do Mouse</b>.">
-                    <span class="info-total-cx">
-                        <i class="fa-fw fad fa-info-circle fa-lg info-ret" aria-hidden="true"></i>
-                    </span>
-                    <span
-                        style="font-size: 15px !important; color: #666; text-transform: uppercase; font-weight: 600;">Dica</span>
-                </div>
-            @endif
         </div>
 
         <div style="user-select: none; padding-bottom: 150px;"
@@ -327,14 +271,88 @@
                 <span class="ml-3 ipp">Itens por página</span>
             </div>
 
-            @if ($retiradas->hasPages())
+            @if ($groups->hasPages())
                 <div class="paginacao">
-                    {{ $retiradas->links() }}
+                    {{ $groups->links() }}
                 </div>
             @endif
         </div>
 
     </div>
+
+    {{-- MODALS --}}
+
+    <!-- Modal Editar -->
+    <div class="modal fade" id="edit-this" tabindex="-1" aria-labelledby="edit-thisLabel" aria-hidden="true"
+        wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="editarCatLabel">Editar grupo</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-4 px-4">
+
+                    <form wire:submit.prevent="confirmUpdate()">
+                        <div class="form-group">
+                            <label class="modal-label" for="desc-item-e">Descrição <small>(nome do grupo) </small>
+                                <span class="red">*</span></label>
+                            <input wire:model.defer="product_group.descricao" type="text"
+                                class="form-control modal-input" id="desc-item-e" autocomplete="off">
+                            @error('product_group.descricao')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                </div>
+                <div class="modal-footer py-4">
+                    <button data-dismiss="modal" type="button" class="btn btn-cancel">Cancelar</button>
+                    <button wire:loading.attr="disabled" type="submit" class="btn btn-send">Editar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Confirmação -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="edit-this-confirmation" tabindex="-1"
+        aria-labelledby="edit-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="edit-this-confirmationLabel">Confirmação de edição</h5>
+                    <button wire:loading.attr="disabled" type="button" class="close px-4" data-dismiss="modal"
+                        aria-label="Close" wire:click.prevent="alternate()">
+                        <i class="far fa-arrow-left"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-4 px-4">
+
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente editar este
+                        grupo?</h5>
+
+                    <div class="confirmation-msg text-center mb-3">
+                        <p class="m-0 mb-3 px-4">
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, este grupo de produto será editado na
+                            plataforma.
+                        </p>
+                        <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
+                            data-dismiss="modal" class="px-4 verify-font">Verificar dados do produto</button>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4">
+                    <button wire:loading.attr="disabled" wire:click.prevent="resetUpdate()" type="button"
+                        class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="update()" type="button"
+                        class="btn btn-send">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Deletar Confirmação -->
     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-this-confirmation"
         tabindex="-1" aria-labelledby="delete-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
@@ -348,16 +366,13 @@
                 </div>
                 <div class="modal-body py-4 px-4">
 
-                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente apagar esta retirada?
-                    </h5>
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente apagar este
+                        grupo?</h5>
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, esta retirada será
-                            apagada completamente.
-                            <br>
-                            <span class="msg-bold text-uppercase text-danger">Atenção:</span> Esta ação é irreversível
-                            e a retirada <b>NÃO</b> poderá ser recuperada!
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, este grupo de produto será
+                            apagado e não poderá mais ser utilizado na plataforma.
                         </p>
                     </div>
 
@@ -371,4 +386,5 @@
             </div>
         </div>
     </div>
+
 </div>

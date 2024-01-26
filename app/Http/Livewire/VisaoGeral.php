@@ -24,68 +24,66 @@ class VisaoGeral extends Component
 
     public $totais;
 
+    public $operationData;
+
     protected $listeners = ['render'];
 
-    public function mount(){
+    public function mount()
+    {
         $this->rc = 0;
         $this->totais = auth()->user()->view_totais;
     }
 
-    public function ocultarTotais(){
+    public function ocultarTotais()
+    {
 
         $user = User::find(auth()->user()->id);
 
         $view_tt = $user->view_totais;
 
-        if($view_tt == 0){
+        if ($view_tt == 0) {
 
             $user->view_totais = 1;
-
-        }elseif($view_tt == 1){
+        } elseif ($view_tt == 1) {
 
             $user->view_totais = 0;
-
         }
 
         $user->save();
         $this->totais = $user->view_totais;
-
     }
 
-    public function ocultarBox($num){
-        
+    public function ocultarBox($num)
+    {
+
         $user = User::find(auth()->user()->id);
 
-        if($num === 1){
+        if ($num === 1) {
 
-            $user->rc_hoje = 1;     
-
-        }elseif($num === 2){
+            $user->rc_hoje = 1;
+        } elseif ($num === 2) {
 
             $user->rc_mes = 1;
-
-        }elseif($num === 3){
+        } elseif ($num === 3) {
 
             $user->rc_total = 1;
-
         }
-        
+
         $user->save();
         $this->rc = 0;
-
     }
 
-    public function mostrarBoxes(){
+    public function mostrarBoxes()
+    {
 
         $user = User::find(auth()->user()->id);
 
-        $user->rc_hoje = 0; 
-        $user->rc_mes = 0; 
-        $user->rc_total = 0; 
+        $user->rc_hoje = 0;
+        $user->rc_mes = 0;
+        $user->rc_total = 0;
 
         $user->save();
         $this->rc = 0;
-        
     }
 
     public function updatingSearch()
@@ -93,12 +91,41 @@ class VisaoGeral extends Component
         $this->resetPage();
     }
 
-    public function removeRendimento(){
+    public function removeRendimento()
+    {
         $this->reset('rendimento');
     }
 
-    public function fechaRendimento(){
+    public function fechaRendimento()
+    {
         $this->dispatchBrowserEvent('close-rendimento');
+    }
+
+    public function prepareToDelete(Operation $operation)
+    {
+
+        // Verificando se o dado pertence ao usuário logado
+        if ($operation->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+        // ---
+
+        $this->operationData = $operation;
+    }
+
+    public function delete()
+    {
+        $get_operator_online =  session('operador_selecionado');
+
+        if ($get_operator_online->is_admin !== 1) {
+            $this->emit('denied', 'Apenas o gerente desta conta pode apagar operações. Por favor, entre em contato com o gerente.');
+            $this->dispatchBrowserEvent('close-delete-item-conf');
+            return;
+        }
+
+        $this->operationData->delete();
+        $this->dispatchBrowserEvent('close-delete-item-conf');
+        $this->emit('alert', 'Operação apagada com sucesso!');
     }
 
     public function render()
@@ -138,7 +165,7 @@ class VisaoGeral extends Component
             ->where('created_at', 'like', $data_hoje . '%')
             ->where('tipo', 3)
             ->sum('total');
-        
+
         $total_saidas_retiradas_hoje = $saidas_hoje + $retiradas_hoje;
 
         $total_hoje = $entradas_hoje - $total_saidas_retiradas_hoje;
@@ -148,65 +175,65 @@ class VisaoGeral extends Component
         //Coins hoje
 
         $coin_dinheiro_entrada_hj = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 1)
-        ->where('created_at', 'like', $data_hoje . '%')
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 1)
+            ->where('created_at', 'like', $data_hoje . '%')
+            ->sum('total');
 
         $coin_dinheiro_saida_hj = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 1)
-        ->where('created_at', 'like', $data_hoje . '%')
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 1)
+            ->where('created_at', 'like', $data_hoje . '%')
+            ->sum('total');
 
         $coin_dinheiro_hj = $coin_dinheiro_entrada_hj - $coin_dinheiro_saida_hj;
 
         $coin_cheque_entrada_hj = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 2)
-        ->where('created_at', 'like', $data_hoje . '%')
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 2)
+            ->where('created_at', 'like', $data_hoje . '%')
+            ->sum('total');
 
         $coin_cheque_saida_hj = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 2)
-        ->where('created_at', 'like', $data_hoje . '%')
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 2)
+            ->where('created_at', 'like', $data_hoje . '%')
+            ->sum('total');
 
         $coin_cheque_hj = $coin_cheque_entrada_hj - $coin_cheque_saida_hj;
 
         $coin_moeda_entrada_hj = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 3)
-        ->where('created_at', 'like', $data_hoje . '%')
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 3)
+            ->where('created_at', 'like', $data_hoje . '%')
+            ->sum('total');
 
         $coin_moeda_saida_hj = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 3)
-        ->where('created_at', 'like', $data_hoje . '%')
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 3)
+            ->where('created_at', 'like', $data_hoje . '%')
+            ->sum('total');
 
         $coin_moeda_hj = $coin_moeda_entrada_hj - $coin_moeda_saida_hj;
 
         $coin_outros_entrada_hj = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 4)
-        ->where('created_at', 'like', $data_hoje . '%')
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 4)
+            ->where('created_at', 'like', $data_hoje . '%')
+            ->sum('total');
 
         $coin_outros_saida_hj = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 4)
-        ->where('created_at', 'like', $data_hoje . '%')
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 4)
+            ->where('created_at', 'like', $data_hoje . '%')
+            ->sum('total');
 
         $coin_outros_hj = $coin_outros_entrada_hj - $coin_outros_saida_hj;
 
         $coin_retiradas_hj = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 3)
-        ->where('created_at', 'like', $data_hoje . '%')
-        ->sum('total');
+            ->where('tipo', 3)
+            ->where('created_at', 'like', $data_hoje . '%')
+            ->sum('total');
 
         //Fim coins hoje
 
@@ -240,7 +267,7 @@ class VisaoGeral extends Component
         //Fim receita hoje
 
         //======================================================================
-       
+
         //Receita mês
 
         //Recebendo valores
@@ -267,65 +294,65 @@ class VisaoGeral extends Component
         //Coins mes
 
         $coin_dinheiro_entrada_mes = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 1)
-        ->where('created_at', 'like', $data_mes . '%')
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 1)
+            ->where('created_at', 'like', $data_mes . '%')
+            ->sum('total');
 
         $coin_dinheiro_saida_mes = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 1)
-        ->where('created_at', 'like', $data_mes . '%')
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 1)
+            ->where('created_at', 'like', $data_mes . '%')
+            ->sum('total');
 
         $coin_dinheiro_mes = $coin_dinheiro_entrada_mes - $coin_dinheiro_saida_mes;
 
         $coin_cheque_entrada_mes = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 2)
-        ->where('created_at', 'like', $data_mes . '%')
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 2)
+            ->where('created_at', 'like', $data_mes . '%')
+            ->sum('total');
 
         $coin_cheque_saida_mes = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 2)
-        ->where('created_at', 'like', $data_mes . '%')
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 2)
+            ->where('created_at', 'like', $data_mes . '%')
+            ->sum('total');
 
         $coin_cheque_mes = $coin_cheque_entrada_mes - $coin_cheque_saida_mes;
 
         $coin_moeda_entrada_mes = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 3)
-        ->where('created_at', 'like', $data_mes . '%')
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 3)
+            ->where('created_at', 'like', $data_mes . '%')
+            ->sum('total');
 
         $coin_moeda_saida_mes = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 3)
-        ->where('created_at', 'like', $data_mes . '%')
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 3)
+            ->where('created_at', 'like', $data_mes . '%')
+            ->sum('total');
 
         $coin_moeda_mes = $coin_moeda_entrada_mes - $coin_moeda_saida_mes;
 
         $coin_outros_entrada_mes = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 4)
-        ->where('created_at', 'like', $data_mes . '%')
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 4)
+            ->where('created_at', 'like', $data_mes . '%')
+            ->sum('total');
 
         $coin_outros_saida_mes = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 4)
-        ->where('created_at', 'like', $data_mes . '%')
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 4)
+            ->where('created_at', 'like', $data_mes . '%')
+            ->sum('total');
 
         $coin_outros_mes = $coin_outros_entrada_mes - $coin_outros_saida_mes;
 
         $coin_retiradas_mes = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 3)
-        ->where('created_at', 'like', $data_mes . '%')
-        ->sum('total');
+            ->where('tipo', 3)
+            ->where('created_at', 'like', $data_mes . '%')
+            ->sum('total');
 
         //Fim coins mes
 
@@ -368,16 +395,16 @@ class VisaoGeral extends Component
             ->sum('total');
 
         $saidas_ret_total = Operation::where('user_id', auth()->user()->id)
-            ->whereIn('tipo', [0,3])
+            ->whereIn('tipo', [0, 3])
             ->sum('total');
-        
+
         $saidas_total = Operation::where('user_id', auth()->user()->id)
-        ->whereIn('tipo', [0])
-        ->sum('total');
+            ->whereIn('tipo', [0])
+            ->sum('total');
 
         $retiradas_total = Operation::where('user_id', auth()->user()->id)
-        ->whereIn('tipo', [3])
-        ->sum('total');
+            ->whereIn('tipo', [3])
+            ->sum('total');
 
         $total_total = $entradas_total - $saidas_ret_total;
         //Fim recebendo valores
@@ -385,56 +412,56 @@ class VisaoGeral extends Component
         //Coins
 
         $coin_dinheiro_entrada = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 1)
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 1)
+            ->sum('total');
 
         $coin_dinheiro_saida = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 1)
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 1)
+            ->sum('total');
 
         $coin_dinheiro = $coin_dinheiro_entrada - $coin_dinheiro_saida;
 
         $coin_cheque_entrada = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 2)
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 2)
+            ->sum('total');
 
         $coin_cheque_saida = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 2)
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 2)
+            ->sum('total');
 
         $coin_cheque = $coin_cheque_entrada - $coin_cheque_saida;
 
         $coin_moeda_entrada = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 3)
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 3)
+            ->sum('total');
 
         $coin_moeda_saida = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 3)
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 3)
+            ->sum('total');
 
         $coin_moeda = $coin_moeda_entrada - $coin_moeda_saida;
 
         $coin_outros_entrada = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 1)
-        ->where('especie', 4)
-        ->sum('total');
+            ->where('tipo', 1)
+            ->where('especie', 4)
+            ->sum('total');
 
         $coin_outros_saida = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 0)
-        ->where('especie', 4)
-        ->sum('total');
+            ->where('tipo', 0)
+            ->where('especie', 4)
+            ->sum('total');
 
         $coin_outros = $coin_outros_entrada - $coin_outros_saida;
 
         $coin_retiradas = Operation::where('user_id', auth()->user()->id)
-        ->where('tipo', 3)
-        ->sum('total');
+            ->where('tipo', 3)
+            ->sum('total');
 
         //Fim coins
 
@@ -442,10 +469,10 @@ class VisaoGeral extends Component
 
         $rendimento = $this->rendimento;
         $rendimento = floatval($rendimento);
-        
-        if($rendimento){
+
+        if ($rendimento) {
             $valor_real = $total_total + $rendimento;
-        }else{
+        } else {
             $valor_real = $total_total;
         }
 
@@ -473,10 +500,9 @@ class VisaoGeral extends Component
         $coin_outros_entrada = number_format($coin_outros_entrada, 2, ",", ".");
         $coin_outros_saida = number_format($coin_outros_saida, 2, ",", ".");
 
-        if(is_numeric($rendimento)){
+        if (is_numeric($rendimento)) {
 
             $rendimento = number_format($rendimento, 2, ",", ".");
-
         }
         //Fim formatação
 
@@ -539,9 +565,9 @@ class VisaoGeral extends Component
                 'coin_moeda_entrada_hj',
                 'coin_moeda_saida_hj',
                 'coin_outros_hj',
-                'coin_outros_entrada_hj', 
+                'coin_outros_entrada_hj',
                 'coin_outros_saida_hj',
-                'coin_retiradas_hj', 
+                'coin_retiradas_hj',
                 'coin_dinheiro_mes',
                 'coin_dinheiro_entrada_mes',
                 'coin_dinheiro_saida_mes',
@@ -552,9 +578,9 @@ class VisaoGeral extends Component
                 'coin_moeda_entrada_mes',
                 'coin_moeda_saida_mes',
                 'coin_outros_mes',
-                'coin_outros_entrada_mes', 
+                'coin_outros_entrada_mes',
                 'coin_outros_saida_mes',
-                'coin_retiradas_mes', 
+                'coin_retiradas_mes',
                 'rc_hoje',
                 'rc_mes',
                 'rc_total',

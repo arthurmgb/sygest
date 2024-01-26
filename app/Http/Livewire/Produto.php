@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Product;
+use App\Models\Product_Group;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,10 +17,14 @@ class Produto extends Component
     public $qtd = 10;
     protected $listeners = ['render'];
 
+    public $product_groups;
+    public $selectedGroup = '';
+
     public $rules = [
 
         'produto.descricao' => 'required|max:100',
         'produto.estoque' => 'required|max:5',
+        'produto.estoque_minimo' => 'max:5',
         'produto.preco' => 'required|max:10',
         'produto.status' => 'required',
     ];
@@ -32,12 +37,23 @@ class Produto extends Component
 
     ];
 
+    public function mount()
+    {
+        $this->product_groups = Product_Group::where('user_id', auth()->user()->id)
+            ->where('status', 1)
+            ->orderBy('descricao', 'ASC')
+            ->get();
+    }
+
     public function edit(Product $produto)
     {
+
+        $this->selectedGroup = $produto->product_group_id;
+        $this->emit('populateGroup', ['group_id' => $this->selectedGroup]);
+
         if ($produto->user_id != auth()->user()->id) {
             return redirect('404');
         }
-
 
         $this->produto = $produto;
         $this->produto['preco'] = str_replace('.', ',', $this->produto['preco']);
@@ -67,6 +83,20 @@ class Produto extends Component
         $preco_formatado = str_replace(".", "", $this->produto['preco']);
         $preco_formatado = str_replace(',', '.', $preco_formatado);
         $this->produto['preco'] = $preco_formatado;
+
+        $get_product_group_to_check = Product_Group::find($this->selectedGroup);
+
+        if ($get_product_group_to_check != null && $get_product_group_to_check->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
+        if (empty($this->selectedGroup)) {
+            $this->selectedGroup = null;
+        }
+
+        $this->produto['product_group_id'] = $this->selectedGroup;
+
+        empty($this->produto['estoque_minimo']) ? $this->produto['estoque_minimo'] = NULL : $this->produto['estoque_minimo'] = $this->produto['estoque_minimo'];
 
         $this->produto->save();
         $this->dispatchBrowserEvent('close-item-edit-confirmation-modal');

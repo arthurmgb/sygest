@@ -10,8 +10,8 @@
                         {{ $operador->nome ?? null }}
 
                     </h5>
-                    <button style="color: #fff; opacity: 1;" type="button" class="close pt-1 pb-0 m-0" data-dismiss="modal"
-                        aria-label="Close">
+                    <button style="color: #fff; opacity: 1;" type="button" class="close pt-1 pb-0 m-0"
+                        data-dismiss="modal" aria-label="Close">
                         <i class="fal fa-times"></i>
                     </button>
                 </div>
@@ -57,6 +57,22 @@
                                                             wire:model.defer="estoqueAtual" disabled type="number"
                                                             class="form-control modal-input font-weight-bold"
                                                             autocomplete="off" wire:loading.attr="disabled">
+                                                        @if ($selectedProduct)
+                                                            <small style="font-weight: bold">
+                                                                mínimo:
+                                                                <span>
+                                                                    {{ $estoqueMinimo ?? 'Não definido' }}
+                                                                </span>
+                                                            </small>
+                                                            <br>
+                                                            @if ($estoqueAtualDb < $estoqueMinimo)
+                                                                <span class="wire-error">
+                                                                    <b>Atenção:</b> O estoque deste produto está abaixo
+                                                                    do
+                                                                    estoque mínimo definido.
+                                                                </span>
+                                                            @endif
+                                                        @endif
                                                     </div>
                                                     <div class="col">
                                                         <label class="modal-label">
@@ -222,7 +238,8 @@
                                                 <input wire:keydown.enter.prevent="finalizarVenda"
                                                     wire:model="valorPago" placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
-                                                    autocomplete="off">
+                                                    autocomplete="off"
+                                                    @if (empty($produtosAdicionados)) disabled @endif>
                                             </div>
                                             @error('valorPago')
                                                 <span class="wire-error">{{ $message }}</span>
@@ -263,7 +280,24 @@
                                                 <input wire:keydown.enter.prevent="finalizarVenda"
                                                     wire:model="desconto" placeholder="0,00" type="text"
                                                     class="form-control modal-input total-operation precos-mask"
-                                                    autocomplete="off">
+                                                    autocomplete="off"
+                                                    @if (!$valorPago) disabled @endif>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <label class="modal-label">
+                                                Adicional
+                                                <small>(opcional)</small>
+                                            </label>
+                                            <div class="input-group mb-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><b>R$</b></span>
+                                                </div>
+                                                <input wire:keydown.enter.prevent="finalizarVenda"
+                                                    wire:model="adicional" placeholder="0,00" type="text"
+                                                    class="form-control modal-input total-operation precos-mask"
+                                                    autocomplete="off"
+                                                    @if (!$valorPago) disabled @endif>
                                             </div>
                                         </div>
                                         <div class="form-group mb-1">
@@ -344,6 +378,69 @@
                     <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
                     <button wire:loading.attr="disabled" wire:click.prevent="cancelarVenda" type="button"
                         class="btn btn-send">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- AUTENTICAÇÃO PDV --}}
+    <div class="modal" data-backdrop="static" data-keyboard="false" id="autenticacao-pdv" tabindex="-1"
+        aria-labelledby="autenticacao-pdvLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="autenticacao-pdvLabel">Autenticação</h5>
+                </div>
+                <div class="modal-body p-2">
+
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">
+                        Senha do Gerente
+                    </h5>
+
+                    <div class="confirmation-msg text-center mb-3">
+                        <p class="m-0 mb-3 px-4">
+                            <b>Motivo:</b> {{ $motivoBloqueio }}
+                        </p>
+                        <div class="d-flex flex-column align-items-center justify-content-center px-5">
+                            <select wire:target="verifyCredentials" wire:loading.attr="disabled"
+                                wire:model="selectedGerente" style="font-size: 18px; height: auto; width: 100%;"
+                                class="form-control modal-input-cat yampay-scroll" id="gerente-auth"
+                                onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                onchange="this.size=1; this.blur();">
+                                <option value="">Selecione um gerente</option>
+
+                                @foreach ($gerentes as $account_gerente)
+                                    <option value="{{ $account_gerente->id }}">
+
+                                        {{ $account_gerente->nome }}
+
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('selectedGerente')
+                                <span class="wire-error pt-2">{{ $message }}</span>
+                            @enderror
+                            <input autofocus wire:keydown.enter="verifyCredentials" wire:target="verifyCredentials"
+                                wire:loading.attr="disabled" wire:model.defer="gerentePass"
+                                style="font-size: 18px; height: 44px; width: 100%; -webkit-text-security: disc;
+                        text-security: disc;"
+                                type="text" class="form-control modal-input mt-3" autocomplete="off"
+                                placeholder="Digite a senha">
+                            @error('gerentePass')
+                                <span class="wire-error pt-2">{{ $message }}</span>
+                            @enderror
+                            @error('gerenteCredentials')
+                                <span class="wire-error pt-2">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="verifyCredentials" type="button"
+                        class="btn btn-send">Liberar</button>
                     </form>
                 </div>
             </div>

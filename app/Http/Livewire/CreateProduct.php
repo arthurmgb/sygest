@@ -4,16 +4,21 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Models\Product_Group;
 
 class CreateProduct extends Component
 {
 
     public $state = [];
 
+    public $product_groups;
+    public $selectedGroup = '';
+
     public $rules = [
 
         'state.descricao' => 'required|max:100',
         'state.estoque' => 'required|max:5',
+        'state.estoque_min' => 'max:5',
         'state.preco' => 'required|max:10',
 
     ];
@@ -25,6 +30,18 @@ class CreateProduct extends Component
         'state.preco.required' => 'O preço do produto é obrigatório.',
 
     ];
+
+    public function mount()
+    {
+        $this->product_groups = Product_Group::where('user_id', auth()->user()->id)
+            ->where('status', 1)
+            ->orderBy('descricao', 'ASC')
+            ->get();
+    }
+
+    public function updatedSelectedGroup()
+    {
+    }
 
     public function confirmation()
     {
@@ -39,6 +56,8 @@ class CreateProduct extends Component
 
         $this->dispatchBrowserEvent('close-item-modal');
         $this->reset('state');
+        $this->reset('selectedGroup');
+        $this->emit('resetSelectGroup');
     }
 
     public function resetOperation()
@@ -46,6 +65,8 @@ class CreateProduct extends Component
 
         $this->dispatchBrowserEvent('close-item-confirmation-modal');
         $this->reset('state');
+        $this->reset('selectedGroup');
+        $this->emit('resetSelectGroup');
     }
 
     public function alternate()
@@ -57,6 +78,15 @@ class CreateProduct extends Component
 
     public function save()
     {
+        $get_product_group_to_check = Product_Group::find($this->selectedGroup);
+
+        if ($get_product_group_to_check != null && $get_product_group_to_check->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
+        if (empty($this->selectedGroup)) {
+            $this->selectedGroup = null;
+        }
 
         $preco_formatado = str_replace(".", "", $this->state['preco']);
         $preco_formatado = str_replace(',', '.', $preco_formatado);
@@ -65,12 +95,16 @@ class CreateProduct extends Component
             'descricao' => $this->state['descricao'],
             'preco' => $preco_formatado,
             'estoque' => $this->state['estoque'],
-            'user_id' => auth()->user()->id
+            'estoque_minimo' => $this->state['estoque_min'] ?? null,
+            'user_id' => auth()->user()->id,
+            'product_group_id' => $this->selectedGroup,
 
         ]);
 
         $this->dispatchBrowserEvent('close-item-confirmation-modal');
         $this->reset('state');
+        $this->reset('selectedGroup');
+        $this->emit('resetSelectGroup');
 
         $this->emit('alert', 'Produto cadastrado com sucesso!');
         $this->emitTo('produto', 'render');

@@ -190,6 +190,13 @@
                 $('#cancelar-venda').modal('hide');
             })
 
+            window.addEventListener('show-pdv-auth', event => {
+                $('#autenticacao-pdv').modal('show');
+            })
+            window.addEventListener('hide-pdv-auth', event => {
+                $('#autenticacao-pdv').modal('hide');
+            })
+
             /* Operações */
 
             /* Edit e Delete */
@@ -466,6 +473,16 @@
                     dropdownParent: $('#venda')
                 });
             });
+            $(document).ready(function() {
+                $('#group-select').select2({
+                    dropdownParent: $('#create-item')
+                });
+            });
+            $(document).ready(function() {
+                $('#group-select-edit').select2({
+                    dropdownParent: $('#edit-this')
+                });
+            });
         </script>
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
@@ -531,6 +548,13 @@
                 'Tudo pronto!',
                 message,
                 'success'
+            )
+        })
+        Livewire.on('denied', function(message) {
+            Swal.fire(
+                'Negado!',
+                message,
+                'error'
             )
         })
     </script>
