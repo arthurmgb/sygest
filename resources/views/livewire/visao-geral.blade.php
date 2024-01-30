@@ -382,6 +382,10 @@
                                 class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
                         </div>
 
+                        <button class="btn btn-default" data-toggle="modal" data-target="#operation-receipt">
+                            ABRIR CNF
+                        </button>
+
                         <div wire:loading.remove
                             class="card-body px-0 pb-0 pt-1 js-scrollable-table @if (auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif"
                             onmousedown="startDragging(event)">
@@ -415,7 +419,7 @@
                                             <th width="100px">Operador</th>
                                             <th width="200px">Operação</th>
                                             <th>Detalhes</th>
-                                            <th></th>
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody class="t-body">
@@ -561,12 +565,21 @@
                                                     @endif
                                                 </td>
                                                 <td class="align-middle">
-                                                    <div wire:target="prepareToDelete({{ $operation->id }})"
-                                                        wire:loading.attr="disabled"
-                                                        wire:click.prevent="prepareToDelete({{ $operation->id }})"
-                                                        data-toggle="modal" data-target="#delete-this-confirmation"
-                                                        data-tooltip="Apagar" data-flow="left" class="cba mr-2">
-                                                        <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <div wire:target="prepareToDelete({{ $operation->id }})"
+                                                            wire:loading.attr="disabled"
+                                                            wire:click.prevent="prepareToDelete({{ $operation->id }})"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-this-confirmation"
+                                                            data-tooltip="Apagar" data-flow="left" class="cba mr-2">
+                                                            <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
+                                                        </div>
+                                                        <div wire:target="" wire:loading.attr="disabled"
+                                                            wire:click.prevent="" data-toggle="modal"
+                                                            data-target="#operation-receipt" data-tooltip="Cupom"
+                                                            data-flow="left" class="cba">
+                                                            <i class="fad fa-receipt fa-fw fa-crud fac-link"></i>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1245,6 +1258,104 @@
                     <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
                     <button wire:loading.attr="disabled" wire:click.prevent="delete()" type="button"
                         class="btn btn-send">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cupom -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="operation-receipt" tabindex="-1"
+        aria-labelledby="operation-receiptLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 style="font-size: 20px !important;" class="modal-title p-1"
+                        id="delete-cat-confirmationLabel">Cupom <b>não</b> fiscal</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-2">
+
+                    <div class="cnf-container d-flex flex-column align-items-center">
+                        <p class="cnf-fantasia font-weight-bold mb-0">NOME DE FANTASIA</p>
+                        <p class="mb-0">NOME DA RAZÃO SOCIAL</p>
+                        <p class="mb-0">Endereço completo</p>
+                        <p class="mb-2">(00) 90000-0000</p>
+                        <p class="align-self-start mb-2">CNPJ: 00.000.000/0000-00</p>
+                        <p class="align-self-start mb-1">CLIENTE: CONSUMIDOR FINAL</p>
+                        <p class="align-self-start mb-1">00/00/2000 00:00</p>
+                        <p class="cnf-title font-weight-bold mb-0">CUPOM NÃO FISCAL</p>
+                        <table
+                            class="table table-sm cnf-table border border-secondary border-right-0 border-left-0 my-1">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">
+                                        DESCRIÇÃO</th>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">QTD X
+                                        UNIT</th>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">R$
+                                        TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="font-weight-bold">
+                                    <td class="align-middle">NOME DO PRODUTO QUE PODE SER MUITO LONGO</td>
+                                    <td class="align-middle">2 x 102330,00</td>
+                                    <td class="align-middle">200200,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-1">Total da nota R$</p>
+                            <p class="mb-1">320,00</p>
+                        </div>
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-1">Valor recebido R$</p>
+                            <p class="mb-1">400,00</p>
+                        </div>
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-3">Troco R$</p>
+                            <p class="mb-3">80,00</p>
+                        </div>
+
+                        <p class="align-self-start font-weight-bold cnf-resumo mb-1">FORMAS DE PGTO.</p>
+
+                        <table
+                            class="table table-sm cnf-table border border-secondary border-right-0 border-left-0 my-1">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">
+                                        DATA PGTO.</th>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">
+                                        VALOR R$
+                                    </th>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">
+                                        TIPO PGTO.
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="font-weight-bold">
+                                    <td class="align-middle">00/00/0000</td>
+                                    <td class="align-middle">400,00</td>
+                                    <td class="align-middle">DINHEIRO</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4 d-flex flex-column align-items-center">
+                    <button type="button" class="btn btn-cancel w-100" data-dismiss="modal">Fechar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="" type="button"
+                        class="btn btn-send w-100">Imprimir</button>
                     </form>
                 </div>
             </div>

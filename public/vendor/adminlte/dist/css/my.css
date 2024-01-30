@@ -2034,3 +2034,23 @@ select.fadeOut {
 .js-scrollable-table table:active {
     cursor: grabbing !important;
 }
+/* ESTILOS CNF */
+.cnf-container > .cnf-fantasia{
+    font-size: inherit !important;
+}
+.cnf-container > .cnf-title{
+    font-size: inherit !important;
+}
+.cnf-container > p{
+    font-size: 12px;
+}
+.cnf-table{
+    font-size: 12px;
+}
+.cnf-table tbody{
+    font-size: 10px;
+}
+.cnf-resumo{
+    font-size: 13px !important;
+}
+/* FIM ESTILOS CNF */
