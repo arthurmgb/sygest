@@ -382,9 +382,9 @@
                                 class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
                         </div>
 
-                        <button class="btn btn-default" data-toggle="modal" data-target="#operation-receipt">
+                        {{-- <button class="btn btn-default" data-toggle="modal" data-target="#operation-receipt">
                             ABRIR CNF
-                        </button>
+                        </button> --}}
 
                         <div wire:loading.remove
                             class="card-body px-0 pb-0 pt-1 js-scrollable-table @if (auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif"
@@ -574,12 +574,14 @@
                                                             data-tooltip="Apagar" data-flow="left" class="cba mr-2">
                                                             <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
                                                         </div>
-                                                        <div wire:target="" wire:loading.attr="disabled"
-                                                            wire:click.prevent="" data-toggle="modal"
-                                                            data-target="#operation-receipt" data-tooltip="Cupom"
-                                                            data-flow="left" class="cba">
-                                                            <i class="fad fa-receipt fa-fw fa-crud fac-link"></i>
-                                                        </div>
+                                                        @if ($operation->is_venda === 1)
+                                                            <div wire:target="" wire:loading.attr="disabled"
+                                                                wire:click.prevent="" data-toggle="modal"
+                                                                data-target="#operation-receipt" data-tooltip="Cupom"
+                                                                data-flow="left" class="cba">
+                                                                <i class="fad fa-receipt fa-fw fa-crud fac-link"></i>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1267,7 +1269,7 @@
     <!-- Modal Cupom -->
     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="operation-receipt" tabindex="-1"
         aria-labelledby="operation-receiptLabel" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog" style="max-width: 80mm;">
             <div class="modal-content modal-custom">
                 <div class="modal-header">
                     <h5 style="font-size: 20px !important;" class="modal-title p-1"
@@ -1276,9 +1278,9 @@
                         <i class="fal fa-times"></i>
                     </button>
                 </div>
-                <div class="modal-body p-2">
+                <div class="modal-body p-0 printable d-flex flex-row justify-content-center">
 
-                    <div class="cnf-container d-flex flex-column align-items-center">
+                    <div class="cnf-container d-flex flex-column align-items-center p-2">
                         <p class="cnf-fantasia font-weight-bold mb-0">NOME DE FANTASIA</p>
                         <p class="mb-0">NOME DA RAZÃO SOCIAL</p>
                         <p class="mb-0">Endereço completo</p>
@@ -1302,8 +1304,18 @@
                             <tbody>
                                 <tr class="font-weight-bold">
                                     <td class="align-middle">NOME DO PRODUTO QUE PODE SER MUITO LONGO</td>
-                                    <td class="align-middle">2 x 102330,00</td>
-                                    <td class="align-middle">200200,00</td>
+                                    <td class="align-middle">2 x 120,00</td>
+                                    <td class="align-middle">240,00</td>
+                                </tr>
+                                <tr class="font-weight-bold">
+                                    <td class="align-middle">NOME DO PRODUTO QUE PODE SER MUITO LONGO</td>
+                                    <td class="align-middle">2 x 120,00</td>
+                                    <td class="align-middle">240,00</td>
+                                </tr>
+                                <tr class="font-weight-bold">
+                                    <td class="align-middle">NOME DO PRODUTO QUE PODE SER MUITO LONGO</td>
+                                    <td class="align-middle">2 x 120,00</td>
+                                    <td class="align-middle">240,00</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1311,12 +1323,12 @@
                         <div
                             class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
                             <p class="mb-1">Total da nota R$</p>
-                            <p class="mb-1">320,00</p>
+                            <p class="mb-1">720,00</p>
                         </div>
                         <div
                             class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
                             <p class="mb-1">Valor recebido R$</p>
-                            <p class="mb-1">400,00</p>
+                            <p class="mb-1">800,00</p>
                         </div>
                         <div
                             class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
@@ -1343,19 +1355,34 @@
                             <tbody>
                                 <tr class="font-weight-bold">
                                     <td class="align-middle">00/00/0000</td>
-                                    <td class="align-middle">400,00</td>
+                                    <td class="align-middle">700,00</td>
                                     <td class="align-middle">DINHEIRO</td>
+                                </tr>
+                                <tr class="font-weight-bold">
+                                    <td class="align-middle">00/00/0000</td>
+                                    <td class="align-middle">100,00</td>
+                                    <td class="align-middle">PIX</td>
                                 </tr>
                             </tbody>
                         </table>
 
+                        <p class="w-100 align-self-start py-1 my-0 border-bottom border-secondary">
+                            VENDEDOR(A): VENDEDOR
+                        </p>
+
+                        <p class="w-100 mt-5 text-center border-top border-secondary font-weight-bold">
+                            * OBRIGADO E VOLTE SEMPRE! *
+                        </p>
+
+
                     </div>
 
                 </div>
-                <div class="modal-footer py-4 d-flex flex-column align-items-center">
-                    <button type="button" class="btn btn-cancel w-100" data-dismiss="modal">Fechar</button>
-                    <button wire:loading.attr="disabled" wire:click.prevent="" type="button"
-                        class="btn btn-send w-100">Imprimir</button>
+                <div class="modal-footer p-2 d-flex flex-column align-items-center">
+                    <button type="button" class="btn btn-cancel w-100 mx-0 mt-0 mb-2"
+                        data-dismiss="modal">Fechar</button>
+                    <button id="print-cnf" wire:loading.attr="disabled" wire:click.prevent="" type="button"
+                        class="btn btn-send w-100 m-0">Imprimir</button>
                     </form>
                 </div>
             </div>

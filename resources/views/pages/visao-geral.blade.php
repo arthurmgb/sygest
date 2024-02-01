@@ -63,6 +63,68 @@
                 /* background-color: red; */
             }
         }
+
+        @media print {
+            .content-wrapper {
+                margin: 0 !important;
+            }
+
+            html,
+            body {
+                height: 100vh;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: hidden;
+            }
+
+            body * {
+                visibility: hidden;
+            }
+
+            @page {
+                margin: 0 !important;
+                padding: 0 !important;
+                border: 0 !important;
+            }
+
+            .table td,
+            .table th {
+                background-color: transparent !important;
+            }
+
+            .cnf-table {
+                background-color: none !important;
+            }
+
+            .modal-dialog {
+                max-width: 100% !important;
+                width: 100% !important;
+                margin-top: 0 !important;
+                height: unset;
+            }
+
+            .modal-header {
+                display: none;
+            }
+
+            .modal-footer {
+                display: none;
+            }
+
+            .modal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                margin: 0;
+                padding: 0;
+                overflow: visible !important;
+            }
+
+            .printable,
+            .printable * {
+                visibility: visible;
+            }
+        }
     </style>
 @stop
 
@@ -203,5 +265,14 @@
             const scrollX = startScrollLeft + startX - e.pageX;
             scrollableTable.scrollLeft = scrollX;
         }
+    </script>
+    <script>
+        // IMPRIMIR CNF
+
+        let printCnf = document.querySelector("#print-cnf");
+
+        printCnf.addEventListener("click", () => {
+            window.print();
+        });
     </script>
 @stop
