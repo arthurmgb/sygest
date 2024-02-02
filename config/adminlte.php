@@ -243,9 +243,9 @@ return [
             'icon' => 'far mr-3 fa-analytics fa-lg fa-fw',
         ],
         [
-            'text' => 'Fluxo de caixa',
-            'route'  => 'caixa',
-            'icon' => 'far mr-3 fa-cash-register fa-lg fa-fw',
+            'text' => 'Movimentações',
+            'route'  => 'home',
+            'icon' => 'far mr-3 fa-file-invoice-dollar fa-lg fa-fw',
         ],
         [
             'text' => 'Retiradas',
@@ -253,14 +253,9 @@ return [
             'icon' => 'far mr-3 fa-wallet fa-lg fa-fw',
         ],
         [
-            'text' => 'Movimentações',
-            'route'  => 'home',
-            'icon' => 'far mr-3 fa-file-invoice-dollar fa-lg fa-fw',
-        ],
-        [
-            'text' => 'Relatórios',
-            'route'  => 'relatorios',
-            'icon' => 'far mr-3 fa-file-alt fa-lg fa-fw',
+            'text' => 'Fluxo de caixa',
+            'route'  => 'caixa',
+            'icon' => 'far mr-3 fa-cash-register fa-lg fa-fw',
         ],
         [
             'text' => 'Produtos',
@@ -288,6 +283,11 @@ return [
             'text' => 'Formas de pagamento',
             'route'  => 'formas-pagamento',
             'icon' => 'far mr-3 fa-credit-card fa-lg fa-fw',
+        ],
+        [
+            'text' => 'Relatórios',
+            'route'  => 'relatorios',
+            'icon' => 'far mr-3 fa-file-alt fa-lg fa-fw',
         ],
         [
             'text' => 'Minhas tarefas',

@@ -1608,6 +1608,9 @@ input[type="checkbox"]:checked + label:before {
 }
 .nav-treeview {
     background-color: #f3f4f6 !important;
+    border: 1px solid #e2e2e2;
+    border-top: none;
+    border-radius: 0.25rem;
 }
 .nav-flat .nav-item .nav-treeview > .nav-item > .nav-link.active {
     border-color: #292961 !important;
