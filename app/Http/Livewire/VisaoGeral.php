@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Operation;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -121,6 +122,11 @@ class VisaoGeral extends Component
             $this->emit('denied', 'Apenas o gerente desta conta pode apagar operações. Por favor, entre em contato com o gerente.');
             $this->dispatchBrowserEvent('close-delete-item-conf');
             return;
+        }
+
+        // Remover a imagem do armazenamento
+        if ($this->operationData->imagem) {
+            Storage::delete('public/' . $this->operationData->imagem);
         }
 
         $this->operationData->delete();

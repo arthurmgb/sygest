@@ -1983,7 +1983,7 @@ select.fadeOut {
 .select2-container--default .select2-results > .select2-results__options {
     max-height: 320px !important;
 }
-.select2-selection__rendered{
+.select2-selection__rendered {
     padding-top: 3px;
 }
 /* PDV */
@@ -2038,28 +2038,53 @@ select.fadeOut {
     cursor: grabbing !important;
 }
 /* ESTILOS CNF */
-.cnf-container{
-    background-color: #FBFDD1;
+.cnf-container {
+    background-color: #fbfdd1;
     user-select: none !important;
     width: 80mm;
 }
-.cnf-container > .cnf-fantasia{
+.cnf-container > .cnf-fantasia {
     font-size: inherit !important;
 }
-.cnf-container > .cnf-title{
+.cnf-container > .cnf-title {
     font-size: inherit !important;
 }
-.cnf-container > p{
+.cnf-container > p {
     font-size: 12px;
 }
-.cnf-table{
+.cnf-table {
     font-size: 12px;
     background-color: transparent !important;
 }
-.cnf-table tbody{
+.cnf-table tbody {
     font-size: 10px;
 }
-.cnf-resumo{
+.cnf-resumo {
     font-size: 13px !important;
 }
 /* FIM ESTILOS CNF */
+
+#btn-anexo {
+    color: #fff !important;
+    background-color: #725bc2;
+    font-weight: 700 !important;
+    padding: 8px 30px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: none;
+}
+#btn-anexo:hover {
+    background-color: #8369df;
+}
+#preview-anexo {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    border: 1px solid #292961;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}

@@ -403,6 +403,7 @@
                                         <tr class="t-head-border">
                                             <th>Cód.</th>
                                             <th style="min-width: 220px;">Descrição</th>
+                                            <th>Imagem</th>
                                             <th>Data</th>
                                             <th>Total</th>
                                             <th width="200px">Categoria</th>
@@ -502,6 +503,12 @@
                                                 </td>
                                                 <td style="@if (auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif"
                                                     class="align-middle font-desc">{{ $operation->descricao }}</td>
+                                                <td>
+                                                    @if ($operation->imagem)
+                                                        <img width="50"
+                                                            src="{{ asset('storage/' . $operation->imagem) }}">
+                                                    @endif
+                                                </td>
                                                 <td style="white-space: nowrap;" class="align-middle">
                                                     {{ $data_operacao }}<br><span class="g-light">há
                                                         {{ $diferenca }} {{ $tempo }}</span></td>
