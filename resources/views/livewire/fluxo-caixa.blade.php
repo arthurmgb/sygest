@@ -3,7 +3,7 @@
         <h2 class="f-h2">Fluxo de caixa</h2>
         <span class="f-span">{{ $operations_count }} operações</span>
     </div>
-    <div class="page-filters">
+    <div style="gap: 5px;" class="page-filters d-flex flex-row align-items-center justify-content-start flex-wrap">
 
         <a wire:click.prevent="changeOption([1,0])" wire:loading.attr="disabled"
             class="filter-base filter-ops @if ($option == [1, 0]) filter-10 @endif">
@@ -21,7 +21,10 @@
             class="filter-base filter-soma @if ($receita == true) filter-s @endif">
             <span>Exibir <br>saldo</span>
         </a>
-
+        <small class="text-muted ml-auto align-self-end">
+            Para realizar operações, navegue até
+            <a class="verify-font" href="{{ route('geral') }}">Visão geral</a>.
+        </small>
     </div>
     <div class="block">
         <div class="card">
@@ -116,6 +119,7 @@
                             <tr class="t-head-border">
                                 <th>Cód.</th>
                                 <th style="min-width: 220px;">Descrição</th>
+                                <th>Imagem</th>
                                 <th>Data</th>
                                 <th>Total</th>
                                 <th width="200px">Categoria</th>
@@ -214,6 +218,25 @@
                                     </td>
                                     <td style="@if (auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif"
                                         class="align-middle font-desc">{{ $operation->descricao }}</td>
+                                    <td class="align-middle">
+                                        @if ($operation->imagem)
+                                            <img style="object-fit: contain; user-select: none; -webkit-user-drag: none; user-drag: none;"
+                                                width="50" height="50"
+                                                src="{{ asset('storage/' . $operation->imagem) }}">
+                                            <button wire:click.prevent="showAttachedImage({{ $operation->id }})"
+                                                wire:target="showAttachedImage({{ $operation->id }})"
+                                                wire:loading.attr="disabled" data-toggle="modal"
+                                                data-target="#operation-attachment"
+                                                class="btn btn-sm btn-link mt-1 verify-font"
+                                                style="font-size: 14px !important;">
+                                                Abrir
+                                            </button>
+                                        @elseif($operation->is_venda === 1)
+                                            <i>Não se aplica</i>
+                                        @else
+                                            <i>Nenhuma</i>
+                                        @endif
+                                    </td>
                                     <td style="white-space: nowrap;" class="align-middle">
                                         {{ $data_operacao }}<br><span class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
@@ -284,7 +307,7 @@
                                     </td>
                                 </tr>
                                 <tr wire:ignore.self class="collapse bg-light" id="fold-{{ $operation->id }}">
-                                    <td class="p-4" colspan="11">
+                                    <td class="p-4" colspan="12">
                                         <h6 class="mb-3">Detalhes da venda</h6>
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item">
@@ -578,7 +601,8 @@
                             Ao clicar em <span class="msg-bold">Confirmar</span>, esta operação será
                             apagada completamente.
                             <br>
-                            <span class="msg-bold text-uppercase text-danger">Atenção:</span> Esta ação é irreversível e a operação <b>NÃO</b> poderá ser recuperada!
+                            <span class="msg-bold text-uppercase text-danger">Atenção:</span> Esta ação é irreversível
+                            e a operação <b>NÃO</b> poderá ser recuperada!
                         </p>
                     </div>
 
@@ -588,6 +612,32 @@
                     <button wire:loading.attr="disabled" wire:click.prevent="delete()" type="button"
                         class="btn btn-send">Confirmar</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Anexo -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="operation-attachment" tabindex="-1"
+        aria-labelledby="operation-attachmentLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 style="font-size: 20px !important;" class="modal-title p-1"
+                        id="delete-cat-confirmationLabel">Imagem anexada</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close"
+                        wire:click.prevent="resetAttachedImage" wire:loading.attr="disabled">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-0 d-flex flex-row justify-content-center">
+
+                    <img id="img-anexo" src="{{ asset('storage/' . $attachment) }}" alt="Anexo não encontrado"
+                        wire:loading.remove>
+
+                </div>
+                <div class="modal-footer p-2 d-flex flex-column align-items-center">
+                    <button type="button" class="btn btn-cancel w-100 mx-0 mt-0 mb-2" data-dismiss="modal"
+                        wire:click.prevent="resetAttachedImage" wire:loading.attr="disabled">Fechar</button>
                 </div>
             </div>
         </div>

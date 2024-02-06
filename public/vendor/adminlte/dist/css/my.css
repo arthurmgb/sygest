@@ -2088,3 +2088,9 @@ select.fadeOut {
     -webkit-user-drag: none;
     user-drag: none;
 }
+#img-anexo{
+    max-width: 100%;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}

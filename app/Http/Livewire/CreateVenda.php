@@ -297,7 +297,6 @@ class CreateVenda extends Component
             $total_venda_formatado = $totalVenda;
 
             if (is_numeric($total_venda_formatado)) {
-                // dd($total_venda_formatado);
                 return $calc_valorPago - $total_venda_formatado;
             }
         }
@@ -535,7 +534,7 @@ class CreateVenda extends Component
 
         if (!is_null($this->totalVenda) and floatval($this->totalVenda) > 0 and $val_pg > 0) {
             $this->troco = $this->calcularTrocoSeExistir($this->totalVenda);
-            $this->troco = $this->troco + $desconto;
+            $this->troco = $this->troco + $desconto - $adicional;
             $this->troco = number_format($this->troco, 2, ',', '.');
         } else {
             $this->reset('troco', 'desconto');

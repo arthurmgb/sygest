@@ -503,10 +503,23 @@
                                                 </td>
                                                 <td style="@if (auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif"
                                                     class="align-middle font-desc">{{ $operation->descricao }}</td>
-                                                <td>
+                                                <td class="align-middle">
                                                     @if ($operation->imagem)
-                                                        <img width="50"
+                                                        <img style="object-fit: contain; user-select: none; -webkit-user-drag: none; user-drag: none;"
+                                                            width="50" height="50"
                                                             src="{{ asset('storage/' . $operation->imagem) }}">
+                                                        <button
+                                                            wire:click.prevent="showAttachedImage({{ $operation->id }})"
+                                                            wire:target="showAttachedImage({{ $operation->id }})"
+                                                            wire:loading.attr="disabled" data-toggle="modal"
+                                                            data-target="#operation-attachment"
+                                                            class="btn btn-sm btn-link mt-1 verify-font" style="font-size: 14px !important;">
+                                                            Abrir
+                                                        </button>
+                                                    @elseif($operation->is_venda === 1)
+                                                        <i>Não se aplica</i>
+                                                    @else
+                                                        <i>Nenhuma</i>
                                                     @endif
                                                 </td>
                                                 <td style="white-space: nowrap;" class="align-middle">
@@ -594,7 +607,7 @@
                                             </tr>
                                             <tr wire:ignore.self class="collapse bg-light"
                                                 id="fold-{{ $operation->id }}">
-                                                <td class="p-4" colspan="11">
+                                                <td class="p-4" colspan="12">
                                                     <h6 class="mb-3">Detalhes da venda</h6>
                                                     <ul class="list-group list-group-flush">
                                                         <li class="list-group-item">
@@ -1391,6 +1404,33 @@
                     <button id="print-cnf" wire:loading.attr="disabled" wire:click.prevent="" type="button"
                         class="btn btn-send w-100 m-0">Imprimir</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Anexo -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="operation-attachment" tabindex="-1"
+        aria-labelledby="operation-attachmentLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 style="font-size: 20px !important;" class="modal-title p-1"
+                        id="delete-cat-confirmationLabel">Imagem anexada</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close"
+                        wire:click.prevent="resetAttachedImage" wire:loading.attr="disabled">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-0 d-flex flex-row justify-content-center">
+
+                    <img id="img-anexo" src="{{ asset('storage/' . $attachment) }}" alt="Anexo não encontrado"
+                        wire:loading.remove>
+
+                </div>
+                <div class="modal-footer p-2 d-flex flex-column align-items-center">
+                    <button type="button" class="btn btn-cancel w-100 mx-0 mt-0 mb-2" data-dismiss="modal"
+                        wire:click.prevent="resetAttachedImage" wire:loading.attr="disabled">Fechar</button>
                 </div>
             </div>
         </div>

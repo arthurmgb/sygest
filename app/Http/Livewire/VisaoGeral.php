@@ -27,6 +27,8 @@ class VisaoGeral extends Component
 
     public $operationData;
 
+    public $attachment;
+
     protected $listeners = ['render'];
 
     public function mount()
@@ -132,6 +134,21 @@ class VisaoGeral extends Component
         $this->operationData->delete();
         $this->dispatchBrowserEvent('close-delete-item-conf');
         $this->emit('alert', 'Operação apagada com sucesso!');
+    }
+
+    public function showAttachedImage(Operation $operation)
+    {
+
+        if ($operation->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
+        $this->attachment = $operation->imagem;
+    }
+
+    public function resetAttachedImage()
+    {
+        $this->reset('attachment');
     }
 
     public function render()
