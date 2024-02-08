@@ -513,7 +513,8 @@
                                                             wire:target="showAttachedImage({{ $operation->id }})"
                                                             wire:loading.attr="disabled" data-toggle="modal"
                                                             data-target="#operation-attachment"
-                                                            class="btn btn-sm btn-link mt-1 verify-font" style="font-size: 14px !important;">
+                                                            class="btn btn-sm btn-link mt-1 verify-font"
+                                                            style="font-size: 14px !important;">
                                                             Abrir
                                                         </button>
                                                     @elseif($operation->is_venda === 1)
@@ -1298,9 +1299,9 @@
                         <i class="fal fa-times"></i>
                     </button>
                 </div>
-                <div class="modal-body p-0 printable d-flex flex-row justify-content-center">
+                <div class="modal-body p-0 printable d-flex flex-row align-items-start justify-content-start">
 
-                    <div class="cnf-container d-flex flex-column align-items-center p-2">
+                    <div class="cnf-container d-flex flex-column align-items-center p-2" style="width: 90vw;">
                         <p class="cnf-fantasia font-weight-bold mb-0">NOME DE FANTASIA</p>
                         <p class="mb-0">NOME DA RAZÃO SOCIAL</p>
                         <p class="mb-0">Endereço completo</p>

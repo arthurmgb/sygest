@@ -92,6 +92,10 @@
                 background-color: transparent !important;
             }
 
+            .cnf-container {
+                background-color: unset !important;
+            }
+
             .cnf-table {
                 background-color: none !important;
             }
@@ -115,9 +119,10 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                margin: 0;
+                margin: 0 !important;
                 padding: 0;
                 overflow: visible !important;
+                padding-right: 0 !important;
             }
 
             .printable,
