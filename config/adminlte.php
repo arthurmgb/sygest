@@ -246,6 +246,7 @@ return [
             'text' => 'Movimentações',
             'route'  => 'home',
             'icon' => 'far mr-3 fa-file-invoice-dollar fa-lg fa-fw',
+            'classes'  => 'menu-item-development',
         ],
         [
             'text' => 'Retiradas',

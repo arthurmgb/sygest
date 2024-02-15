@@ -596,10 +596,11 @@
                                                             <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
                                                         </div>
                                                         @if ($operation->is_venda === 1)
-                                                            <div wire:target="" wire:loading.attr="disabled"
-                                                                wire:click.prevent="" data-toggle="modal"
-                                                                data-target="#operation-receipt" data-tooltip="Cupom"
-                                                                data-flow="left" class="cba">
+                                                            <div wire:target="showCnf({{ $operation->id }})"
+                                                                wire:loading.attr="disabled"
+                                                                wire:click.prevent="showCnf({{ $operation->id }})"
+                                                                data-toggle="modal" data-target="#operation-receipt"
+                                                                data-tooltip="Cupom" data-flow="left" class="cba">
                                                                 <i class="fad fa-receipt fa-fw fa-crud fac-link"></i>
                                                             </div>
                                                         @endif
@@ -1301,20 +1302,54 @@
                 </div>
                 <div class="modal-body p-0 printable d-flex flex-row align-items-start justify-content-start">
 
-                    <div class="cnf-container d-flex flex-column align-items-center p-2" style="width: 90vw;">
-                        <p class="cnf-fantasia font-weight-bold mb-0">NOME DE FANTASIA</p>
-                        <p class="mb-0">NOME DA RAZÃO SOCIAL</p>
-                        <p class="mb-0">Endereço completo</p>
-                        <p class="mb-2">(00) 90000-0000</p>
-                        <p class="align-self-start mb-2">CNPJ: 00.000.000/0000-00</p>
+                    <div wire:loading.class="blur-cnf" class="cnf-container d-flex flex-column align-items-center p-2"
+                        style="width: 90vw;">
+                        <p class="cnf-fantasia font-weight-bold mb-0 text-center">
+                            {{ auth()->user()->name }}
+                        </p>
+                        <p class="mb-0 text-center">NOME DA RAZÃO SOCIAL</p>
+                        <p class="mb-0 text-center">
+                            Rua Presidente Vargas, 1941 - Centro
+
+                            @php
+                                if (!is_null(auth()->user()->cidade) && !empty(auth()->user()->cidade)) {
+                                    $user_cidade = auth()->user()->cidade;
+                                } else {
+                                    $user_cidade = '<span style="color: red;">---</span>';
+                                }
+                                if (!is_null(auth()->user()->estado) && !empty(auth()->user()->estado)) {
+                                    $user_estado = auth()->user()->estado;
+                                } else {
+                                    $user_estado = '<span style="color: red;">---</span>';
+                                }
+                            @endphp
+
+                            {!! '- ' . $user_cidade . '/' . $user_estado !!}
+
+                        </p>
+                        <p class="mb-2">
+                            @if (!is_null(auth()->user()->celular) && !empty(auth()->user()->celular))
+                                {{ auth()->user()->celular }}
+                            @else
+                                <span style="color: red;">---</span>
+                            @endif
+                        </p>
+                        <p class="align-self-start mb-2">
+                            CNPJ: {!! auth()->user()->documento ?? "<span style='color: red;'>---</span>" !!}
+                        </p>
                         <p class="align-self-start mb-1">CLIENTE: CONSUMIDOR FINAL</p>
-                        <p class="align-self-start mb-1">00/00/2000 00:00</p>
+                        <p style="overflow-wrap: anywhere;" class="align-self-start mb-1">
+                            @if ($cnfData)
+                                {{ $cnfData->created_at->format('d/m/Y H:i') }}
+                            @endif
+                        </p>
                         <p class="cnf-title font-weight-bold mb-0">CUPOM NÃO FISCAL</p>
                         <table
                             class="table table-sm cnf-table border border-secondary border-right-0 border-left-0 my-1">
                             <thead>
                                 <tr>
-                                    <th class="font-weight-normal align-middle border-secondary" scope="col">
+                                    <th width="150" class="font-weight-normal align-middle border-secondary"
+                                        scope="col">
                                         DESCRIÇÃO</th>
                                     <th class="font-weight-normal align-middle border-secondary" scope="col">QTD X
                                         UNIT</th>
@@ -1323,38 +1358,74 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="font-weight-bold">
-                                    <td class="align-middle">NOME DO PRODUTO QUE PODE SER MUITO LONGO</td>
-                                    <td class="align-middle">2 x 120,00</td>
-                                    <td class="align-middle">240,00</td>
-                                </tr>
-                                <tr class="font-weight-bold">
-                                    <td class="align-middle">NOME DO PRODUTO QUE PODE SER MUITO LONGO</td>
-                                    <td class="align-middle">2 x 120,00</td>
-                                    <td class="align-middle">240,00</td>
-                                </tr>
-                                <tr class="font-weight-bold">
-                                    <td class="align-middle">NOME DO PRODUTO QUE PODE SER MUITO LONGO</td>
-                                    <td class="align-middle">2 x 120,00</td>
-                                    <td class="align-middle">240,00</td>
-                                </tr>
+                                @if ($cnfData)
+                                    @foreach ($cnfData->products as $cnfItemProduct)
+                                        <tr class="font-weight-bold">
+                                            <td class="align-middle">{{ $cnfItemProduct->nome_produto }}</td>
+                                            <td class="align-middle">{{ $cnfItemProduct->quantidade_vendida }} x
+                                                {{ number_format($cnfItemProduct->preco_unitario, 2, ',', '.') }}</td>
+                                            <td class="align-middle">
+                                                {{ number_format($cnfItemProduct->subtotal_vendido, 2, ',', '.') }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
 
                         <div
                             class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-1">Total da venda R$</p>
+                            <p class="mb-1">
+                                @if ($cnfData)
+                                    {{ number_format($cnfData->total_venda, 2, ',', '.') }}
+                                @endif
+                            </p>
+                        </div>
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-1">Adicional R$</p>
+                            <p class="mb-1">
+                                @if ($cnfData)
+                                    {{ number_format($cnfData->adicional, 2, ',', '.') }}
+                                @endif
+                            </p>
+                        </div>
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-1">Desconto R$</p>
+                            <p class="mb-1">
+                                @if ($cnfData)
+                                    {{ number_format($cnfData->desconto, 2, ',', '.') }}
+                                @endif
+                            </p>
+                        </div>
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
                             <p class="mb-1">Total da nota R$</p>
-                            <p class="mb-1">720,00</p>
+                            <p class="mb-1">
+                                @if ($cnfData)
+                                    <b>{{ number_format($cnfData->total, 2, ',', '.') }}</b>
+                                @endif
+                            </p>
                         </div>
                         <div
                             class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
                             <p class="mb-1">Valor recebido R$</p>
-                            <p class="mb-1">800,00</p>
+                            <p class="mb-1">
+                                @if ($cnfData)
+                                    {{ number_format($cnfData->valor_pago, 2, ',', '.') }}
+                                @endif
+                            </p>
                         </div>
                         <div
                             class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
                             <p class="mb-3">Troco R$</p>
-                            <p class="mb-3">80,00</p>
+                            <p class="mb-3">
+                                @if ($cnfData)
+                                    {{ number_format($cnfData->troco, 2, ',', '.') }}
+                                @endif
+                            </p>
                         </div>
 
                         <p class="align-self-start font-weight-bold cnf-resumo mb-1">FORMAS DE PGTO.</p>
@@ -1374,21 +1445,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="font-weight-bold">
-                                    <td class="align-middle">00/00/0000</td>
-                                    <td class="align-middle">700,00</td>
-                                    <td class="align-middle">DINHEIRO</td>
-                                </tr>
-                                <tr class="font-weight-bold">
-                                    <td class="align-middle">00/00/0000</td>
-                                    <td class="align-middle">100,00</td>
-                                    <td class="align-middle">PIX</td>
-                                </tr>
+                                @if ($cnfData)
+                                    @foreach ($cnfData->operationMethods as $cnfItemMethod)
+                                        <tr class="font-weight-bold">
+                                            <td style="white-space: nowrap" class="align-middle">
+                                                {{ $cnfData->created_at->format('d/m/Y') }}
+                                            </td>
+                                            <td class="align-middle">
+                                                {{ number_format($cnfItemMethod->valor_pago, 2, ',', '.') }}</td>
+                                            <td class="align-middle">{{ $cnfItemMethod->nome_fp }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
 
                         <p class="w-100 align-self-start py-1 my-0 border-bottom border-secondary">
-                            VENDEDOR(A): VENDEDOR
+                            VENDEDOR(A): @if ($cnfData)
+                                {{ $cnfData->operator->nome }}
+                            @endif
                         </p>
 
                         <p class="w-100 mt-5 text-center border-top border-secondary font-weight-bold">

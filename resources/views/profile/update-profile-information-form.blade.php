@@ -141,7 +141,7 @@
         <!-- Chave PIX -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="pix" value="{{ __('Chave PIX') }}" />
-            <x-jet-input placeholder="CPF, e-mail ou celular" id="pix" type="text"
+            <x-jet-input id="pix" type="text"
                 class="mt-1 block w-full primezze-input" wire:model.defer="state.chave_pix" autocomplete="off" />
             <x-jet-input-error for="pix" class="mt-2" />
         </div>

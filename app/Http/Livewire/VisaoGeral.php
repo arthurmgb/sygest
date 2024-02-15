@@ -29,6 +29,8 @@ class VisaoGeral extends Component
 
     public $attachment;
 
+    public $cnfData;
+
     protected $listeners = ['render'];
 
     public function mount()
@@ -149,6 +151,15 @@ class VisaoGeral extends Component
     public function resetAttachedImage()
     {
         $this->reset('attachment');
+    }
+
+    public function showCnf(Operation $operation)
+    {
+        if ($operation->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
+        $this->cnfData = $operation;
     }
 
     public function render()

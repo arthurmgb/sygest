@@ -34,6 +34,7 @@
                             <tr class="t-head-border">
                                 <th>Cód.</th>
                                 <th style="min-width: 220px;">Descrição</th>
+                                <th>Imagem</th>
                                 <th>Data</th>
                                 <th>Total</th>
                                 <th>Espécie</th>
@@ -47,7 +48,7 @@
                                 </th>
                                 <th width="100px">Operador</th>
                                 <th width="200px">Operação</th>
-                                <th></th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody class="t-body">
@@ -120,6 +121,23 @@
                                     </td>
                                     <td style="@if (auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif"
                                         class="align-middle font-desc">{{ $retirada->descricao }}</td>
+                                    <td class="align-middle">
+                                        @if ($retirada->imagem)
+                                            <img style="object-fit: contain; user-select: none; -webkit-user-drag: none; user-drag: none;"
+                                                width="50" height="50"
+                                                src="{{ asset('storage/' . $retirada->imagem) }}">
+                                            <button wire:click.prevent="showAttachedImage({{ $retirada->id }})"
+                                                wire:target="showAttachedImage({{ $retirada->id }})"
+                                                wire:loading.attr="disabled" data-toggle="modal"
+                                                data-target="#operation-attachment"
+                                                class="btn btn-sm btn-link mt-1 verify-font"
+                                                style="font-size: 14px !important;">
+                                                Abrir
+                                            </button>
+                                        @else
+                                            <i>Nenhuma</i>
+                                        @endif
+                                    </td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_operacao }}<br><span
                                             class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
@@ -292,7 +310,7 @@
                         </svg>
                         <h3 class="my-4 no-results">Não há retiradas a serem exibidas.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
-                            <h3 class="no-results-create mb-3">Comece fazendo uma</h3>
+                            <h3 class="no-results-create mb-3">Comece criando uma</h3>
                             <a data-toggle="modal" data-target="#operacao" class="ml-2 btn btn-nr">+ Nova
                                 retirada</a>
                         </div>
@@ -367,6 +385,32 @@
                     <button wire:loading.attr="disabled" wire:click.prevent="delete()" type="button"
                         class="btn btn-send">Confirmar</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Anexo -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="operation-attachment" tabindex="-1"
+        aria-labelledby="operation-attachmentLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 style="font-size: 20px !important;" class="modal-title p-1"
+                        id="delete-cat-confirmationLabel">Imagem anexada</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close"
+                        wire:click.prevent="resetAttachedImage" wire:loading.attr="disabled">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-0 d-flex flex-row justify-content-center">
+
+                    <img id="img-anexo" src="{{ asset('storage/' . $attachment) }}" alt="Anexo não encontrado"
+                        wire:loading.remove>
+
+                </div>
+                <div class="modal-footer p-2 d-flex flex-column align-items-center">
+                    <button type="button" class="btn btn-cancel w-100 mx-0 mt-0 mb-2" data-dismiss="modal"
+                        wire:click.prevent="resetAttachedImage" wire:loading.attr="disabled">Fechar</button>
                 </div>
             </div>
         </div>

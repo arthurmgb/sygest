@@ -476,6 +476,23 @@ body {
 .btn-cancel:hover {
     background-color: #f4f6f8;
 }
+.btn-cancel-danger {
+    color: #fff !important;
+    background-color: #ef4444;
+    border: 1px solid transparent;
+    padding: 13px 50px;
+    font-size: 15px;
+    line-height: 17px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: none;
+}
+.btn-cancel-danger:hover {
+    background-color: #e65252;
+}
 .radio {
     display: none;
 }
@@ -2043,6 +2060,10 @@ select.fadeOut {
     user-select: none !important;
     width: 80mm;
 }
+.cnf-container * {
+    font-family: "Courier New", Courier, monospace !important;
+    overflow-wrap: anywhere;
+}
 .cnf-container > .cnf-fantasia {
     font-size: inherit !important;
 }
@@ -2057,7 +2078,7 @@ select.fadeOut {
     background-color: transparent !important;
 }
 .cnf-table tbody {
-    font-size: 10px;
+    font-size: 11px;
 }
 .cnf-resumo {
     font-size: 13px !important;
@@ -2088,9 +2109,17 @@ select.fadeOut {
     -webkit-user-drag: none;
     user-drag: none;
 }
-#img-anexo{
+#img-anexo {
     max-width: 100%;
     user-select: none;
     -webkit-user-drag: none;
     user-drag: none;
+}
+.menu-item-development {
+    pointer-events: none;
+    opacity: 0.6;
+    user-select: none;
+}
+.blur-cnf{
+    filter: blur(3px);
 }

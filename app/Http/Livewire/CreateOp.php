@@ -173,8 +173,8 @@ class CreateOp extends Component
                 'especie' => $this->state['especie'],
                 'method_id' => $this->state['fp'],
                 'total' => $total_formatado,
-                'user_id' => auth()->user()->id,
-                'imagem' => $caminhoImagemNoBanco
+                'imagem' => $caminhoImagemNoBanco,
+                'user_id' => auth()->user()->id
 
             ]);
 

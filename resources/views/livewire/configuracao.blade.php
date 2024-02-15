@@ -22,7 +22,7 @@
 
                 <div class="card-body px-0 pb-0">
 
-                    <div class="div-table-options d-flex flex-row align-items-center mb-2">
+                    {{-- <div class="div-table-options d-flex flex-row align-items-center mb-2">
 
                         @if ($table_scroll == 0)
                             <div style="width: fit-content; user-select: none;" wire:target="toggleTableScroll()"
@@ -57,7 +57,7 @@
                             <i class="fad fa-info-circle fa-fw fa-lg fp-info-ico"></i>
                         </div>
 
-                    </div>
+                    </div> --}}
 
                     <div class="div-table-options d-flex flex-row align-items-center">
 
