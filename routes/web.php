@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Admin;
 use App\Http\Livewire\Categoria;
+use App\Http\Livewire\Client;
 use App\Http\Livewire\Configuracao;
 use App\Http\Livewire\Ferramenta;
 use App\Http\Livewire\FluxoCaixa;
@@ -20,7 +21,7 @@ use App\Http\Livewire\UserContrato;
 use App\Http\Livewire\VisaoGeral;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', Home::class)->name('home');
     Route::get('/caixa', FluxoCaixa::class)->name('caixa');
@@ -40,11 +41,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/gerenciador-de-senhas', Senha::class)->name('gerenciador-de-senhas');
     Route::get('/produtos', Produto::class)->name('produtos');
     Route::get('/produtos/grupos', ProductGroup::class)->name('product-groups');
-   
-    
+    Route::get('/clientes', Client::class)->name('clients');
 });
 
-Route::get('/opt', function() {
+Route::get('/opt', function () {
     Artisan::call('optimize');
     return "Cleared";
 });

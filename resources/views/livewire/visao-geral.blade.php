@@ -1307,11 +1307,21 @@
                         <p class="cnf-fantasia font-weight-bold mb-0 text-center">
                             {{ auth()->user()->name }}
                         </p>
-                        <p class="mb-0 text-center">NOME DA RAZÃO SOCIAL</p>
                         <p class="mb-0 text-center">
-                            Rua Presidente Vargas, 1941 - Centro
+                            @if (!is_null(auth()->user()->razao_social) && !empty(auth()->user()->razao_social))
+                                {{ auth()->user()->razao_social }}
+                            @else
+                                <span style="color: red;">---</span>
+                            @endif
+                        </p>
+                        <p class="mb-0 text-center">
 
                             @php
+                                if (!is_null(auth()->user()->endereco) && !empty(auth()->user()->endereco)) {
+                                    $user_endereco = auth()->user()->endereco;
+                                } else {
+                                    $user_endereco = '<span style="color: red;">---</span>';
+                                }
                                 if (!is_null(auth()->user()->cidade) && !empty(auth()->user()->cidade)) {
                                     $user_cidade = auth()->user()->cidade;
                                 } else {
@@ -1324,7 +1334,7 @@
                                 }
                             @endphp
 
-                            {!! '- ' . $user_cidade . '/' . $user_estado !!}
+                            {!! $user_endereco . ' - ' . $user_cidade . '/' . $user_estado !!}
 
                         </p>
                         <p class="mb-2">

@@ -259,6 +259,11 @@ return [
             'icon' => 'far mr-3 fa-cash-register fa-lg fa-fw',
         ],
         [
+            'text' => 'Clientes',
+            'route'  => 'clients',
+            'icon' => 'far mr-3 fa-users fa-lg fa-fw',
+        ],
+        [
             'text' => 'Produtos',
             'icon' => 'far mr-3 fa-shopping-cart fa-lg fa-fw',
             'submenu' => [

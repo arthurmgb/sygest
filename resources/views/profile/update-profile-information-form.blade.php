@@ -54,12 +54,20 @@
             </div>
         @endif
 
-        <!-- Name -->
+        <!-- Nome -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="name" value="{{ __('Nome/Empresa') }}" />
             <x-jet-input id="name" type="text" class="mt-1 block w-full primezze-input"
                 wire:model.defer="state.name" autocomplete="off" />
             <x-jet-input-error for="name" class="mt-2" />
+        </div>
+
+        <!-- Razão Social -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label class="primezze-label" for="razao_social" value="{{ __('Razão Social') }}" />
+            <x-jet-input id="razao_social" type="text" class="mt-1 block w-full primezze-input"
+                wire:model.defer="state.razao_social" autocomplete="off" />
+            <x-jet-input-error for="razao_social" class="mt-2" />
         </div>
 
         <!-- Email -->
@@ -91,6 +99,14 @@
             <x-jet-input placeholder="(00) 00000-0000" id="celular" type="text"
                 class="mt-1 block w-full primezze-input" wire:model.defer="state.celular" autocomplete="off" />
             <x-jet-input-error for="celular" class="mt-2" />
+        </div>
+
+        <!-- Endereço -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label class="primezze-label" for="endereco" value="{{ __('Endereço completo') }}" />
+            <x-jet-input id="endereco" type="text" class="mt-1 block w-full primezze-input"
+                wire:model.defer="state.endereco" autocomplete="off" />
+            <x-jet-input-error for="endereco" class="mt-2" />
         </div>
 
         <!-- Cidade -->
@@ -141,8 +157,8 @@
         <!-- Chave PIX -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label class="primezze-label" for="pix" value="{{ __('Chave PIX') }}" />
-            <x-jet-input id="pix" type="text"
-                class="mt-1 block w-full primezze-input" wire:model.defer="state.chave_pix" autocomplete="off" />
+            <x-jet-input id="pix" type="text" class="mt-1 block w-full primezze-input"
+                wire:model.defer="state.chave_pix" autocomplete="off" />
             <x-jet-input-error for="pix" class="mt-2" />
         </div>
 
