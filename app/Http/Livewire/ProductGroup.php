@@ -12,12 +12,10 @@ class ProductGroup extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-
     public $qtd = 10;
     public $search, $product_group;
     protected $listeners = ['render'];
 
-    // É obrigatório definir regras para atualizar um dado no banco, seja no update ou no delete.
     public $rules = [
         'product_group.descricao' => 'required|max:100',
         'product_group.status' => 'required',

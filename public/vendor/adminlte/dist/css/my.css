@@ -2120,6 +2120,25 @@ select.fadeOut {
     opacity: 0.6;
     user-select: none;
 }
-.blur-cnf{
+.blur-cnf {
     filter: blur(3px);
+}
+.td-client-obs:hover {
+    background-color: #eee !important;
+}
+.show-client-obs {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 250px;
+    max-height: 60px;
+    cursor: zoom-in;
+    color: #5e45b9;
+    transition: all 0.5s;
+}
+.show-client-obs:hover {
+    text-overflow: unset;
+    overflow: unset;
+    white-space: unset;
+    max-height: unset;
 }

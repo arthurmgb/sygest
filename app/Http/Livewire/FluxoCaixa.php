@@ -25,6 +25,8 @@ class FluxoCaixa extends Component
 
     public $attachment;
 
+    public $cnfData;
+
     protected $listeners = ['render'];
 
     public function changeOption($id)
@@ -96,6 +98,15 @@ class FluxoCaixa extends Component
     public function resetAttachedImage()
     {
         $this->reset('attachment');
+    }
+
+    public function showCnf(Operation $operation)
+    {
+        if ($operation->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
+        $this->cnfData = $operation;
     }
 
     public function render()

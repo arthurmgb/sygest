@@ -1,9 +1,9 @@
 <div>
     {{-- HEADING --}}
     <div class="page-header d-flex flex-row align-items-center mb-2">
-        <h2 class="f-h2">Clientes</h2>
-        <span class="f-span">{{ $clients_count }} clientes cadastrados</span>
-        <a data-toggle="modal" data-target="#create-item" class="btn btn-new ml-auto">+ Novo cliente</a>
+        <h2 class="f-h2">Movimentações</h2>
+        <span class="f-span">{{ 0 }} movimentações cadastradas</span>
+        <a data-toggle="modal" data-target="#create-item" class="btn btn-new ml-auto">+ Nova movimentação</a>
     </div>
     {{-- HEADING --}}
 
@@ -11,13 +11,6 @@
     <div class="block">
 
         <div class="card">
-
-            {{-- PESQUISA --}}
-            <div class="card-topo mb-3">
-                <input wire:model="search" placeholder="buscar cliente" class="search-input" autocomplete="off">
-                <i class="fa fa-search"></i>
-            </div>
-            {{-- PESQUISA --}}
 
             {{-- LOADER --}}
             <div wire:target="render, search, qtd, updatingSearch" style="margin-top: 125px; margin-bottom: 125px;"
@@ -27,7 +20,7 @@
             {{-- LOADER --}}
 
             {{-- LISTAGEM --}}
-            <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove
+            {{-- <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove
                 class="card-body px-0 pb-0 table-responsive yampay-scroll-lg js-scrollable-table"
                 onmousedown="startDragging(event)">
 
@@ -287,17 +280,17 @@
                                     d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                             </defs>
                         </svg>
-                        <h3 class="my-4 no-results">Não há clientes a serem exibidos.</h3>
+                        <h3 class="my-4 no-results">Não há movimentações a serem exibidos.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                             <h3 class="no-results-create mb-3">Comece criando um</h3>
-                            <a data-toggle="modal" data-target="#create-item" class="ml-2 btn btn-nr">+ Novo
-                                cliente</a>
+                            <a data-toggle="modal" data-target="#create-item" class="ml-2 btn btn-nr">+ Nova
+                                movimentação</a>
                         </div>
                     </div>
 
                 @endif
 
-            </div>
+            </div> --}}
             {{-- LISTAGEM --}}
 
             {{-- DICA DE SCROLL --}}
@@ -327,244 +320,15 @@
                 <span class="ml-3 ipp">Itens por página</span>
             </div>
 
-            @if ($clients->hasPages())
+            {{-- @if ($clients->hasPages())
                 <div class="paginacao">
                     {{ $clients->links() }}
                 </div>
-            @endif
+            @endif --}}
         </div>
         {{-- PAGINAÇÃO --}}
 
     </div>
     {{-- BLOCO PRINCIPAL --}}
-
-    {{-- MODALS --}}
-
-    <!-- Modal Editar -->
-    <div class="modal fade" id="edit-this" tabindex="-1" aria-labelledby="edit-thisLabel" aria-hidden="true"
-        wire:ignore.self>
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content modal-custom">
-                <div class="modal-header">
-                    <h5 class="modal-title px-3 py-3" id="editarCatLabel">Editar cliente</h5>
-                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
-                        <i class="fal fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body py-4 px-4">
-
-                    <form wire:submit.prevent="confirmUpdate()">
-                        <div class="form-row">
-                            <div class="col">
-                                <div class="form-group">
-
-                                    <label class="modal-label" for="nome-item-e">
-                                        Nome completo
-                                        <span class="red">*</span>
-                                    </label>
-
-                                    <input wire:model.defer="client.nome" type="text"
-                                        class="form-control modal-input" id="nome-item-e" autocomplete="off">
-
-                                    @error('client.nome')
-                                        <span class="wire-error">{{ $message }}</span>
-                                    @enderror
-
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-
-                                    <label class="modal-label" for="documento-item-e">
-                                        CPF/CNPJ
-                                        <small>(opcional)</small>
-                                    </label>
-
-                                    <input wire:model.defer="client.documento" type="text"
-                                        class="form-control modal-input" id="documento-item-e" autocomplete="off">
-
-                                    @error('client.documento')
-                                        <span class="wire-error">{{ $message }}</span>
-                                    @enderror
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col">
-                                <div class="form-group">
-
-                                    <label class="modal-label" for="rg-item-e">
-                                        RG
-                                        <small>(opcional)</small>
-                                    </label>
-
-                                    <input wire:model.defer="client.rg" type="text"
-                                        class="form-control modal-input" id="rg-item-e" autocomplete="off">
-
-                                    @error('client.rg')
-                                        <span class="wire-error">{{ $message }}</span>
-                                    @enderror
-
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-
-                                    <label class="modal-label" for="endereco-item-e">
-                                        Endereço
-                                        <small>(opcional)</small>
-                                    </label>
-
-                                    <input wire:model.defer="client.endereco" type="text"
-                                        class="form-control modal-input" id="endereco-item-e" autocomplete="off">
-
-                                    @error('client.endereco')
-                                        <span class="wire-error">{{ $message }}</span>
-                                    @enderror
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col">
-                                <div class="form-group">
-
-                                    <label class="modal-label" for="celular-item-e">
-                                        Celular
-                                        <small>(opcional)</small>
-                                    </label>
-
-                                    <input wire:model.defer="client.celular" type="text"
-                                        class="form-control modal-input" id="celular-item-e" autocomplete="off"
-                                        placeholder="(00) 00000-0000">
-
-                                    @error('client.celular')
-                                        <span class="wire-error">{{ $message }}</span>
-                                    @enderror
-
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-
-                                    <label class="modal-label" for="email-item-e">
-                                        E-mail
-                                        <small>(opcional)</small>
-                                    </label>
-
-                                    <input wire:model.defer="client.email" type="email"
-                                        class="form-control modal-input" id="email-item-e" autocomplete="off">
-
-                                    @error('client.email')
-                                        <span class="wire-error">{{ $message }}</span>
-                                    @enderror
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col">
-                                <div class="form-group">
-
-                                    <label class="modal-label" for="obs-item-e">
-                                        Observações
-                                        <small>(opcional)</small>
-                                    </label>
-
-                                    <textarea class="form-control modal-input yampay-scroll" wire:model.defer="client.obs" autocomplete="off"
-                                        name="" id="obs-item-e" rows="5">
-                                    </textarea>
-
-                                    @error('client.obs')
-                                        <span class="wire-error">{{ $message }}</span>
-                                    @enderror
-
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer py-4">
-                    <button data-dismiss="modal" type="button" class="btn btn-cancel">Cancelar</button>
-                    <button wire:loading.attr="disabled" type="submit" class="btn btn-send">Editar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Editar - Confirmação -->
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="edit-this-confirmation" tabindex="-1"
-        aria-labelledby="edit-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog">
-            <div class="modal-content modal-custom">
-                <div class="modal-header">
-                    <h5 class="modal-title px-3 py-3" id="edit-this-confirmationLabel">Confirmação de edição</h5>
-                    <button wire:loading.attr="disabled" type="button" class="close px-4" data-dismiss="modal"
-                        aria-label="Close" wire:click.prevent="alternate()">
-                        <i class="far fa-arrow-left"></i>
-                    </button>
-                </div>
-                <div class="modal-body py-4 px-4">
-
-                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente editar este
-                        cliente?</h5>
-
-                    <div class="confirmation-msg text-center mb-3">
-                        <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, este cliente será editado na
-                            plataforma.
-                        </p>
-                        <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
-                            data-dismiss="modal" class="px-4 verify-font">Verificar dados do cliente</button>
-                    </div>
-
-                </div>
-                <div class="modal-footer py-4">
-                    <button wire:loading.attr="disabled" wire:click.prevent="resetUpdate()" type="button"
-                        class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
-                    <button wire:loading.attr="disabled" wire:click.prevent="update()" type="button"
-                        class="btn btn-send">Confirmar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Apagar - Confirmação -->
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-this-confirmation"
-        tabindex="-1" aria-labelledby="delete-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog">
-            <div class="modal-content modal-custom">
-                <div class="modal-header">
-                    <h5 class="modal-title px-3 py-3" id="delete-cat-confirmationLabel">Confirmação de apagamento</h5>
-                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
-                        <i class="fal fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body py-4 px-4">
-
-                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente apagar este
-                        cliente?</h5>
-
-                    <div class="confirmation-msg text-center mb-3">
-                        <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, este cliente será
-                            apagado e não poderá mais ser utilizado na plataforma.
-                        </p>
-                    </div>
-
-                </div>
-                <div class="modal-footer py-4">
-                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
-                    <button wire:loading.attr="disabled" wire:click.prevent="delete()" type="button"
-                        class="btn btn-send">Confirmar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- MODALS --}}
 
 </div>

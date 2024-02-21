@@ -338,7 +338,7 @@
                             plataforma.
                         </p>
                         <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
-                            data-dismiss="modal" class="px-4 verify-font">Verificar dados do produto</button>
+                            data-dismiss="modal" class="px-4 verify-font">Verificar dados do grupo</button>
                     </div>
 
                 </div>

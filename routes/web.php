@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Admin;
+use App\Http\Livewire\Bill;
 use App\Http\Livewire\Categoria;
 use App\Http\Livewire\Client;
 use App\Http\Livewire\Configuracao;
@@ -42,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/produtos', Produto::class)->name('produtos');
     Route::get('/produtos/grupos', ProductGroup::class)->name('product-groups');
     Route::get('/clientes', Client::class)->name('clients');
+    Route::get('/movimentacoes', Bill::class)->name('movimentacoes');
 });
 
 Route::get('/opt', function () {

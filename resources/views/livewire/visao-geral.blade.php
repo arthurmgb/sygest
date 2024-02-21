@@ -382,10 +382,6 @@
                                 class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
                         </div>
 
-                        {{-- <button class="btn btn-default" data-toggle="modal" data-target="#operation-receipt">
-                            ABRIR CNF
-                        </button> --}}
-
                         <div wire:loading.remove
                             class="card-body px-0 pb-0 pt-1 js-scrollable-table @if (auth()->user()->table_scroll == 1) table-responsive yampay-scroll-lg @endif"
                             onmousedown="startDragging(event)">
