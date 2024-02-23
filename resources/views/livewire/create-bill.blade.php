@@ -59,9 +59,9 @@
                                 Categoria
                                 <span class="red">*</span>
                             </label>
-                            <div wire:ignore>
+                            <div>
                                 <select wire:loading.attr="disabled" id="bill-category"
-                                    placeholder="Selecione uma categoria">
+                                    placeholder="Selecione uma categoria" class="w-100">
                                     <option value="">Selecione uma categoria</option>
                                     @foreach ($bill_categories as $bill_category)
                                         <option value="{{ $bill_category->id }}">
@@ -78,7 +78,7 @@
                             </label>
                             <div wire:ignore>
                                 <select wire:loading.attr="disabled" id="bill-method"
-                                    placeholder="Selecione uma forma de pagamento">
+                                    placeholder="Selecione uma forma de pagamento" class="w-100">
                                     <option value="">Selecione uma forma de pagamento</option>
                                     @foreach ($bill_methods as $bill_method)
                                         <option value="{{ $bill_method->id }}">
@@ -168,7 +168,10 @@
             $('#bill-category').val('').trigger('change');
         });
         Livewire.on('recriarSelect2', function() {
-            // ...
+            $('#bill-category').select2({
+                dropdownParent: $('#create-item')
+            });
+
         });
     });
     $(document).ready(function() {
