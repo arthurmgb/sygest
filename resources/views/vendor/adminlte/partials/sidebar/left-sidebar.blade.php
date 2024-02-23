@@ -1,4 +1,4 @@
-<aside style="background-color: #fff; box-shadow: 3px 0px 15px -13px rgba(0,0,0,0.3);" class="main-sidebar {{ config('adminlte.classes_sidebar', 'sidebar-dark-primary elevation-4') }}">
+<aside style="background-color: #fff; box-shadow: 3px 0px 15px -13px rgba(0,0,0,0.3); user-select: none;" class="main-sidebar {{ config('adminlte.classes_sidebar', 'sidebar-dark-primary elevation-4') }}">
 
     {{-- Sidebar brand logo --}}
     @if(config('adminlte.logo_img_xl'))

@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Bill extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['descricao', 'tipo', 'category_id', 'method_id', 'total', 'user_id'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function method()
+    {
+        return $this->belongsTo(Method::class);
+    }
 }
