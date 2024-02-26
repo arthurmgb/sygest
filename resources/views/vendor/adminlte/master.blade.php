@@ -483,16 +483,6 @@
                     dropdownParent: $('#edit-this')
                 });
             });
-            $(document).ready(function() {
-                $('#bill-category').select2({
-                    dropdownParent: $('#create-item')
-                });
-            });
-            $(document).ready(function() {
-                $('#bill-method').select2({
-                    dropdownParent: $('#create-item')
-                });
-            });
         </script>
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>

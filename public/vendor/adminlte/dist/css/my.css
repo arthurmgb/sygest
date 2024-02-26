@@ -553,6 +553,19 @@ body {
     color: #333 !important;
     -webkit-appearance: none;
 }
+.modal-input-no-inset {
+    width: 100%;
+    padding: 11px 16px;
+    font-size: 15px;
+    border: 1px solid #b3b3b3;
+    margin: 0;
+    border-radius: 4px;
+    color: #333 !important;
+    -webkit-appearance: none;
+}
+.modal-input-no-inset:focus {
+    border-color: #b3b3b3 !important;
+}
 .modal-input-cat {
     width: 100%;
     font-size: 15px;
@@ -711,6 +724,14 @@ select > option:checked {
     opacity: 0.6;
 }
 .search-relatorio::-webkit-calendar-picker-indicator:hover {
+    transform: scale(1.2);
+    opacity: 0.7;
+}
+.custom-date-input::-webkit-calendar-picker-indicator {
+    cursor: pointer !important;
+    opacity: 0.6;
+}
+.custom-date-input::-webkit-calendar-picker-indicator:hover {
     transform: scale(1.2);
     opacity: 0.7;
 }

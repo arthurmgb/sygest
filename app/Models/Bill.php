@@ -9,7 +9,7 @@ class Bill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['descricao', 'tipo', 'category_id', 'method_id', 'total', 'user_id'];
+    protected $fillable = ['data', 'descricao', 'tipo', 'category_id', 'method_id', 'client_id', 'total', 'user_id'];
 
     public function user()
     {

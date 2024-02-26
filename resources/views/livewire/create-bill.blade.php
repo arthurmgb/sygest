@@ -42,6 +42,19 @@
 
                         </div>
                         <div class="form-group">
+                            <label class="modal-label" for="bill-date">
+                                Data
+                                <span class="red">*</span>
+                            </label>
+
+                            <input min="2000-01-01" max="2200-01-01" wire:model.defer="state.data" type="date"
+                                class="form-control modal-input custom-date-input" id="bill-date" autocomplete="off">
+
+                            @error('state.data')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label class="modal-label" for="bill-description">
                                 Descrição
                                 <span class="red">*</span>
@@ -55,13 +68,57 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label class="modal-label" for="bill-client">
+                                Cliente
+                                <small>(opcional)</small>
+                            </label>
+                            <input style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;"
+                                placeholder="buscar cliente" type="text" wire:model="bill_client_param"
+                                class="form-control modal-input-no-inset border-bottom-0" id="bill-client-param"
+                                autocomplete="off">
+                            @if ($bill_clients->count())
+                                <select
+                                    style="border-top: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;  box-shadow: unset !important;"
+                                    wire:loading.attr="disabled" wire:key="bill-clients-select"
+                                    wire:target="bill_client_param, changeBillType" wire:model="state.cliente"
+                                    class="form-control modal-input-cat yampay-scroll" id="bill-client"
+                                    onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                    onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                    onchange="this.size=1; this.blur();">
+                                    <option value="">Selecione um cliente</option>
+                                    @foreach ($bill_clients as $bill_client)
+                                        <option value="{{ $bill_client->id }}">
+                                            {{ $bill_client->nome }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @else
+                                <a href="{{ route('clients') }}" class="btn btn-new btn-block">+ Novo
+                                    cliente</a>
+                            @endif
+
+                            @error('state.cliente')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label class="modal-label" for="bill-category">
                                 Categoria
                                 <span class="red">*</span>
                             </label>
-                            <div>
-                                <select wire:loading.attr="disabled" id="bill-category"
-                                    placeholder="Selecione uma categoria" class="w-100">
+                            <input style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;"
+                                placeholder="buscar categoria" type="text" wire:model="bill_category_param"
+                                class="form-control modal-input-no-inset border-bottom-0" id="bill-category-param"
+                                autocomplete="off">
+                            @if ($bill_categories->count())
+                                <select
+                                    style="border-top: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;  box-shadow: unset !important;"
+                                    wire:loading.attr="disabled" wire:key="bill-categories-select"
+                                    wire:target="bill_category_param, changeBillType" wire:model="state.categoria"
+                                    class="form-control modal-input-cat yampay-scroll" id="bill-category"
+                                    onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                    onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                    onchange="this.size=1; this.blur();">
                                     <option value="">Selecione uma categoria</option>
                                     @foreach ($bill_categories as $bill_category)
                                         <option value="{{ $bill_category->id }}">
@@ -69,16 +126,33 @@
                                         </option>
                                     @endforeach
                                 </select>
-                            </div>
+                            @else
+                                <a href="{{ route('categorias') }}" class="btn btn-new btn-block">+ Nova
+                                    categoria</a>
+                            @endif
+
+                            @error('state.categoria')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label class="modal-label" for="bill-method">
                                 Forma de pagamento
                                 <span class="red">*</span>
                             </label>
-                            <div wire:ignore>
-                                <select wire:loading.attr="disabled" id="bill-method"
-                                    placeholder="Selecione uma forma de pagamento" class="w-100">
+                            <input style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;"
+                                placeholder="buscar forma de pagamento" type="text" wire:model="bill_method_param"
+                                class="form-control modal-input-no-inset border-bottom-0" id="bill-method-param"
+                                autocomplete="off">
+                            @if ($bill_methods->count())
+                                <select
+                                    style="border-top: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;  box-shadow: unset !important;"
+                                    wire:loading.attr="disabled" wire:key="bill-methods-select"
+                                    wire:target="bill_method_param, changeBillType" wire:model="state.method"
+                                    class="form-control modal-input-cat yampay-scroll" id="bill-method"
+                                    onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                                    onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                                    onchange="this.size=1; this.blur();">
                                     <option value="">Selecione uma forma de pagamento</option>
                                     @foreach ($bill_methods as $bill_method)
                                         <option value="{{ $bill_method->id }}">
@@ -86,8 +160,16 @@
                                         </option>
                                     @endforeach
                                 </select>
-                            </div>
+                            @else
+                                <a href="{{ route('formas-pagamento') }}" class="btn btn-new btn-block">+ Nova
+                                    forma de pagamento</a>
+                            @endif
+
+                            @error('state.method')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
                         </div>
+                        {{-- SE REPETE? --}}
                         <div class="form-group">
                             <label class="modal-label" for="bill-total">
                                 Total da movimentação
@@ -110,7 +192,7 @@
                 </div>
                 <div class="modal-footer py-4">
                     <button wire:loading.attr="disabled" type="button" class="btn btn-cancel"
-                        wire:click.prevent="resetData()">Cancelar</button>
+                        wire:click.prevent="resetData()" data-dismiss="modal">Cancelar</button>
                     <button wire:loading.attr="disabled" type="submit" class="btn btn-send">Cadastrar</button>
                     </form>
                 </div>
@@ -156,32 +238,3 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        $('#bill-category').on('change', function(e) {
-            var data = $('#bill-category').select2("val");
-            @this.set('selectedCategory', data);
-        });
-
-        Livewire.on('resetSelectedCategory', function() {
-            $('#bill-category').val('').trigger('change');
-        });
-        Livewire.on('recriarSelect2', function() {
-            $('#bill-category').select2({
-                dropdownParent: $('#create-item')
-            });
-
-        });
-    });
-    $(document).ready(function() {
-        $('#bill-method').on('change', function(e) {
-            var data = $('#bill-method').select2("val");
-            @this.set('selectedMethod', data);
-        });
-
-        Livewire.on('resetSelectedMethod', function() {
-            $('#bill-method').val('').trigger('change');
-        });
-    });
-</script>
