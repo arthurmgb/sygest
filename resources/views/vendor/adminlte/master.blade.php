@@ -475,12 +475,12 @@
             });
             $(document).ready(function() {
                 $('#group-select').select2({
-                    dropdownParent: $('#create-item')
+                    dropdownParent: $('#create-item .modal-body')
                 });
             });
             $(document).ready(function() {
                 $('#group-select-edit').select2({
-                    dropdownParent: $('#edit-this')
+                    dropdownParent: $('#edit-this .modal-body')
                 });
             });
         </script>

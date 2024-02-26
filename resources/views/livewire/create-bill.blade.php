@@ -93,8 +93,9 @@
                                     @endforeach
                                 </select>
                             @else
-                                <a href="{{ route('clients') }}" class="btn btn-new btn-block">+ Novo
+                                <a href="{{ route('clients') }}" class="btn btn-new btn-block btlr-btrr">+ Novo
                                     cliente</a>
+                                <small>Nenhum cliente encontrado</small>
                             @endif
 
                             @error('state.cliente')
@@ -127,8 +128,9 @@
                                     @endforeach
                                 </select>
                             @else
-                                <a href="{{ route('categorias') }}" class="btn btn-new btn-block">+ Nova
+                                <a href="{{ route('categorias') }}" class="btn btn-new btn-block btlr-btrr">+ Nova
                                     categoria</a>
+                                <small>Nenhuma categoria encontrada</small>
                             @endif
 
                             @error('state.categoria')
@@ -161,16 +163,60 @@
                                     @endforeach
                                 </select>
                             @else
-                                <a href="{{ route('formas-pagamento') }}" class="btn btn-new btn-block">+ Nova
+                                <a href="{{ route('formas-pagamento') }}" class="btn btn-new btn-block btlr-btrr">+
+                                    Nova
                                     forma de pagamento</a>
+                                <small>Nenhuma forma de pagamento encontrada</small>
                             @endif
 
                             @error('state.method')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
-                        {{-- SE REPETE? --}}
                         <div class="form-group">
+                            <label class="modal-label" for="bill-recurrence">
+                                Recorrência
+                                <span class="red">*</span>
+                            </label>
+
+                            <br>
+
+                            {{-- ESCOLHENDO O TIPO DE RECORRÊNCIA --}}
+                            <input wire:model="state.recurrence" value="unico" class="radio" type="radio"
+                                name="bill-recurrence" id="bill-recurrence-unique">
+
+                            <label class="label-op label-default mb-0" for="bill-recurrence-unique">
+                                Único
+                            </label>
+
+                            <input wire:model="state.recurrence" value="mensal" class="radio" type="radio"
+                                name="bill-recurrence" id="bill-recurrence-monthly">
+
+                            <label class="label-op label-default mb-0" for="bill-recurrence-monthly">
+                                Mensal
+                            </label>
+
+                            <br>
+
+                            @error('state.recurrence')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            {{-- ABRE AS PARCELAS SE FOR RECORRENTE --}}
+                            <label class="modal-label" for="bill-parcel">
+                                Parcelas
+                                <span class="red">*</span>
+                            </label>
+
+                            <input wire:model.defer="state.parcels" type="text"
+                                class="form-control modal-input qtd-item" id="bill-parcel" autocomplete="off">
+
+                            @error('state.parcels')
+                                <span class="wire-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-0">
                             <label class="modal-label" for="bill-total">
                                 Total da movimentação
                                 <span class="red">*</span>

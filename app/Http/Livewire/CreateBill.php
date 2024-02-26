@@ -22,6 +22,8 @@ class CreateBill extends Component
         'state.data' => 'required',
         'state.categoria' => 'required',
         'state.method' => 'required',
+        'state.recurrence' => 'required',
+        'state.parcels' => 'required',
         'state.total' => 'required|max:10',
     ];
 
@@ -31,12 +33,16 @@ class CreateBill extends Component
         'state.descricao.required' => 'A descrição da movimentação é obrigatória.',
         'state.categoria.required' => 'A categoria da movimentação é obrigatória.',
         'state.method.required' => 'A forma de pagamento da movimentação é obrigatória.',
+        'state.recurrence.required' => 'O tipo de recorrência é obrigatório.',
+        'state.parcels.required' => 'A quantidade de parcelas é obrigatória.',
         'state.total.required' => 'O total da movimentação é obrigatório.',
     ];
 
     public function mount()
     {
         $this->state['tipo'] = '1';
+        $this->state['recurrence'] = 'unico';
+        $this->state['parcels'] = '1';
     }
 
     public function changeBillType()

@@ -510,6 +510,13 @@ body {
     border: 1px solid transparent !important;
     transition: 0.2s;
 }
+.radio:checked + .label-default {
+    color: #fff !important;
+    background-color: #2563eb;
+    font-weight: 700 !important;
+    border: 1px solid transparent !important;
+    transition: 0.2s;
+}
 .label-op {
     position: relative;
     color: #666 !important;
@@ -533,6 +540,13 @@ body {
 .label-red:hover {
     color: #e6274c !important;
     border: 1px solid #e6274c;
+}
+.label-default {
+    padding: 10px 25px;
+}
+.label-default:hover {
+    color: #2563eb !important;
+    border: 1px solid #2563eb;
 }
 .red {
     color: #e50f38 !important;
@@ -2162,4 +2176,8 @@ select.fadeOut {
     overflow: unset;
     white-space: unset;
     max-height: unset;
+}
+.btlr-btrr {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
