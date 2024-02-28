@@ -148,6 +148,7 @@
                 reverse: true
             });
             $('.qtd-item').mask('00000');
+            $('.qtd-item-two').mask('00');
             $('.precos-mask').mask('#.##0,00', {
                 reverse: true
             });

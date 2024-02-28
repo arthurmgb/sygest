@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group">
                             <label class="modal-label" for="bill-date">
-                                Data
+                                Data de vencimento
                                 <span class="red">*</span>
                             </label>
 
@@ -202,7 +202,8 @@
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group" @if ($state['recurrence'] == 'unico') style="display: none" @endif>
                             {{-- ABRE AS PARCELAS SE FOR RECORRENTE --}}
                             <label class="modal-label" for="bill-parcel">
                                 Parcelas
@@ -210,12 +211,13 @@
                             </label>
 
                             <input wire:model.defer="state.parcels" type="text"
-                                class="form-control modal-input qtd-item" id="bill-parcel" autocomplete="off">
+                                class="form-control modal-input qtd-item-two" id="bill-parcel" autocomplete="off">
 
                             @error('state.parcels')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="form-group mb-0">
                             <label class="modal-label" for="bill-total">
                                 Total da movimentação

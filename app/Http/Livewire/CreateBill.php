@@ -3,9 +3,11 @@
 namespace App\Http\Livewire;
 
 use App\Models\Bill;
+use App\Models\Bill_Parcel;
 use App\Models\Category;
 use App\Models\Client;
 use App\Models\Method;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class CreateBill extends Component
@@ -42,7 +44,7 @@ class CreateBill extends Component
     {
         $this->state['tipo'] = '1';
         $this->state['recurrence'] = 'unico';
-        $this->state['parcels'] = '1';
+        $this->state['parcels'] = 1;
     }
 
     public function changeBillType()
@@ -66,6 +68,19 @@ class CreateBill extends Component
         if ($field == 'state.method') {
             $this->reset('bill_method_param');
         }
+
+        if ($field == 'state.recurrence') {
+            switch ($this->state['recurrence']) {
+                case 'unico':
+                    $this->state['parcels'] = 1;
+                    break;
+                case 'mensal':
+                    $this->state['parcels'] = "";
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public function confirmation()
@@ -86,6 +101,8 @@ class CreateBill extends Component
         $this->reset('bill_category_param');
         $this->reset('bill_method_param');
         $this->state['tipo'] = '1';
+        $this->state['recurrence'] = 'unico';
+        $this->state['parcels'] = 1;
     }
 
     public function resetDataOnConfirm()
@@ -96,6 +113,8 @@ class CreateBill extends Component
         $this->reset('bill_category_param');
         $this->reset('bill_method_param');
         $this->state['tipo'] = '1';
+        $this->state['recurrence'] = 'unico';
+        $this->state['parcels'] = 1;
     }
 
     public function alternate()
@@ -115,7 +134,7 @@ class CreateBill extends Component
 
         if ($total_formatado > 0) {
 
-            Bill::create([
+            $created_bill = Bill::create([
                 'tipo' => $this->state['tipo'],
                 'data' => $this->state['data'],
                 'descricao' => $this->state['descricao'],
@@ -123,12 +142,34 @@ class CreateBill extends Component
                 'method_id' => $this->state['method'],
                 'client_id' => $this->state['cliente'] ?? null,
                 'total' => $total_formatado,
+                'qtd_parcelas' => $this->state['parcels'],
                 'user_id' => auth()->user()->id
             ]);
+
+            // CRIAÇÃO DE PARCELAS
+
+            for ($i = 1; $i <= $this->state['parcels']; $i++) {
+
+                Bill_Parcel::create([
+                    'bill_id' => $created_bill->id,
+                    'status' => 0,
+                    'data_compensacao' => $created_bill->data,
+                    'n_parcela' => $i,
+                    'total' => $created_bill->total,
+                    'user_id' => auth()->user()->id
+                ]);
+
+                $created_bill->data = date('Y-m-d', strtotime($created_bill->data . ' + 1 month'));
+            }
+
+            // ---
 
             $this->dispatchBrowserEvent('close-item-confirmation-modal');
             $this->reset('state');
             $this->state['tipo'] = '1';
+            $this->state['recurrence'] = 'unico';
+            $this->state['parcels'] = 1;
+
             $this->emit('alert', 'Movimentação cadastrada com sucesso!');
             $this->emitTo('bill', 'render');
         } else {

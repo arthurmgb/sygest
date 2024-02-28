@@ -9,11 +9,15 @@ class Bill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['data', 'descricao', 'tipo', 'category_id', 'method_id', 'client_id', 'total', 'user_id'];
+    protected $fillable = ['data', 'descricao', 'tipo', 'category_id', 'method_id', 'client_id', 'total', 'qtd_parcelas', 'user_id'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
     }
     public function category()
     {
