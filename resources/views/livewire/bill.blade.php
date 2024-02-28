@@ -2,7 +2,7 @@
     {{-- HEADING --}}
     <div class="page-header d-flex flex-row align-items-center mb-2">
         <h2 class="f-h2">Movimentações</h2>
-        <span class="f-span">{{ 0 }} movimentações cadastradas</span>
+        <span class="f-span">{{ $parcels_count }} movimentações cadastradas</span>
         <a data-toggle="modal" data-target="#create-item" class="btn btn-new ml-auto">+ Nova movimentação</a>
     </div>
     {{-- HEADING --}}
@@ -20,22 +20,23 @@
             {{-- LOADER --}}
 
             {{-- LISTAGEM --}}
-            {{-- <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove
+            <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove
                 class="card-body px-0 pb-0 table-responsive yampay-scroll-lg js-scrollable-table"
                 onmousedown="startDragging(event)">
 
-                @if ($clients->count())
+                @if ($parcels->count())
 
                     <table style="cursor: default;" class="table table-borderless">
                         <thead class="t-head">
                             <tr class="t-head-border">
-                                <th style="min-width: 200px;">Nome</th>
-                                <th>CPF/CNPJ</th>
-                                <th>RG</th>
-                                <th style="min-width: 200px;">Endereço</th>
-                                <th>Celular</th>
-                                <th style="min-width: 200px;">E-mail</th>
-                                <th style="min-width: 250px;">Observações</th>
+                                <th style="min-width: 200px;">Descrição</th>
+                                <th>Valor</th>
+                                <th>Tipo</th>
+                                <th style="min-width: 120px;">Categoria</th>
+                                <th style="min-width: 100px;">FP</th>
+                                <th>Cliente</th>
+                                <th>Status</th>
+                                <th>Data de vencimento</th>
                                 <th>Data de cadastro</th>
                                 <th>Ações</th>
                             </tr>
@@ -46,12 +47,12 @@
                                 $dia_atual = Carbon\Carbon::now();
                             @endphp
 
-                            @foreach ($clients as $client)
+                            @foreach ($parcels as $parcel)
                                 @php
 
-                                    $data_cadastro = $client->created_at->format('d/m/Y H:i');
+                                    $data_cadastro = $parcel->created_at->format('d/m/Y H:i');
                                     $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
-                                    $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $client->created_at);
+                                    $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $parcel->created_at);
                                     $diferenca = $date2->diffInDays($date1);
                                     $tempo = 'dias';
 
@@ -88,56 +89,62 @@
                                 @endphp
 
                                 <tr class="tr-hover">
+
                                     <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
-                                        {{ $client->nome }}
-                                    </td>
-                                    <td style="white-space: nowrap;" class="align-middle font-desc">
-                                        {!! $client->documento ?? '<i>Não definido</i>' !!}
-                                    </td>
-                                    <td style="white-space: nowrap;" class="align-middle font-desc">
-                                        {!! $client->rg ?? '<i>Não definido</i>' !!}
-                                    </td>
-                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
-                                        {!! $client->endereco ?? '<i>Não definido</i>' !!}
-                                    </td>
-                                    <td style="white-space: nowrap;" class="align-middle font-desc">
-                                        {!! $client->celular ?? '<i>Não definido</i>' !!}
-                                    </td>
-                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
-                                        {!! $client->email ?? '<i>Não definido</i>' !!}
+                                        {{ $parcel->bill->descricao }}
                                     </td>
 
-                                    <td class="align-middle font-desc td-client-obs">
-                                        <div class="show-client-obs">
-                                            @if ($client->obs)
-                                                <div style="color: #444;" class="obs-tip">
-                                                    <small>
-                                                        Passe o mouse em cima
-                                                        <br>
-                                                        para visualizar tudo
-                                                    </small>
-                                                </div>
-                                            @endif
+                                    <td style="white-space: nowrap; font-weight: 500;" class="align-middle font-desc">
+                                        R$ {{ number_format($parcel->total, 2, ',', '.') }}
+                                    </td>
 
-                                            {!! is_null($client->obs) ? '<i>Não definido</i>' : nl2br(e($client->obs)) !!}
+                                    @if ($parcel->bill->tipo === 0)
+                                        <td style="white-space: nowrap;" class="align-middle font-desc">
+                                            <span style="white-space: nowrap;" class="operacao-saida">A pagar</span>
+                                        </td>
+                                    @elseif($parcel->bill->tipo === 1)
+                                        <td style="white-space: nowrap;" class="align-middle font-desc">
+                                            <span style="white-space: nowrap;" class="operacao-entrada">A receber</span>
+                                        </td>
+                                    @else
+                                        <td style="white-space: nowrap;" class="align-middle font-desc"></td>
+                                    @endif
 
-                                        </div>
+                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
+                                        <span class="categoria"> {{ $parcel->bill->category->descricao }}</span>
+                                    </td>
+
+                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
+                                        {{ $parcel->bill->method->descricao }}
+                                    </td>
+
+                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
+                                        {{ $parcel->bill->client->nome }}
+                                    </td>
+
+                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
+                                        {{ $parcel->status }}
+                                    </td>
+
+                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
+                                        {{ $parcel->data_vencimento }}
                                     </td>
 
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_cadastro }}<br><span
                                             class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
+
                                     <td class="align-middle">
                                         <div class="d-flex flex-row align-items-center">
-                                            <div wire:target="edit({{ $client->id }})" wire:loading.attr="disabled"
-                                                wire:click.prevent="edit({{ $client->id }})" data-toggle="modal"
+                                            <div wire:target="edit({{ $parcel->id }})" wire:loading.attr="disabled"
+                                                wire:click.prevent="edit({{ $parcel->id }})" data-toggle="modal"
                                                 data-target="#edit-this" data-tooltip="Editar" data-flow="left"
                                                 class="cbe">
                                                 <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
                                             </div>
-                                            <div wire:target="prepareToDelete({{ $client->id }})"
+                                            <div wire:target="prepareToDelete({{ $parcel->id }})"
                                                 wire:loading.attr="disabled"
-                                                wire:click.prevent="prepareToDelete({{ $client->id }})"
+                                                wire:click.prevent="prepareToDelete({{ $parcel->id }})"
                                                 data-toggle="modal" data-target="#delete-this-confirmation"
                                                 data-tooltip="Apagar" data-flow="left" class="cba mr-2">
                                                 <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
@@ -280,9 +287,9 @@
                                     d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                             </defs>
                         </svg>
-                        <h3 class="my-4 no-results">Não há movimentações a serem exibidos.</h3>
+                        <h3 class="my-4 no-results">Não há movimentações a serem exibidas.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
-                            <h3 class="no-results-create mb-3">Comece criando um</h3>
+                            <h3 class="no-results-create mb-3">Comece criando uma</h3>
                             <a data-toggle="modal" data-target="#create-item" class="ml-2 btn btn-nr">+ Nova
                                 movimentação</a>
                         </div>
@@ -290,7 +297,7 @@
 
                 @endif
 
-            </div> --}}
+            </div>
             {{-- LISTAGEM --}}
 
             {{-- DICA DE SCROLL --}}

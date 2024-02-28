@@ -153,7 +153,7 @@ class CreateBill extends Component
                 Bill_Parcel::create([
                     'bill_id' => $created_bill->id,
                     'status' => 0,
-                    'data_compensacao' => $created_bill->data,
+                    'data_vencimento' => $created_bill->data,
                     'n_parcela' => $i,
                     'total' => $created_bill->total,
                     'user_id' => auth()->user()->id

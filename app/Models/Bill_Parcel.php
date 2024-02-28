@@ -11,7 +11,7 @@ class Bill_Parcel extends Model
 
     protected $table = 'bill_parcels';
 
-    protected $fillable = ['bill_id', 'user_id', 'status', 'data_compensacao', 'n_parcela', 'total'];
+    protected $fillable = ['bill_id', 'user_id', 'status', 'data_vencimento', 'data_baixa', 'n_parcela', 'total'];
 
     public function user()
     {
