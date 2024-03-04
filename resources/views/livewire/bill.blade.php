@@ -7,21 +7,178 @@
     </div>
     {{-- HEADING --}}
 
+    {{-- SUB HEADING --}}
+    @if ($parcels_count > 0)
+        <div class="reports-container mt-3">
+            <div class="row">
+                <div class="col">
+                    <div style="margin-bottom: 0 !important;" class="card">
+                        <div
+                            class="bill-reports-card-font d-flex flex-row align-items-center justify-content-between flex-wrap">
+                            <div class="bill-title-type">
+                                <span class="font-weight-bold">
+                                    <i style="color: #00A3A3;" class="fad fa-arrow-to-top fa-fw fa-lg mr-1"></i>
+                                    Total de Contas
+                                </span>
+                                <span class="period font-weight-bold">/ A receber</span>
+                            </div>
+                            <span class="bill-amount">R$
+                                {{ number_format($total_bills_to_receive, 2, ',', '.') }}</span>
+                        </div>
+                        <hr>
+                        <div
+                            class="bill-reports-card-font d-flex flex-row align-items-center justify-content-between flex-wrap">
+                            <div class="bill-title-type">
+                                <span class="font-weight-bold">
+                                    <i style="color: #00A3A3;" class="fad fa-hands-usd fa-fw fa-lg mr-1"></i>
+                                    Total de Contas
+                                </span>
+                                <span class="period font-weight-bold">/ Recebidas</span>
+                            </div>
+                            <span class="bill-amount">R$
+                                {{ number_format($total_bills_received, 2, ',', '.') }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div style="margin-bottom: 0 !important;" class="card">
+                        <div
+                            class="bill-reports-card-font d-flex flex-row align-items-center justify-content-between flex-wrap">
+                            <div class="bill-title-type">
+                                <span class="font-weight-bold">
+                                    <i style="color: #E6274C;" class="fad fa-arrow-to-bottom fa-fw fa-lg mr-1"></i>
+                                    Total de Contas
+                                </span>
+                                <span class="period font-weight-bold">/ A pagar</span>
+                            </div>
+                            <span class="bill-amount">R$ {{ number_format($total_bills_to_pay, 2, ',', '.') }}</span>
+                        </div>
+                        <hr>
+                        <div
+                            class="bill-reports-card-font d-flex flex-row align-items-center justify-content-between flex-wrap">
+                            <div class="bill-title-type">
+                                <span class="font-weight-bold">
+                                    <i style="color: #00A3A3;" class="fad fa-hand-holding-usd fa-fw fa-lg mr-1"></i>
+                                    Total de Contas
+                                </span>
+                                <span class="period font-weight-bold">/ Pagas</span>
+                            </div>
+                            <span class="bill-amount">R$ {{ number_format($total_bills_paid, 2, ',', '.') }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="filters-container" style="user-select: none;">
+            <div class="filters-label mb-2">
+                <span>Filtros (ano/mês)</span>
+            </div>
+            <div class="years-container">
+                <select wire:loading.attr="disabled" wire:key="selected-year"
+                    wire:target="selectedYear, render, toggleMonth" wire:model="selectedYear"
+                    class="form-control bills-year-select-scroll bills-year-select" id="selected-year" size="1"
+                    onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
+                    onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                    onchange="this.size=1; this.blur();">
+                    <option value="">Selecione um ano</option>
+                    @foreach ($years as $year)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div style="gap: 5px;" class="months-container mt-2 mb-3 d-flex flex-row align-items-center flex-wrap">
+                <button wire:key="jan" wire:loading.attr="disabled" wire:target="toggleMonth(1)"
+                    wire:click.prevent="toggleMonth(1)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 1 ? 'btn-toggle-month-active' : '' }}">
+                    JAN
+                </button>
+
+                <button wire:key="fev" wire:loading.attr="disabled" wire:target="toggleMonth(2)"
+                    wire:click.prevent="toggleMonth(2)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 2 ? 'btn-toggle-month-active' : '' }}">
+                    FEV
+                </button>
+
+                <button wire:key="mar" wire:loading.attr="disabled" wire:target="toggleMonth(3)"
+                    wire:click.prevent="toggleMonth(3)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 3 ? 'btn-toggle-month-active' : '' }}">
+                    MAR
+                </button>
+
+                <button wire:key="abr" wire:loading.attr="disabled" wire:target="toggleMonth(4)"
+                    wire:click.prevent="toggleMonth(4)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 4 ? 'btn-toggle-month-active' : '' }}">
+                    ABR
+                </button>
+
+                <button wire:key="mai" wire:loading.attr="disabled" wire:target="toggleMonth(5)"
+                    wire:click.prevent="toggleMonth(5)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 5 ? 'btn-toggle-month-active' : '' }}">
+                    MAI
+                </button>
+
+                <button wire:key="jun" wire:loading.attr="disabled" wire:target="toggleMonth(6)"
+                    wire:click.prevent="toggleMonth(6)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 6 ? 'btn-toggle-month-active' : '' }}">
+                    JUN
+                </button>
+
+                <button wire:key="jul" wire:loading.attr="disabled" wire:target="toggleMonth(7)"
+                    wire:click.prevent="toggleMonth(7)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 7 ? 'btn-toggle-month-active' : '' }}">
+                    JUL
+                </button>
+
+                <button wire:key="ago" wire:loading.attr="disabled" wire:target="toggleMonth(8)"
+                    wire:click.prevent="toggleMonth(8)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 8 ? 'btn-toggle-month-active' : '' }}">
+                    AGO
+                </button>
+
+                <button wire:key="set" wire:loading.attr="disabled" wire:target="toggleMonth(9)"
+                    wire:click.prevent="toggleMonth(9)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 9 ? 'btn-toggle-month-active' : '' }}">
+                    SET
+                </button>
+
+                <button wire:key="out" wire:loading.attr="disabled" wire:target="toggleMonth(10)"
+                    wire:click.prevent="toggleMonth(10)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 10 ? 'btn-toggle-month-active' : '' }}">
+                    OUT
+                </button>
+
+                <button wire:key="nov" wire:loading.attr="disabled" wire:target="toggleMonth(11)"
+                    wire:click.prevent="toggleMonth(11)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 11 ? 'btn-toggle-month-active' : '' }}">
+                    NOV
+                </button>
+
+                <button wire:key="dez" wire:loading.attr="disabled" wire:target="toggleMonth(12)"
+                    wire:click.prevent="toggleMonth(12)"
+                    class="btn btn-toggle-month {{ $this->selectedMonth === 12 ? 'btn-toggle-month-active' : '' }}">
+                    DEZ
+                </button>
+            </div>
+        </div>
+    @endif
+    {{-- SUB HEADING --}}
+
     {{-- BLOCO PRINCIPAL --}}
     <div class="block">
 
         <div class="card">
 
             {{-- LOADER --}}
-            <div wire:target="render, search, qtd, updatingSearch" style="margin-top: 125px; margin-bottom: 125px;"
+            <div wire:target="render, qtd, toggleMonth, selectedYear" style="margin-top: 125px; margin-bottom: 125px;"
                 wire:loading wire:loading.class="d-flex flex-row align-items-center justify-content-center">
                 <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
             </div>
             {{-- LOADER --}}
 
             {{-- LISTAGEM --}}
-            <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove
-                class="card-body px-0 pb-0 table-responsive yampay-scroll-lg js-scrollable-table"
+            <div wire:target="render, qtd, toggleMonth, selectedYear" wire:loading.remove
+                class="card-body px-0 pb-0 pt-0 table-responsive yampay-scroll-lg js-scrollable-table"
                 onmousedown="startDragging(event)">
 
                 @if ($parcels->count())
@@ -32,9 +189,9 @@
                                 <th style="min-width: 200px;">Descrição</th>
                                 <th>Valor</th>
                                 <th>Tipo</th>
-                                <th style="min-width: 120px;">Categoria</th>
-                                <th style="min-width: 100px;">FP</th>
-                                <th>Cliente</th>
+                                <th style="min-width: 150px;">Categoria</th>
+                                <th style="min-width: 150px;">FP</th>
+                                <th style="min-width: 200px;">Cliente</th>
                                 <th>Status</th>
                                 <th>Data de vencimento</th>
                                 <th>Data de cadastro</th>
@@ -92,6 +249,13 @@
 
                                     <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
                                         {{ $parcel->bill->descricao }}
+                                        <br>
+                                        @if ($parcel->bill->qtd_parcelas > 1)
+                                            <small>
+                                                (parcela {{ $parcel->n_parcela }} de
+                                                {{ $parcel->bill->qtd_parcelas }})
+                                            </small>
+                                        @endif
                                     </td>
 
                                     <td style="white-space: nowrap; font-weight: 500;" class="align-middle font-desc">
@@ -104,7 +268,8 @@
                                         </td>
                                     @elseif($parcel->bill->tipo === 1)
                                         <td style="white-space: nowrap;" class="align-middle font-desc">
-                                            <span style="white-space: nowrap;" class="operacao-entrada">A receber</span>
+                                            <span style="white-space: nowrap;" class="operacao-entrada">A
+                                                receber</span>
                                         </td>
                                     @else
                                         <td style="white-space: nowrap;" class="align-middle font-desc"></td>
@@ -119,36 +284,96 @@
                                     </td>
 
                                     <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
-                                        {{ $parcel->bill->client->nome }}
+                                        {!! $parcel->bill->client->nome ?? '<i>Não definido</i>' !!}
                                     </td>
 
                                     <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
-                                        {{ $parcel->status }}
+                                        @if ($parcel->status === 1)
+                                            @if ($parcel->bill->tipo === 0)
+                                                <span style="white-space: nowrap;"
+                                                    class="operacao-entrada">Paga</span>
+                                            @elseif($parcel->bill->tipo === 1)
+                                                <span style="white-space: nowrap;"
+                                                    class="operacao-entrada">Recebida</span>
+                                            @endif
+                                        @elseif($parcel->status === 0)
+                                            @php
+                                                $data_venc = Carbon\Carbon::parse($parcel->data_vencimento);
+                                                $data_atual = Carbon\Carbon::today();
+                                            @endphp
+                                            @if ($data_atual->greaterThan($data_venc))
+                                                <span style="white-space: nowrap;" class="operacao-saida">
+                                                    Em atraso
+                                                </span>
+                                            @else
+                                                <span style="white-space: nowrap;" class="pending-status">
+                                                    Pendente
+                                                </span>
+                                            @endif
+                                        @endif
                                     </td>
 
-                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
-                                        {{ $parcel->data_vencimento }}
+                                    <td style="white-space: nowrap;" class="align-middle font-desc">
+                                        {{ Carbon\Carbon::parse($parcel->data_vencimento)->format('d/m/Y') }}
                                     </td>
 
-                                    <td style="white-space: nowrap;" class="align-middle">{{ $data_cadastro }}<br><span
-                                            class="g-light">há
-                                            {{ $diferenca }} {{ $tempo }}</span></td>
+                                    <td style="white-space: nowrap;" class="align-middle">
+                                        {{ $data_cadastro }}
+                                        <br>
+                                        <span class="g-light">
+                                            há {{ $diferenca }} {{ $tempo }}
+                                        </span>
+                                    </td>
 
                                     <td class="align-middle">
                                         <div class="d-flex flex-row align-items-center">
-                                            <div wire:target="edit({{ $parcel->id }})" wire:loading.attr="disabled"
-                                                wire:click.prevent="edit({{ $parcel->id }})" data-toggle="modal"
-                                                data-target="#edit-this" data-tooltip="Editar" data-flow="left"
-                                                class="cbe">
-                                                <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
-                                            </div>
-                                            <div wire:target="prepareToDelete({{ $parcel->id }})"
-                                                wire:loading.attr="disabled"
-                                                wire:click.prevent="prepareToDelete({{ $parcel->id }})"
-                                                data-toggle="modal" data-target="#delete-this-confirmation"
-                                                data-tooltip="Apagar" data-flow="left" class="cba mr-2">
-                                                <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
-                                            </div>
+
+                                            @if ($parcel->status === 1)
+                                                <button wire:key="btn-{{ $parcel->id }}"
+                                                    wire:target="processBillConfirmation({{ $parcel->id }})"
+                                                    wire:click.prevent="processBillConfirmation({{ $parcel->id }})"
+                                                    wire:loading.attr="disabled" data-toggle="modal"
+                                                    data-target="#process-this-confirmation"
+                                                    class="btn btn-sm btn-primary" style="white-space: nowrap;">
+                                                    <i class="fas fa-undo fa-fw" aria-hidden="true"></i>
+                                                    Estornar
+                                                </button>
+                                            @else
+                                                @if ($parcel->bill->tipo === 0)
+                                                    <button wire:key="btn-{{ $parcel->id }}"
+                                                        wire:target="processBillConfirmation({{ $parcel->id }})"
+                                                        wire:click.prevent="processBillConfirmation({{ $parcel->id }})"
+                                                        wire:loading.attr="disabled" data-toggle="modal"
+                                                        data-target="#process-this-confirmation"
+                                                        class="btn btn-sm btn-danger" style="white-space: nowrap;">
+                                                        Pagar
+                                                        <i class="fad fa-arrow-from-top fa-fw" aria-hidden="true"></i>
+                                                    </button>
+                                                @elseif($parcel->bill->tipo === 1)
+                                                    <button wire:key="btn-{{ $parcel->id }}"
+                                                        wire:target="processBillConfirmation({{ $parcel->id }})"
+                                                        wire:click.prevent="processBillConfirmation({{ $parcel->id }})"
+                                                        wire:loading.attr="disabled" data-toggle="modal"
+                                                        data-target="#process-this-confirmation"
+                                                        class="btn btn-sm btn-success" style="white-space: nowrap;">
+                                                        <i class="fad fa-arrow-to-top fa-fw" aria-hidden="true"></i>
+                                                        Receber
+                                                    </button>
+                                                @endif
+                                            @endif
+
+                                            @if ($parcel->status === 0)
+                                                <div wire:key="btn-delete-{{ $parcel->id }}"
+                                                    wire:target="prepareToDelete({{ $parcel->id }})"
+                                                    wire:click.prevent="prepareToDelete({{ $parcel->id }})"
+                                                    wire:loading.attr="disabled" data-toggle="modal"
+                                                    data-target="#delete-this-confirmation" data-tooltip="Apagar"
+                                                    data-flow="left" class="cba ml-2">
+                                                    <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
+                                                </div>
+                                            @endif
+
+
                                         </div>
                                     </td>
 
@@ -290,8 +515,9 @@
                         <h3 class="my-4 no-results">Não há movimentações a serem exibidas.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                             <h3 class="no-results-create mb-3">Comece criando uma</h3>
-                            <a data-toggle="modal" data-target="#create-item" class="ml-2 btn btn-nr">+ Nova
-                                movimentação</a>
+                            <a data-toggle="modal" data-target="#create-item" class="ml-2 btn btn-nr">
+                                + Nova movimentação
+                            </a>
                         </div>
                     </div>
 
@@ -327,15 +553,91 @@
                 <span class="ml-3 ipp">Itens por página</span>
             </div>
 
-            {{-- @if ($clients->hasPages())
+            @if ($parcels->hasPages())
                 <div class="paginacao">
-                    {{ $clients->links() }}
+                    {{ $parcels->links() }}
                 </div>
-            @endif --}}
+            @endif
         </div>
         {{-- PAGINAÇÃO --}}
 
     </div>
     {{-- BLOCO PRINCIPAL --}}
 
+    {{-- MODALS --}}
+
+    <!-- Modal Processar - Confirmação -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="process-this-confirmation"
+        tabindex="-1" aria-labelledby="process-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="delete-cat-confirmationLabel">
+                        Confirmação de processamento
+                    </h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-4 px-4">
+
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">
+                        {{ $processBillConfirmationMsgTitle }}
+                    </h5>
+
+                    <div class="confirmation-msg text-center mb-3">
+                        <p class="m-0 mb-3 px-4">
+                            {!! $processBillConfirmationMsg !!}
+                        </p>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="processBill()" type="button"
+                        class="btn btn-send">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Apagar - Confirmação -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-this-confirmation"
+        tabindex="-1" aria-labelledby="delete-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title px-3 py-3" id="delete-cat-confirmationLabel">
+                        Confirmação de apagamento
+                    </h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-4 px-4">
+
+                    <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">
+                        Deseja realmente apagar esta parcela?
+                    </h5>
+
+                    <div class="confirmation-msg text-center mb-3">
+                        <p class="m-0 mb-3 px-4">
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, esta parcela será
+                            apagada e não poderá mais ser recuperada.
+                        </p>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-4">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="delete()" type="button"
+                        class="btn btn-send">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- MODALS --}}
 </div>

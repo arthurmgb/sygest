@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bill_Parcel;
 use App\Models\Operation;
 use App\Models\User;
 use Carbon\Carbon;
@@ -134,6 +135,13 @@ class VisaoGeral extends Component
         }
 
         $this->operationData->delete();
+
+        if ($this->operationData->bill_parcel_id) {
+            $get_bill_parcel_if_exists = Bill_Parcel::find($this->operationData->bill_parcel_id);
+            $get_bill_parcel_if_exists->status = 0;
+            $get_bill_parcel_if_exists->save();
+        }
+
         $this->dispatchBrowserEvent('close-delete-item-conf');
         $this->emit('alert', 'Operação apagada com sucesso!');
     }

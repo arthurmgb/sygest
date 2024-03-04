@@ -225,6 +225,9 @@
 
             /* Create, Edit e Delete ITENS*/
 
+            window.addEventListener('close-process-item-conf', event => {
+                $('#process-this-confirmation').modal('hide');
+            })
 
             window.addEventListener('show-item-modal', event => {
                 $('#create-item').modal('show');

@@ -134,6 +134,7 @@
                             @endif
 
                             @error('state.categoria')
+                                <br>
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
@@ -170,6 +171,7 @@
                             @endif
 
                             @error('state.method')
+                                <br>
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>

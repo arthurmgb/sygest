@@ -27,4 +27,9 @@ class Bill extends Model
     {
         return $this->belongsTo(Method::class);
     }
+
+    public function parcel()
+    {
+        return $this->hasMany(Bill_Parcel::class);
+    }
 }
