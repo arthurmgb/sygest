@@ -50,3 +50,7 @@ Route::get('/opt', function () {
     Artisan::call('optimize');
     return "Cleared";
 });
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
