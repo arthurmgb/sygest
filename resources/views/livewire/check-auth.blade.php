@@ -17,14 +17,13 @@
                     </h5>
 
                     @if (count($account_operators))
-                        <select wire:key="check-auth-select"
-                            wire:target="verifyCredentials, updatedSelectedOperator"
+                        <select wire:key="check-auth-select" wire:target="verifyCredentials, updatedSelectedOperator"
                             wire:loading.attr="disabled" wire:model="selectedOperator"
                             style="font-size: 20px; height: auto; width: 450px; max-width: 100%;"
                             class="form-control modal-input-cat yampay-scroll mb-3" id="operator-check-auth"
                             onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
-                            onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut'); this.disabled='true'"
-                            onchange="this.size=1; this.blur();">
+                            onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
+                            onchange="this.size=1; this.blur(); this.disabled=true">
                             <option value="">Selecione um operador</option>
 
                             @foreach ($account_operators as $account_operator)
