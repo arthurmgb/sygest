@@ -598,7 +598,8 @@
             <div class="modal-content modal-custom">
                 <div class="modal-header">
                     <h5 class="modal-title px-3 py-3" id="delete-cat-confirmationLabel">Confirmação de apagamento</h5>
-                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close px-4" data-dismiss="modal"
+                        wire:click.prevent="resetDelete()" aria-label="Close">
                         <i class="fal fa-times"></i>
                     </button>
                 </div>
@@ -619,7 +620,8 @@
 
                 </div>
                 <div class="modal-footer py-4">
-                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal"
+                        wire:click.prevent="resetDelete()">Cancelar</button>
                     <button wire:loading.attr="disabled" wire:click.prevent="delete()" type="button"
                         class="btn btn-send">Confirmar</button>
                     </form>

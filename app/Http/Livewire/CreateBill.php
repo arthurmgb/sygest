@@ -97,6 +97,7 @@ class CreateBill extends Component
     {
         $this->dispatchBrowserEvent('close-item-modal');
         $this->reset('state');
+        $this->state['categoria'] = "";
         $this->reset('bill_client_param');
         $this->reset('bill_category_param');
         $this->reset('bill_method_param');
@@ -109,6 +110,7 @@ class CreateBill extends Component
     {
         $this->dispatchBrowserEvent('close-item-confirmation-modal');
         $this->reset('state');
+        $this->state['categoria'] = "";
         $this->reset('bill_client_param');
         $this->reset('bill_category_param');
         $this->reset('bill_method_param');
@@ -166,6 +168,7 @@ class CreateBill extends Component
 
             $this->dispatchBrowserEvent('close-item-confirmation-modal');
             $this->reset('state');
+            $this->state['categoria'] = "";
             $this->state['tipo'] = '1';
             $this->state['recurrence'] = 'unico';
             $this->state['parcels'] = 1;

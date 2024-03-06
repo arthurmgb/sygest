@@ -54,16 +54,27 @@ class FluxoCaixa extends Component
         }
     }
 
-    public function prepareToDelete(Operation $operation)
+    public function prepareToDelete($operationId)
     {
+        $operation = Operation::find($operationId);
 
-        // Verificando se o dado pertence ao usuário logado
-        if ($operation->user_id != auth()->user()->id) {
-            return redirect('404');
+        if (!is_null($operation)) {
+
+            // Verificando se o dado pertence ao usuário logado
+            if ($operation->user_id != auth()->user()->id) {
+                return redirect('404');
+            }
+            // ---
+
+            $this->operationData = $operation;
+        } else {
+            $this->emit('refresh-alert');
         }
-        // ---
+    }
 
-        $this->operationData = $operation;
+    public function resetDelete()
+    {
+        $this->reset('operationData');
     }
 
     public function delete()
