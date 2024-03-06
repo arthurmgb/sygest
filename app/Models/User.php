@@ -37,6 +37,8 @@ class User extends Authenticatable
         'is_admin',
         'is_blocked',
         'modal_start',
+        'razao_social',
+        'endereco'
     ];
 
     /**

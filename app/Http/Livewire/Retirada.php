@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Operation;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,6 +19,8 @@ class Retirada extends Component
     public $qtd = 10;
 
     public $operationData;
+
+    public $attachment;
 
     protected $listeners = ['render'];
 
@@ -48,9 +51,29 @@ class Retirada extends Component
             return;
         }
 
+        // Remover a imagem do armazenamento
+        if ($this->operationData->imagem) {
+            Storage::delete('public/' . $this->operationData->imagem);
+        }
+
         $this->operationData->delete();
         $this->dispatchBrowserEvent('close-delete-item-conf');
         $this->emit('alert', 'Retirada apagada com sucesso!');
+    }
+
+    public function showAttachedImage(Operation $operation)
+    {
+
+        if ($operation->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
+        $this->attachment = $operation->imagem;
+    }
+
+    public function resetAttachedImage()
+    {
+        $this->reset('attachment');
     }
 
     public function render()

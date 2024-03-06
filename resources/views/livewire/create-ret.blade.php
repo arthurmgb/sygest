@@ -1,5 +1,5 @@
 <div>
-    <!-- Modal Operação-->
+    <!-- Modal Retirada-->
     <div class="modal fade" id="operacao" tabindex="-1" aria-labelledby="operacaoLabel" aria-hidden="true"
         wire:ignore.self>
         <div class="modal-dialog">
@@ -92,7 +92,7 @@
                             </div>
                         @endif
 
-                        <div class="form-group mb-0">
+                        <div class="form-group">
                             <label class="modal-label" for="total-op">Total da retirada <span
                                     class="red">*</span></label>
                             <div class="input-group mb-0">
@@ -105,6 +105,39 @@
                             @error('state.total')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
+                        </div>
+
+                        <div class="form-group mb-0 d-flex flex-column align-items-center">
+
+                            <label class="modal-label align-self-start">
+                                Anexar imagem <small>(opcional)</small>
+                            </label>
+
+                            <label class="mb-0 mt-2 align-self-start" id="btn-anexo" for="op-img">
+                                Selecionar uma imagem
+                            </label>
+
+                            <input style="display: none;" id="op-img" type="file" wire:model="imagem"
+                                accept="image/*">
+
+                            <div class="d-flex flex-row align-items-center justify-content-center">
+                                <div class="pt-5" wire:loading wire:target="imagem">
+                                    <i style="color: #725BC2; opacity: 90%;"
+                                        class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
+                                </div>
+                            </div>
+
+                            @if ($imagem)
+                                <img class="mt-3" id="preview-anexo" src="{{ $imagem->temporaryUrl() }}"
+                                    wire:loading.remove>
+                            @endif
+
+                            @error('imagem')
+                                <div class="mt-2">
+                                    <span class="wire-error">{{ $message }}</span>
+                                </div>
+                            @enderror
+
                         </div>
 
                 </div>
@@ -138,7 +171,7 @@
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, uma nova operação será cadastrada.
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, uma nova retirada será cadastrada.
                         </p>
                         <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
                             data-dismiss="modal" class="px-4 verify-font">Verificar dados da operação</button>

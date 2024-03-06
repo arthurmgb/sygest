@@ -39,6 +39,8 @@ class CheckAuth extends Component
 
         $rotasPermitidas = ['home', 'geral', 'retiradas'];
 
+        // dd($rotaAtual);
+
         if (!$this->generatingAdmin) {
 
             if (is_null($get_operator_online) && !in_array($rotaAtual, $rotasPermitidas)) {

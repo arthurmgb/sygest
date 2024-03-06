@@ -78,6 +78,7 @@ class CreateProduct extends Component
 
     public function save()
     {
+
         $get_product_group_to_check = Product_Group::find($this->selectedGroup);
 
         if ($get_product_group_to_check != null && $get_product_group_to_check->user_id != auth()->user()->id) {
@@ -86,6 +87,10 @@ class CreateProduct extends Component
 
         if (empty($this->selectedGroup)) {
             $this->selectedGroup = null;
+        }
+
+        if (empty($this->state['estoque_min'])) {
+            $this->state['estoque_min'] = null;
         }
 
         $preco_formatado = str_replace(".", "", $this->state['preco']);

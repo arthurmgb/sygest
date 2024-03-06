@@ -15,7 +15,7 @@ class Operation extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    protected $fillable = ['descricao', 'total', 'tipo', 'category_id', 'operator_id', 'especie', 'method_id', 'is_venda', 'total_venda', 'valor_pago', 'troco', 'desconto', 'adicional', 'user_id', 'created_at'];
+    protected $fillable = ['descricao', 'total', 'tipo', 'category_id', 'operator_id', 'especie', 'method_id', 'bill_parcel_id', 'is_venda', 'total_venda', 'valor_pago', 'troco', 'desconto', 'adicional', 'imagem', 'user_id', 'created_at'];
 
     //Relação um a muitos
     public function user()
@@ -38,7 +38,8 @@ class Operation extends Model
     {
         return $this->hasMany(Operation_Product::class);
     }
-    public function operationMethods(){
+    public function operationMethods()
+    {
         return $this->hasMany(Operation_Method::class);
     }
 }

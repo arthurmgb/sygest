@@ -28,14 +28,18 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'cidade' => ['nullable', 'string', 'max:255'],
             'estado' => ['nullable', 'string', 'max:255'],
             'banco' => ['nullable', 'string', 'max:255'],
+            'razao_social' => ['nullable', 'string', 'max:255'],
+            'endereco' => ['nullable', 'string', 'max:255'],
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
             $user->updateProfilePhoto($input['photo']);
         }
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
+        if (
+            $input['email'] !== $user->email &&
+            $user instanceof MustVerifyEmail
+        ) {
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
@@ -47,6 +51,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'cidade' => $input['cidade'],
                 'estado' => $input['estado'],
                 'banco' => $input['banco'],
+                'razao_social' => $input['razao_social'],
+                'endereco' => $input['endereco'],
             ])->save();
         }
     }

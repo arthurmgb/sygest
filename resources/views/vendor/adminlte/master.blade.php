@@ -148,6 +148,7 @@
                 reverse: true
             });
             $('.qtd-item').mask('00000');
+            $('.qtd-item-two').mask('00');
             $('.precos-mask').mask('#.##0,00', {
                 reverse: true
             });
@@ -224,6 +225,9 @@
 
             /* Create, Edit e Delete ITENS*/
 
+            window.addEventListener('close-process-item-conf', event => {
+                $('#process-this-confirmation').modal('hide');
+            })
 
             window.addEventListener('show-item-modal', event => {
                 $('#create-item').modal('show');
@@ -475,12 +479,12 @@
             });
             $(document).ready(function() {
                 $('#group-select').select2({
-                    dropdownParent: $('#create-item')
+                    dropdownParent: $('#create-item .modal-body')
                 });
             });
             $(document).ready(function() {
                 $('#group-select-edit').select2({
-                    dropdownParent: $('#edit-this')
+                    dropdownParent: $('#edit-this .modal-body')
                 });
             });
         </script>

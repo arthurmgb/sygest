@@ -148,7 +148,8 @@
                                     </table>
                                 </div>
                                 <div class="row border-top pt-3 px-2 ml-0 mw-100">
-                                    <div class="col-6 border-right h-100">
+                                    <div @if (!$valorPago) style="visibility: hidden;" @endif
+                                        class="col-6 border-right h-100">
                                         <div class="form-group mb-2">
                                             <label class="modal-label">
                                                 Forma de pagamento
@@ -343,10 +344,11 @@
                     @error('subtotal')
                         <span class="wire-error">{{ $message }}</span>
                     @enderror
+                    <button type="button" data-dismiss="modal" class="btn btn-cancel">Fechar PDV</button>
                     <button wire:loading.attr="disabled" wire:click.prevent="callCancelarVenda" type="button"
-                        class="btn btn-cancel ml-4">Cancelar</button>
+                        class="btn btn-cancel-danger">Cancelar venda</button>
                     <button wire:loading.attr="disabled" wire:click.prevent="finalizarVenda" type="button"
-                        class="btn btn-send">Finalizar</button>
+                        class="btn btn-send">Concluir venda</button>
                     </form>
                 </div>
             </div>

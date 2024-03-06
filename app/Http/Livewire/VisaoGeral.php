@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bill_Parcel;
 use App\Models\Operation;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,6 +27,10 @@ class VisaoGeral extends Component
     public $totais;
 
     public $operationData;
+
+    public $attachment;
+
+    public $cnfData;
 
     protected $listeners = ['render'];
 
@@ -123,9 +129,45 @@ class VisaoGeral extends Component
             return;
         }
 
+        // Remover a imagem do armazenamento
+        if ($this->operationData->imagem) {
+            Storage::delete('public/' . $this->operationData->imagem);
+        }
+
         $this->operationData->delete();
+
+        if ($this->operationData->bill_parcel_id) {
+            $get_bill_parcel_if_exists = Bill_Parcel::find($this->operationData->bill_parcel_id);
+            $get_bill_parcel_if_exists->status = 0;
+            $get_bill_parcel_if_exists->save();
+        }
+
         $this->dispatchBrowserEvent('close-delete-item-conf');
         $this->emit('alert', 'Operação apagada com sucesso!');
+    }
+
+    public function showAttachedImage(Operation $operation)
+    {
+
+        if ($operation->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
+        $this->attachment = $operation->imagem;
+    }
+
+    public function resetAttachedImage()
+    {
+        $this->reset('attachment');
+    }
+
+    public function showCnf(Operation $operation)
+    {
+        if ($operation->user_id != auth()->user()->id) {
+            return redirect('404');
+        }
+
+        $this->cnfData = $operation;
     }
 
     public function render()

@@ -399,6 +399,7 @@
                                         <tr class="t-head-border">
                                             <th>Cód.</th>
                                             <th style="min-width: 220px;">Descrição</th>
+                                            <th>Imagem</th>
                                             <th>Data</th>
                                             <th>Total</th>
                                             <th width="200px">Categoria</th>
@@ -415,7 +416,7 @@
                                             <th width="100px">Operador</th>
                                             <th width="200px">Operação</th>
                                             <th>Detalhes</th>
-                                            <th></th>
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody class="t-body">
@@ -498,6 +499,26 @@
                                                 </td>
                                                 <td style="@if (auth()->user()->table_scroll == 1) word-wrap: break-word @elseif(auth()->user()->table_scroll == 0) word-break: break-all @endif"
                                                     class="align-middle font-desc">{{ $operation->descricao }}</td>
+                                                <td class="align-middle">
+                                                    @if ($operation->imagem)
+                                                        <img style="object-fit: contain; user-select: none; -webkit-user-drag: none; user-drag: none;"
+                                                            width="50" height="50"
+                                                            src="{{ asset('storage/' . $operation->imagem) }}">
+                                                        <button
+                                                            wire:click.prevent="showAttachedImage({{ $operation->id }})"
+                                                            wire:target="showAttachedImage({{ $operation->id }})"
+                                                            wire:loading.attr="disabled" data-toggle="modal"
+                                                            data-target="#operation-attachment"
+                                                            class="btn btn-sm btn-link mt-1 verify-font"
+                                                            style="font-size: 14px !important;">
+                                                            Abrir
+                                                        </button>
+                                                    @elseif($operation->is_venda === 1)
+                                                        <i>Não se aplica</i>
+                                                    @else
+                                                        <i>Nenhuma</i>
+                                                    @endif
+                                                </td>
                                                 <td style="white-space: nowrap;" class="align-middle">
                                                     {{ $data_operacao }}<br><span class="g-light">há
                                                         {{ $diferenca }} {{ $tempo }}</span></td>
@@ -561,18 +582,30 @@
                                                     @endif
                                                 </td>
                                                 <td class="align-middle">
-                                                    <div wire:target="prepareToDelete({{ $operation->id }})"
-                                                        wire:loading.attr="disabled"
-                                                        wire:click.prevent="prepareToDelete({{ $operation->id }})"
-                                                        data-toggle="modal" data-target="#delete-this-confirmation"
-                                                        data-tooltip="Apagar" data-flow="left" class="cba mr-2">
-                                                        <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <div wire:target="prepareToDelete({{ $operation->id }})"
+                                                            wire:loading.attr="disabled"
+                                                            wire:click.prevent="prepareToDelete({{ $operation->id }})"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-this-confirmation"
+                                                            data-tooltip="Apagar" data-flow="left" class="cba mr-2">
+                                                            <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
+                                                        </div>
+                                                        @if ($operation->is_venda === 1)
+                                                            <div wire:target="showCnf({{ $operation->id }})"
+                                                                wire:loading.attr="disabled"
+                                                                wire:click.prevent="showCnf({{ $operation->id }})"
+                                                                data-toggle="modal" data-target="#operation-receipt"
+                                                                data-tooltip="Cupom" data-flow="left" class="cba">
+                                                                <i class="fad fa-receipt fa-fw fa-crud fac-link"></i>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr wire:ignore.self class="collapse bg-light"
                                                 id="fold-{{ $operation->id }}">
-                                                <td class="p-4" colspan="11">
+                                                <td class="p-4" colspan="12">
                                                     <h6 class="mb-3">Detalhes da venda</h6>
                                                     <ul class="list-group list-group-flush">
                                                         <li class="list-group-item">
@@ -1246,6 +1279,240 @@
                     <button wire:loading.attr="disabled" wire:click.prevent="delete()" type="button"
                         class="btn btn-send">Confirmar</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cupom -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="operation-receipt" tabindex="-1"
+        aria-labelledby="operation-receiptLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog" style="max-width: 80mm;">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 style="font-size: 20px !important;" class="modal-title p-1"
+                        id="delete-cat-confirmationLabel">Cupom <b>não</b> fiscal</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-0 printable d-flex flex-row align-items-start justify-content-start">
+
+                    <div wire:loading.class="blur-cnf" class="cnf-container d-flex flex-column align-items-center p-2"
+                        style="width: 90vw;">
+                        <p class="cnf-fantasia font-weight-bold mb-0 text-center">
+                            {{ auth()->user()->name }}
+                        </p>
+                        <p class="mb-0 text-center">
+                            @if (!is_null(auth()->user()->razao_social) && !empty(auth()->user()->razao_social))
+                                {{ auth()->user()->razao_social }}
+                            @else
+                                <span style="color: red;">---</span>
+                            @endif
+                        </p>
+                        <p class="mb-0 text-center">
+
+                            @php
+                                if (!is_null(auth()->user()->endereco) && !empty(auth()->user()->endereco)) {
+                                    $user_endereco = auth()->user()->endereco;
+                                } else {
+                                    $user_endereco = '<span style="color: red;">---</span>';
+                                }
+                                if (!is_null(auth()->user()->cidade) && !empty(auth()->user()->cidade)) {
+                                    $user_cidade = auth()->user()->cidade;
+                                } else {
+                                    $user_cidade = '<span style="color: red;">---</span>';
+                                }
+                                if (!is_null(auth()->user()->estado) && !empty(auth()->user()->estado)) {
+                                    $user_estado = auth()->user()->estado;
+                                } else {
+                                    $user_estado = '<span style="color: red;">---</span>';
+                                }
+                            @endphp
+
+                            {!! $user_endereco . ' - ' . $user_cidade . '/' . $user_estado !!}
+
+                        </p>
+                        <p class="mb-2">
+                            @if (!is_null(auth()->user()->celular) && !empty(auth()->user()->celular))
+                                {{ auth()->user()->celular }}
+                            @else
+                                <span style="color: red;">---</span>
+                            @endif
+                        </p>
+                        <p class="align-self-start mb-2">
+                            CNPJ: {!! auth()->user()->documento ?? "<span style='color: red;'>---</span>" !!}
+                        </p>
+                        <p class="align-self-start mb-1">CLIENTE: CONSUMIDOR FINAL</p>
+                        <p style="overflow-wrap: anywhere;" class="align-self-start mb-1">
+                            @if ($cnfData)
+                                {{ $cnfData->created_at->format('d/m/Y H:i') }}
+                            @endif
+                        </p>
+                        <p class="cnf-title font-weight-bold mb-0">CUPOM NÃO FISCAL</p>
+                        <table
+                            class="table table-sm cnf-table border border-secondary border-right-0 border-left-0 my-1">
+                            <thead>
+                                <tr>
+                                    <th width="150" class="font-weight-normal align-middle border-secondary"
+                                        scope="col">
+                                        DESCRIÇÃO</th>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">QTD X
+                                        UNIT</th>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">R$
+                                        TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($cnfData)
+                                    @foreach ($cnfData->products as $cnfItemProduct)
+                                        <tr class="font-weight-bold">
+                                            <td class="align-middle">{{ $cnfItemProduct->nome_produto }}</td>
+                                            <td class="align-middle">{{ $cnfItemProduct->quantidade_vendida }} x
+                                                {{ number_format($cnfItemProduct->preco_unitario, 2, ',', '.') }}</td>
+                                            <td class="align-middle">
+                                                {{ number_format($cnfItemProduct->subtotal_vendido, 2, ',', '.') }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-1">Total da venda R$</p>
+                            <p class="mb-1">
+                                @if ($cnfData)
+                                    {{ number_format($cnfData->total_venda, 2, ',', '.') }}
+                                @endif
+                            </p>
+                        </div>
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-1">Adicional R$</p>
+                            <p class="mb-1">
+                                @if ($cnfData)
+                                    {{ number_format($cnfData->adicional, 2, ',', '.') }}
+                                @endif
+                            </p>
+                        </div>
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-1">Desconto R$</p>
+                            <p class="mb-1">
+                                @if ($cnfData)
+                                    {{ number_format($cnfData->desconto, 2, ',', '.') }}
+                                @endif
+                            </p>
+                        </div>
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-1">Total da nota R$</p>
+                            <p class="mb-1">
+                                @if ($cnfData)
+                                    <b>{{ number_format($cnfData->total, 2, ',', '.') }}</b>
+                                @endif
+                            </p>
+                        </div>
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-1">Valor recebido R$</p>
+                            <p class="mb-1">
+                                @if ($cnfData)
+                                    {{ number_format($cnfData->valor_pago, 2, ',', '.') }}
+                                @endif
+                            </p>
+                        </div>
+                        <div
+                            class="align-self-start d-flex flex-row align-items-center justify-content-between w-100 cnf-resumo font-weight-bold">
+                            <p class="mb-3">Troco R$</p>
+                            <p class="mb-3">
+                                @if ($cnfData)
+                                    {{ number_format($cnfData->troco, 2, ',', '.') }}
+                                @endif
+                            </p>
+                        </div>
+
+                        <p class="align-self-start font-weight-bold cnf-resumo mb-1">FORMAS DE PGTO.</p>
+
+                        <table
+                            class="table table-sm cnf-table border border-secondary border-right-0 border-left-0 my-1">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">
+                                        DATA PGTO.</th>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">
+                                        VALOR R$
+                                    </th>
+                                    <th class="font-weight-normal align-middle border-secondary" scope="col">
+                                        TIPO PGTO.
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($cnfData)
+                                    @foreach ($cnfData->operationMethods as $cnfItemMethod)
+                                        <tr class="font-weight-bold">
+                                            <td style="white-space: nowrap" class="align-middle">
+                                                {{ $cnfData->created_at->format('d/m/Y') }}
+                                            </td>
+                                            <td class="align-middle">
+                                                {{ number_format($cnfItemMethod->valor_pago, 2, ',', '.') }}</td>
+                                            <td class="align-middle">{{ $cnfItemMethod->nome_fp }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+
+                        <p class="w-100 align-self-start py-1 my-0 border-bottom border-secondary">
+                            VENDEDOR(A): @if ($cnfData)
+                                {{ $cnfData->operator->nome }}
+                            @endif
+                        </p>
+
+                        <p class="w-100 mt-5 text-center border-top border-secondary font-weight-bold">
+                            * OBRIGADO E VOLTE SEMPRE! *
+                        </p>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer p-2 d-flex flex-column align-items-center">
+                    <button type="button" class="btn btn-cancel w-100 mx-0 mt-0 mb-2"
+                        data-dismiss="modal">Fechar</button>
+                    <button id="print-cnf" wire:loading.attr="disabled" wire:click.prevent="" type="button"
+                        class="btn btn-send w-100 m-0">Imprimir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Anexo -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="operation-attachment" tabindex="-1"
+        aria-labelledby="operation-attachmentLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 style="font-size: 20px !important;" class="modal-title p-1"
+                        id="delete-cat-confirmationLabel">Imagem anexada</h5>
+                    <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close"
+                        wire:click.prevent="resetAttachedImage" wire:loading.attr="disabled">
+                        <i class="fal fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-0 d-flex flex-row justify-content-center">
+
+                    <img id="img-anexo" src="{{ asset('storage/' . $attachment) }}" alt="Anexo não encontrado"
+                        wire:loading.remove>
+
+                </div>
+                <div class="modal-footer p-2 d-flex flex-column align-items-center">
+                    <button type="button" class="btn btn-cancel w-100 mx-0 mt-0 mb-2" data-dismiss="modal"
+                        wire:click.prevent="resetAttachedImage" wire:loading.attr="disabled">Fechar</button>
                 </div>
             </div>
         </div>

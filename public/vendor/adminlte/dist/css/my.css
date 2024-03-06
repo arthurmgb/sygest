@@ -8,8 +8,8 @@
 }
 body {
     background-color: #f4f6f8 !important;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
 }
 .cashiers-scroll::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -403,6 +403,17 @@ body {
     border-radius: 4px;
     text-transform: uppercase;
 }
+.pending-status {
+    color: #422006;
+    background: #facc15;
+    padding: 4px 8px;
+    font-size: 10px;
+    line-height: 12px;
+    white-space: normal;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
 .categoria {
     text-transform: uppercase;
     font-weight: 700;
@@ -476,6 +487,23 @@ body {
 .btn-cancel:hover {
     background-color: #f4f6f8;
 }
+.btn-cancel-danger {
+    color: #fff !important;
+    background-color: #ef4444;
+    border: 1px solid transparent;
+    padding: 13px 50px;
+    font-size: 15px;
+    line-height: 17px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: none;
+}
+.btn-cancel-danger:hover {
+    background-color: #e65252;
+}
 .radio {
     display: none;
 }
@@ -489,6 +517,13 @@ body {
 .radio:checked + .label-red {
     color: #fff !important;
     background-color: #e6274c;
+    font-weight: 700 !important;
+    border: 1px solid transparent !important;
+    transition: 0.2s;
+}
+.radio:checked + .label-default {
+    color: #fff !important;
+    background-color: #2563eb;
     font-weight: 700 !important;
     border: 1px solid transparent !important;
     transition: 0.2s;
@@ -517,6 +552,13 @@ body {
     color: #e6274c !important;
     border: 1px solid #e6274c;
 }
+.label-default {
+    padding: 10px 25px;
+}
+.label-default:hover {
+    color: #2563eb !important;
+    border: 1px solid #2563eb;
+}
 .red {
     color: #e50f38 !important;
 }
@@ -535,6 +577,19 @@ body {
     border-radius: 4px;
     color: #333 !important;
     -webkit-appearance: none;
+}
+.modal-input-no-inset {
+    width: 100%;
+    padding: 11px 16px;
+    font-size: 15px;
+    border: 1px solid #b3b3b3;
+    margin: 0;
+    border-radius: 4px;
+    color: #333 !important;
+    -webkit-appearance: none;
+}
+.modal-input-no-inset:focus {
+    border-color: #b3b3b3 !important;
 }
 .modal-input-cat {
     width: 100%;
@@ -694,6 +749,14 @@ select > option:checked {
     opacity: 0.6;
 }
 .search-relatorio::-webkit-calendar-picker-indicator:hover {
+    transform: scale(1.2);
+    opacity: 0.7;
+}
+.custom-date-input::-webkit-calendar-picker-indicator {
+    cursor: pointer !important;
+    opacity: 0.6;
+}
+.custom-date-input::-webkit-calendar-picker-indicator:hover {
     transform: scale(1.2);
     opacity: 0.7;
 }
@@ -1608,6 +1671,9 @@ input[type="checkbox"]:checked + label:before {
 }
 .nav-treeview {
     background-color: #f3f4f6 !important;
+    border: 1px solid #e2e2e2;
+    border-top: none;
+    border-radius: 0.25rem;
 }
 .nav-flat .nav-item .nav-treeview > .nav-item > .nav-link.active {
     border-color: #292961 !important;
@@ -1980,7 +2046,7 @@ select.fadeOut {
 .select2-container--default .select2-results > .select2-results__options {
     max-height: 320px !important;
 }
-.select2-selection__rendered{
+.select2-selection__rendered {
     padding-top: 3px;
 }
 /* PDV */
@@ -2033,4 +2099,178 @@ select.fadeOut {
 }
 .js-scrollable-table table:active {
     cursor: grabbing !important;
+}
+/* ESTILOS CNF */
+.cnf-container {
+    background-color: #fbfdd1;
+    user-select: none !important;
+    width: 80mm;
+}
+.cnf-container * {
+    font-family: "Courier New", Courier, monospace !important;
+    overflow-wrap: anywhere;
+}
+.cnf-container > .cnf-fantasia {
+    font-size: inherit !important;
+}
+.cnf-container > .cnf-title {
+    font-size: inherit !important;
+}
+.cnf-container > p {
+    font-size: 12px;
+}
+.cnf-table {
+    font-size: 12px;
+    background-color: transparent !important;
+}
+.cnf-table tbody {
+    font-size: 11px;
+}
+.cnf-resumo {
+    font-size: 13px !important;
+}
+/* FIM ESTILOS CNF */
+
+#btn-anexo {
+    color: #fff !important;
+    background-color: #725bc2;
+    font-weight: 700 !important;
+    padding: 8px 30px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: none;
+}
+#btn-anexo:hover {
+    background-color: #8369df;
+}
+#preview-anexo {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    border: 1px solid #292961;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+#img-anexo {
+    max-width: 100%;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+.menu-item-development {
+    pointer-events: none;
+    opacity: 0.6;
+    user-select: none;
+}
+.blur-cnf {
+    filter: blur(3px);
+}
+.td-client-obs:hover {
+    background-color: #eee !important;
+}
+.show-client-obs {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 250px;
+    max-height: 60px;
+    cursor: zoom-in;
+    color: #5e45b9;
+    transition: all 0.5s;
+}
+.show-client-obs:hover {
+    text-overflow: unset;
+    overflow: unset;
+    white-space: unset;
+    max-height: unset;
+}
+.btlr-btrr {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.btn-toggle-month {
+    background-color: #fff;
+    color: #725bc2;
+    border: 2px solid #725bc2;
+    font-weight: 700;
+    padding: 9px 25px;
+    font-size: 13px;
+    line-height: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: none;
+    border-radius: 4px;
+    transition: none;
+}
+.btn-toggle-month:hover {
+    color: #fff;
+    background-color: #8369df;
+    border: 2px solid #8369df;
+}
+.btn-toggle-month-active {
+    color: #fff !important;
+    background-color: #725bc2 !important;
+    border: 2px solid transparent !important;
+}
+.bills-year-select {
+    width: max-content;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    border: 2px solid #725bc2 !important;
+    border-radius: 4px !important;
+    color: #725bc2 !important;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer !important;
+}
+.bills-year-select-scroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+    border-radius: 0px;
+}
+
+.bills-year-select-scroll::-webkit-scrollbar {
+    width: 5px;
+    height: 5px !important;
+    background-color: #f5f5f5;
+}
+
+.bills-year-select-scroll::-webkit-scrollbar-thumb {
+    border-radius: 0px;
+    background-color: #725bc2;
+    background-image: -webkit-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.2) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.2) 75%,
+        transparent 75%,
+        transparent
+    );
+}
+.bill-reports-card-font {
+    line-height: 13px;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 16px;
+    gap: 15px;
+}
+.bill-amount {
+    line-height: 13px;
+    font-size: 20px;
+    color: #725bc2;
+}
+.filters-label span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+}
+.bill-title-type {
+    line-height: 25px !important;
 }

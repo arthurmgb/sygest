@@ -1,34 +1,50 @@
 <div>
+    {{-- HEADING --}}
     <div class="page-header d-flex flex-row align-items-center mb-2">
-        <h2 class="f-h2">Grupos</h2>
-        <span class="f-span">{{ $groups_count }} grupos cadastrados</span>
-        <a data-toggle="modal" data-target="#create-item" class="btn btn-new ml-auto">+ Novo grupo</a>
+        <h2 class="f-h2">Clientes</h2>
+        <span class="f-span">{{ $clients_count }} clientes cadastrados</span>
+        <a data-toggle="modal" data-target="#create-item" class="btn btn-new ml-auto">+ Novo cliente</a>
     </div>
+    {{-- HEADING --}}
 
+    {{-- BLOCO PRINCIPAL --}}
     <div class="block">
 
         <div class="card">
 
+            {{-- PESQUISA --}}
             <div class="card-topo mb-3">
-                <input wire:model="search" placeholder="buscar grupo" class="search-input" autocomplete="off">
+                <input wire:model="search" placeholder="buscar cliente" class="search-input" autocomplete="off">
                 <i class="fa fa-search"></i>
             </div>
+            {{-- PESQUISA --}}
 
+            {{-- LOADER --}}
             <div wire:target="render, search, qtd, updatingSearch" style="margin-top: 125px; margin-bottom: 125px;"
                 wire:loading wire:loading.class="d-flex flex-row align-items-center justify-content-center">
                 <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
             </div>
+            {{-- LOADER --}}
 
-            <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove class="card-body px-0 pb-0">
+            {{-- LISTAGEM --}}
+            <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove
+                class="card-body px-0 pb-0 table-responsive yampay-scroll-lg js-scrollable-table"
+                onmousedown="startDragging(event)">
 
-                @if ($groups->count())
+                @if ($clients->count())
 
                     <table style="cursor: default;" class="table table-borderless">
                         <thead class="t-head">
                             <tr class="t-head-border">
-                                <th>Descrição</th>
+                                <th style="min-width: 200px;">Nome</th>
+                                <th>CPF/CNPJ</th>
+                                <th>RG</th>
+                                <th style="min-width: 200px;">Endereço</th>
+                                <th>Celular</th>
+                                <th style="min-width: 200px;">E-mail</th>
+                                <th style="min-width: 250px;">Observações</th>
                                 <th>Data de cadastro</th>
-                                <th width="200px">Ações</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody class="t-body">
@@ -37,14 +53,12 @@
                                 $dia_atual = Carbon\Carbon::now();
                             @endphp
 
-                            @foreach ($groups as $group)
+                            @foreach ($clients as $client)
                                 @php
 
-                                    $data_cadastro = $group->created_at->format('d/m/Y H:i');
-
+                                    $data_cadastro = $client->created_at->format('d/m/Y H:i');
                                     $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dia_atual);
-                                    $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $group->created_at);
-
+                                    $date2 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $client->created_at);
                                     $diferenca = $date2->diffInDays($date1);
                                     $tempo = 'dias';
 
@@ -81,30 +95,58 @@
                                 @endphp
 
                                 <tr class="tr-hover">
-                                    <td style="word-break: break-all" class="align-middle font-desc">
-                                        <span class="ident-cdg">
-                                            Código:
-                                            <span style="color: #725BC2; font-weight: 500;">{{ $group->id }}</span>
-                                        </span>
-                                        <br>
-                                        {{ $group->descricao }}
+                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
+                                        {{ $client->nome }}
                                     </td>
+                                    <td style="white-space: nowrap;" class="align-middle font-desc">
+                                        {!! $client->documento ?? '<i>Não definido</i>' !!}
+                                    </td>
+                                    <td style="white-space: nowrap;" class="align-middle font-desc">
+                                        {!! $client->rg ?? '<i>Não definido</i>' !!}
+                                    </td>
+                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
+                                        {!! $client->endereco ?? '<i>Não definido</i>' !!}
+                                    </td>
+                                    <td style="white-space: nowrap;" class="align-middle font-desc">
+                                        {!! $client->celular ?? '<i>Não definido</i>' !!}
+                                    </td>
+                                    <td style="overflow-wrap: anywhere;" class="align-middle font-desc">
+                                        {!! $client->email ?? '<i>Não definido</i>' !!}
+                                    </td>
+
+                                    <td class="align-middle font-desc td-client-obs">
+                                        <div class="show-client-obs">
+                                            @if ($client->obs)
+                                                <div style="color: #444;" class="obs-tip">
+                                                    <small>
+                                                        Passe o mouse em cima
+                                                        <br>
+                                                        para visualizar tudo
+                                                    </small>
+                                                </div>
+                                            @endif
+
+                                            {!! is_null($client->obs) ? '<i>Não definido</i>' : nl2br(e($client->obs)) !!}
+
+                                        </div>
+                                    </td>
+
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_cadastro }}<br><span
                                             class="g-light">há
                                             {{ $diferenca }} {{ $tempo }}</span></td>
                                     <td class="align-middle">
                                         <div class="d-flex flex-row align-items-center">
-                                            <div wire:target="edit({{ $group->id }})" wire:loading.attr="disabled"
-                                                wire:click.prevent="edit({{ $group->id }})" data-toggle="modal"
+                                            <div wire:target="edit({{ $client->id }})" wire:loading.attr="disabled"
+                                                wire:click.prevent="edit({{ $client->id }})" data-toggle="modal"
                                                 data-target="#edit-this" data-tooltip="Editar" data-flow="left"
                                                 class="cbe">
                                                 <i class="fad fa-edit fa-fw fa-crud fac-edit"></i>
                                             </div>
-                                            <div wire:target="prepareToDelete({{ $group->id }})"
+                                            <div wire:target="prepareToDelete({{ $client->id }})"
                                                 wire:loading.attr="disabled"
-                                                wire:click.prevent="prepareToDelete({{ $group->id }})"
+                                                wire:click.prevent="prepareToDelete({{ $client->id }})"
                                                 data-toggle="modal" data-target="#delete-this-confirmation"
-                                                data-tooltip="Apagar" data-flow="right" class="cba mr-2">
+                                                data-tooltip="Apagar" data-flow="left" class="cba mr-2">
                                                 <i class="fad fa-trash fa-fw fa-crud fac-del"></i>
                                             </div>
                                         </div>
@@ -245,19 +287,33 @@
                                     d="M123.276 112.706l.55 18.708h-1.3c-1.432 0-2.593 1.16-2.593 2.593s1.16 2.593 2.593 2.593h4.065a3.49 3.49 0 0 0 3.49-3.49c0-.594-1.432-9.597-1.126-20.405" />
                             </defs>
                         </svg>
-                        <h3 class="my-4 no-results">Não há grupos a serem exibidos.</h3>
+                        <h3 class="my-4 no-results">Não há clientes a serem exibidos.</h3>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-4">
                             <h3 class="no-results-create mb-3">Comece criando um</h3>
                             <a data-toggle="modal" data-target="#create-item" class="ml-2 btn btn-nr">+ Novo
-                                grupo</a>
+                                cliente</a>
                         </div>
                     </div>
 
                 @endif
 
             </div>
+            {{-- LISTAGEM --}}
+
+            {{-- DICA DE SCROLL --}}
+            <div wire:ignore style="width: fit-content; cursor: pointer; user-select: none;" class="tip-scroll mt-3"
+                data-toggle="tooltip" data-html="true" data-placement="right"
+                title="Clique e arraste o mouse em cima da tabela para visualizar todo o conteúdo. Ou se preferir, pressione <b>SHIFT</b> + <b>Scroll do Mouse</b>.">
+                <span class="info-total-cx">
+                    <i class="fa-fw fad fa-info-circle fa-lg info-ret" aria-hidden="true"></i>
+                </span>
+                <span
+                    style="font-size: 15px !important; color: #666; text-transform: uppercase; font-weight: 600;">Dica</span>
+            </div>
+            {{-- DICA DE SCROLL --}}
         </div>
 
+        {{-- PAGINAÇÃO --}}
         <div style="user-select: none; padding-bottom: 150px;"
             class="d-flex flex-row align-items-center justify-content-between">
 
@@ -271,24 +327,26 @@
                 <span class="ml-3 ipp">Itens por página</span>
             </div>
 
-            @if ($groups->hasPages())
+            @if ($clients->hasPages())
                 <div class="paginacao">
-                    {{ $groups->links() }}
+                    {{ $clients->links() }}
                 </div>
             @endif
         </div>
+        {{-- PAGINAÇÃO --}}
 
     </div>
+    {{-- BLOCO PRINCIPAL --}}
 
     {{-- MODALS --}}
 
     <!-- Modal Editar -->
     <div class="modal fade" id="edit-this" tabindex="-1" aria-labelledby="edit-thisLabel" aria-hidden="true"
         wire:ignore.self>
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content modal-custom">
                 <div class="modal-header">
-                    <h5 class="modal-title px-3 py-3" id="editarCatLabel">Editar grupo</h5>
+                    <h5 class="modal-title px-3 py-3" id="editarCatLabel">Editar cliente</h5>
                     <button type="button" class="close px-4" data-dismiss="modal" aria-label="Close">
                         <i class="fal fa-times"></i>
                     </button>
@@ -296,14 +354,134 @@
                 <div class="modal-body py-4 px-4">
 
                     <form wire:submit.prevent="confirmUpdate()">
-                        <div class="form-group">
-                            <label class="modal-label" for="desc-item-e">Descrição <small>(nome do grupo) </small>
-                                <span class="red">*</span></label>
-                            <input wire:model.defer="product_group.descricao" type="text"
-                                class="form-control modal-input" id="desc-item-e" autocomplete="off">
-                            @error('product_group.descricao')
-                                <span class="wire-error">{{ $message }}</span>
-                            @enderror
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+
+                                    <label class="modal-label" for="nome-item-e">
+                                        Nome completo
+                                        <span class="red">*</span>
+                                    </label>
+
+                                    <input wire:model.defer="client.nome" type="text"
+                                        class="form-control modal-input" id="nome-item-e" autocomplete="off">
+
+                                    @error('client.nome')
+                                        <span class="wire-error">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+
+                                    <label class="modal-label" for="documento-item-e">
+                                        CPF/CNPJ
+                                        <small>(opcional)</small>
+                                    </label>
+
+                                    <input wire:model.defer="client.documento" type="text"
+                                        class="form-control modal-input" id="documento-item-e" autocomplete="off">
+
+                                    @error('client.documento')
+                                        <span class="wire-error">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+
+                                    <label class="modal-label" for="rg-item-e">
+                                        RG
+                                        <small>(opcional)</small>
+                                    </label>
+
+                                    <input wire:model.defer="client.rg" type="text"
+                                        class="form-control modal-input" id="rg-item-e" autocomplete="off">
+
+                                    @error('client.rg')
+                                        <span class="wire-error">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+
+                                    <label class="modal-label" for="endereco-item-e">
+                                        Endereço
+                                        <small>(opcional)</small>
+                                    </label>
+
+                                    <input wire:model.defer="client.endereco" type="text"
+                                        class="form-control modal-input" id="endereco-item-e" autocomplete="off">
+
+                                    @error('client.endereco')
+                                        <span class="wire-error">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+
+                                    <label class="modal-label" for="celular-item-e">
+                                        Celular
+                                        <small>(opcional)</small>
+                                    </label>
+
+                                    <input wire:model.defer="client.celular" type="text"
+                                        class="form-control modal-input" id="celular-item-e" autocomplete="off"
+                                        placeholder="(00) 00000-0000">
+
+                                    @error('client.celular')
+                                        <span class="wire-error">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+
+                                    <label class="modal-label" for="email-item-e">
+                                        E-mail
+                                        <small>(opcional)</small>
+                                    </label>
+
+                                    <input wire:model.defer="client.email" type="email"
+                                        class="form-control modal-input" id="email-item-e" autocomplete="off">
+
+                                    @error('client.email')
+                                        <span class="wire-error">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+
+                                    <label class="modal-label" for="obs-item-e">
+                                        Observações
+                                        <small>(opcional)</small>
+                                    </label>
+
+                                    <textarea class="form-control modal-input yampay-scroll" wire:model.defer="client.obs" autocomplete="off"
+                                        name="" id="obs-item-e" rows="5">
+                                    </textarea>
+
+                                    @error('client.obs')
+                                        <span class="wire-error">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
                         </div>
                 </div>
                 <div class="modal-footer py-4">
@@ -315,7 +493,7 @@
         </div>
     </div>
 
-    <!-- Modal Editar Confirmação -->
+    <!-- Modal Editar - Confirmação -->
     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="edit-this-confirmation" tabindex="-1"
         aria-labelledby="edit-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
@@ -330,15 +508,15 @@
                 <div class="modal-body py-4 px-4">
 
                     <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente editar este
-                        grupo?</h5>
+                        cliente?</h5>
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, este grupo de produto será editado na
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, este cliente será editado na
                             plataforma.
                         </p>
                         <button type="button" wire:loading.attr="disabled" wire:click.prevent="alternate()"
-                            data-dismiss="modal" class="px-4 verify-font">Verificar dados do grupo</button>
+                            data-dismiss="modal" class="px-4 verify-font">Verificar dados do cliente</button>
                     </div>
 
                 </div>
@@ -353,7 +531,7 @@
         </div>
     </div>
 
-    <!-- Modal Deletar Confirmação -->
+    <!-- Modal Apagar - Confirmação -->
     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-this-confirmation"
         tabindex="-1" aria-labelledby="delete-this-confirmationLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
@@ -367,11 +545,11 @@
                 <div class="modal-body py-4 px-4">
 
                     <h5 class="modal-confirmation-msg m-0 text-center px-4 my-3">Deseja realmente apagar este
-                        grupo?</h5>
+                        cliente?</h5>
 
                     <div class="confirmation-msg text-center mb-3">
                         <p class="m-0 mb-3 px-4">
-                            Ao clicar em <span class="msg-bold">Confirmar</span>, este grupo de produto será
+                            Ao clicar em <span class="msg-bold">Confirmar</span>, este cliente será
                             apagado e não poderá mais ser utilizado na plataforma.
                         </p>
                     </div>
@@ -386,5 +564,7 @@
             </div>
         </div>
     </div>
+
+    {{-- MODALS --}}
 
 </div>

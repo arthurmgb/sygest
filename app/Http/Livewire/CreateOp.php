@@ -7,12 +7,15 @@ use App\Models\Method;
 use App\Models\Operation;
 use App\Models\Operator;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class CreateOp extends Component
 {
+    use WithFileUploads;
 
     protected $listeners = ['refreshComponent' => '$refresh', 'render'];
     public $state = [];
+    public $imagem;
 
 
     public $rules = [
@@ -23,7 +26,7 @@ class CreateOp extends Component
         'state.operador' => 'required',
         'state.total' => 'required|max:10',
         'state.especie' => 'required',
-
+        'imagem' => 'nullable|image|max:1024',
     ];
 
     protected $messages = [
@@ -100,7 +103,6 @@ class CreateOp extends Component
 
     public function confirmation()
     {
-
         $this->validate();
         $this->dispatchBrowserEvent('close-modal');
         $this->dispatchBrowserEvent('confirmation-modal');
@@ -116,6 +118,7 @@ class CreateOp extends Component
         $this->state['operador'] = "";
         $this->state['especie'] = "";
         $this->state['fp'] = "";
+        $this->reset('imagem');
     }
 
     public function resetOperation()
@@ -128,6 +131,7 @@ class CreateOp extends Component
         $this->state['operador'] = "";
         $this->state['especie'] = "";
         $this->state['fp'] = "";
+        $this->reset('imagem');
     }
 
     public function alternate()
@@ -149,6 +153,17 @@ class CreateOp extends Component
 
         if ($total_formatado > 0) {
 
+            if ($this->imagem) {
+                $nomeUnico = md5(uniqid()) . '.' . $this->imagem->extension();
+
+                // Salvar a imagem na pasta storage/public/imagens
+                $caminhoImagem = $this->imagem->storeAs('public/imagens', $nomeUnico);
+
+                $caminhoImagemNoBanco = str_replace('public/', '', $caminhoImagem);
+            } else {
+                $caminhoImagemNoBanco = null;
+            }
+
             Operation::create([
 
                 'tipo' => $this->state['tipo'],
@@ -158,6 +173,7 @@ class CreateOp extends Component
                 'especie' => $this->state['especie'],
                 'method_id' => $this->state['fp'],
                 'total' => $total_formatado,
+                'imagem' => $caminhoImagemNoBanco,
                 'user_id' => auth()->user()->id
 
             ]);
@@ -169,6 +185,7 @@ class CreateOp extends Component
             $this->state['operador'] = "";
             $this->state['especie'] = "";
             $this->state['fp'] = "";
+            $this->reset('imagem');
 
             $this->emit('alert', 'Operação realizada com sucesso!');
             $this->emitTo('fluxo-caixa', 'render');
