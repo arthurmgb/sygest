@@ -505,6 +505,10 @@
     @yield('adminlte_js')
 
     <script>
+        Livewire.on('refresh-alert', () => {
+            alert('Novas informações foram encontradas. A página será atualizada.');
+            location.reload();
+        })
         Livewire.on('alert', function(message) {
             Swal.fire(
                 'Tudo pronto!',

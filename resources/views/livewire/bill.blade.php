@@ -9,7 +9,7 @@
 
     {{-- SUB HEADING --}}
     @if ($parcels_count > 0)
-        <div class="reports-container mt-3">
+        <div wire:key="reports-container" class="reports-container mt-3">
             <div class="row">
                 <div class="col">
                     <div style="margin-bottom: 0 !important;" class="card">
@@ -70,7 +70,7 @@
             </div>
         </div>
         <hr>
-        <div class="filters-container" style="user-select: none;">
+        <div wire:key="filters-container" class="filters-container" style="user-select: none;">
             <div class="filters-label mb-2">
                 <span>Filtros (ano/mês)</span>
             </div>
