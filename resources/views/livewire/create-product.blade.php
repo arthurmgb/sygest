@@ -71,7 +71,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="modal-label" for="qtd-item">Estoque mínimo <small>(opcional)</small></label>
+                            <label class="modal-label" for="qtd-min-item">Estoque mínimo
+                                <small>(opcional)</small></label>
                             <input wire:model.defer="state.estoque_min" type="text"
                                 class="form-control modal-input qtd-item" id="qtd-min-item" placeholder="0-99999"
                                 autocomplete="off">

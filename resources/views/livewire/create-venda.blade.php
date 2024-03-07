@@ -409,7 +409,7 @@
                                 class="form-control modal-input-cat yampay-scroll" id="gerente-auth"
                                 onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                                 onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
-                                onchange="this.size=1; this.blur();">
+                                onchange="this.size=1; this.blur(); this.disabled=true">
                                 <option value="">Selecione um gerente</option>
 
                                 @foreach ($gerentes as $account_gerente)

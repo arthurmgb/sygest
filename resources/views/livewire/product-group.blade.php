@@ -82,11 +82,6 @@
 
                                 <tr class="tr-hover">
                                     <td style="word-break: break-all" class="align-middle font-desc">
-                                        <span class="ident-cdg">
-                                            Código:
-                                            <span style="color: #725BC2; font-weight: 500;">{{ $group->id }}</span>
-                                        </span>
-                                        <br>
                                         {{ $group->descricao }}
                                     </td>
                                     <td style="white-space: nowrap;" class="align-middle">{{ $data_cadastro }}<br><span

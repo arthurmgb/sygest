@@ -3,7 +3,7 @@
         $get_operator_auth_vg = session('operador_selecionado');
     @endphp
     <div class="page-header d-flex flex-row align-items-center justify-content-between">
-        <h2 style="white-space: nowrap;" class="f-h2">Visão geral</h2>
+        <h2 style="white-space: nowrap;" class="f-h2">Dashboard</h2>
 
         @if (isset($get_operator_auth_vg) && $get_operator_auth_vg->is_admin == 0)
             <small>Algumas das funcionalidades foram desativadas pelo gerente.</small>

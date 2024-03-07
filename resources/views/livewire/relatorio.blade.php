@@ -50,7 +50,7 @@
                             class="form-control modal-input-cat mx-3 yampay-scroll flex-fill"
                             onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                             onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
-                            onchange="this.size=1; this.blur();">
+                            onchange="this.size=1; this.blur(); this.disabled=true">
                             <option value="">Todas</option>
                             <option value="retiradas">⤵️ RETIRADAS</option>
                             <option value="vendas">🛒 VENDAS</option>
@@ -83,7 +83,7 @@
                                 class="form-control modal-input-cat mx-3 yampay-scroll flex-fill"
                                 onfocus="this.size=4; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                                 onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
-                                onchange="this.size=1; this.blur();">
+                                onchange="this.size=1; this.blur(); this.disabled=true">
                                 <option value="">Todos</option>
                                 @foreach ($operators_filter as $single_operator)
                                     <option value="{{ $single_operator->id }}">{{ $single_operator->nome }}</option>

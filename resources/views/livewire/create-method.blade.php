@@ -28,9 +28,9 @@
                             @enderror
                         </div>
                         <div class="form-group mb-0">
-                            <label class="modal-label" for="desc-op">Descrição <span class="red">*</span></label>
+                            <label class="modal-label" for="desc-op-c">Descrição <span class="red">*</span></label>
                             <input wire:model.defer="state.descricao" type="text" class="form-control modal-input"
-                                id="desc-op" autocomplete="off"> 
+                                id="desc-op-c" autocomplete="off"> 
                             @error('state.descricao')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror

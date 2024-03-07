@@ -89,11 +89,6 @@
                                 <tr style="@if (!is_null($produto->estoque_minimo) && $produto->estoque < $produto->estoque_minimo) background-color: #fee2e2 !important; @endif"
                                     class="tr-hover">
                                     <td style="word-break: break-all" class="align-middle font-desc">
-                                        <span class="ident-cdg">
-                                            Código: <span
-                                                style="color: #725BC2; font-weight: 500;">{{ $produto->id }}</span>
-                                        </span>
-                                        <br>
                                         {{ $produto->descricao }}
                                     </td>
                                     <td style="white-space: nowrap; font-weight: 500;" class="align-middle">R$
