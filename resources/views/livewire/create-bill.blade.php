@@ -84,7 +84,7 @@
                                     class="form-control modal-input-cat yampay-scroll" id="bill-client"
                                     onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                                     onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
-                                    onchange="this.size=1; this.blur();">
+                                    onchange="this.size=1; this.blur(); this.disabled=true">
                                     <option value="">Selecione um cliente</option>
                                     @foreach ($bill_clients as $bill_client)
                                         <option value="{{ $bill_client->id }}">
@@ -119,7 +119,7 @@
                                     class="form-control modal-input-cat yampay-scroll" id="bill-category"
                                     onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                                     onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
-                                    onchange="this.size=1; this.blur();">
+                                    onchange="this.size=1; this.blur(); this.disabled=true">
                                     <option value="">Selecione uma categoria</option>
                                     @foreach ($bill_categories as $bill_category)
                                         <option value="{{ $bill_category->id }}">
@@ -155,7 +155,7 @@
                                     class="form-control modal-input-cat yampay-scroll" id="bill-method"
                                     onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                                     onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
-                                    onchange="this.size=1; this.blur();">
+                                    onchange="this.size=1; this.blur(); this.disabled=true">
                                     <option value="">Selecione uma forma de pagamento</option>
                                     @foreach ($bill_methods as $bill_method)
                                         <option value="{{ $bill_method->id }}">

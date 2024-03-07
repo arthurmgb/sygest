@@ -238,7 +238,7 @@ return [
             'icon' => 'far mr-3 fa-home-alt fa-lg fa-fw',
         ],
         [
-            'text' => 'Visão geral',
+            'text' => 'Dashboard',
             'route'  => 'geral',
             'icon' => 'far mr-3 fa-analytics fa-lg fa-fw',
         ],

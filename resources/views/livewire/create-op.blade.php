@@ -54,11 +54,11 @@
                                 <a style="padding: 3px 14px;" href="{{ route('categorias') }}" target="_blank"
                                     class="btn btn-new my-1 float-right">+ Nova</a>
 
-                                <select style="font-size: 17px;" wire:model.defer="state.categoria"
+                                <select style="font-size: 17px;" wire:model="state.categoria"
                                     class="form-control modal-input-cat yampay-scroll" id="categoria-op"
                                     onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                                     onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
-                                    onchange="this.size=1; this.blur();">
+                                    onchange="this.size=1; this.blur(); this.disabled=true">
                                     <option value="">Selecione uma categoria</option>
 
                                     @foreach ($categorias as $categoria)
@@ -98,7 +98,7 @@
                                 class="form-control modal-input-cat yampay-scroll" id="especie-op"
                                 onfocus="this.size=6; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                                 onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
-                                onchange="this.size=1; this.blur();">
+                                onchange="this.size=1; this.blur(); this.disabled=true">
                                 <option value="">Selecione o tipo de espécie</option>
                                 <option value="1">💵 Dinheiro</option>
                                 <option value="2">💲 Cheque</option>
@@ -117,11 +117,11 @@
                                         style="font-size: 12px;">(opcional)</span></label>
                                 <a style="padding: 3px 14px;" href="{{ route('formas-pagamento') }}" target="_blank"
                                     class="btn btn-new my-1 float-right">+ Nova FP</a>
-                                <select style="font-size: 17px;" wire:model.defer="state.fp"
+                                <select style="font-size: 17px;" wire:model="state.fp"
                                     class="form-control modal-input-cat yampay-scroll" id="fp-op"
                                     onfocus="this.size=5; this.classList.add('fadeIn'); this.classList.remove('fadeOut');"
                                     onblur="this.size=1; this.classList.remove('fadeIn'); this.classList.add('fadeOut');"
-                                    onchange="this.size=1; this.blur();">
+                                    onchange="this.size=1; this.blur(); this.disabled=true">
                                     <option value="">Não especificada</option>
                                     @foreach ($formas_de_pag as $single_form_pag)
                                         <option value="{{ $single_form_pag->id }}">{{ $single_form_pag->descricao }}
