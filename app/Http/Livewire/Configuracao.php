@@ -18,6 +18,7 @@ class Configuracao extends Component
     public $modal_start;
     public $table_scroll;
     public $sort_operator_status;
+    public $selectedRoutes = [];
 
     public $rules = [
 
@@ -67,10 +68,14 @@ class Configuracao extends Component
         }
 
         $this->operador = $operador;
+
+        $this->selectedRoutes = json_decode($this->operador->permitted_routes) ?? [];
     }
 
     public function update()
     {
+        $this->selectedRoutes = json_encode($this->selectedRoutes);
+        $this->operador->permitted_routes = $this->selectedRoutes;
 
         $this->operador->save();
         $this->dispatchBrowserEvent('close-edit-confirmation-modal');
