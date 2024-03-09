@@ -150,8 +150,7 @@
                     <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
                 </div>
 
-                <div wire:target="qtd, toggleOperatorTableStatus" wire:loading.remove
-                    class="card-body px-0 pb-0 pt-3">
+                <div wire:target="qtd, toggleOperatorTableStatus" wire:loading.remove class="card-body px-0 pb-0 pt-3">
 
                     @if ($operators->count())
                         <table style="cursor: default;" class="table table-borderless">
@@ -407,6 +406,7 @@
                 <div class="modal-body py-4 px-4">
 
                     <form wire:submit.prevent="confirmation()">
+
                         <div class="form-group">
                             <label class="modal-label" for="desc-op">Nome completo <span
                                     class="red">*</span></label>
@@ -416,7 +416,8 @@
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group mb-0">
+
+                        <div class="form-group">
                             <label class="modal-label" for="pass-operator">Senha <span
                                     class="red">*</span></label>
                             <input wire:model.defer="operador.senha" type="text" class="form-control modal-input"
@@ -425,6 +426,176 @@
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
                         </div>
+
+                        @if (isset($operador) and $operador->is_admin === 0)
+                            <hr>
+                        @endif
+
+                        <div class="form-group mb-0  @if (isset($operador) and $operador->is_admin === 1) d-none @endif">
+                            <label class="modal-label mb-3">
+                                <i style="color: #725BC2;" class="fad fa-user-lock fa-fw fa-lg mr-1"></i> Gerenciar
+                                acesso aos módulos
+                            </label>
+                            <div class="row">
+                                <div class="col">
+                                    <div style="user-select: none;" class="d-flex flex-column">
+
+                                        <input type="checkbox" value="geral" id="geral"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="geral">
+                                            <div class="pl-2">Dashboard</div>
+                                        </label>
+
+                                        <input type="checkbox" value="movimentacoes" id="movimentacoes"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="movimentacoes">
+                                            <div class="pl-2">Movimentações</div>
+                                        </label>
+
+                                        <input type="checkbox" value="retiradas" id="retiradas"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="retiradas">
+                                            <div class="pl-2">Retiradas</div>
+                                        </label>
+
+                                        <input type="checkbox" value="caixa" id="caixa"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="caixa">
+                                            <div class="pl-2">Fluxo de caixa</div>
+                                        </label>
+
+                                        <input type="checkbox" value="clients" id="clients"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="clients">
+                                            <div class="pl-2">Clientes</div>
+                                        </label>
+
+                                        <hr class="w-100">
+
+                                        <small>Produtos</small>
+
+                                        <input type="checkbox" value="produtos" id="produtos"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="produtos">
+                                            <div class="pl-2">Listar</div>
+                                        </label>
+
+                                        <input type="checkbox" value="product-groups" id="product-groups"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="product-groups">
+                                            <div class="pl-2">Grupos</div>
+                                        </label>
+
+                                        <hr class="w-100">
+
+                                        <input type="checkbox" value="categorias" id="categorias"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="categorias">
+                                            <div class="pl-2">Categorias</div>
+                                        </label>
+
+                                        <input type="checkbox" value="formas-pagamento" id="formas-pagamento"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="formas-pagamento">
+                                            <div class="pl-2">Formas de pagamento</div>
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div style="user-select: none;" class="d-flex flex-column">
+
+                                        <input type="checkbox" value="relatorios" id="relatorios"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="relatorios">
+                                            <div class="pl-2">Relatórios</div>
+                                        </label>
+
+                                        <input type="checkbox" value="tarefas" id="tarefas"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="tarefas">
+                                            <div class="pl-2">Minhas tarefas</div>
+                                        </label>
+
+                                        <input type="checkbox" value="links" id="links"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="links">
+                                            <div class="pl-2">Meus links</div>
+                                        </label>
+
+                                        <input type="checkbox" value="gerenciador-de-senhas"
+                                            id="gerenciador-de-senhas" wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="gerenciador-de-senhas">
+                                            <div class="pl-2">Minhas senhas</div>
+                                        </label>
+
+                                        <input type="checkbox" value="ferramentas" id="ferramentas"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="ferramentas">
+                                            <div class="pl-2">Ferramentas</div>
+                                        </label>
+
+                                        <hr class="w-100">
+
+                                        <small>Minha conta</small>
+
+                                        <input type="checkbox" value="meus-planos" id="meus-planos"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="meus-planos">
+                                            <div class="pl-2">Meus planos</div>
+                                        </label>
+
+                                        <input type="checkbox" value="minhas-comissoes" id="minhas-comissoes"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="minhas-comissoes">
+                                            <div class="pl-2">Minhas comissões</div>
+                                        </label>
+
+                                        <input type="checkbox" value="configuracoes" id="configuracoes"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="configuracoes">
+                                            <div class="pl-2">Configurações</div>
+                                        </label>
+
+                                        <hr class="w-100">
+
+                                        <input type="checkbox" value="notificacoes" id="notificacoes"
+                                            wire:model.defer="selectedRoutes">
+                                        <label class="d-flex flex-row align-items-center" style="width: max-content;"
+                                            for="notificacoes">
+                                            <div class="pl-2">Notificações</div>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row align-items-center justify-content-center mt-3">
+                                <small style="color: #666;" class="text-center">
+                                    <i class="fad fa-comment-alt-exclamation fa-fw mr-1"></i>
+                                    Para aplicar as permissões, é necessário que o operador faça logout e login
+                                    novamente no
+                                    sistema.
+                                </small>
+                            </div>
+                        </div>
+
                 </div>
                 <div class="modal-footer py-4">
                     <button data-dismiss="modal" type="button" class="btn btn-cancel">Cancelar</button>

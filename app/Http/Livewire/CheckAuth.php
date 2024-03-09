@@ -37,9 +37,12 @@ class CheckAuth extends Component
 
         $rotaAtual = Route::currentRouteName();
 
-        $rotasPermitidas = ['home', 'geral', 'retiradas'];
-
-        // dd($rotaAtual);
+        if (is_null($get_operator_online)) {
+            $rotasPermitidas = ['home'];
+        } else {
+            $rotasPermitidas = json_decode($get_operator_online->permitted_routes);
+            array_push($rotasPermitidas, "home");
+        }
 
         if (!$this->generatingAdmin) {
 

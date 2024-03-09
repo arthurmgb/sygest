@@ -9,17 +9,17 @@ class Operator extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'user_id', 'status', 'senha', 'is_admin'];
+    protected $fillable = ['nome', 'user_id', 'status', 'senha', 'permitted_routes', 'is_admin'];
 
     //Relação um a muitos
-    public function operations(){
-
+    public function operations()
+    {
         return $this->hasMany(Operation::class);
-
     }
-    
+
     //Relação um a muitos
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
