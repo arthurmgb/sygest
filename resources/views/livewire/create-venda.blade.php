@@ -24,10 +24,17 @@
                                         class="pdv-flex d-flex flex-column align-items-center justify-content-between h-100">
                                         <div class="pdv-left w-100">
                                             <div class="form-group my-2">
-                                                <label class="modal-label">
-                                                    Produtos
-                                                    <span class="red">*</span>
-                                                </label>
+                                                <div
+                                                    class="label-box mb-2 d-flex flex-row align-items-center justify-content-between">
+                                                    <label class="modal-label mb-0">
+                                                        Produtos
+                                                        <span class="red">*</span>
+                                                    </label>
+                                                    <a style="padding: 3px 14px;" href="{{ route('produtos') }}"
+                                                        class="btn btn-new">
+                                                        + Novo produto
+                                                    </a>
+                                                </div>
                                                 <div wire:ignore>
                                                     <select wire:loading.attr="disabled" id="prod-select"
                                                         placeholder="Selecione um produto">
@@ -151,15 +158,23 @@
                                     <div @if (!$valorPago) style="visibility: hidden;" @endif
                                         class="col-6 border-right h-100">
                                         <div class="form-group mb-2">
-                                            <label class="modal-label">
-                                                Forma de pagamento
-                                                <span class="red">*</span>
-                                            </label>
+                                            <div
+                                                class="label-box mb-2 d-flex flex-row align-items-center justify-content-between">
+                                                <label class="modal-label mb-0">
+                                                    Forma de pagamento
+                                                    <span class="red">*</span>
+                                                </label>
+                                                <a style="padding: 3px 14px;" href="{{ route('formas-pagamento') }}"
+                                                    class="btn btn-new">
+                                                    + Nova forma de pagamento
+                                                </a>
+                                            </div>
+
                                             <div wire:ignore>
                                                 <select wire:loading.attr="disabled" id="pdv-fp-select"
-                                                    placeholder="Selecione uma forma de pag.">
+                                                    placeholder="Selecione uma forma de pagamento">
                                                     <option value="">
-                                                        Selecione uma forma de pag.
+                                                        Selecione uma forma de pagamento
                                                     </option>
                                                     @foreach ($fps as $fp)
                                                         <option value="{{ $fp->id }}">
