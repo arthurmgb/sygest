@@ -306,10 +306,9 @@
                         </div>
                     </div>
                 @else
-                    <div class="card">
+                    <div wire:target="render, search" wire:loading.remove class="card">
 
-                        <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove
-                            class="card-body px-0 pb-0">
+                        <div class="card-body px-0 pb-0">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="211" height="145">
