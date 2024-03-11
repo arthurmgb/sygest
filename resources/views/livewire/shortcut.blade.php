@@ -6,40 +6,57 @@
     </div>
     <div class="block">
 
+        {{-- PESQUISA --}}
+        <div class="card-topo mb-2">
+            <input wire:model="search" placeholder="buscar link" class="search-input" autocomplete="off">
+            <i class="fa fa-search"></i>
+        </div>
+        {{-- PESQUISA --}}
+
+        {{-- LOADER --}}
+        <div wire:target="render, search" style="margin-top: 125px; margin-bottom: 125px;"
+            wire:loading wire:loading.class="d-flex flex-row align-items-center justify-content-center">
+            <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
+        </div>
+        {{-- LOADER --}}
+
         @if ($shortcuts->count())
 
-            <div class="links-box">
+            <div class="links-box" wire:target="render, search" wire:loading.remove>
                 <div class="row" wire:sortable="updateLinkOrder" wire:key="keygen">
                     @foreach ($shortcuts as $shortcut)
-
-                        <div class="col-3" wire:sortable.item="{{ $shortcut['id'] }}" wire:key="short-{{ $shortcut['id'] }}">
+                        <div class="col-3" wire:sortable.item="{{ $shortcut['id'] }}"
+                            wire:key="short-{{ $shortcut['id'] }}">
                             <a target="_blank" href="{{ $shortcut->url }}">
                                 <div class="link-container">
-                                    
+
                                     <div class="link-box">
-                                        
-                                        <div class="d-flex flex-row justify-content-end align-items-center">                                                                             
-                                            
-                                            @if($shortcut->cor !== '#555555')
-                                                <div class="div-link mr-auto">
-                                                    <i style="color: {{$shortcut->cor}};" class="fad fa-circle fa-crud fac-cor"></i>                                        
-                                                </div> 
-                                            @endif
-                                            
-                                            <div data-tooltip="Abrir link externo" data-flow="top" class="div-link">
-                                                <i class="fad fa-external-link fa-crud fac-link"></i>                                        
-                                            </div>
-                                            
-                                        </div>
 
-                                        <p style="color: {{$shortcut->cor}};" class="link-desc text-center">{{ $shortcut->descricao }}</p>
-
-
-                                        
                                         <div class="d-flex flex-row justify-content-end align-items-center">
 
-                                            <div style="cursor: grab;" wire:sortable.handle data-tooltip="Arraste para mover" data-flow="right" class="div-link mr-auto">
-                                                <i style="cursor: grab !important;" class="fas fa-grip-vertical fa-crud fac-cor"></i>
+                                            @if ($shortcut->cor !== '#555555')
+                                                <div class="div-link mr-auto">
+                                                    <i style="color: {{ $shortcut->cor }};"
+                                                        class="fad fa-circle fa-crud fac-cor"></i>
+                                                </div>
+                                            @endif
+
+                                            <div data-tooltip="Abrir link externo" data-flow="top" class="div-link">
+                                                <i class="fad fa-external-link fa-crud fac-link"></i>
+                                            </div>
+
+                                        </div>
+
+                                        <p style="color: {{ $shortcut->cor }};" class="link-desc text-center">
+                                            {{ $shortcut->descricao }}</p>
+
+                                        <div class="d-flex flex-row justify-content-end align-items-center">
+
+                                            <div style="cursor: grab;" wire:sortable.handle
+                                                data-tooltip="Arraste para mover" data-flow="right"
+                                                class="div-link mr-auto">
+                                                <i style="cursor: grab !important;"
+                                                    class="fas fa-grip-vertical fa-crud fac-cor"></i>
                                             </div>
 
                                             <div wire:target="edit({{ $shortcut->id }})" wire:loading.attr="disabled"
@@ -62,19 +79,16 @@
                                 </div>
                             </a>
                         </div>
-
                     @endforeach
                 </div>
             </div>
-
         @else
-
             <div class="card">
 
                 <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove class="card-body px-0 pb-0">
                     <div class="d-flex flex-column align-items-center justify-content-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211"
-                            height="145">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            width="211" height="145">
                             <style>
                                 <![CDATA[
                                 .B {
@@ -104,7 +118,6 @@
                                 .H {
                                     fill: #d5dadf
                                 }
-
                                 ]]>
                             </style>
                             <g fill="none" fill-rule="evenodd">
@@ -164,7 +177,8 @@
                                         <path
                                             d="M161.104 130.992c3.01 0 5.462 2.38 5.577 5.362l.003.218h-11.162c.001-3.01 2.382-5.46 5.362-5.576l.22-.004z" />
                                     </g>
-                                    <ellipse fill="#a4afb7" cx="108.789" cy="83.823" rx="5.233" ry="6.977" />
+                                    <ellipse fill="#a4afb7" cx="108.789" cy="83.823" rx="5.233"
+                                        ry="6.977" />
                                     <g class="B">
                                         <path
                                             d="M108.8 81.023c2.9 0 4.255-.993 4.06-1.342-.96-1.73-2.422-2.834-4.06-2.834-1.594 0-3.022 1.046-3.982 2.695-.155.267 1.092 1.48 3.982 1.48z" />
@@ -235,10 +249,9 @@
                     <form wire:submit.prevent="update()">
 
                         <div class="form-group">
-                            <label class="modal-label" for="desc-op">Descrição <span
-                                    class="red">*</span></label>
-                            <input wire:model.defer="atalho.descricao" type="text" class="form-control modal-input"
-                                id="desc-op" autocomplete="off">
+                            <label class="modal-label" for="desc-op">Descrição <span class="red">*</span></label>
+                            <input wire:model.defer="atalho.descricao" type="text"
+                                class="form-control modal-input" id="desc-op" autocomplete="off">
                             @error('atalho.descricao')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
@@ -247,7 +260,8 @@
                         <div class="form-group">
                             <label class="modal-label" for="url-op">URL <span class="red">*</span></label>
                             <input wire:model.defer="atalho.url" type="text" class="form-control modal-input"
-                                id="url-op" autocomplete="off" placeholder="https://www.exemplo.com" required pattern="https?://.*" title="Insira o protocolo https:// ou http://">
+                                id="url-op" autocomplete="off" placeholder="https://www.exemplo.com" required
+                                pattern="https?://.*" title="Insira o protocolo https:// ou http://">
                             @error('atalho.url')
                                 <span class="wire-error">{{ $message }}</span>
                             @enderror
@@ -255,8 +269,8 @@
 
                         <div class="form-group mb-0">
                             <label class="modal-label" for="color-op">Cor (opcional)</label>
-                            <input wire:model.defer="atalho.cor" type="color" name="favcolor" class="form-control modal-input-color"
-                                id="color-op" autocomplete="off">                           
+                            <input wire:model.defer="atalho.cor" type="color" name="favcolor"
+                                class="form-control modal-input-color" id="color-op" autocomplete="off">
                         </div>
 
                 </div>
@@ -270,8 +284,8 @@
     </div>
 
     <!-- Modal Deletar Confirmação -->
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-cat-confirmation" tabindex="-1"
-        aria-labelledby="delete-cat-confirmationLabel" aria-hidden="true" wire:ignore.self>
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="delete-cat-confirmation"
+        tabindex="-1" aria-labelledby="delete-cat-confirmationLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
             <div class="modal-content modal-custom">
                 <div class="modal-header">
