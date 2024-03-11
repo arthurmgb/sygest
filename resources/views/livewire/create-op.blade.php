@@ -52,7 +52,7 @@
                                     class="red">*</span></label>
                             @if ($categorias->count())
                                 <a style="padding: 3px 14px;" href="{{ route('categorias') }}" target="_blank"
-                                    class="btn btn-new my-1 float-right">+ Nova</a>
+                                    class="btn btn-new my-1 float-right">+ Nova categoria</a>
 
                                 <select style="font-size: 17px;" wire:model="state.categoria"
                                     class="form-control modal-input-cat yampay-scroll" id="categoria-op"

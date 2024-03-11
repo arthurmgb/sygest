@@ -11,7 +11,6 @@
                     </button>
                 </div>
                 <div class="modal-body py-4 px-4">
-
                     <form wire:submit.prevent="confirmation()">
                         <div class="form-group">
                             <label class="modal-label" for="desc-item">Descrição <small>(nome do produto) </small> <span
@@ -23,9 +22,14 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label class="modal-label" for="group-select">
-                                Grupo do produto <small>(opcional) </small>
-                            </label>
+                            <div class="label-box mb-2 d-flex flex-row align-items-center justify-content-between">
+                                <label class="modal-label mb-0" for="group-select">
+                                    Grupo do produto <small>(opcional) </small>
+                                </label>
+                                <a style="padding: 3px 14px;" href="{{ route('product-groups') }}" class="btn btn-new">
+                                    + Novo grupo
+                                </a>
+                            </div>
                             <div wire:ignore>
                                 <select wire:loading.attr="disabled" id="group-select" placeholder="Selecione um grupo">
                                     <option value="">Não definido</option>
@@ -35,7 +39,6 @@
                                         </option>
                                     @endforeach
                                 </select>
-
                             </div>
                         </div>
 
@@ -84,7 +87,8 @@
                 <div class="modal-footer py-4">
                     <button wire:loading.attr="disabled" type="button" class="btn btn-cancel"
                         wire:click.prevent="resetNewOperation()">Cancelar</button>
-                    <button wire:loading.attr="disabled" type="submit" class="btn btn-send">Cadastrar</button>
+                    <button wire:loading.attr="disabled" wire:target="confirmation" type="submit"
+                        class="btn btn-send">Cadastrar</button>
                     </form>
                 </div>
             </div>
