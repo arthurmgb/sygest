@@ -212,9 +212,23 @@
         @elseif($locker == 'unlocked')
             <div class="div-unlocked">
 
+                {{-- PESQUISA --}}
+                <div class="card-topo mb-2">
+                    <input wire:model="search" placeholder="buscar senha" class="search-input" autocomplete="off">
+                    <i class="fa fa-search"></i>
+                </div>
+                {{-- PESQUISA --}}
+
+                {{-- LOADER --}}
+                <div wire:target="render, search" style="margin-top: 125px; margin-bottom: 125px;" wire:loading
+                    wire:loading.class="d-flex flex-row align-items-center justify-content-center">
+                    <i style="color: #725BC2; opacity: 90%;" class="fad fa-spinner-third fa-fw fa-3x fa-spin"></i>
+                </div>
+                {{-- LOADER --}}
+
                 @if ($secrets->count())
 
-                    <div class="links-box">
+                    <div class="links-box" wire:target="render, search" wire:loading.remove>
                         <div class="row" wire:sortable="updatePassOrder" wire:key="keygen">
 
                             @foreach ($secrets as $secret)
@@ -292,10 +306,9 @@
                         </div>
                     </div>
                 @else
-                    <div class="card">
+                    <div wire:target="render, search" wire:loading.remove class="card">
 
-                        <div wire:target="render, search, qtd, updatingSearch" wire:loading.remove
-                            class="card-body px-0 pb-0">
+                        <div class="card-body px-0 pb-0">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="211" height="145">

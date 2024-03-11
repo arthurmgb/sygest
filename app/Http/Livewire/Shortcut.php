@@ -9,6 +9,7 @@ class Shortcut extends Component
 {
 
     public $atalho;
+    public $search;
 
     protected $listeners = ['render'];
 
@@ -27,7 +28,7 @@ class Shortcut extends Component
 
     public function edit(ModelsShortcut $atalho)
     {
-        if($atalho->user_id != auth()->user()->id){
+        if ($atalho->user_id != auth()->user()->id) {
             return redirect('404');
         }
 
@@ -44,12 +45,11 @@ class Shortcut extends Component
 
     public function prepare(ModelsShortcut $atalho)
     {
-        if($atalho->user_id != auth()->user()->id){
+        if ($atalho->user_id != auth()->user()->id) {
             return redirect('404');
         }
 
         $this->atalho = $atalho;
-           
     }
 
     public function delete()
@@ -59,18 +59,19 @@ class Shortcut extends Component
         $this->emit('alert', 'Link apagado com sucesso!');
     }
 
-    public function updateLinkOrder($items){
+    public function updateLinkOrder($items)
+    {
 
-        foreach($items as $item){
+        foreach ($items as $item) {
             ModelsShortcut::find($item['value'])->update(['position' => $item['order']]);
         }
-
     }
 
     public function render()
     {
 
         $shortcuts = ModelsShortcut::where('user_id', auth()->user()->id)
+            ->where('descricao', 'like', '%' . $this->search . '%')
             ->orderBy('position', 'ASC')
             ->get();
 
