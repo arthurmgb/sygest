@@ -42,7 +42,42 @@
 
                     <div class="confirmation-msg text-center">
 
-                        <h5 class="modal-confirmation-msg m-0 text-center px-4 mb-3">Gerenciador de Senhas!</h5>
+                        <h5 class="modal-confirmation-msg m-0 text-center px-4 mb-3">
+                            <i class="fad fa-play-circle fa-fw"></i> Introdução à <span
+                                class="msg-bold">{{ config('app.name') }}</span> <small>[vídeo]</small>
+                        </h5>
+
+                        <p style="font-size: 18px;" class="m-0 mb-3 px-4">
+                            Dê um <span class="msg-bold">upgrade</span> na sua experiência! 🚀 <span
+                                class="msg-bold">Confira o vídeo introdutório da {{ config('app.name') }}</span> e
+                            aproveite ao máximo todas as funcionalidades da
+                            Plataforma. Descubra ferramentas poderosas
+                            e como elas podem <span class="msg-bold"> otimizar ainda mais o seu controle
+                                financeiro</span>. Não perca a chance de aprimorar sua gestão. <span
+                                class="msg-bold">Assista agora</span> para explorar
+                            todas as funcionalidades e desfrutar de uma <span class="msg-bold">experiência mais completa
+                                e eficiente</span>!
+                        </p>
+
+                        <div class="mt-1 mb-3 text-center">
+                            <p style="font-size: 14px;">
+                                <b>Obs.:</b> Aproveite ao máximo a experiência! Assista o vídeo em <b>tela cheia</b> e
+                                ajuste a
+                                qualidade para <b>1080p</b>.
+                            </p>
+                        </div>
+
+                        <div class="yt-container mb-4">
+                            <iframe class="responsive-iframe"
+                                src="https://www.youtube.com/embed/Ddk-B3FnkuY?si=zhF7AXygLLd201en"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                        </div>
+
+                        <hr class="my-3">
+
+                        <h5 class="modal-confirmation-msg m-0 text-center px-4 mb-3 mt-4">Gerenciador de Senhas!</h5>
 
                         <p style="font-size: 18px;" class="m-0 mb-3 px-4">
                             Chegou o Gerenciador de Senhas pessoais da <span
